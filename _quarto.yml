@@ -1,0 +1,103 @@
+project:
+  type: website
+  output-dir: docs
+bibliography: references.bib
+website:
+  title: "gdalcubes"
+  favicon: favicon.png
+  search:
+    location: navbar
+    type: overlay
+  #reader-mode: true
+  navbar:
+    background: primary
+    logo: source/gdalcubes_logo_mini.png
+    search: true
+    left:
+      - href: index.qmd
+        icon: favicon.png
+        text: Home
+     # - href: https://appelmar.github.io/gdalcubes
+    #    text: C++ API Reference (Doxygen)
+      # - href: https://appelmar.github.io/gdalcubes_R
+      #   text: R package reference (pkgdown)
+      - about.qmd
+    right:
+      - icon: github
+        href: https://github.com/appelmar/gdalcubes_R
+  page-footer:
+    center: 
+      - text: "© 2022 Marius Appel"
+        #href: about.qmd
+      
+  sidebar:
+    style: "floating"
+    #logo: "source/gdalcubes_logo_small.png"
+    #header: "![](source/gdalcubes_logo_small.png){fig-align='center'}"
+    search: true
+    contents:
+      - section: "Introduction"
+        contents:
+          - source/introduction/why.qmd
+          - source/introduction/overview.qmd
+          - source/introduction/installation.qmd
+          - source/introduction/faq.qmd
+          - source/introduction/license.qmd
+          - source/introduction/credits.qmd
+      - section: "Basic Concepts"
+        contents:
+          - source/concepts/image_collections.qmd
+          - source/concepts/collection_formats.qmd
+          - source/concepts/datacubes.qmd
+          - source/concepts/operations.qmd
+          - source/concepts/streaming.qmd
+          - source/concepts/distributed.qmd
+      - section: "R Tutorials"
+        contents:
+          - source/tutorials/vignettes/gc01_MODIS.Rmd
+          - source/tutorials/vignettes/gc02_AWS_Sentinel2.Rmd
+          - source/tutorials/vignettes/gc03_ML_training_data.Rmd
+          - source/tutorials/bfast/bfast.qmd
+
+format:
+  html:
+    #theme: flatly
+    #page-layout: full
+    #margin-left: 0px
+    #margin-right: 0px
+    #max-width: 2000px
+    theme:
+      light: 
+        - flatly
+        - theme.scss
+      dark: 
+        - darkly
+        - theme.scss
+        
+      
+    #mainfont: "Roboto, Helvetica Neue, Helvetica, Arial, sans-serif"
+    #monofont: "Roboto Mono"
+    css: styles.css
+    toc: true
+   # code-fold: "show"
+    #code-summary: "Show / hide source code"
+    code-tools: true
+    highlight-style: arrow
+    code-block-bg: true
+    code-block-background: true
+    code-block-border-left: true
+    #code-overflow: "wrap"
+    code-overflow: "scroll"
+    code-line-numbers: true
+    execute:
+      comment: "##"
+      #cache: true
+      fig-align: "center"
+      freeze: auto
+      #echo: true
+      #eval: false
+    
+
+editor: source
+
+

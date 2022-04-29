@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.238">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Marius Appel">
+  <title>gdalcubes - 1. Creating data cubes from local MODIS imagery</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../../">
+  <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+  <link href="../../../favicon.png" rel="icon" type="image/png">
+  <script src="../../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+  <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link class="quarto-color-scheme" href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../../site_libs/bootstrap/bootstrap-dark.min.css">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "navbar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "end",
+    "type": "overlay",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body class="floating nav-fixed">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../source/gdalcubes_logo_mini.png" alt="">
+    <span class="navbar-title">gdalcubes</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">About</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">1. Creating data cubes from local MODIS imagery</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Introduction</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/introduction/why.html" class="sidebar-item-text sidebar-link">Why gdalcubes?</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/introduction/overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/introduction/installation.html" class="sidebar-item-text sidebar-link">Installation</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/introduction/faq.html" class="sidebar-item-text sidebar-link">FAQ</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/introduction/license.html" class="sidebar-item-text sidebar-link">License</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/introduction/credits.html" class="sidebar-item-text sidebar-link">Credits</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic Concepts</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/concepts/image_collections.html" class="sidebar-item-text sidebar-link">Image collections</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image Collection Formats</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data Cubes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data Cube Operations</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/concepts/streaming.html" class="sidebar-item-text sidebar-link">Streaming</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/concepts/distributed.html" class="sidebar-item-text sidebar-link">Distributed Data Cube Processing</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">R Tutorials</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/tutorials/vignettes/gc01_MODIS.html" class="sidebar-item-text sidebar-link active">1. Creating data cubes from local MODIS imagery</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/tutorials/vignettes/gc02_AWS_Sentinel2.html" class="sidebar-item-text sidebar-link">2. Data cubes from Sentinel-2 data in the cloud</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/tutorials/vignettes/gc03_ML_training_data.html" class="sidebar-item-text sidebar-link">3. Extracting training data for machine learning models</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/tutorials/bfast/bfast.html" class="sidebar-item-text sidebar-link">Land cover change detection with gdalcubes and bfast</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#example-dataset" id="toc-example-dataset" class="nav-link active" data-scroll-target="#example-dataset">Example dataset</a></li>
+<li><a href="#creating-image-collections-from-local-image-files" id="toc-creating-image-collections-from-local-image-files" class="nav-link" data-scroll-target="#creating-image-collections-from-local-image-files">Creating image collections from local image files</a></li>
+<li><a href="#creating-a-data-cube" id="toc-creating-a-data-cube" class="nav-link" data-scroll-target="#creating-a-data-cube">Creating a data cube</a>
+<ul class="collapse">
+<li><a href="#aggregation-and-resampling" id="toc-aggregation-and-resampling" class="nav-link" data-scroll-target="#aggregation-and-resampling">Aggregation and resampling</a></li>
+</ul></li>
+<li><a href="#data-cube-operations" id="toc-data-cube-operations" class="nav-link" data-scroll-target="#data-cube-operations">Data cube operations</a>
+<ul class="collapse">
+<li><a href="#export-data-cubes-to-files" id="toc-export-data-cubes-to-files" class="nav-link" data-scroll-target="#export-data-cubes-to-files">Export data cubes to files</a></li>
+<li><a href="#parallel-processing" id="toc-parallel-processing" class="nav-link" data-scroll-target="#parallel-processing">Parallel processing</a></li>
+</ul></li>
+<li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+</ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
+
+
+<div class="quarto-title"><div class="quarto-title-block d-none d-lg-block"><div><h1 class="title d-none d-lg-block">1. Creating data cubes from local MODIS imagery</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div></div><div class="quarto-title-meta"><div><div class="quarto-title-meta-heading">Author</div><div class="quarto-title-meta-contents"><div class="quarto-title-authors"><div><div>
+<p>Marius Appel</p>
+</div></div></div></div></div></div></header>
+
+<p>The <code>gdalcubes</code> package aims at making the work with large collections of Earth observation (EO) imagery (e.g.&nbsp;from <a href="https://sentinel.esa.int/web/sentinel/missions/sentinel-2">Sentinel 2</a>) <strong>easier</strong> and <strong>faster</strong>. Typical challenges with these data such as overlapping images, different spatial resolutions of spectral bands, irregular temporal sampling, and different coordinate reference systems are abstracted away from users by reading the data as a raster data cube and letting users define the shape of the cube (spatiotemporal extent, resolution, and spatial reference system). Working with EO imagery then becomes more interactive: going from “<em>try method X on low resolution and get the result asap</em>” to “<em>apply the final method to the full resolution dataset over night</em>” becomes straightforward.</p>
+<p>This brief vignette illustrates basic ideas of the package. We will use satellite imagery from the Moderate Resolution Imaging Spectroradiometer (<a href="https://modis.gsfc.nasa.gov">MODIS</a>) that is small enough to process even on older machines. The imagery comes as a set of <a href="https://support.hdfgroup.org/products/hdf4/">HDF4</a> files. We assume that you have successfully installed the <code>gdalcubes</code> package. Please also make sure that your GDAL installation supports the HDF4 driver (e.g.&nbsp;with <code>gdalcubes_gdalformats()</code>).</p>
+<p>In the following, we will follow a simple workflow by</p>
+<ol type="1">
+<li>Collecting image files as an <strong>image collection</strong> object,</li>
+<li>Creating data cubes at various spatiotemporal resolutions and extents, and</li>
+<li>Applying simple operations on data cubes including band selection, application of pixel-wise functions, reduction over time, and time series filtering.</li>
+</ol>
+<section id="example-dataset" class="level1">
+<h1>Example dataset</h1>
+<p>We will use 8-daily land surface temperature from the MODIS product <a href="https://modis.gsfc.nasa.gov/data/dataprod/mod11.php">MOD11A2</a>, covering western Europe (tiles v=13,14, h=03,04) from January to September 2018. The zip archive sums to approximately 600 megabytes. The code below downloads and unzips the data to the current working directory. Since this might sometimes lead to timeouts depending on the the internet connection and availability of the file service, we first increase the global timeout option to at least 30 minutes (though it typically takes only a few minutes or less).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="fu">max</span>(<span class="dv">1800</span>, <span class="fu">getOption</span>(<span class="st">"timeout"</span>)))</span>
+<span id="cb1-2"><a href="#cb1-2"></a>dest_dir <span class="ot">=</span> <span class="fu">tempdir</span>()</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">download.file</span>(<span class="st">"https://uni-muenster.sciebo.de/s/eP9E6OIkQbXrmsY/download"</span>, <span class="at">destfile=</span><span class="fu">file.path</span>(dest_dir, <span class="st">"MOD11A2.zip"</span>),<span class="at">mode =</span> <span class="st">"wb"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">unzip</span>(<span class="fu">file.path</span>(dest_dir, <span class="st">"MOD11A2.zip"</span>), <span class="at">exdir =</span> <span class="fu">file.path</span>(dest_dir,<span class="st">"MOD11A2"</span>))</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">unlink</span>(<span class="fu">file.path</span>(dest_dir, <span class="st">"MOD11A2.zip"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-image-collections-from-local-image-files" class="level1">
+<h1>Creating image collections from local image files</h1>
+<p>As a first step, we must combine the set of files from the MODIS product (MOD11A2) into a single <em>image collection</em> object. The image collection is a simple index, pointing to files and storing the spatial extents, spatial reference systems, acquisition date/time of images and how files relate to image bands. The package comes with a set of predefined rules (called <em>image collection formats</em>), how this information can be extracted from filenames for selected EO products. A list of available collection formats including a short description can be printed with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(gdalcubes)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">collection_formats</span>()</span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="do">##    CHIRPS_v2_0_daily_p05_tif | Image collection format for CHIRPS v 2.0 daily</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="do">##                              | global precipitation dataset (0.05 degrees</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="do">##                              | resolution) from GeoTIFFs, expects list of .tif</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="do">##                              | or .tif.gz files as input. [TAGS: CHIRPS,</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="do">##                              | precipitation]</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="do">##  CHIRPS_v2_0_monthly_p05_tif | Image collection format for CHIRPS v 2.0 monthly</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="do">##                              | global precipitation dataset (0.05 degrees</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="do">##                              | resolution) from GeoTIFFs, expects list of .tif</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="do">##                              | or .tif.gz files as input. [TAGS: CHIRPS,</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="do">##                              | precipitation]</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="do">##            ESA_CCI_SM_ACTIVE | Collection format for ESA CCI soil moisture</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="do">##                              | active product (version 4.7) [TAGS: Soil</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="do">##                              | Moisture, ESA, CCI]</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="do">##           ESA_CCI_SM_PASSIVE | Collection format for ESA CCI soil moisture</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="do">##                              | passive product (version 4.7) [TAGS: Soil</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="do">##                              | Moisture, ESA, CCI]</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="do">##    GPM_IMERG_3B_DAY_GIS_V06A | Collection format for daily</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="do">##                              | IMERG_3B_DAY_GIS_V06A data [TAGS: Precipitation,</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="do">##                              | GPM, IMERG]</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="do">##                      L8_L1TP | Collection format for Landsat 8 Level 1 TP</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a><span class="do">##                              | product [TAGS: Landsat, USGS, Level 1, NASA]</span></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="do">##                        L8_SR | Collection format for Landsat 8 surface</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="do">##                              | reflectance product [TAGS: Landsat, USGS, Level</span></span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="do">##                              | 2, NASA, surface reflectance]</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="do">##                      MCD64A1 | Collection format for the MODIS MCD64A1 product</span></span>
+<span id="cb2-28"><a href="#cb2-28"></a><span class="do">##                              | (burned area by day) [TAGS: MODIS, Fire]</span></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="do">##                      MxD09GA | Collection format for selected bands from the</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a><span class="do">##                              | MODIS MxD09GA (Aqua and Terra) product [TAGS:</span></span>
+<span id="cb2-31"><a href="#cb2-31"></a><span class="do">##                              | MODIS, surface reflectance]</span></span>
+<span id="cb2-32"><a href="#cb2-32"></a><span class="do">##                      MxD10A2 | Collection format for selected bands from the</span></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="do">##                              | MODIS MxD10A2 (Aqua and Terra) v006 Snow Cover</span></span>
+<span id="cb2-34"><a href="#cb2-34"></a><span class="do">##                              | product [TAGS: MODIS, Snow Cover]</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a><span class="do">##                      MxD11A1 | Collection format for selected bands from the</span></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="do">##                              | MODIS MxD11A2 (Aqua and Terra) v006 Land Surface</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a><span class="do">##                              | Temperature product [TAGS: MODIS, LST]</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a><span class="do">##                      MxD11A2 | Collection format for selected bands from the</span></span>
+<span id="cb2-39"><a href="#cb2-39"></a><span class="do">##                              | MODIS MxD11A2 (Aqua and Terra) v006 Land Surface</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="do">##                              | Temperature product [TAGS: MODIS, LST]</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="do">##                      MxD13A2 | Collection format for selected bands from the</span></span>
+<span id="cb2-42"><a href="#cb2-42"></a><span class="do">##                              | MODIS MxD13A2 (Aqua and Terra) product [TAGS:</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a><span class="do">##                              | MODIS, VI, NDVI, EVI]</span></span>
+<span id="cb2-44"><a href="#cb2-44"></a><span class="do">##                      MxD13A3 | Collection format for selected bands from the</span></span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="do">##                              | MODIS MxD13A3 (Aqua and Terra) product [TAGS:</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a><span class="do">##                              | MODIS, VI, NDVI, EVI]</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a><span class="do">##                      MxD13Q1 | Collection format for selected bands from the</span></span>
+<span id="cb2-48"><a href="#cb2-48"></a><span class="do">##                              | MODIS MxD13Q1 (Aqua and Terra) product [TAGS:</span></span>
+<span id="cb2-49"><a href="#cb2-49"></a><span class="do">##                              | MODIS, VI, NDVI, EVI]</span></span>
+<span id="cb2-50"><a href="#cb2-50"></a><span class="do">##                      MxD14A2 | Collection format for the MODIS MxD14A2 (Aqua</span></span>
+<span id="cb2-51"><a href="#cb2-51"></a><span class="do">##                              | and Terra) product [TAGS: MODIS, Fire]</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a><span class="do">## PlanetScope_3B_AnalyticMS_SR | Image collection format for PlanetScope 4-band</span></span>
+<span id="cb2-53"><a href="#cb2-53"></a><span class="do">##                              | scenes [TAGS: PlanetScope, BOA, Surface</span></span>
+<span id="cb2-54"><a href="#cb2-54"></a><span class="do">##                              | Reflectance]</span></span>
+<span id="cb2-55"><a href="#cb2-55"></a><span class="do">##             Sentinel1_IW_GRD | Image collection format for Sentinel 1 Level 1</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="do">##                              | GRD data as downloaded from the Copernicus Open</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a><span class="do">##                              | Access Hub, expects a list of file paths as</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a><span class="do">##                              | input. The format works on original ZIP</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a><span class="do">##                              | compressed as well as uncompressed imagery.</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a><span class="do">##                              | [TAGS: Sentinel, Copernicus, ESA, SAR]</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a><span class="do">##                Sentinel2_L1C | Image collection format for Sentinel 2 Level 1C</span></span>
+<span id="cb2-62"><a href="#cb2-62"></a><span class="do">##                              | data as downloaded from the Copernicus Open</span></span>
+<span id="cb2-63"><a href="#cb2-63"></a><span class="do">##                              | Access Hub, expects a list of file paths as</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a><span class="do">##                              | input. The format works on original ZIP</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a><span class="do">##                              | compressed as well as uncompressed imagery.</span></span>
+<span id="cb2-66"><a href="#cb2-66"></a><span class="do">##                              | [TAGS: Sentinel, Copernicus, ESA, TOA]</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a><span class="do">##            Sentinel2_L1C_AWS | Image collection format for Sentinel 2 Level 1C</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a><span class="do">##                              | data in AWS [TAGS: Sentinel, Copernicus, ESA,</span></span>
+<span id="cb2-69"><a href="#cb2-69"></a><span class="do">##                              | TOA]</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a><span class="do">##                Sentinel2_L2A | Image collection format for Sentinel 2 Level 2A</span></span>
+<span id="cb2-71"><a href="#cb2-71"></a><span class="do">##                              | data as downloaded from the Copernicus Open</span></span>
+<span id="cb2-72"><a href="#cb2-72"></a><span class="do">##                              | Access Hub, expects a list of file paths as</span></span>
+<span id="cb2-73"><a href="#cb2-73"></a><span class="do">##                              | input. The format should work on original ZIP</span></span>
+<span id="cb2-74"><a href="#cb2-74"></a><span class="do">##                              | compressed as well as uncompressed imagery.</span></span>
+<span id="cb2-75"><a href="#cb2-75"></a><span class="do">##                              | [TAGS: Sentinel, Copernicus, ESA, BOA, Surface</span></span>
+<span id="cb2-76"><a href="#cb2-76"></a><span class="do">##                              | Reflectance]</span></span>
+<span id="cb2-77"><a href="#cb2-77"></a><span class="do">##          Sentinel2_L2A_THEIA | Image collection format for Sentinel 2 Level 2A</span></span>
+<span id="cb2-78"><a href="#cb2-78"></a><span class="do">##                              | data as downloaded from Theia. [TAGS: Sentinel,</span></span>
+<span id="cb2-79"><a href="#cb2-79"></a><span class="do">##                              | ESA, Flat Reflectance, Theia]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this case, <code>MxD11A2</code> is the correct format for our datasets. Internally, collection formats are defined in relatively simple JSON files, presets for other products will be added continuously.</p>
+<p>To create the image collection, we must pass a list of our files and the collection format to the <code>create_image_collection()</code> function. The code below finds all files as character vector of GDAL datasets, which then can be passed as the first argument to the <code>create_image_collection()</code> function. The second argument here refers to the image collection format and the third argument provides the name of the output image collection file (which is simply an SQLite database). The collection format also knows that bands are stored as subdatasets in the HDF files.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>files <span class="ot">=</span> <span class="fu">list.files</span>(<span class="fu">file.path</span>(dest_dir,<span class="st">"MOD11A2"</span>), <span class="at">pattern=</span><span class="st">".hdf$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>MODIS.collection <span class="ot">=</span> <span class="fu">create_image_collection</span>(files, <span class="st">"MxD11A2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Image collections can be saved by setting the <code>out_file</code> argument in <code>create_image_collection()</code> and loaded with the <code>image_collection()</code> function. For large collections, the creation hence is typically done only once.</p>
+</section>
+<section id="creating-a-data-cube" class="level1">
+<h1>Creating a data cube</h1>
+<p>The created image collection only stores references to original image files and knows about their datetime, spatial extent, and coordinate reference system. Image collections do not store copies of image data and thus typically only comsume a few kilobytes per image. To work with image data as a four-dimensional array (data cube) the <code>raster_cube()</code> function creates a data cube from an image collection. This function expects at least two arguments:</p>
+<ol type="1">
+<li>an image collection object as created above and</li>
+<li>a <em>data cube view</em> object defining the spatiotemporal resolution, extent, and the spatial reference system of the target cube</li>
+</ol>
+<p>Further optional arguments include the internal size of chunks for performance optimizations and image masks to drop invalid pixels (e.g.&nbsp;cloud pixels).</p>
+<p>To create a <em>data cube view</em>, we can use the <code>cube_view()</code> function and define out target data cube geometry. Below, we create a data cube with the full spatiotemporal extent of the collection, using the WGS 84 / Pseudo-Mercator projection, and a pixels size of 5km x 5km x one month.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span>MODIS.collection, <span class="at">srs =</span> <span class="st">"EPSG:3857"</span>, <span class="at">dx =</span> <span class="dv">5000</span>, <span class="at">dy =</span> <span class="dv">5000</span>, <span class="at">dt =</span> <span class="st">"P1M"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>MODIS.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(MODIS.collection, v)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>MODIS.cube</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="do">## A GDAL data cube proxy object</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="do">## </span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="do">## Dimensions:</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="do">##                low             high count pixel_size chunk_size</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="do">## t       2018-01-01       2018-09-30     9        P1M          1</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="do">## y 4865340.08466077 8400340.08466077   707       5000        576</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="do">## x         -2227500          2227500   891       5000        576</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="do">## </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="do">## Bands:</span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="do">##              name offset scale nodata unit</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="do">## 1   DAY_VIEW_TIME   0.00 0.100    NaN  hrs</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="do">## 2         EMIS_31   0.49 0.002    NaN     </span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="do">## 3         EMIS_32   0.49 0.002    NaN     </span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="do">## 4         LST_DAY   0.00 0.020    NaN    K</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="do">## 5       LST_NIGHT   0.00 0.020    NaN    K</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="do">## 6 NIGHT_VIEW_TIME   0.00 0.100    NaN  hrs</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="do">## 7          QC_DAY   0.00 1.000    NaN     </span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="do">## 8        QC_NIGHT   0.00 1.000    NaN</span></span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="fu">names</span>(MODIS.cube)</span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="do">## [1] "DAY_VIEW_TIME"   "EMIS_31"         "EMIS_32"         "LST_DAY"        </span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="do">## [5] "LST_NIGHT"       "NIGHT_VIEW_TIME" "QC_DAY"          "QC_NIGHT"</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="fu">dim</span>(MODIS.cube)</span>
+<span id="cb4-27"><a href="#cb4-27"></a><span class="do">## [1]   9 707 891</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Notice that <code>raster_cube()</code> will not run any computations besides deriving the shape of the output cube. Instead, it will return a <em>proxy</em> object that will not be evaluated until data must be actually read (e.g.&nbsp;when calling <code>plot(x)</code>). This not only applies to data cubes from image collections but also for derived cubes (see further below).</p>
+<p>The diagnostic messages simply tell us that the extent of the cube was slightly widened, because the provided pixel size would otherwise lead to simething like “partial” pixels. The reason is that the size of a dimension, (e.g., <span class="math inline">\(right - left\)</span>) is not divisible by the pixel size.</p>
+<section id="aggregation-and-resampling" class="level2">
+<h2 class="anchored" data-anchor-id="aggregation-and-resampling">Aggregation and resampling</h2>
+<p>Besides the spatiotemporal extent, the resolution and the spatial reference system, the data cube view contains the two important parameters <code>aggregation</code> and <code>resampling</code>. Resampling here refers to how images are resampled in space during the reprojection, scaling, and cropping operations. The temporal aggregation method defines how values for the same cell from different images are combined in the target cube. For example, a data cube with monthly temporal resolution will contain values from multiple images. Currently, possible values are first, last, min, max, mean, and median. These functions are evaluated per data cube pixel.</p>
+</section>
+</section>
+<section id="data-cube-operations" class="level1">
+<h1>Data cube operations</h1>
+<p>The package comes with a few operations on data cubes to (i) select bands (<code>select_bands()</code>), (ii) apply pixel-wise arithmetic expressions (<code>apply_pixel()</code>), (iii) reduce data cubes over space and time (<code>reduce_time()</code>, <code>reduce_space()</code>), apply a moving-window function over time (<code>window_time()</code>), (iv) join bands of identically shaped data cubes (<code>join_bands()</code>), and some more. All of these functions produce a proxy data cube, storing the shape of the result cube but not any data. They all take a (proxy) data cube as first argument and can be chained. The following code demonstrates some of the operations and how data cubes can be plotted.</p>
+<div class="cell" data-layout-align="center" data-fig.dim="[4.5,4.5]">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>MOD11A2.bandselect <span class="ot">=</span> <span class="fu">select_bands</span>(MODIS.cube, <span class="fu">c</span>(<span class="st">"LST_DAY"</span>,<span class="st">"LST_NIGHT"</span>))</span>
+<span id="cb5-2"><a href="#cb5-2"></a>MOD11A2.daynight_difference <span class="ot">=</span> </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">apply_pixel</span>(MOD11A2.bandselect, <span class="st">"0.02*(LST_DAY-LST_NIGHT)"</span>,<span class="at">names =</span> <span class="st">"LST_difference"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>MOD11A2.reduce <span class="ot">=</span> <span class="fu">reduce_time</span>(MOD11A2.daynight_difference, <span class="st">"median(LST_difference)"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="fu">plot</span>(MOD11A2.reduce, <span class="at">col=</span>heat.colors, <span class="at">key.pos=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="gc01_MODIS_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="432"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The result is the median day night surface temperature difference for all pixels between Jan and December 2018. Notice that no data is actually read until we call <code>plot()</code>, i.e.&nbsp;all operations again return <em>proxy</em> objects.</p>
+<p>Operations on data cubes are designed such that they can be used with the native pipe operator <code>|&gt;</code> (or <code>%&gt;%</code> from the <code>magrittr</code> package). The following code for example derives monthly differences of land surface temperature, from June to September 2018. The <code>window_time</code> function here applies the simple time series kernel difference filter <span class="math inline">\(T_t - T_{t-1}\)</span>.</p>
+<div class="cell" data-layout-align="center" data-fig.dim="[7,3.5]">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(magrittr) <span class="co"># get the pipe</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># update v by changing temporal extent only</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>v1 <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">view=</span>v, <span class="at">extent=</span><span class="fu">list</span>(<span class="at">t0=</span><span class="st">"2018-06"</span>, <span class="at">t1=</span><span class="st">"2018-09"</span>)) </span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">raster_cube</span>(MODIS.collection, v1)  <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"LST_DAY"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">apply_pixel</span>(<span class="st">"LST_DAY * 0.02"</span>) <span class="sc">%&gt;%</span> <span class="co"># apply scale</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">window_time</span>(<span class="at">kernel=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">window=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>  <span class="fu">plot</span>(<span class="at">col=</span>terrain.colors, <span class="at">key.pos=</span><span class="dv">1</span>, <span class="at">zlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">25</span>,<span class="dv">25</span>), <span class="at">t =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="gc01_MODIS_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="export-data-cubes-to-files" class="level2">
+<h2 class="anchored" data-anchor-id="export-data-cubes-to-files">Export data cubes to files</h2>
+<p>Replacing the call to <code>plot()</code> with <code>write_ncdf()</code>, or <code>write_tif()</code> would write the result as NetCDF or GeoTIFF files to disk. While <code>write_ncdf()</code> always produces a single file, <code>write_tif()</code> produces one file per time slice and the time is automatically added to the provided output filename. Both functions support compression and modifying the data type to save disk space.</p>
+</section>
+<section id="parallel-processing" class="level2">
+<h2 class="anchored" data-anchor-id="parallel-processing">Parallel processing</h2>
+<p>gdalcubes supports parallel processing of data cube operations. Calling <code>gdalcubes_options(parallel = n)</code> will tell all following data cube operations to use up to <code>n</code> parallel processes. Notice that worker processes are assigned to chunks of the data cube and the true number of processes can be lower if there are less than <code>n</code> chunks.</p>
+</section>
+</section>
+<section id="further-reading" class="level1">
+<h1>Further reading</h1>
+<p>This vignette presents a very simple example with a small local dataset. Further tutorials and publications not available as a vignette inside the package but available online include:</p>
+<ul>
+<li><a href="https://appelmar.github.io/opengeohub_summerschool2019/tutorial.html">A detailed tutorial</a> presented at OpenGeoHub Summer School 2019 where larger Landsat and Sentinel-2 datasets with overlapping images from different spatial reference systems are used and user-defined R functions are applied on data cubes.<br>
+</li>
+<li><a href="https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html">A blog post</a> on r-spatial.org explains, how <code>gdalcubes</code> can be used to analyze large satellite collections in the cloud using STAC.</li>
+</ul>
+
+
+
+<!-- -->
+
+</section>
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+    } else {
+      disableStylesheet(alternateStylesheets);
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">---</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="an">title:</span><span class="co"> "1. Creating data cubes from local MODIS imagery"</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="an">author:</span><span class="co"> "Marius Appel"</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="an">output:</span><span class="co"> </span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">  rmarkdown::html_vignette</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="an">vignette:</span><span class="co"> &gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">  %\VignetteIndexEntry{1. Creating data cubes from local MODIS imagery}</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">  %\VignetteEngine{knitr::rmarkdown}</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">  %\VignetteEncoding{UTF-8}</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">---</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="in">```{r setup, include = FALSE}</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>ev <span class="ot">=</span> <span class="fu">unname</span>(<span class="fu">Sys.info</span>()[<span class="st">"user"</span>]) <span class="sc">==</span> <span class="st">"marius"</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(</span>
+<span id="cb7-15"><a href="#cb7-15"></a>  <span class="at">collapse =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb7-16"><a href="#cb7-16"></a>  <span class="at">eval =</span> ev</span>
+<span id="cb7-17"><a href="#cb7-17"></a>)</span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="in">```</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a></span>
+<span id="cb7-20"><a href="#cb7-20"></a>The <span class="in">`gdalcubes`</span> package aims at making the work with large collections of Earth observation (EO) imagery (e.g. from <span class="co">[</span><span class="ot">Sentinel 2</span><span class="co">](https://sentinel.esa.int/web/sentinel/missions/sentinel-2)</span>) **easier** and **faster**. Typical challenges with these data such as overlapping images, different spatial resolutions of spectral bands, irregular temporal sampling, and different coordinate reference systems are abstracted away from users by reading the data as a raster data cube and letting users define the shape of the cube (spatiotemporal extent, resolution, and spatial reference system). Working with EO imagery then becomes more interactive: going from "*try method X on low resolution and get the result asap*" to "*apply the final method to the full resolution dataset over night*" becomes straightforward.</span>
+<span id="cb7-21"><a href="#cb7-21"></a></span>
+<span id="cb7-22"><a href="#cb7-22"></a>This brief vignette illustrates basic ideas of the package. We will use satellite imagery from the Moderate Resolution Imaging Spectroradiometer (<span class="co">[</span><span class="ot">MODIS</span><span class="co">](https://modis.gsfc.nasa.gov)</span>) that is small enough to process even on older machines. The imagery comes as a set of <span class="co">[</span><span class="ot">HDF4</span><span class="co">](https://support.hdfgroup.org/products/hdf4/)</span> files. We assume that you have successfully installed the <span class="in">`gdalcubes`</span> package. Please also make sure that your GDAL installation supports the HDF4 driver (e.g. with <span class="in">`gdalcubes_gdalformats()`</span>).</span>
+<span id="cb7-23"><a href="#cb7-23"></a></span>
+<span id="cb7-24"><a href="#cb7-24"></a>In the following, we will follow a simple workflow by</span>
+<span id="cb7-25"><a href="#cb7-25"></a></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="ss">1.  </span>Collecting image files as an **image collection** object,</span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="ss">2.  </span>Creating data cubes at various spatiotemporal resolutions and extents, and</span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="ss">3.  </span>Applying simple operations on data cubes including band selection, application of pixel-wise functions, reduction over time, and time series filtering.</span>
+<span id="cb7-29"><a href="#cb7-29"></a></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="fu"># Example dataset</span></span>
+<span id="cb7-31"><a href="#cb7-31"></a></span>
+<span id="cb7-32"><a href="#cb7-32"></a>We will use 8-daily land surface temperature from the MODIS product <span class="co">[</span><span class="ot">MOD11A2</span><span class="co">](https://modis.gsfc.nasa.gov/data/dataprod/mod11.php)</span>, covering western Europe (tiles v=13,14, h=03,04) from January to September 2018. The zip archive sums to approximately 600 megabytes. The code below downloads and unzips the data to the current working directory. Since this might sometimes lead to timeouts depending on the the internet connection and availability of the file service, we first increase the global timeout option to at least 30 minutes (though it typically takes only a few minutes or less).</span>
+<span id="cb7-33"><a href="#cb7-33"></a></span>
+<span id="cb7-34"><a href="#cb7-34"></a><span class="in">```{r data_download, echo=TRUE, results='hide'}</span></span>
+<span id="cb7-35"><a href="#cb7-35"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="fu">max</span>(<span class="dv">1800</span>, <span class="fu">getOption</span>(<span class="st">"timeout"</span>)))</span>
+<span id="cb7-36"><a href="#cb7-36"></a>dest_dir <span class="ot">=</span> <span class="fu">tempdir</span>()</span>
+<span id="cb7-37"><a href="#cb7-37"></a><span class="fu">download.file</span>(<span class="st">"https://uni-muenster.sciebo.de/s/eP9E6OIkQbXrmsY/download"</span>, <span class="at">destfile=</span><span class="fu">file.path</span>(dest_dir, <span class="st">"MOD11A2.zip"</span>),<span class="at">mode =</span> <span class="st">"wb"</span>)</span>
+<span id="cb7-38"><a href="#cb7-38"></a><span class="fu">unzip</span>(<span class="fu">file.path</span>(dest_dir, <span class="st">"MOD11A2.zip"</span>), <span class="at">exdir =</span> <span class="fu">file.path</span>(dest_dir,<span class="st">"MOD11A2"</span>))</span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="fu">unlink</span>(<span class="fu">file.path</span>(dest_dir, <span class="st">"MOD11A2.zip"</span>))</span>
+<span id="cb7-40"><a href="#cb7-40"></a><span class="in">```</span></span>
+<span id="cb7-41"><a href="#cb7-41"></a></span>
+<span id="cb7-42"><a href="#cb7-42"></a><span class="fu"># Creating image collections from local image files</span></span>
+<span id="cb7-43"><a href="#cb7-43"></a></span>
+<span id="cb7-44"><a href="#cb7-44"></a>As a first step, we must combine the set of files from the MODIS product (MOD11A2) into a single *image collection* object. The image collection is a simple index, pointing to files and storing the spatial extents, spatial reference systems, acquisition date/time of images and how files relate to image bands. The package comes with a set of predefined rules (called *image collection formats*), how this information can be extracted from filenames for selected EO products. A list of available collection formats including a short description can be printed with:</span>
+<span id="cb7-45"><a href="#cb7-45"></a></span>
+<span id="cb7-46"><a href="#cb7-46"></a><span class="in">```{r, eval=TRUE}</span></span>
+<span id="cb7-47"><a href="#cb7-47"></a><span class="fu">library</span>(gdalcubes)</span>
+<span id="cb7-48"><a href="#cb7-48"></a><span class="fu">collection_formats</span>()</span>
+<span id="cb7-49"><a href="#cb7-49"></a><span class="in">```</span></span>
+<span id="cb7-50"><a href="#cb7-50"></a></span>
+<span id="cb7-51"><a href="#cb7-51"></a>In this case, <span class="in">`MxD11A2`</span> is the correct format for our datasets. Internally, collection formats are defined in relatively simple JSON files, presets for other products will be added continuously.</span>
+<span id="cb7-52"><a href="#cb7-52"></a></span>
+<span id="cb7-53"><a href="#cb7-53"></a>To create the image collection, we must pass a list of our files and the collection format to the <span class="in">`create_image_collection()`</span> function. The code below finds all files as character vector of GDAL datasets, which then can be passed as the first argument to the <span class="in">`create_image_collection()`</span> function. The second argument here refers to the image collection format and the third argument provides the name of the output image collection file (which is simply an SQLite database). The collection format also knows that bands are stored as subdatasets in the HDF files.</span>
+<span id="cb7-54"><a href="#cb7-54"></a></span>
+<span id="cb7-57"><a href="#cb7-57"></a><span class="in">```{r}</span></span>
+<span id="cb7-58"><a href="#cb7-58"></a>files <span class="ot">=</span> <span class="fu">list.files</span>(<span class="fu">file.path</span>(dest_dir,<span class="st">"MOD11A2"</span>), <span class="at">pattern=</span><span class="st">".hdf$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-59"><a href="#cb7-59"></a>MODIS.collection <span class="ot">=</span> <span class="fu">create_image_collection</span>(files, <span class="st">"MxD11A2"</span>)</span>
+<span id="cb7-60"><a href="#cb7-60"></a><span class="in">```</span></span>
+<span id="cb7-61"><a href="#cb7-61"></a></span>
+<span id="cb7-62"><a href="#cb7-62"></a>Image collections can be saved by setting the <span class="in">`out_file`</span> argument in <span class="in">`create_image_collection()`</span> and loaded with the <span class="in">`image_collection()`</span> function. For large collections, the creation hence is typically done only once.</span>
+<span id="cb7-63"><a href="#cb7-63"></a></span>
+<span id="cb7-64"><a href="#cb7-64"></a><span class="fu"># Creating a data cube</span></span>
+<span id="cb7-65"><a href="#cb7-65"></a></span>
+<span id="cb7-66"><a href="#cb7-66"></a>The created image collection only stores references to original image files and knows about their datetime, spatial extent, and coordinate reference system. Image collections do not store copies of image data and thus typically only comsume a few kilobytes per image. To work with image data as a four-dimensional array (data cube) the <span class="in">`raster_cube()`</span> function creates a data cube from an image collection. This function expects at least two arguments:</span>
+<span id="cb7-67"><a href="#cb7-67"></a></span>
+<span id="cb7-68"><a href="#cb7-68"></a><span class="ss">1.  </span>an image collection object as created above and</span>
+<span id="cb7-69"><a href="#cb7-69"></a><span class="ss">2.  </span>a *data cube view* object defining the spatiotemporal resolution, extent, and the spatial reference system of the target cube</span>
+<span id="cb7-70"><a href="#cb7-70"></a></span>
+<span id="cb7-71"><a href="#cb7-71"></a>Further optional arguments include the internal size of chunks for performance optimizations and image masks to drop invalid pixels (e.g. cloud pixels).</span>
+<span id="cb7-72"><a href="#cb7-72"></a></span>
+<span id="cb7-73"><a href="#cb7-73"></a>To create a *data cube view*, we can use the <span class="in">`cube_view()`</span> function and define out target data cube geometry. Below, we create a data cube with the full spatiotemporal extent of the collection, using the WGS 84 / Pseudo-Mercator projection, and a pixels size of 5km x 5km x one month.</span>
+<span id="cb7-74"><a href="#cb7-74"></a></span>
+<span id="cb7-77"><a href="#cb7-77"></a><span class="in">```{r}</span></span>
+<span id="cb7-78"><a href="#cb7-78"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span>MODIS.collection, <span class="at">srs =</span> <span class="st">"EPSG:3857"</span>, <span class="at">dx =</span> <span class="dv">5000</span>, <span class="at">dy =</span> <span class="dv">5000</span>, <span class="at">dt =</span> <span class="st">"P1M"</span>)</span>
+<span id="cb7-79"><a href="#cb7-79"></a>MODIS.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(MODIS.collection, v)</span>
+<span id="cb7-80"><a href="#cb7-80"></a>MODIS.cube</span>
+<span id="cb7-81"><a href="#cb7-81"></a></span>
+<span id="cb7-82"><a href="#cb7-82"></a><span class="fu">names</span>(MODIS.cube)</span>
+<span id="cb7-83"><a href="#cb7-83"></a><span class="fu">dim</span>(MODIS.cube)</span>
+<span id="cb7-84"><a href="#cb7-84"></a><span class="in">```</span></span>
+<span id="cb7-85"><a href="#cb7-85"></a></span>
+<span id="cb7-86"><a href="#cb7-86"></a>Notice that <span class="in">`raster_cube()`</span> will not run any computations besides deriving the shape of the output cube. Instead, it will return a *proxy* object that will not be evaluated until data must be actually read (e.g. when calling <span class="in">`plot(x)`</span>). This not only applies to data cubes from image collections but also for derived cubes (see further below).</span>
+<span id="cb7-87"><a href="#cb7-87"></a></span>
+<span id="cb7-88"><a href="#cb7-88"></a>The diagnostic messages simply tell us that the extent of the cube was slightly widened, because the provided pixel size would otherwise lead to simething like "partial" pixels. The reason is that the size of a dimension, (e.g., $right - left$) is not divisible by the pixel size.</span>
+<span id="cb7-89"><a href="#cb7-89"></a></span>
+<span id="cb7-90"><a href="#cb7-90"></a><span class="fu">## Aggregation and resampling</span></span>
+<span id="cb7-91"><a href="#cb7-91"></a></span>
+<span id="cb7-92"><a href="#cb7-92"></a>Besides the spatiotemporal extent, the resolution and the spatial reference system, the data cube view contains the two important parameters <span class="in">`aggregation`</span> and <span class="in">`resampling`</span>. Resampling here refers to how images are resampled in space during the reprojection, scaling, and cropping operations. The temporal aggregation method defines how values for the same cell from different images are combined in the target cube. For example, a data cube with monthly temporal resolution will contain values from multiple images. Currently, possible values are first, last, min, max, mean, and median. These functions are evaluated per data cube pixel.</span>
+<span id="cb7-93"><a href="#cb7-93"></a></span>
+<span id="cb7-94"><a href="#cb7-94"></a><span class="fu"># Data cube operations</span></span>
+<span id="cb7-95"><a href="#cb7-95"></a></span>
+<span id="cb7-96"><a href="#cb7-96"></a>The package comes with a few operations on data cubes to (i) select bands (<span class="in">`select_bands()`</span>), (ii) apply pixel-wise arithmetic expressions (<span class="in">`apply_pixel()`</span>), (iii) reduce data cubes over space and time (<span class="in">`reduce_time()`</span>, <span class="in">`reduce_space()`</span>), apply a moving-window function over time (<span class="in">`window_time()`</span>), (iv) join bands of identically shaped data cubes (<span class="in">`join_bands()`</span>), and some more. All of these functions produce a proxy data cube, storing the shape of the result cube but not any data. They all take a (proxy) data cube as first argument and can be chained. The following code demonstrates some of the operations and how data cubes can be plotted.</span>
+<span id="cb7-97"><a href="#cb7-97"></a></span>
+<span id="cb7-98"><a href="#cb7-98"></a><span class="in">```{r, fig.align="center", fig.dim=c(4.5,4.5)}</span></span>
+<span id="cb7-99"><a href="#cb7-99"></a>MOD11A2.bandselect <span class="ot">=</span> <span class="fu">select_bands</span>(MODIS.cube, <span class="fu">c</span>(<span class="st">"LST_DAY"</span>,<span class="st">"LST_NIGHT"</span>))</span>
+<span id="cb7-100"><a href="#cb7-100"></a>MOD11A2.daynight_difference <span class="ot">=</span> </span>
+<span id="cb7-101"><a href="#cb7-101"></a>  <span class="fu">apply_pixel</span>(MOD11A2.bandselect, <span class="st">"0.02*(LST_DAY-LST_NIGHT)"</span>,<span class="at">names =</span> <span class="st">"LST_difference"</span>)</span>
+<span id="cb7-102"><a href="#cb7-102"></a>MOD11A2.reduce <span class="ot">=</span> <span class="fu">reduce_time</span>(MOD11A2.daynight_difference, <span class="st">"median(LST_difference)"</span>)</span>
+<span id="cb7-103"><a href="#cb7-103"></a><span class="fu">plot</span>(MOD11A2.reduce, <span class="at">col=</span>heat.colors, <span class="at">key.pos=</span><span class="dv">1</span>)</span>
+<span id="cb7-104"><a href="#cb7-104"></a><span class="in">```</span></span>
+<span id="cb7-105"><a href="#cb7-105"></a></span>
+<span id="cb7-106"><a href="#cb7-106"></a>The result is the median day night surface temperature difference for all pixels between Jan and December 2018. Notice that no data is actually read until we call <span class="in">`plot()`</span>, i.e. all operations again return *proxy* objects.</span>
+<span id="cb7-107"><a href="#cb7-107"></a></span>
+<span id="cb7-108"><a href="#cb7-108"></a>Operations on data cubes are designed such that they can be used with the native pipe operator <span class="in">`|&gt;`</span> (or <span class="in">`%&gt;%`</span> from the <span class="in">`magrittr`</span> package). The following code for example derives monthly differences of land surface temperature, from June to September 2018. The <span class="in">`window_time`</span> function here applies the simple time series kernel difference filter $T_t - T_{t-1}$.</span>
+<span id="cb7-109"><a href="#cb7-109"></a></span>
+<span id="cb7-110"><a href="#cb7-110"></a><span class="in">```{r, fig.dim=c(7,3.5),fig.align="center"}</span></span>
+<span id="cb7-111"><a href="#cb7-111"></a><span class="fu">library</span>(magrittr) <span class="co"># get the pipe</span></span>
+<span id="cb7-112"><a href="#cb7-112"></a><span class="co"># update v by changing temporal extent only</span></span>
+<span id="cb7-113"><a href="#cb7-113"></a>v1 <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">view=</span>v, <span class="at">extent=</span><span class="fu">list</span>(<span class="at">t0=</span><span class="st">"2018-06"</span>, <span class="at">t1=</span><span class="st">"2018-09"</span>)) </span>
+<span id="cb7-114"><a href="#cb7-114"></a><span class="fu">raster_cube</span>(MODIS.collection, v1)  <span class="sc">%&gt;%</span></span>
+<span id="cb7-115"><a href="#cb7-115"></a>  <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"LST_DAY"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-116"><a href="#cb7-116"></a>  <span class="fu">apply_pixel</span>(<span class="st">"LST_DAY * 0.02"</span>) <span class="sc">%&gt;%</span> <span class="co"># apply scale</span></span>
+<span id="cb7-117"><a href="#cb7-117"></a>  <span class="fu">window_time</span>(<span class="at">kernel=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">window=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-118"><a href="#cb7-118"></a>  <span class="fu">plot</span>(<span class="at">col=</span>terrain.colors, <span class="at">key.pos=</span><span class="dv">1</span>, <span class="at">zlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">25</span>,<span class="dv">25</span>), <span class="at">t =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb7-119"><a href="#cb7-119"></a><span class="in">```</span></span>
+<span id="cb7-120"><a href="#cb7-120"></a></span>
+<span id="cb7-121"><a href="#cb7-121"></a><span class="fu">## Export data cubes to files</span></span>
+<span id="cb7-122"><a href="#cb7-122"></a></span>
+<span id="cb7-123"><a href="#cb7-123"></a>Replacing the call to <span class="in">`plot()`</span> with <span class="in">`write_ncdf()`</span>, or <span class="in">`write_tif()`</span> would write the result as NetCDF or GeoTIFF files to disk. While <span class="in">`write_ncdf()`</span> always produces a single file, <span class="in">`write_tif()`</span> produces one file per time slice and the time is automatically added to the provided output filename. Both functions support compression and modifying the data type to save disk space.</span>
+<span id="cb7-124"><a href="#cb7-124"></a></span>
+<span id="cb7-125"><a href="#cb7-125"></a><span class="fu">## Parallel processing</span></span>
+<span id="cb7-126"><a href="#cb7-126"></a></span>
+<span id="cb7-127"><a href="#cb7-127"></a>gdalcubes supports parallel processing of data cube operations. Calling <span class="in">`gdalcubes_options(parallel = n)`</span> will tell all following data cube operations to use up to <span class="in">`n`</span> parallel processes. Notice that worker processes are assigned to chunks of the data cube and the true number of processes can be lower if there are less than <span class="in">`n`</span> chunks.</span>
+<span id="cb7-128"><a href="#cb7-128"></a></span>
+<span id="cb7-129"><a href="#cb7-129"></a><span class="fu"># Further reading</span></span>
+<span id="cb7-130"><a href="#cb7-130"></a></span>
+<span id="cb7-131"><a href="#cb7-131"></a>This vignette presents a very simple example with a small local dataset. Further tutorials and publications not available as a vignette inside the package but available online include:</span>
+<span id="cb7-132"><a href="#cb7-132"></a></span>
+<span id="cb7-133"><a href="#cb7-133"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">A detailed tutorial</span><span class="co">](https://appelmar.github.io/opengeohub_summerschool2019/tutorial.html)</span> presented at OpenGeoHub Summer School 2019 where larger Landsat and Sentinel-2 datasets with overlapping images from different spatial reference systems are used and user-defined R functions are applied on data cubes.\</span>
+<span id="cb7-134"><a href="#cb7-134"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">A blog post</span><span class="co">](https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html)</span> on r-spatial.org explains, how <span class="in">`gdalcubes`</span> can be used to analyze large satellite collections in the cloud using STAC.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2022 Marius Appel
+  </li>  
+</ul>
+      </div>
+  </div>
+</footer>
+
+
+</body></html>

@@ -1,0 +1,327 @@
+---
+title: "3. Extracting training data for machine learning models"
+author: "Marius Appel"
+output: 
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{3. Extracting training data for machine learning models}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include = FALSE}
+ev = unname(Sys.info()["user"]) == "marius"
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  eval = ev
+)
+```
+
+
+Machine learning models for land cover classification, change detection, spatiotemporal prediction, and similar tasks in most cases need a large number of observations for training. 
+
+This vignette will demonstrate how training data from satellite image collections can be extracted for typical tasks including:
+
+1. Classification from labeled spatial polygons
+2. Time series extraction from spatial points
+3. Combining satellite observations with in-situ observations or movement data (trajectories)
+
+One function that can do all of this is `extract_geom()`, which is similar to the `st_extract()` function from the [`stars` package](https://cran.r-project.org/package=stars) and the `extract()` function from the [`raster`](https://cran.r-project.org/package=raster) and [`terra`](https://cran.r-project.org/package=terra) packages.
+
+
+## The `extract_geom()` function
+
+Given a data cube and any simple feature geometries as an `sf` object, the `extract_geom()` function can be used as a general method to extract data cube pixel values at irregular locations. `extract_geom()` returns a `data.frame` with columns for feature identifiers (FIDs, often row numbers of the `sf` object), time, and bands / variables of the data cube. Each row represents the data cube values of one pixel relating to the feature given by the FID column. For anything other than simple point geometries (e.g. POLYGON, LINESTRING, MULTIPOINT, and similar), the result may contain multiple rows per feature. In these cases, it is possible to apply an aggregation function to compute mean, median or similar summary statistics over features. 
+
+`extract_geom()` drops any pixels with missing values only. Hence, if a feature is outside the extent of the data cube, or all pixels  of a feature are NA due to clouds or unavailability of images, these pixels will not be included in the result. In contrast, if the input features contain overlapping geometries, pixels may be included several times (with different values in the FID column). 
+
+For multitemporal cubes, the full time series of pixels relating to the features is returned by default, leading to multiple rows with different time values. It is possible to specify the date/time of features using either an available time column from the `sf` object by name (argument `time_column`), or as an additional `Date`, `POSIXt`, or `character` vector with length corresponding to the number of features (argument `datetime`). In this case, only data cube pixels related to the time value of features is returned in the result instead of the full time series.
+
+Compared to the `extract()` function from the [`raster`](https://cran.r-project.org/package=raster) and [`terra`](https://cran.r-project.org/package=terra) packages, `extract_geom()` is a little less flexible. For example, it is not possible to derive fractions of pixels covered by the features to compute weighted aggregations or similar.
+
+
+
+## 1. Extracting pixel values and summary statistics from spatial polygons
+
+As a small example how to prepare training data for simple classification tasks, we use a labeled land cover polygon dataset covering the city of Muenster, Germany, which can be downloaded from https://uni-muenster.sciebo.de/s/fgyaomOJxSd93H8/download. This GeoPackage dataset contains spatial polygons with a column _class_ representing land cover. We can directly download and plot the features using the [`sf` package](https://cran.r-project.org/package=sf):
+
+```{r training_sites, fig.align='center'}
+library(sf)
+training_sites = read_sf("https://uni-muenster.sciebo.de/s/fgyaomOJxSd93H8/download")
+plot(training_sites, axes = TRUE, key.pos = 1)
+```
+This is a rather small toy dataset but since the features are polygons, they already cover quite a few 10m pixels from Sentinel-2 imagery. As a first step to extract Sentinel-2 values within the polygons, we create a (virtual) data cube from Sentinel-2 data on Amazon Web Services (see previous vignette). Since the data is openly available, we can still work locally and do not need to run a machine on AWS (though this would be much faster for larger polygon datasets).
+
+As our area of interest, we use the extent of the polygon dataset and look for (cloud-free) observations in July, 2021. To find corresponding images, we use the [`rstac` package](https://cran.r-project.org/package=rstac) and query from the Sentinel-2 cloud-optimized GeoTIFF collection on AWS.
+
+```{r stac}
+bbox = st_bbox(training_sites) 
+bbox
+library(rstac)
+s = stac("https://earth-search.aws.element84.com/v0")
+  items = s |>
+    stac_search(collections = "sentinel-s2-l2a-cogs",
+                bbox = c(bbox["xmin"],bbox["ymin"],
+                         bbox["xmax"],bbox["ymax"]), 
+                datetime = "2021-07-01/2021-07-31") |>
+    post_request() |> items_fetch(progress = FALSE)
+  length(items$features)
+```
+To filter by cloud coverage and create a gdalcubes image collection object, we apply `stac_image_collection()` on the resulting list of 26 images. 
+
+```{r}
+library(gdalcubes)
+s2_collection = stac_image_collection(items$features, property_filter = function(x) {x[["eo:cloud_cover"]] < 20})
+s2_collection
+```
+
+The collection contains five images only. However, we now create a rather large data cube with spatial extent from the image collection and 10m spatial resolution. Notice that this data cube is not downloaded but only created virtually, as a _proxy object_ that knows where the corresponding images are located and what to do with the data when needed. In the example below, we use the visible RGB and the near infrared bands and add the NDVI vegetation index as a data cube band. Notice that we do not use a per-pixel cloud mask here.
+
+```{r}
+v = cube_view(extent=s2_collection, dt="P1M", dx=10, dy=10, srs="EPSG:3857", 
+                      aggregation = "median", resampling = "bilinear")
+
+raster_cube(s2_collection, v) |> # no mask
+  select_bands(c("B02","B03","B04","B08")) |>
+  apply_pixel("(B08-B04)/(B08+B04)", "NDVI", keep_bands = TRUE) -> ms_cube
+ms_cube
+```
+
+The cube has 24455 x 18114 spatial pixels, which would sum to a GeoTIFF file of several gigabytes (depending on data type and compression), although the area of interest is quite small and we are only interested in a few pixels in the polygons. Fortunately, `extract_geom()` reduces unnecessary data reads to a large extent, meaning that even if we would use a data cube for whole Germany at 10m resolution, it would only read blocks of the data covering our area of interest, and simply ignore other parts. 
+
+```{r}
+x = extract_geom(ms_cube, training_sites)
+nrow(x)
+head(x)
+```
+
+As expected, the result contains multiple rows per polygon (because polygons cover multiple pixels). To compute summary statistics per polygon, we can provide a function as the `FUN` argument:
+
+```{r}
+x = extract_geom(ms_cube, training_sites, FUN = median)
+#x = extract_geom(ms_cube, training_sites)#), FUN = median)
+x
+```
+
+To combine the extracted data cube values with the original `sf` objects including the geometries, the `merge()` function can be used. `merge()` performs table join operations on common columns (e.g. IDs). We therefore first need to add an FID column to the features and then join both tables by their FID columns. Notice that by default, this is performing an _inner join_, i.e. rows with FIDs that only exist in one table will be dropped. Alternatively, we can set `all.x=TRUE` to make sure that our result contains all features from the original dataset (left outer join). Below, we combine the tables, drop the geometries and order by NDVI, showing a clear relation between class and NDVI.
+
+```{r}
+x = x[order(x$NDVI,decreasing = T),]
+training_sites$FID = rownames(training_sites)
+trn_df = sf::st_drop_geometry(merge(training_sites, x, by = "FID"))
+trn_df[order(trn_df$NDVI, decreasing = TRUE),]
+```
+
+## 2. Time series extraction from spatial points
+
+In the next example, we use MODIS land surface temperature measurements over Europe (see first vignette) and extract time series in London, Paris, and Barcelona. For each city, we define some points in the urban center as well as in the rural surrounding areas.
+
+We start with downloading the MODIS data, if needed:
+
+```{r data_download, echo=TRUE, results='hide'}
+dest_dir = tempdir()
+if (!dir.exists(file.path(dest_dir,"MOD11A2"))) {
+  options(timeout = max(1800, getOption("timeout")))
+  download.file("https://uni-muenster.sciebo.de/s/eP9E6OIkQbXrmsY/download", destfile=file.path(dest_dir, "MOD11A2.zip"),mode = "wb")
+  unzip(file.path(dest_dir, "MOD11A2.zip"), exdir = file.path(dest_dir,"MOD11A2"))
+  unlink(file.path(dest_dir, "MOD11A2.zip"))
+}
+```
+Next, we build a gdalcubes image collection object:
+
+```{r}
+library(gdalcubes)
+files = list.files(file.path(dest_dir,"MOD11A2"), pattern=".hdf$", full.names = TRUE)
+MODIS.collection = create_image_collection(files, "MxD11A2")
+MODIS.collection
+```
+
+Now, we create some sample points from hand, where we want to extract the time series of land surface temperature measurements. We convert the created `data.frame` to an `sf` object using `st_as_sf()`.
+
+```{r}
+# create points from hand...
+x = c(2.347821, 2.3062300, 2.3802715, 2.3562110, 2.473618884, 2.2717150, 1.9978976)
+y = c(48.853590, 48.8422630, 48.8680197, 48.8901057, 48.670428823, 49.0335277, 48.6987311)
+name = c("PARIS_URBAN_1", "PARIS_URBAN_2", "PARIS_URBAN_3", "PARIS_URBAN_4", "PARIS_RURAL_1", "PARIS_RURAL_2", "PARIS_RURAL_3")
+
+x = c(x, -0.1004895, -0.1018785, -0.1250968, -0.0810867, 0.0490169, -0.461243207, -0.2806675, -0.3103141)
+y = c(y, 51.4941646, 51.4653369, 51.5268144, 51.5109185, 51.6569130, 51.589319769, 51.2611309, 51.6595132)
+name = c(name, "LONDON_URBAN_1", "LONDON_URBAN_2", "LONDON_URBAN_3","LONDON_URBAN_4", "LONDON_RURAL_1", "LONDON_RURAL_2", "LONDON_RURAL_3", "LONDON_RURAL_4")
+
+x = c(x,2.1599154, 2.19904748, 2.2230235, 2.1670374, 2.2290286, 1.9649098)
+y = c(y, 41.3879580, 41.42672217, 41.4274755, 41.4556412, 41.4823003, 41.3235823)
+name = c(name, "BARCELONA_URBAN_1", "BARCELONA_URBAN_2", "BARCELONA_URBAN_3", "BARCELONA_RURAL_1", "BARCELONA_RURAL_2", "BARCELONA_RURAL_3")
+
+pts = data.frame(x = x, y = y, name = name)
+
+library(sf)
+sf = st_as_sf(pts, coords = c("x","y"), crs = st_crs(4326))
+```
+
+In the next step, we build a 1km 8-daily cube over Europe, convert the measurements to degree Celsius and extract the time series using the `extract_geom()` function.
+
+```{r}
+gdalcubes_options(parallel = 8)
+v = cube_view(extent=MODIS.collection, srs = "EPSG:3035", dx = 1000, dy = 1000, dt = "P8D")
+raster_cube(MODIS.collection, v)  |>
+  select_bands(c("LST_DAY")) |>
+  apply_pixel("LST_DAY * 0.02 - 273.15", "LST") |>
+  extract_geom(sf) -> result
+head(result, n = 40)
+```
+The result contains FID, time, and LST as columns and we can combine the data with the original sf object with `merge()`:
+
+
+```{r}
+sf$FID = rownames(sf)
+df = merge(sf, result, by = "FID")
+```
+
+We can plot the time series as in the example below, showing some differences between the rural and the urban locations for Paris and Barcelona.
+
+```{r, fig.align='center'}
+library(ggplot2)
+
+df |>
+  dplyr::filter(startsWith(name, "PARIS")) |>
+  ggplot( aes(x = as.Date(time), y = LST, color = FID, group = FID)) +
+  geom_line() + geom_point() + ggtitle("Paris") + xlab("Time") + ylab("LST [K]")
+  
+df |>
+  dplyr::filter(startsWith(name, "BARCELONA")) |>
+  ggplot( aes(x = as.Date(time), y = LST, color = FID, group = FID)) +
+  geom_line() + geom_point()  + ggtitle("Barcelona") + xlab("Time") + ylab("LST [K]")
+```
+
+A similar workflow can e.g. be used to create patterns for time series classification using the 
+[`dtwSat` package](https://cran.r-project.org/package=dtwSat).
+
+
+
+
+## 3. Combining satellite observations with in-situ observations
+
+The previous examples have used spatial features without time information. For applications where interest lies in the combination of satellite-based and in-situ observations or adding satellite observations to movement data such as animal tracks, time information is available for the spatial features (mostly points) and should be considered in the analysis. In this example, we will use primary data from the European [Land Use and Coverage Area frame Survey (LUCAS)](https://ec.europa.eu/eurostat/web/lucas/) containing land cover point samples from 2018. The data can be downloaded as country-wise CSV files (see [here](https://ec.europa.eu/eurostat/de/web/lucas/data/primary-data/2018)). We will use observations over Germany, subset some specific crop types and combine the points with Sentinel-2 NDVI observations. 
+
+
+As a first step, we load the data, remove rows with missing coordinates and convert the data.frame to an sf object. 
+```{r}
+x = read.csv("https://ec.europa.eu/eurostat/cache/lucas/DE_2018_20200213.CSV")
+x = x[-which(is.na(x$TH_LAT) | is.na(x$TH_LONG)),]
+x = st_as_sf(x, coords = c("TH_LONG", "TH_LAT"), crs = "EPSG:4326")
+```
+
+Afterwards we extract the observation date from points and add it as a new column `t`. 
+
+```{r}
+x$t = as.Date(x$SURVEY_DATE, format = "%d/%m/%y") 
+```
+
+The dominant land cover type is encoded in the `LC1` column, where a letter indicates the major class (e.g., forest, agriculture, water, or urban) that is followed by a number to identify more specific types (e.g. wheat, barley, oat, and others for class agriculture). Here, we are interested in four different crop types ("common wheat", "barley", "rye", and "maize"). Below, we select corresponding points and randomly sample 100 points for each type and add common names to the relevant land cover types.
+
+```{r, fig.align='center'}
+x[startsWith(x$LC1, c("B11", "B13", "B14", "B16")), c("LC1","t")] |>
+  dplyr::group_by(LC1) |>
+  dplyr::slice_sample(n = 100) -> training
+
+names = c("B11" = "Common Wheat",
+          "B13" = "Barley",
+          "B14" = "Rye",
+          "B16" = "Maize")
+
+training$LC1_NAME = names[training$LC1]
+table(training$LC1_NAME)
+plot(training[,"LC1_NAME"], key.pos = 1)
+```
+
+The result contains 400 samples with observations at different dates. To add NDVI measurements to the data, we now request available Sentinel-2 images from the Sentinel-2 cloud-optimized GeoTIFF collection on AWS within the area and time of interest using `rstac`.
+
+
+```{r}
+bbox = st_bbox(training) 
+bbox
+library(rstac)
+s = stac("https://earth-search.aws.element84.com/v0")
+items = s |>
+  stac_search(collections = "sentinel-s2-l2a-cogs",
+              bbox = c(bbox["xmin"],bbox["ymin"],
+                       bbox["xmax"],bbox["ymax"]), 
+              datetime = "2018-04-01/2018-12-31") |>
+  post_request() |> items_fetch(progress = FALSE)
+```
+
+The result contains `r length(items$features)` images. Next, we load the `gdalcubes` package, create an image collection object from the STAC result and at the same time filter images by cloud cover. 
+
+```{r}
+library(gdalcubes)
+s2_collection = stac_image_collection(items$features, property_filter = function(x) {x[["eo:cloud_cover"]] < 10})
+```
+
+The collection contains 2387 remaining images with less than 10% cloud cover. Now we create a data cube at original 10m spatial resolution and use the revisit time (5 days) as temporal resolution. We also derive NDVI measurements and drop unneeded bands on-the-fly.
+
+
+```{r}
+v = cube_view(extent=s2_collection, dt="P5D", dx=10, dy=10, srs="EPSG:3857", 
+              aggregation = "median", resampling = "nearest")
+
+raster_cube(s2_collection, v, chunking = c(1,512,512)) |> 
+  select_bands(c("B04","B08")) |>
+  apply_pixel("(B08-B04)/(B08+B04)", "NDVI") -> cube
+cube
+```
+
+Notice that the selection of resolution here has some important implications:
+
+1. Spatially larger pixels increase the likelihood that the pixel corresponding with a point contains different land cover classes, a moderate increasement, however, may still be helpful to include a bit of spatial context and reduce noise.
+
+2. Using a lower temporal resolution (e.g. in a monthly aggregated cube) reduces the amount of missing data (e.g. due to clouds) but of course decreases the time accuracy of measurements.
+
+
+To extract the samples from the cube, we call `extract_geom()`, provide the training data and the name of the time column.
+Please notice that we use quite a few parallel worker instances (even more than the number of cores of the machine) to make downloading the data a little faster. Although the extraction will only need to download smaller patches of images that intersect (in space and time) with the points, it is still the most time consuming part of the extraction when working locally (not on AWS, where the data is stored). As a result, the extraction might take a few minutes on your local machine. 
+
+```{r}
+gdalcubes_options(parallel = 12)
+cubex <- extract_geom(cube,training, time_column = "t")
+nrow(cubex)
+```
+
+Once available, notice that the number of results is smaller than the number of selected sample points simply because for some points there was no (cloud-free) image available. We can now merge the results with the point features and plot the NDVI by time for the different crop types.
+
+```{r, results='hide', warning=FALSE, fig.align='center'}
+sf = training
+sf$FID = rownames(sf)
+df = merge(sf, cubex, by = "FID")
+
+library(ggplot2)
+library(cowplot)
+p = lapply(names, function(x) {
+  df |>
+    dplyr::filter(LC1_NAME == x) |>
+    ggplot( aes(x = as.Date(t), y = NDVI)) +
+    geom_smooth(method = "loess") +
+    geom_point(size = 2) + 
+    ylim(c(0,1)) + xlim(c(as.Date("2018-05-01"),as.Date("2018-09-30"))) + 
+    xlab("Time") + ylab("NDVI")  + ggtitle(x)
+})
+plot_grid(plotlist = p)
+```
+
+
+## Further options to extract data
+
+Notice that extraction with `extract_geom()` is not the only possible way to extract pixels or time series from data cubes. For smaller amounts of samples, extraction can be performed entirely using the available operations `crop()`, `slice_time()`, `slice_space()`, or the general selection operator `[`. For example, extraction of a few spatiotetemporal points on the LUCAS data (see last example) can also achieved by iterating over all samples and extracting a single point using `cube[x$geometry, x$t]`.
+
+```{r, eval = FALSE}
+NDVI = NULL
+for (i in 1:nrow(training)) {
+  y = cube[x$geometry[i],x$t[i]]
+  ndvi_pixel <- as_array(y)
+  NDVI = c(NDVI, as.vector(ndvi_pixel))
+}
+```
+
+There are of course other applications that require a different preparation of training data. As an example, gdalcubes can also be used for the creation of spatial (or even spatiotemporal) blocks in order to apply convolutional neural networks for object detection, or segmentation tasks. 
+
