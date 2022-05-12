@@ -1,0 +1,50 @@
+# print.image_collection
+
+Print image collection information
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Prints information about images in an image collection.
+
+
+## Usage
+
+
+```r
+print.image_collection(x, ..., n = 6)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| x | Object of class "image_collection" |
+| ... | Further arguments passed to the generic print function |
+| n | Number of images for which details are printed |
+
+
+## Examples
+
+
+```{r}
+# create image collection from example Landsat data only 
+# if not already done in other examples
+if (!file.exists(file.path(tempdir(), "L8.db"))) {
+  L8_files <- list.files(system.file("L8NY18", package = "gdalcubes"),
+                         ".TIF", recursive = TRUE, full.names = TRUE)
+  create_image_collection(L8_files, "L8_L1TP", file.path(tempdir(), "L8.db"), quiet = TRUE) 
+}
+
+L8.col = image_collection(file.path(tempdir(), "L8.db"))
+print(L8.col)
+```
+
+

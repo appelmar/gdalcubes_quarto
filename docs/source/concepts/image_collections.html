@@ -74,6 +74,25 @@
     code span.va { color: #19177c; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
 
   <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -89,12 +108,10 @@
   <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
   <script src="../../site_libs/quarto-html/anchor.min.js"></script>
   <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
   <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
   <script id="quarto-search-options" type="application/json">{
     "location": "navbar",
     "copy-button": false,
@@ -135,10 +152,39 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html">Home</a>
+    <a class="nav-link" href="../../source/getstarted.html">Get started</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link active" href="../../source/introduction/why.html" aria-current="page">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/tutorials/index.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/reference/index.html">Reference</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false">Help</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-help">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Source code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues"><i class="bi bi-bug" role="img">
+</i> 
+ <span class="dropdown-text">Report an issue</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../source/introduction/faq.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/about.html">About</a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -148,9 +194,6 @@
  </a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -168,16 +211,11 @@
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Introduction</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Overview</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -190,7 +228,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  <a href="../../source/introduction/components.html" class="sidebar-item-text sidebar-link">Components</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -217,7 +255,7 @@
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic Concepts</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic concepts</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -230,57 +268,27 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image Collection Formats</a>
+  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image collection formats</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data Cubes</a>
+  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data cubes</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data Cube Operations</a>
+  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data cube operations</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/streaming.html" class="sidebar-item-text sidebar-link">Streaming</a>
+  <a href="../../source/concepts/execution.html" class="sidebar-item-text sidebar-link">Execution and parallelization</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/distributed.html" class="sidebar-item-text sidebar-link">Distributed Data Cube Processing</a>
-  </div>
-</li>
-    </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">R Tutorials</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc01_MODIS.html" class="sidebar-item-text sidebar-link">1. Creating data cubes from local MODIS imagery</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc02_AWS_Sentinel2.html" class="sidebar-item-text sidebar-link">2. Data cubes from Sentinel-2 data in the cloud</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc03_ML_training_data.html" class="sidebar-item-text sidebar-link">3. Extracting training data for machine learning models</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/bfast/bfast.html" class="sidebar-item-text sidebar-link">Land cover change detection with gdalcubes and bfast</a>
+  <a href="../../source/concepts/udfs.html" class="sidebar-item-text sidebar-link">User-defined functions (UDFs)</a>
   </div>
 </li>
     </ul>
@@ -294,8 +302,15 @@
 <ul>
 <li><a href="#image-collections" id="toc-image-collections" class="nav-link active" data-scroll-target="#image-collections">Image collections</a>
 <ul class="collapse">
-<li><a href="#gdal-datasets" id="toc-gdal-datasets" class="nav-link" data-scroll-target="#gdal-datasets">GDAL Datasets</a></li>
-<li><a href="#image-collection-data-model" id="toc-image-collection-data-model" class="nav-link" data-scroll-target="#image-collection-data-model">Image Collection Data Model</a></li>
+<li><a href="#gdal-datasets" id="toc-gdal-datasets" class="nav-link" data-scroll-target="#gdal-datasets">GDAL datasets</a></li>
+<li><a href="#image-collection-data-model" id="toc-image-collection-data-model" class="nav-link" data-scroll-target="#image-collection-data-model">Image collection data model</a></li>
+<li><a href="#creation" id="toc-creation" class="nav-link" data-scroll-target="#creation">Creating image collections</a>
+<ul class="collapse">
+<li><a href="#from-local-files-using-collection-formats" id="toc-from-local-files-using-collection-formats" class="nav-link" data-scroll-target="#from-local-files-using-collection-formats">1. From local files using collection formats</a></li>
+<li><a href="#from-local-files-without-collection-formats" id="toc-from-local-files-without-collection-formats" class="nav-link" data-scroll-target="#from-local-files-without-collection-formats">2. From local files without collection formats</a></li>
+<li><a href="#from-cloud-storage-using-stac-api" id="toc-from-cloud-storage-using-stac-api" class="nav-link" data-scroll-target="#from-cloud-storage-using-stac-api">3. From cloud storage using STAC-API</a></li>
+</ul></li>
+<li><a href="#sharing-image-collections" id="toc-sharing-image-collections" class="nav-link" data-scroll-target="#sharing-image-collections">Sharing image collections</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -306,20 +321,36 @@
 <section id="image-collections" class="level1">
 <h1>Image collections</h1>
 <p>In gdalcubes, an <em>image collection</em> is a set of <span class="math inline">\(n\)</span> images, with data for <span class="math inline">\(m\)</span> variables (or <em>bands</em>). Variables of the same image share a spatial footprint, recording date/time, and spatial reference system but may vary in spatial resolution. Different images may have different spatial footprints, recording date/times, and spatial reference systems.</p>
-<section id="gdal-datasets" class="level2">
-<h2 class="anchored" data-anchor-id="gdal-datasets">GDAL Datasets</h2>
-<p>Actual band data may come from any <strong>GDAL dataset</strong> (see https://gdal.org/user/raster_data_model.html), i.e., from anything that is readable by GDAL. This includes simple files, cloud storage, databases, and archive files through <a href="https://www.gdal.org/gdal_virtual_file_systems.html">GDAL virtual file systems</a>. Examples for readable datasets include:</p>
-<ul>
-<li><code>test.tif</code> (a simple local GeoTIFF file),</li>
-<li><code>/vsizip/archive.zip/xyz.tif</code> (a GeoTIFF file in a .zip archive),</li>
-<li><code>HDF4_EOS:EOS_GRID:"MOD13A2.A2013353.h00v08.006.2018226105756.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI</code> (a subdataset in a HDF4 file from MODIS)</li>
-<li><code>SENTINEL2_L1C:S2A_OPER_MTD_SAFL1C_PDMC_20150818T101440_R022_V20150813T102406_20150813T102406.xml:10m:EPSG_32632</code> (a higher level GDAL Sentinel 2 dataset), or</li>
-<li><code>/vsicurl/https://download.osgeo.org/geotiff/samples/spot/chicago/UTM2GTIF.TIF</code> (file on an HTTP server).</li>
-<li><code>/vsis3/sentinel-s2-l1c/tiles/31/U/FT/2018/5/6/0/B08.jp2</code> (Sentinel 2 on Amazon Web Services)</li>
-</ul>
+<section id="gdal-datasets" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="gdal-datasets">GDAL datasets</h2>
+<p>Actual band data may come from any <a href="https://gdal.org/user/raster_data_model.html">GDAL dataset</a>, i.e., from anything that is readable by GDAL. This includes simple files, cloud storage, databases, and archive files through <a href="https://www.gdal.org/gdal_virtual_file_systems.html">GDAL virtual file systems</a>. Examples for readable datasets include:</p>
+<section id="a-simple-local-geotiff-file" class="level4">
+<h4 class="anchored" data-anchor-id="a-simple-local-geotiff-file">1. A simple local GeoTIFF file</h4>
+<div class="sourceCode" id="cb1" data-code-line-numbers="false"><pre class="sourceCode bash code-overflow-scroll code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">test.tif</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="a-geotiff-file-in-a-.zip-archive" class="level4">
+<h4 class="anchored" data-anchor-id="a-geotiff-file-in-a-.zip-archive">2. A GeoTIFF file in a .zip archive</h4>
+<div class="sourceCode" id="cb2" data-code-line-numbers="false"><pre class="sourceCode bash code-overflow-scroll code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/vsizip/archive.zip/xyz.tif</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="a-subdataset-in-a-hdf4-file-from-modis" class="level4">
+<h4 class="anchored" data-anchor-id="a-subdataset-in-a-hdf4-file-from-modis">3. A subdataset in a HDF4 file from MODIS</h4>
+<div class="sourceCode" id="cb3" data-code-line-numbers="false"><pre class="sourceCode bash code-overflow-scroll code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">HDF4_EOS:EOS_GRID:</span><span class="st">"MOD13A2.A2013353.h00v08.006.2018226105756.hdf"</span><span class="ex">:MODIS_Grid_16DA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="a-higher-level-gdal-sentinel-2-dataset" class="level4">
+<h4 class="anchored" data-anchor-id="a-higher-level-gdal-sentinel-2-dataset">4. A higher level GDAL Sentinel 2 dataset</h4>
+<div class="sourceCode" id="cb4" data-code-line-numbers="false"><pre class="sourceCode bash code-overflow-scroll code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">SENTINEL2_L1C:S2A_OPER_MTD_SAFL1C_PDMC_20150818T101440_R022_V20150813T102406_20150813T102406.xml:10m:EPSG_32632</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="a-file-on-a-web-server" class="level4">
+<h4 class="anchored" data-anchor-id="a-file-on-a-web-server">5. A file on a web server</h4>
+<div class="sourceCode" id="cb5" data-code-line-numbers="false"><pre class="sourceCode bash code-overflow-scroll code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/vsicurl/https://download.osgeo.org/geotiff/samples/spot/chicago/UTM2GTIF.TIF</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="an-object-from-cloud-storage-sentinel-2-on-amazon-web-services" class="level4">
+<h4 class="anchored" data-anchor-id="an-object-from-cloud-storage-sentinel-2-on-amazon-web-services">6. An object from cloud storage (Sentinel 2 on Amazon Web Services)</h4>
+<div class="sourceCode" id="cb6" data-code-line-numbers="false"><pre class="sourceCode bash code-overflow-scroll code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/vsis3/sentinel-s2-l1c/tiles/31/U/FT/2018/5/6/0/B08.jp2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 </section>
 <section id="image-collection-data-model" class="level2">
-<h2 class="anchored" data-anchor-id="image-collection-data-model">Image Collection Data Model</h2>
+<h2 class="anchored" data-anchor-id="image-collection-data-model">Image collection data model</h2>
 <p>gdalcubes implements the above definition of image collections in the following data model.</p>
 <div id="fig-image_collection" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -327,115 +358,85 @@
 <p></p><figcaption aria-hidden="true" class="figure-caption">Figure 1: Data model for image collections.</figcaption><p></p>
 </figure>
 </div>
-<p>This model describes available images, available bands, and how specific GDAL datasets relate to images and bands of a collection. The data model simply points to actual data by GDAL dataset identifiers but does not store any image data. It is implemented as a relational SQLite (https://www.sqlite.org/index.html) database, i.e.&nbsp;can be stored as a single file, which typically consumes a few kilobytes per image. To allow for fast selection of images intersecting a given spatiotemporal area, the schema include indexes on the spatial extent and recording date/time.</p>
-<p>gdalcubes comes with functions to create image collections from a set of GDAL dataset identifiers. Unfortunately, it is not straightforward to extract all needed information (e.g.&nbsp;recording date/time) automatically from GDAL datasets. Earth observation data products are organized in extremely different ways, from single files per image to complex directory structures like the Sentinel 2 SAFE format. To let gdalcubes know, how to create image collections from a set of GDAL dataset identifiers, we must define so called <strong>image collection formats</strong> for particular data products. Formats for some Sentinel, Landsat, and MODIS products are contained in gdalcubes. The collection format definition is described in detail in the next chapter.</p>
+<p>This model describes available images, available bands, and how specific GDAL datasets relate to images and bands of a collection. The data model simply points to actual data by GDAL dataset identifiers but does not store any image data. It is implemented as a relational <a href="https://www.sqlite.org/index.html">SQLite</a> database, i.e.&nbsp;can be stored as a single file, which typically consumes a few kilobytes per image. To allow for fast selection of images intersecting a given spatiotemporal area, the schema include indexes on the spatial extent and recording date/time.</p>
+</section>
+<section id="creation" class="level2">
+<h2 class="anchored" data-anchor-id="creation">Creating image collections</h2>
+<p>Depending on the complexity of the data product and the location of the image files, there are three different ways to create collection formats.</p>
+<section id="from-local-files-using-collection-formats" class="level3">
+<h3 class="anchored" data-anchor-id="from-local-files-using-collection-formats">1. From local files using collection formats</h3>
+<p>gdalcubes comes with functions to create image collections from a set of GDAL dataset identifiers. Unfortunately, it is not straightforward to extract all needed information (e.g.&nbsp;recording date/time) automatically from GDAL datasets. Earth observation data products are organized in extremely different ways, from single files per image to complex directory structures like the Sentinel 2 SAFE format. To let gdalcubes know, how to create image collections from a set of GDAL dataset identifiers, we can define so called <strong>image collection formats</strong> for particular data products. Formats for some Sentinel, Landsat, and MODIS products are already shipped with gdalcubes. The collection format definition is described in detail in the <a href="collection_formats">next chapter</a>.</p>
+<p>In the following code example, an image collection is created from a list of files and the corresponding collection format <code>L8_L1TP</code>.</p>
+<div class="sourceCode" id="cb7" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                       <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">create_image_collection</span>(L8_files, <span class="at">format =</span> <span class="st">"L8_L1TP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="from-local-files-without-collection-formats" class="level3">
+<h3 class="anchored" data-anchor-id="from-local-files-without-collection-formats">2. From local files without collection formats</h3>
+<p>Image collections can be created without a dedicated image collection format if one of the following two conditions is true:</p>
+<ul>
+<li>Each provided image file / GDAL dataset identifier contains <strong>all</strong> bands of the collection, or</li>
+<li>Each provided image file contains a single band only</li>
+</ul>
+<p>Users can then create an image collection from a simple list of GDAL datasets / files, the date/time of all images, and the name of bands.</p>
+<p>In the following code example, an image collection is created from a list of files and their date/time and bands.</p>
+<div class="sourceCode" id="cb8" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                       <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="fu">substr</span>(<span class="fu">basename</span>(L8_files), <span class="dv">18</span>, <span class="dv">25</span>), <span class="st">"%Y%m%d"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>fname <span class="ot">=</span> <span class="fu">basename</span>(tools<span class="sc">::</span><span class="fu">file_path_sans_ext</span>(L8_files))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">substr</span>(fname, <span class="dv">27</span>, <span class="fu">nchar</span>(fname)) <span class="co"># extract band names</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">create_image_collection</span>(L8_files, <span class="at">date_time =</span> d, <span class="at">band_names =</span> b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="from-cloud-storage-using-stac-api" class="level3">
+<h3 class="anchored" data-anchor-id="from-cloud-storage-using-stac-api">3. From cloud storage using STAC-API</h3>
+<p>The <a href="https://stacspec.org/">SpatioTemporal Asset Catalog (STAC)</a> is becoming a widely accepted standard to describe spatiotemporal datasets, including image collections from available datasets on cloud storage. STAC-API presents a web service to search for available items / images by space, time, and additional properties (e.g.&nbsp;cloud cover) in collections. The response of STAC-API requests can be converted to gdalcubes image collections <em>without</em> opening any of the returned files using <code>stac_image_collection()</code>. The function supports filtering assets / bands by name, filtering images by additional metadata such as cloud cover, and customizing how URLs are converted to GDAL dataset identifiers using the <code>url_fun</code> argument.</p>
+<p>The code example below first requests images intersecting with an area and time of interest from the open Sentinel-2 Cloud-Optimized GeoTIFF collection on AWS using the (<code>rstac</code> package)[https://cran.r-project.org/package=rstac] <span class="citation" data-cites="rstac">(<a href="#ref-rstac" role="doc-biblioref">Simoes et al. 2021</a>)</span> and afterwards creates gdalcubes image collection objects from the response.</p>
+<div class="sourceCode" id="cb9" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstac)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">=</span> <span class="fu">stac</span>(<span class="st">"https://earth-search.aws.element84.com/v0"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>items <span class="ot">=</span> s <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stac_search</span>(<span class="at">collections =</span> <span class="st">"sentinel-s2-l2a-cogs"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">bbox =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">74.25</span>,<span class="fl">40.49</span>,<span class="sc">-</span><span class="fl">73.70</span>,<span class="fl">40.91</span>), </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">datetime =</span> <span class="st">"2021-06-01/2021-06-30"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">post_request</span>() <span class="sc">|&gt;</span> <span class="fu">items_fetch</span>()</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stac_image_collection</span>(items<span class="sc">$</span>features)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stac_image_collection</span>(items<span class="sc">$</span>features, <span class="at">asset_names =</span> <span class="fu">c</span>(<span class="st">"B02"</span>,<span class="st">"B03"</span>,<span class="st">"B04"</span>))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">stac_image_collection</span>(items<span class="sc">$</span>features, <span class="at">property_filter =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  x[[<span class="st">"eo:cloud_cover"</span>]] <span class="sc">&lt;</span> <span class="dv">10</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The STAC responses may look differently for different datasets and different cloud platforms. In some cases, <code>url_fun</code> must be adapted and additional <a href="https://gdal.org/user/configoptions.html">GDAL configuration options</a> for authentication must be set using <code>gdalcubes_set_gdal_config()</code>. In case a particular cloud dataset cannot be accessed, feel free to <a href="https://github.com/appelmar/gdalcubes_R/issues">file an issue on GitHub</a>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sharing-image-collections" class="level2">
+<h2 class="anchored" data-anchor-id="sharing-image-collections">Sharing image collections</h2>
+<p>Image collections can be stored in a single file. These files store paths or URLs pointing to original image files. If you want to copy the image collection files to a separate folder or separate machine, please make sure that the links are still valid at the new destination.</p>
 
 
 
 <!-- -->
 
+
 </section>
 </section>
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-rstac" class="csl-entry" role="doc-biblioentry">
+Simoes, Rolf, Felipe Souza, Matheus Zaglia, Gilberto Ribeiro Queiroz, Rafael Santos, and Karine Ferreira. 2021. <span>“Rstac: An r Package to Access Spatiotemporal Asset Catalog Satellite Imagery.”</span> In <em>2021 IEEE International Geoscience and Remote Sensing Symposium IGARSS</em>, 7674–77. <a href="https://doi.org/10.1109/IGARSS47720.2021.9553518">https://doi.org/10.1109/IGARSS47720.2021.9553518</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-    } else {
-      disableStylesheet(alternateStylesheets);
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } 
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -559,32 +560,149 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu"># Image collections</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a>In gdalcubes, an *image collection* is a set of $n$ images, with data for $m$ variables (or *bands*). Variables of the same image share a spatial footprint, recording date/time, and spatial reference system but may vary in spatial resolution. Different images may have different spatial footprints, recording date/times, and spatial reference systems.</span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">## GDAL Datasets</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a>Actual band data may come from any **GDAL dataset** (see https://gdal.org/user/raster_data_model.html), i.e., from anything that is readable by GDAL. This includes simple files, cloud storage, databases, and archive files through <span class="co">[</span><span class="ot">GDAL virtual file systems</span><span class="co">](https://www.gdal.org/gdal_virtual_file_systems.html)</span>. Examples for readable datasets include:</span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="ss">-   </span><span class="in">`test.tif`</span> (a simple local GeoTIFF file),</span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="ss">-   </span><span class="in">`/vsizip/archive.zip/xyz.tif`</span> (a GeoTIFF file in a .zip archive),</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="ss">-   </span><span class="in">`HDF4_EOS:EOS_GRID:"MOD13A2.A2013353.h00v08.006.2018226105756.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI`</span> (a subdataset in a HDF4 file from MODIS)</span>
-<span id="cb1-12"><a href="#cb1-12"></a><span class="ss">-   </span><span class="in">`SENTINEL2_L1C:S2A_OPER_MTD_SAFL1C_PDMC_20150818T101440_R022_V20150813T102406_20150813T102406.xml:10m:EPSG_32632`</span> (a higher level GDAL Sentinel 2 dataset), or</span>
-<span id="cb1-13"><a href="#cb1-13"></a><span class="ss">-   </span><span class="in">`/vsicurl/https://download.osgeo.org/geotiff/samples/spot/chicago/UTM2GTIF.TIF`</span> (file on an HTTP server).</span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="ss">-   </span><span class="in">`/vsis3/sentinel-s2-l1c/tiles/31/U/FT/2018/5/6/0/B08.jp2`</span> (Sentinel 2 on Amazon Web Services)</span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
-<span id="cb1-16"><a href="#cb1-16"></a><span class="fu">## Image Collection Data Model</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>gdalcubes implements the above definition of image collections in the following data model.</span>
-<span id="cb1-19"><a href="#cb1-19"></a></span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="al">![Data model for image collections.](image_collection_model.png)</span>{#fig-image_collection}</span>
-<span id="cb1-21"><a href="#cb1-21"></a></span>
-<span id="cb1-22"><a href="#cb1-22"></a>This model describes available images, available bands, and how specific GDAL datasets relate to images and bands of a collection. The data model simply points to actual data by GDAL dataset identifiers but does not store any image data. It is implemented as a relational SQLite (https://www.sqlite.org/index.html) database, i.e. can be stored as a single file, which typically consumes a few kilobytes per image. To allow for fast selection of images intersecting a given spatiotemporal area, the schema include indexes on the spatial extent and recording date/time.</span>
-<span id="cb1-23"><a href="#cb1-23"></a></span>
-<span id="cb1-24"><a href="#cb1-24"></a>gdalcubes comes with functions to create image collections from a set of GDAL dataset identifiers. Unfortunately, it is not straightforward to extract all needed information (e.g. recording date/time) automatically from GDAL datasets. Earth observation data products are organized in extremely different ways, from single files per image to complex directory structures like the Sentinel 2 SAFE format. To let gdalcubes know, how to create image collections from a set of GDAL dataset identifiers, we must define so called **image collection formats** for particular data products. Formats for some Sentinel, Landsat, and MODIS products are contained in gdalcubes. The collection format definition is described in detail in the next chapter.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu"># Image collections</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>In gdalcubes, an *image collection* is a set of $n$ images, with data for $m$ variables (or *bands*). Variables of the same image share a spatial footprint, recording date/time, and spatial reference system but may vary in spatial resolution. Different images may have different spatial footprints, recording date/times, and spatial reference systems.</span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="fu">## GDAL datasets {-}</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a></span>
+<span id="cb10-7"><a href="#cb10-7"></a>Actual band data may come from any <span class="co">[</span><span class="ot">GDAL dataset</span><span class="co">](https://gdal.org/user/raster_data_model.html)</span>, i.e., from anything that is readable by GDAL. This includes simple files, cloud storage, databases, and archive files through <span class="co">[</span><span class="ot">GDAL virtual file systems</span><span class="co">](https://www.gdal.org/gdal_virtual_file_systems.html)</span>. Examples for readable datasets include:</span>
+<span id="cb10-8"><a href="#cb10-8"></a></span>
+<span id="cb10-9"><a href="#cb10-9"></a></span>
+<span id="cb10-10"><a href="#cb10-10"></a><span class="fu">#### 1. A simple local GeoTIFF file</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="in">```{.bash code-line-numbers="false" .code-overflow-scroll}</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a><span class="ex">test.tif</span></span>
+<span id="cb10-14"><a href="#cb10-14"></a><span class="in">```</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a></span>
+<span id="cb10-16"><a href="#cb10-16"></a></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="fu">#### 2. A GeoTIFF file in a .zip archive</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a><span class="in">```{.bash code-line-numbers="false" .code-overflow-scroll}</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="ex">/vsizip/archive.zip/xyz.tif</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a><span class="in">```</span></span>
+<span id="cb10-21"><a href="#cb10-21"></a></span>
+<span id="cb10-22"><a href="#cb10-22"></a><span class="fu">#### 3. A subdataset in a HDF4 file from MODIS</span></span>
+<span id="cb10-23"><a href="#cb10-23"></a><span class="in">```{.bash code-line-numbers="false" .code-overflow-scroll}</span></span>
+<span id="cb10-24"><a href="#cb10-24"></a><span class="ex">HDF4_EOS:EOS_GRID:</span><span class="st">"MOD13A2.A2013353.h00v08.006.2018226105756.hdf"</span><span class="ex">:MODIS_Grid_16DA</span></span>
+<span id="cb10-25"><a href="#cb10-25"></a><span class="in">```</span></span>
+<span id="cb10-26"><a href="#cb10-26"></a></span>
+<span id="cb10-27"><a href="#cb10-27"></a><span class="fu">#### 4. A higher level GDAL Sentinel 2 dataset</span></span>
+<span id="cb10-28"><a href="#cb10-28"></a><span class="in">```{.bash code-line-numbers="false" .code-overflow-scroll}</span></span>
+<span id="cb10-29"><a href="#cb10-29"></a><span class="ex">SENTINEL2_L1C:S2A_OPER_MTD_SAFL1C_PDMC_20150818T101440_R022_V20150813T102406_20150813T102406.xml:10m:EPSG_32632</span></span>
+<span id="cb10-30"><a href="#cb10-30"></a><span class="in">```</span></span>
+<span id="cb10-31"><a href="#cb10-31"></a></span>
+<span id="cb10-32"><a href="#cb10-32"></a><span class="fu">#### 5. A file on a web server</span></span>
+<span id="cb10-33"><a href="#cb10-33"></a><span class="in">```{.bash code-line-numbers="false" .code-overflow-scroll}</span></span>
+<span id="cb10-34"><a href="#cb10-34"></a><span class="ex">/vsicurl/https://download.osgeo.org/geotiff/samples/spot/chicago/UTM2GTIF.TIF</span></span>
+<span id="cb10-35"><a href="#cb10-35"></a><span class="in">```</span></span>
+<span id="cb10-36"><a href="#cb10-36"></a></span>
+<span id="cb10-37"><a href="#cb10-37"></a><span class="fu">#### 6. An object from cloud storage (Sentinel 2 on Amazon Web Services)</span></span>
+<span id="cb10-38"><a href="#cb10-38"></a><span class="in">```{.bash code-line-numbers="false" .code-overflow-scroll}</span></span>
+<span id="cb10-39"><a href="#cb10-39"></a><span class="ex">/vsis3/sentinel-s2-l1c/tiles/31/U/FT/2018/5/6/0/B08.jp2</span></span>
+<span id="cb10-40"><a href="#cb10-40"></a><span class="in">```</span></span>
+<span id="cb10-41"><a href="#cb10-41"></a></span>
+<span id="cb10-42"><a href="#cb10-42"></a></span>
+<span id="cb10-43"><a href="#cb10-43"></a></span>
+<span id="cb10-44"><a href="#cb10-44"></a><span class="fu">## Image collection data model</span></span>
+<span id="cb10-45"><a href="#cb10-45"></a></span>
+<span id="cb10-46"><a href="#cb10-46"></a>gdalcubes implements the above definition of image collections in the following data model.</span>
+<span id="cb10-47"><a href="#cb10-47"></a></span>
+<span id="cb10-48"><a href="#cb10-48"></a><span class="al">![Data model for image collections.](image_collection_model.png)</span>{#fig-image_collection}</span>
+<span id="cb10-49"><a href="#cb10-49"></a></span>
+<span id="cb10-50"><a href="#cb10-50"></a>This model describes available images, available bands, and how specific GDAL datasets relate to images and bands of a collection. The data model simply points to actual data by GDAL dataset identifiers but does not store any image data. It is implemented as a relational <span class="co">[</span><span class="ot">SQLite</span><span class="co">](https://www.sqlite.org/index.html)</span> database, i.e. can be stored as a single file, which typically consumes a few kilobytes per image. To allow for fast selection of images intersecting a given spatiotemporal area, the schema include indexes on the spatial extent and recording date/time.</span>
+<span id="cb10-51"><a href="#cb10-51"></a></span>
+<span id="cb10-52"><a href="#cb10-52"></a></span>
+<span id="cb10-53"><a href="#cb10-53"></a></span>
+<span id="cb10-54"><a href="#cb10-54"></a><span class="fu">## Creating image collections {#creation}</span></span>
+<span id="cb10-55"><a href="#cb10-55"></a></span>
+<span id="cb10-56"><a href="#cb10-56"></a>Depending on the complexity of the data product and the location of the image files, there are three different ways to create collection formats. </span>
+<span id="cb10-57"><a href="#cb10-57"></a></span>
+<span id="cb10-58"><a href="#cb10-58"></a><span class="fu">### 1. From local files using collection formats</span></span>
+<span id="cb10-59"><a href="#cb10-59"></a></span>
+<span id="cb10-60"><a href="#cb10-60"></a>gdalcubes comes with functions to create image collections from a set of GDAL dataset identifiers. Unfortunately, it is not straightforward to extract all needed information (e.g. recording date/time) automatically from GDAL datasets. Earth observation data products are organized in extremely different ways, from single files per image to complex directory structures like the Sentinel 2 SAFE format. To let gdalcubes know, how to create image collections from a set of GDAL dataset identifiers, we can define so called **image collection formats** for particular data products. Formats for some Sentinel, Landsat, and MODIS products are already shipped with gdalcubes. The collection format definition is described in detail in the <span class="co">[</span><span class="ot">next chapter</span><span class="co">](collection_formats)</span>.</span>
+<span id="cb10-61"><a href="#cb10-61"></a></span>
+<span id="cb10-62"><a href="#cb10-62"></a>In the following code example, an image collection is created from a list of files and the corresponding collection format <span class="in">`L8_L1TP`</span>. </span>
+<span id="cb10-63"><a href="#cb10-63"></a></span>
+<span id="cb10-64"><a href="#cb10-64"></a><span class="in">```{.r code-line-numbers="false"}</span></span>
+<span id="cb10-65"><a href="#cb10-65"></a>L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb10-66"><a href="#cb10-66"></a>                       <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-67"><a href="#cb10-67"></a>x <span class="ot">=</span> <span class="fu">create_image_collection</span>(L8_files, <span class="at">format =</span> <span class="st">"L8_L1TP"</span>)</span>
+<span id="cb10-68"><a href="#cb10-68"></a><span class="in">```</span></span>
+<span id="cb10-69"><a href="#cb10-69"></a></span>
+<span id="cb10-70"><a href="#cb10-70"></a></span>
+<span id="cb10-71"><a href="#cb10-71"></a></span>
+<span id="cb10-72"><a href="#cb10-72"></a><span class="fu">### 2. From local files without collection formats</span></span>
+<span id="cb10-73"><a href="#cb10-73"></a></span>
+<span id="cb10-74"><a href="#cb10-74"></a>Image collections can be created without a dedicated image collection format if one of the following two conditions is true:</span>
+<span id="cb10-75"><a href="#cb10-75"></a></span>
+<span id="cb10-76"><a href="#cb10-76"></a><span class="ss">- </span>Each provided image file / GDAL dataset identifier contains **all** bands of the collection, or </span>
+<span id="cb10-77"><a href="#cb10-77"></a><span class="ss">- </span>Each provided image file contains a single band only </span>
+<span id="cb10-78"><a href="#cb10-78"></a></span>
+<span id="cb10-79"><a href="#cb10-79"></a>Users can then create an image collection from a simple list of GDAL datasets / files, the date/time of all images, and the name of bands. </span>
+<span id="cb10-80"><a href="#cb10-80"></a></span>
+<span id="cb10-81"><a href="#cb10-81"></a></span>
+<span id="cb10-82"><a href="#cb10-82"></a>In the following code example, an image collection is created from a list of files and their date/time and bands. </span>
+<span id="cb10-83"><a href="#cb10-83"></a></span>
+<span id="cb10-84"><a href="#cb10-84"></a><span class="in">```{.r code-line-numbers="false"}</span></span>
+<span id="cb10-85"><a href="#cb10-85"></a>L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb10-86"><a href="#cb10-86"></a>                       <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-87"><a href="#cb10-87"></a>d <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="fu">substr</span>(<span class="fu">basename</span>(L8_files), <span class="dv">18</span>, <span class="dv">25</span>), <span class="st">"%Y%m%d"</span>)</span>
+<span id="cb10-88"><a href="#cb10-88"></a>fname <span class="ot">=</span> <span class="fu">basename</span>(tools<span class="sc">::</span><span class="fu">file_path_sans_ext</span>(L8_files))</span>
+<span id="cb10-89"><a href="#cb10-89"></a>b <span class="ot">=</span> <span class="fu">substr</span>(fname, <span class="dv">27</span>, <span class="fu">nchar</span>(fname)) <span class="co"># extract band names</span></span>
+<span id="cb10-90"><a href="#cb10-90"></a>y <span class="ot">=</span> <span class="fu">create_image_collection</span>(L8_files, <span class="at">date_time =</span> d, <span class="at">band_names =</span> b)</span>
+<span id="cb10-91"><a href="#cb10-91"></a><span class="in">```</span></span>
+<span id="cb10-92"><a href="#cb10-92"></a></span>
+<span id="cb10-93"><a href="#cb10-93"></a></span>
+<span id="cb10-94"><a href="#cb10-94"></a><span class="fu">### 3. From cloud storage using STAC-API</span></span>
+<span id="cb10-95"><a href="#cb10-95"></a></span>
+<span id="cb10-96"><a href="#cb10-96"></a>The <span class="co">[</span><span class="ot">SpatioTemporal Asset Catalog (STAC)</span><span class="co">](https://stacspec.org/)</span> is becoming a widely accepted standard to describe spatiotemporal datasets, including image collections from available datasets on cloud storage. STAC-API presents a web service to search for available items / images by space, time, and additional properties (e.g. cloud cover) in collections. The response of STAC-API requests can be converted to gdalcubes image collections _without_ opening any of the returned files using <span class="in">`stac_image_collection()`</span>. The function supports filtering assets / bands by name, filtering images by additional metadata such as cloud cover, and customizing how URLs are converted to GDAL dataset identifiers using the <span class="in">`url_fun`</span> argument. </span>
+<span id="cb10-97"><a href="#cb10-97"></a></span>
+<span id="cb10-98"><a href="#cb10-98"></a>The code example below first requests images intersecting with an area and time of interest from the open Sentinel-2 Cloud-Optimized GeoTIFF collection on AWS using the (<span class="in">`rstac`</span> package)<span class="co">[</span><span class="ot">https://cran.r-project.org/package=rstac</span><span class="co">] [@rstac]</span>  and afterwards creates gdalcubes image collection objects from the response. </span>
+<span id="cb10-99"><a href="#cb10-99"></a></span>
+<span id="cb10-100"><a href="#cb10-100"></a><span class="in">```{.r code-line-numbers="false"}</span></span>
+<span id="cb10-101"><a href="#cb10-101"></a><span class="fu">library</span>(rstac)</span>
+<span id="cb10-102"><a href="#cb10-102"></a>s <span class="ot">=</span> <span class="fu">stac</span>(<span class="st">"https://earth-search.aws.element84.com/v0"</span>)</span>
+<span id="cb10-103"><a href="#cb10-103"></a>items <span class="ot">=</span> s <span class="sc">|&gt;</span></span>
+<span id="cb10-104"><a href="#cb10-104"></a>  <span class="fu">stac_search</span>(<span class="at">collections =</span> <span class="st">"sentinel-s2-l2a-cogs"</span>,</span>
+<span id="cb10-105"><a href="#cb10-105"></a>              <span class="at">bbox =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">74.25</span>,<span class="fl">40.49</span>,<span class="sc">-</span><span class="fl">73.70</span>,<span class="fl">40.91</span>), </span>
+<span id="cb10-106"><a href="#cb10-106"></a>              <span class="at">datetime =</span> <span class="st">"2021-06-01/2021-06-30"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb10-107"><a href="#cb10-107"></a>  <span class="fu">post_request</span>() <span class="sc">|&gt;</span> <span class="fu">items_fetch</span>()</span>
+<span id="cb10-108"><a href="#cb10-108"></a>  </span>
+<span id="cb10-109"><a href="#cb10-109"></a><span class="fu">stac_image_collection</span>(items<span class="sc">$</span>features)</span>
+<span id="cb10-110"><a href="#cb10-110"></a><span class="fu">stac_image_collection</span>(items<span class="sc">$</span>features, <span class="at">asset_names =</span> <span class="fu">c</span>(<span class="st">"B02"</span>,<span class="st">"B03"</span>,<span class="st">"B04"</span>))</span>
+<span id="cb10-111"><a href="#cb10-111"></a><span class="fu">stac_image_collection</span>(items<span class="sc">$</span>features, <span class="at">property_filter =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb10-112"><a href="#cb10-112"></a>  x[[<span class="st">"eo:cloud_cover"</span>]] <span class="sc">&lt;</span> <span class="dv">10</span></span>
+<span id="cb10-113"><a href="#cb10-113"></a>})</span>
+<span id="cb10-114"><a href="#cb10-114"></a><span class="in">```</span></span>
+<span id="cb10-115"><a href="#cb10-115"></a></span>
+<span id="cb10-116"><a href="#cb10-116"></a></span>
+<span id="cb10-117"><a href="#cb10-117"></a>:::{.callout-note}</span>
+<span id="cb10-118"><a href="#cb10-118"></a>The STAC responses may look differently for different datasets and different cloud platforms. In some cases, <span class="in">`url_fun`</span> must be adapted and additional <span class="co">[</span><span class="ot">GDAL configuration options</span><span class="co">](https://gdal.org/user/configoptions.html)</span> for authentication must be set using <span class="in">`gdalcubes_set_gdal_config()`</span>. In case a particular cloud dataset cannot be accessed, feel free to <span class="co">[</span><span class="ot">file an issue on GitHub</span><span class="co">](https://github.com/appelmar/gdalcubes_R/issues)</span>.</span>
+<span id="cb10-119"><a href="#cb10-119"></a>:::</span>
+<span id="cb10-120"><a href="#cb10-120"></a></span>
+<span id="cb10-121"><a href="#cb10-121"></a></span>
+<span id="cb10-122"><a href="#cb10-122"></a></span>
+<span id="cb10-123"><a href="#cb10-123"></a><span class="fu">## Sharing image collections</span></span>
+<span id="cb10-124"><a href="#cb10-124"></a></span>
+<span id="cb10-125"><a href="#cb10-125"></a>Image collections can be stored in a single file. These files store paths or URLs pointing to original image files. If you want to copy the image collection files to a separate folder or separate machine, please make sure that the links are still valid at the new destination. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

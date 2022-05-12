@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.238">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>gdalcubes – udfs</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../">
+  <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../site_libs/quarto-search/quarto-search.js"></script>
+  <link href="../../favicon.png" rel="icon" type="image/png">
+  <script src="../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "navbar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "end",
+    "type": "overlay",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body class="floating nav-fixed">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../index.html">
+    <img src="../../source/gdalcubes_logo_mini.png" alt="">
+    <span class="navbar-title">gdalcubes</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/getstarted.html">Get started</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../../source/introduction/why.html" aria-current="page">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/tutorials/index.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/reference/index.html">Reference</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false">Help</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-help">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Source code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues"><i class="bi bi-bug" role="img">
+</i> 
+ <span class="dropdown-text">Report an issue</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../source/introduction/faq.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/about.html">About</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Overview</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/introduction/why.html" class="sidebar-item-text sidebar-link">Why gdalcubes?</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/introduction/components.html" class="sidebar-item-text sidebar-link">Components</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/introduction/installation.html" class="sidebar-item-text sidebar-link">Installation</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/introduction/faq.html" class="sidebar-item-text sidebar-link">FAQ</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/introduction/license.html" class="sidebar-item-text sidebar-link">License</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/introduction/credits.html" class="sidebar-item-text sidebar-link">Credits</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic concepts</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/concepts/image_collections.html" class="sidebar-item-text sidebar-link">Image collections</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image collection formats</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data cubes</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data cube operations</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/concepts/execution.html" class="sidebar-item-text sidebar-link">Execution and parallelization</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../source/concepts/udfs.html" class="sidebar-item-text sidebar-link active">User-defined functions (UDFs)</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#user-defined-functions-udfs" id="toc-user-defined-functions-udfs" class="nav-link active" data-scroll-target="#user-defined-functions-udfs">User-defined functions (UDFs)</a>
+<ul class="collapse">
+<li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+<li><a href="#notes-on-implementing-more-complex-udfs" id="toc-notes-on-implementing-more-complex-udfs" class="nav-link" data-scroll-target="#notes-on-implementing-more-complex-udfs">Notes on implementing more complex UDFs</a></li>
+<li><a href="#debugging" id="toc-debugging" class="nav-link" data-scroll-target="#debugging">Debugging</a></li>
+<li><a href="#technical-details" id="toc-technical-details" class="nav-link" data-scroll-target="#technical-details">Technical details</a>
+<ul class="collapse">
+<li><a href="#execution-of-udfs" id="toc-execution-of-udfs" class="nav-link" data-scroll-target="#execution-of-udfs">Execution of UDFs</a></li>
+<li><a href="#streaming-format" id="toc-streaming-format" class="nav-link" data-scroll-target="#streaming-format">Binary serialization format</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<section id="user-defined-functions-udfs" class="level1">
+<h1>User-defined functions (UDFs)</h1>
+<p>Data cube operations such as <a href="../../source/reference/ref/apply_pixel.cube.html"><code>apply_pixel</code></a>, or <a href="../../source/reference/ref/reduce_time.cube.html"><code>reduce_time</code></a> expect functions or expressions as arguments. For example, to compute summary statistics over time, <a href="../../source/reference/ref/reduce_time.cube.html"><code>reduce_time</code></a> supports computing minimum, maximum, mean, median, and a few other built-in statistics. These built-in functions are purely written in C++ and hence relatively efficient. However, in many cases, we would like to apply more complex functions from external R packages on data cubes.</p>
+<p><a href="#tbl-udf">Table&nbsp;1</a> lists data cube operations that additionally support calling user-defined R functions (e.g., on time series). For example, <a href="../../source/reference/ref/reduce_time.cube.html"><code>reduce_time</code></a> can not only be used for simple statistics but also for applying complex time series analysis like classification or change detection.</p>
+<div id="tbl-udf" class="anchored">
+<table class="table">
+<caption>Table 1: Data cube operations supporting UDFs and shape of the input and output of the UDF. <span class="math inline">\(n_b\)</span>,<span class="math inline">\(n_t\)</span>,<span class="math inline">\(n_y\)</span>,<span class="math inline">\(n_x\)</span> refer to the dimension sizes of the whole cube, <span class="math inline">\(m_b\)</span> means that the number of bands the function returns is flexible and independent from the number of input bands.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Operation</th>
+<th style="text-align: left;">UDF input<br><span class="math inline">\((n_b, n_t, n_y, n_x)\)</span></th>
+<th style="text-align: left;">UDF output<br><span class="math inline">\((n_b, n_t, n_y, n_x)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="../../source/reference/ref/apply_pixel.cube.html"><code>apply_pixel</code></a></td>
+<td style="text-align: left;"><span class="math inline">\((n_b, 1, 1, 1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((m_b, 1, 1, 1)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../../source/reference/ref/apply_time.cube.html"><code>apply_time</code></a></td>
+<td style="text-align: left;"><span class="math inline">\((n_b, n_t, 1, 1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((m_b, n_t, 1, 1)\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="../../source/reference/ref/reduce_space.cube.html"><code>reduce_space</code></a></td>
+<td style="text-align: left;"><span class="math inline">\((n_b, 1, n_y, n_x)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((m_b, 1, 1, 1)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="../../source/reference/ref/reduce_time.cube.html"><code>reduce_time</code></a></td>
+<td style="text-align: left;"><span class="math inline">\((n_b, n_t, 1, 1)\)</span></td>
+<td style="text-align: left;"><span class="math inline">\((m_b, 1, 1, 1)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">reduce_time</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">apply_pixel</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">apply_time</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">reduce_space</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-1-1-tab">
+<p>Fit a linear model to all time series and returns the coefficients:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># z is a data cube with band NDVI</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">reduce_time</span>(z, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"intercept"</span>,<span class="st">"slope"</span>), </span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">t=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), <span class="at">ndvi=</span>x[<span class="st">"NDVI"</span>,])</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    result <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="cf">if</span> (<span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(df<span class="sc">$</span>ndvi)) <span class="sc">&gt;</span> <span class="dv">3</span>) {</span>
+<span id="cb1-7"><a href="#cb1-7"></a>      result <span class="ot">=</span> <span class="fu">coef</span>(<span class="fu">lm</span>(ndvi <span class="sc">~</span> t, df, </span>
+<span id="cb1-8"><a href="#cb1-8"></a>                    <span class="at">na.action =</span> na.exclude))</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    }</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="fu">return</span>(result) </span>
+<span id="cb1-11"><a href="#cb1-11"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-1-2-tab">
+<p>Derive wind speed from north/south and east/west wind components:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># z is a data cube with bands u/v wind components</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">apply_pixel</span>(z, <span class="at">names=</span><span class="st">"wind_speed"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="at">FUN=</span><span class="cf">function</span>(x) {</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    <span class="fu">sqrt</span>(x[<span class="st">"u"</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x[<span class="st">"v"</span>]<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labeledby="tabset-1-3-tab">
+<p>Calculate cumulative sums of NDVI times series after removing the (per time series) mean NDVI:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># z is a data cube with band NDVI</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">apply_time</span>(z, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"cusum"</span>), </span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb3-4"><a href="#cb3-4"></a>    res <span class="ot">=</span> x[<span class="st">"NDVI"</span>,] <span class="sc">-</span> <span class="fu">mean</span>(x[<span class="st">"NDVI"</span>,], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    res[<span class="fu">is.na</span>(res)] <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="fu">return</span>(<span class="fu">cumsum</span>(res)) </span>
+<span id="cb3-7"><a href="#cb3-7"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labeledby="tabset-1-4-tab">
+<p>Calculate min, max, quartiles, and median for all image slices:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># z is a data cube with a single band</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">reduce_space</span>(z, <span class="at">names =</span> <span class="fu">paste0</span>(<span class="st">"q"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb4-3"><a href="#cb4-3"></a>  <span class="fu">quantile</span>(x, <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notes-on-implementing-more-complex-udfs" class="level2">
+<h2 class="anchored" data-anchor-id="notes-on-implementing-more-complex-udfs">Notes on implementing more complex UDFs</h2>
+<p>Writing UDFs can sometimes become complicated and more difficult to debug (see <a href="#debugging">Debugging</a>). However, you can reduce frustration if you consider the following rules:</p>
+<ol type="1">
+<li><p>The function must <strong>always</strong> return an array of the corresponding dimensions (see <a href="#tbl-udf">Table&nbsp;1</a>). Dimensions with size 1 <em>can</em> be dropped in the result array.</p></li>
+<li><p>The number of bands that a UDF returns can be independent from the number of input bands but must be identical for all function calls. For example, if a UDF outputs model parameters for time series model, it should <strong>always</strong> return the same number of parameters.</p></li>
+<li><p>Make sure that the function does not crash due to NAs. It is quite common that there are for example time series without any valid observations at the corners of a data cube. Ideally, use <code>tryCatch</code> to handle errors and return an NA array of appropriate shape by default. If errors are not handled, computations will stop even if only a single call fails.</p></li>
+<li><p>Do not try to use variables, packages, or any other objects from the environment outside the function. Since the UDF runs in a new R process, make sure to load needed packages, data, etc. within the function.</p></li>
+</ol>
+</section>
+<section id="debugging" class="level2">
+<h2 class="anchored" data-anchor-id="debugging">Debugging</h2>
+<p>Because UDFs run in separate processes, debugging can be challenging. When developing UDFs, it is recommended to start with a minimal example, e.g.&nbsp;by working on lower resolution and/or spatiotemporal extent. Error messages are generally forwarded to the main R process. To get more detailed error messages, try setting <code>gdalcubes_options(debug = TRUE)</code>.</p>
+</section>
+<section id="technical-details" class="level2">
+<h2 class="anchored" data-anchor-id="technical-details">Technical details</h2>
+<section id="execution-of-udfs" class="level3">
+<h3 class="anchored" data-anchor-id="execution-of-udfs">Execution of UDFs</h3>
+<p>The following steps are performed when executing a UDF on a data cube.</p>
+<ol type="1">
+<li><p>If needed, chunks of data cubes are rearranged. For example, to apply a function on time series, this step makes sure that a single chunk contains complete time series of a small spatial block of pixels.</p></li>
+<li><p>A chunk of the data cube is written to a temporary file on disk using a custom binary format (see <a href="#streaming-format">binary serialization format</a>).</p></li>
+<li><p>A new R process is started, reads the chunk from disk memory, applies the UDF, and finally writes the result to another temporary binary file.</p></li>
+<li><p>gdalcubes now loads the result file into memory and continues.</p></li>
+</ol>
+<p>Notice that it is possible to change the directory where intermediate files are written, e.g.&nbsp;to use a shared memory device with <code>gdalcubes_options(streaming_dir = "/dev/shm")</code>.</p>
+</section>
+<section id="streaming-format" class="level3">
+<h3 class="anchored" data-anchor-id="streaming-format">Binary serialization format</h3>
+<p>To stream data to and from the external process, a custom binary serialization format is used.<br>
+The format includes data cube values of one chunk and includes dimension values, band names, and the spatial reference system.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The binary serialization format will be replaced with CF compliant netCDF-4 / ZARR files in future versions.</p>
+</div>
+</div>
+<p>The format contains</p>
+<ol type="1">
+<li><p>the size of the chunk as 4 * 4 bytes in total (nbands:int32, nt:int32, ny:int32, nx:int32),</p></li>
+<li><p>band names, where each band starts with the number of characters as int32 followed by actual characters,</p></li>
+<li><p>dimension values in the order time, y, x as doubles, summing to (nt + ny + nx) * 8 bytes in total,</p></li>
+<li><p>the spatial reference system as a string (number of characters as int32, followed by actual characters), and</p></li>
+<li><p>actual values of the chunk as doubles (summing to nbands * nt * ny * nx * 8 bytes).</p></li>
+</ol>
+
+
+
+<!-- -->
+
+</section>
+</section>
+</section>
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu"># User-defined functions (UDFs)</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>Data cube operations such as <span class="co">[</span><span class="ot">`apply_pixel`</span><span class="co">](../reference/ref/apply_pixel.cube.Rmd)</span>, or <span class="co">[</span><span class="ot">`reduce_time`</span><span class="co">](../reference/ref/reduce_time.cube.Rmd)</span> expect functions or expressions as arguments. For example, to compute summary statistics over time, <span class="co">[</span><span class="ot">`reduce_time`</span><span class="co">](../reference/ref/reduce_time.cube.Rmd)</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>supports computing minimum, maximum, mean, median, and a few other built-in statistics. These built-in functions are purely written in C++ and hence relatively efficient. However, in many cases, we would like to apply more complex functions from external R packages on data cubes.</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>@tbl-udf lists data cube operations that additionally support calling user-defined R functions (e.g., on time series). For example, <span class="co">[</span><span class="ot">`reduce_time`</span><span class="co">](../reference/ref/reduce_time.cube.Rmd)</span> can not only be used for simple statistics but also for applying complex time series analysis like classification or change detection.</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a>| Operation                                         | UDF input<span class="kw">&lt;br&gt;</span>$(n_b, n_t, n_y, n_x)$         | UDF output<span class="kw">&lt;br&gt;</span>$(n_b, n_t, n_y, n_x)$     |</span>
+<span id="cb5-10"><a href="#cb5-10"></a>|:--------------------------------------------------|:-----------------------------------------|:---------------------------------------|</span>
+<span id="cb5-11"><a href="#cb5-11"></a>|<span class="co">[</span><span class="ot">`apply_pixel`</span><span class="co">](../reference/ref/apply_pixel.cube.Rmd)</span>   | $(n_b, 1, 1, 1)$                         | $(m_b, 1, 1, 1)$                       |</span>
+<span id="cb5-12"><a href="#cb5-12"></a>|<span class="co">[</span><span class="ot">`apply_time`</span><span class="co">](../reference/ref/apply_time.cube.Rmd)</span>     | $(n_b, n_t, 1, 1)$                       | $(m_b, n_t, 1, 1)$                     |</span>
+<span id="cb5-13"><a href="#cb5-13"></a>|<span class="co">[</span><span class="ot">`reduce_space`</span><span class="co">](../reference/ref/reduce_space.cube.Rmd)</span> | $(n_b, 1, n_y, n_x)$                     | $(m_b, 1, 1, 1)$                       |</span>
+<span id="cb5-14"><a href="#cb5-14"></a>|<span class="co">[</span><span class="ot">`reduce_time`</span><span class="co">](../reference/ref/reduce_time.cube.Rmd)</span>   | $(n_b, n_t, 1, 1)$                       | $(m_b, 1, 1, 1)$                       |</span>
+<span id="cb5-15"><a href="#cb5-15"></a></span>
+<span id="cb5-16"><a href="#cb5-16"></a>:Data cube operations supporting UDFs and shape of the input and output of the UDF. $n_b$,$n_t$,$n_y$,$n_x$ refer to the dimension sizes of the whole cube, $m_b$ means that the number of bands the function returns is flexible and independent from the number of input bands. {#tbl-udf}</span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a></span>
+<span id="cb5-19"><a href="#cb5-19"></a></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="fu">## Examples </span></span>
+<span id="cb5-21"><a href="#cb5-21"></a></span>
+<span id="cb5-22"><a href="#cb5-22"></a>::: {.panel-tabset}</span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="fu">## reduce_time</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a></span>
+<span id="cb5-25"><a href="#cb5-25"></a>Fit a linear model to all time series and returns the coefficients:</span>
+<span id="cb5-26"><a href="#cb5-26"></a></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="in">``` {.r}</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a><span class="co"># z is a data cube with band NDVI</span></span>
+<span id="cb5-29"><a href="#cb5-29"></a><span class="fu">reduce_time</span>(z, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"intercept"</span>,<span class="st">"slope"</span>), </span>
+<span id="cb5-30"><a href="#cb5-30"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb5-31"><a href="#cb5-31"></a>    df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">t=</span><span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x), <span class="at">ndvi=</span>x[<span class="st">"NDVI"</span>,])</span>
+<span id="cb5-32"><a href="#cb5-32"></a>    result <span class="ot">=</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>)</span>
+<span id="cb5-33"><a href="#cb5-33"></a>    <span class="cf">if</span> (<span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(df<span class="sc">$</span>ndvi)) <span class="sc">&gt;</span> <span class="dv">3</span>) {</span>
+<span id="cb5-34"><a href="#cb5-34"></a>      result <span class="ot">=</span> <span class="fu">coef</span>(<span class="fu">lm</span>(ndvi <span class="sc">~</span> t, df, </span>
+<span id="cb5-35"><a href="#cb5-35"></a>                    <span class="at">na.action =</span> na.exclude))</span>
+<span id="cb5-36"><a href="#cb5-36"></a>    }</span>
+<span id="cb5-37"><a href="#cb5-37"></a>    <span class="fu">return</span>(result) </span>
+<span id="cb5-38"><a href="#cb5-38"></a>})</span>
+<span id="cb5-39"><a href="#cb5-39"></a><span class="in">```</span></span>
+<span id="cb5-40"><a href="#cb5-40"></a></span>
+<span id="cb5-41"><a href="#cb5-41"></a></span>
+<span id="cb5-42"><a href="#cb5-42"></a></span>
+<span id="cb5-43"><a href="#cb5-43"></a><span class="fu">## apply_pixel</span></span>
+<span id="cb5-44"><a href="#cb5-44"></a></span>
+<span id="cb5-45"><a href="#cb5-45"></a>Derive wind speed from north/south and east/west wind components:</span>
+<span id="cb5-46"><a href="#cb5-46"></a></span>
+<span id="cb5-47"><a href="#cb5-47"></a><span class="in">``` {.r}</span></span>
+<span id="cb5-48"><a href="#cb5-48"></a><span class="co"># z is a data cube with bands u/v wind components</span></span>
+<span id="cb5-49"><a href="#cb5-49"></a><span class="fu">apply_pixel</span>(z, <span class="at">names=</span><span class="st">"wind_speed"</span>, </span>
+<span id="cb5-50"><a href="#cb5-50"></a>  <span class="at">FUN=</span><span class="cf">function</span>(x) {</span>
+<span id="cb5-51"><a href="#cb5-51"></a>    <span class="fu">sqrt</span>(x[<span class="st">"u"</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> x[<span class="st">"v"</span>]<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb5-52"><a href="#cb5-52"></a>  })</span>
+<span id="cb5-53"><a href="#cb5-53"></a><span class="in">```</span></span>
+<span id="cb5-54"><a href="#cb5-54"></a></span>
+<span id="cb5-55"><a href="#cb5-55"></a></span>
+<span id="cb5-56"><a href="#cb5-56"></a></span>
+<span id="cb5-57"><a href="#cb5-57"></a></span>
+<span id="cb5-58"><a href="#cb5-58"></a><span class="fu">## apply_time</span></span>
+<span id="cb5-59"><a href="#cb5-59"></a></span>
+<span id="cb5-60"><a href="#cb5-60"></a>Calculate cumulative sums of NDVI times series after removing the (per time series) mean NDVI:  </span>
+<span id="cb5-61"><a href="#cb5-61"></a></span>
+<span id="cb5-62"><a href="#cb5-62"></a><span class="in">``` {.r}</span></span>
+<span id="cb5-63"><a href="#cb5-63"></a><span class="co"># z is a data cube with band NDVI</span></span>
+<span id="cb5-64"><a href="#cb5-64"></a><span class="fu">apply_time</span>(z, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"cusum"</span>), </span>
+<span id="cb5-65"><a href="#cb5-65"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb5-66"><a href="#cb5-66"></a>    res <span class="ot">=</span> x[<span class="st">"NDVI"</span>,] <span class="sc">-</span> <span class="fu">mean</span>(x[<span class="st">"NDVI"</span>,], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-67"><a href="#cb5-67"></a>    res[<span class="fu">is.na</span>(res)] <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb5-68"><a href="#cb5-68"></a>    <span class="fu">return</span>(<span class="fu">cumsum</span>(res)) </span>
+<span id="cb5-69"><a href="#cb5-69"></a>})</span>
+<span id="cb5-70"><a href="#cb5-70"></a><span class="in">```</span></span>
+<span id="cb5-71"><a href="#cb5-71"></a></span>
+<span id="cb5-72"><a href="#cb5-72"></a></span>
+<span id="cb5-73"><a href="#cb5-73"></a></span>
+<span id="cb5-74"><a href="#cb5-74"></a></span>
+<span id="cb5-75"><a href="#cb5-75"></a><span class="fu">## reduce_space</span></span>
+<span id="cb5-76"><a href="#cb5-76"></a></span>
+<span id="cb5-77"><a href="#cb5-77"></a>Calculate min, max, quartiles, and median for all image slices:  </span>
+<span id="cb5-78"><a href="#cb5-78"></a></span>
+<span id="cb5-79"><a href="#cb5-79"></a><span class="in">``` {.r}</span></span>
+<span id="cb5-80"><a href="#cb5-80"></a><span class="co"># z is a data cube with a single band</span></span>
+<span id="cb5-81"><a href="#cb5-81"></a><span class="fu">reduce_space</span>(z, <span class="at">names =</span> <span class="fu">paste0</span>(<span class="st">"q"</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">FUN =</span> <span class="cf">function</span>(x) {</span>
+<span id="cb5-82"><a href="#cb5-82"></a>  <span class="fu">quantile</span>(x, <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-83"><a href="#cb5-83"></a>})</span>
+<span id="cb5-84"><a href="#cb5-84"></a><span class="in">```</span></span>
+<span id="cb5-85"><a href="#cb5-85"></a></span>
+<span id="cb5-86"><a href="#cb5-86"></a></span>
+<span id="cb5-87"><a href="#cb5-87"></a>:::</span>
+<span id="cb5-88"><a href="#cb5-88"></a></span>
+<span id="cb5-89"><a href="#cb5-89"></a></span>
+<span id="cb5-90"><a href="#cb5-90"></a></span>
+<span id="cb5-91"><a href="#cb5-91"></a><span class="fu">## Notes on implementing more complex UDFs </span></span>
+<span id="cb5-92"><a href="#cb5-92"></a></span>
+<span id="cb5-93"><a href="#cb5-93"></a>Writing UDFs can sometimes become complicated and more difficult to debug (see <span class="co">[</span><span class="ot">Debugging</span><span class="co">](#debugging)</span>). However, you can reduce frustration if you consider the following rules:</span>
+<span id="cb5-94"><a href="#cb5-94"></a></span>
+<span id="cb5-95"><a href="#cb5-95"></a></span>
+<span id="cb5-96"><a href="#cb5-96"></a><span class="ss">1. </span>The function must **always** return an array of the corresponding dimensions (see @tbl-udf). Dimensions with size 1 _can_ be dropped in the result array.  </span>
+<span id="cb5-97"><a href="#cb5-97"></a></span>
+<span id="cb5-98"><a href="#cb5-98"></a></span>
+<span id="cb5-99"><a href="#cb5-99"></a><span class="ss">2. </span>The number of bands that a UDF returns can be independent from the number of input bands but must be identical for all function calls. For example, if a UDF outputs model parameters for time series model, it should **always** return the same number of parameters. </span>
+<span id="cb5-100"><a href="#cb5-100"></a></span>
+<span id="cb5-101"><a href="#cb5-101"></a><span class="ss">3. </span>Make sure that the function does not crash due to NAs. It is quite common that there are for example time series without any valid observations at the corners of a data cube. Ideally, use <span class="in">`tryCatch`</span> to handle errors and return an NA array of appropriate shape by default. If errors are not handled, computations will stop even if only a single call fails.</span>
+<span id="cb5-102"><a href="#cb5-102"></a></span>
+<span id="cb5-103"><a href="#cb5-103"></a><span class="ss">4. </span>Do not try to use variables, packages, or any other objects from the environment outside the function. Since the UDF runs in a new R process, make sure to load needed packages, data, etc. within the function. </span>
+<span id="cb5-104"><a href="#cb5-104"></a></span>
+<span id="cb5-105"><a href="#cb5-105"></a></span>
+<span id="cb5-106"><a href="#cb5-106"></a></span>
+<span id="cb5-107"><a href="#cb5-107"></a></span>
+<span id="cb5-108"><a href="#cb5-108"></a><span class="fu">## Debugging {#debugging}</span></span>
+<span id="cb5-109"><a href="#cb5-109"></a></span>
+<span id="cb5-110"><a href="#cb5-110"></a>Because UDFs run in separate processes, debugging can be challenging. When developing UDFs, it is recommended to start with a minimal example, e.g. by working on lower resolution and/or spatiotemporal extent. Error messages are generally forwarded to the main R process. To get more detailed error messages, try setting <span class="in">`gdalcubes_options(debug = TRUE)`</span>.</span>
+<span id="cb5-111"><a href="#cb5-111"></a></span>
+<span id="cb5-112"><a href="#cb5-112"></a></span>
+<span id="cb5-113"><a href="#cb5-113"></a></span>
+<span id="cb5-114"><a href="#cb5-114"></a></span>
+<span id="cb5-115"><a href="#cb5-115"></a></span>
+<span id="cb5-116"><a href="#cb5-116"></a></span>
+<span id="cb5-117"><a href="#cb5-117"></a></span>
+<span id="cb5-118"><a href="#cb5-118"></a><span class="fu">## Technical details</span></span>
+<span id="cb5-119"><a href="#cb5-119"></a></span>
+<span id="cb5-120"><a href="#cb5-120"></a></span>
+<span id="cb5-121"><a href="#cb5-121"></a><span class="fu">### Execution of UDFs </span></span>
+<span id="cb5-122"><a href="#cb5-122"></a></span>
+<span id="cb5-123"><a href="#cb5-123"></a>The following steps are performed when executing a UDF on a data cube. </span>
+<span id="cb5-124"><a href="#cb5-124"></a></span>
+<span id="cb5-125"><a href="#cb5-125"></a><span class="ss">1. </span>If needed, chunks of data cubes are rearranged. For example, to apply a function on time series, this step makes sure that a single chunk contains complete time series of a small spatial block of pixels. </span>
+<span id="cb5-126"><a href="#cb5-126"></a></span>
+<span id="cb5-127"><a href="#cb5-127"></a><span class="ss">2. </span>A chunk of the data cube is written to a temporary file on disk using a custom binary format (see <span class="co">[</span><span class="ot">binary serialization format</span><span class="co">](#streaming-format)</span>). </span>
+<span id="cb5-128"><a href="#cb5-128"></a></span>
+<span id="cb5-129"><a href="#cb5-129"></a><span class="ss">3. </span>A new R process is started, reads the chunk from disk memory, applies the UDF, and finally writes the result to another temporary binary file.</span>
+<span id="cb5-130"><a href="#cb5-130"></a></span>
+<span id="cb5-131"><a href="#cb5-131"></a><span class="ss">4. </span>gdalcubes now loads the result file into memory and continues. </span>
+<span id="cb5-132"><a href="#cb5-132"></a></span>
+<span id="cb5-133"><a href="#cb5-133"></a>Notice that it is possible to change the directory where intermediate files are written, e.g. to use a shared memory device with <span class="in">`gdalcubes_options(streaming_dir = "/dev/shm")`</span>. </span>
+<span id="cb5-134"><a href="#cb5-134"></a></span>
+<span id="cb5-135"><a href="#cb5-135"></a></span>
+<span id="cb5-136"><a href="#cb5-136"></a></span>
+<span id="cb5-137"><a href="#cb5-137"></a><span class="fu">### Binary serialization format {#streaming-format}</span></span>
+<span id="cb5-138"><a href="#cb5-138"></a></span>
+<span id="cb5-139"><a href="#cb5-139"></a>To stream data to and from the external process, a custom binary serialization format is used.  </span>
+<span id="cb5-140"><a href="#cb5-140"></a>The format includes data cube values of one chunk and includes dimension values, band names, and the spatial reference system.</span>
+<span id="cb5-141"><a href="#cb5-141"></a></span>
+<span id="cb5-142"><a href="#cb5-142"></a></span>
+<span id="cb5-143"><a href="#cb5-143"></a>:::{.callout-warning}</span>
+<span id="cb5-144"><a href="#cb5-144"></a>The binary serialization format will be replaced with CF compliant netCDF-4 / ZARR files in future versions. </span>
+<span id="cb5-145"><a href="#cb5-145"></a>:::</span>
+<span id="cb5-146"><a href="#cb5-146"></a></span>
+<span id="cb5-147"><a href="#cb5-147"></a></span>
+<span id="cb5-148"><a href="#cb5-148"></a></span>
+<span id="cb5-149"><a href="#cb5-149"></a>The format contains</span>
+<span id="cb5-150"><a href="#cb5-150"></a></span>
+<span id="cb5-151"><a href="#cb5-151"></a><span class="ss">1. </span>the size of the chunk as 4 * 4 bytes in total (nbands:int32, nt:int32, ny:int32, nx:int32),</span>
+<span id="cb5-152"><a href="#cb5-152"></a></span>
+<span id="cb5-153"><a href="#cb5-153"></a><span class="ss">2. </span>band names, where each band starts with the number of characters as int32 followed by actual characters,</span>
+<span id="cb5-154"><a href="#cb5-154"></a></span>
+<span id="cb5-155"><a href="#cb5-155"></a><span class="ss">3. </span>dimension values in the order time, y, x as doubles, summing to (nt + ny + nx) * 8 bytes in total,</span>
+<span id="cb5-156"><a href="#cb5-156"></a></span>
+<span id="cb5-157"><a href="#cb5-157"></a><span class="ss">4. </span>the spatial reference system as a string (number of characters as int32, followed by actual characters), and</span>
+<span id="cb5-158"><a href="#cb5-158"></a></span>
+<span id="cb5-159"><a href="#cb5-159"></a><span class="ss">5. </span>actual values of the chunk as doubles (summing to nbands * nt * ny * nx * 8 bytes).</span>
+<span id="cb5-160"><a href="#cb5-160"></a></span>
+<span id="cb5-161"><a href="#cb5-161"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2022 Marius Appel
+  </li>  
+</ul>
+      </div>
+  </div>
+</footer>
+
+
+</body></html>

@@ -1,0 +1,46 @@
+# gdalcubes_set_gdal_config
+
+Set GDAL config options
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Set GDAL config options
+
+
+## Usage
+
+
+```r
+gdalcubes_set_gdal_config(key, value)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| key | name of a GDAL config option to be set |
+| value | value |
+
+
+## Details
+
+Details and a list of possible options can be found at 
+[https://gdal.org/user/configoptions.html](https://gdal.org/user/configoptions.html).
+
+
+## Examples
+
+
+```{r}
+gdalcubes_set_gdal_config("GDAL_NUM_THREADS", "ALL_CPUS")
+```
+
+

@@ -1,4 +1,4 @@
-# Land cover change detection with gdalcubes and bfast
+# Land cover change detection with bfast
 
 ```{r}
 #| include: false

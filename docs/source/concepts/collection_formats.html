@@ -89,12 +89,10 @@
   <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
   <script src="../../site_libs/quarto-html/anchor.min.js"></script>
   <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
   <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
   <script id="quarto-search-options" type="application/json">{
     "location": "navbar",
     "copy-button": false,
@@ -134,10 +132,39 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html">Home</a>
+    <a class="nav-link" href="../../source/getstarted.html">Get started</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link active" href="../../source/introduction/why.html" aria-current="page">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/tutorials/index.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/reference/index.html">Reference</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false">Help</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-help">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Source code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues"><i class="bi bi-bug" role="img">
+</i> 
+ <span class="dropdown-text">Report an issue</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../source/introduction/faq.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/about.html">About</a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -147,9 +174,6 @@
  </a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -167,16 +191,11 @@
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Introduction</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Overview</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -189,7 +208,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  <a href="../../source/introduction/components.html" class="sidebar-item-text sidebar-link">Components</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,7 +235,7 @@
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic Concepts</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic concepts</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -229,57 +248,27 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link active">Image Collection Formats</a>
+  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link active">Image collection formats</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data Cubes</a>
+  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data cubes</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data Cube Operations</a>
+  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data cube operations</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/streaming.html" class="sidebar-item-text sidebar-link">Streaming</a>
+  <a href="../../source/concepts/execution.html" class="sidebar-item-text sidebar-link">Execution and parallelization</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/distributed.html" class="sidebar-item-text sidebar-link">Distributed Data Cube Processing</a>
-  </div>
-</li>
-    </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">R Tutorials</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc01_MODIS.html" class="sidebar-item-text sidebar-link">1. Creating data cubes from local MODIS imagery</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc02_AWS_Sentinel2.html" class="sidebar-item-text sidebar-link">2. Data cubes from Sentinel-2 data in the cloud</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc03_ML_training_data.html" class="sidebar-item-text sidebar-link">3. Extracting training data for machine learning models</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/bfast/bfast.html" class="sidebar-item-text sidebar-link">Land cover change detection with gdalcubes and bfast</a>
+  <a href="../../source/concepts/udfs.html" class="sidebar-item-text sidebar-link">User-defined functions (UDFs)</a>
   </div>
 </li>
     </ul>
@@ -291,31 +280,31 @@
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#image-collection-formats" id="toc-image-collection-formats" class="nav-link active" data-scroll-target="#image-collection-formats">Image Collection Formats</a>
+<li><a href="#image-collection-formats" id="toc-image-collection-formats" class="nav-link active" data-scroll-target="#image-collection-formats">Image collection formats</a>
 <ul class="collapse">
-<li><a href="#regular-expressions" id="toc-regular-expressions" class="nav-link" data-scroll-target="#regular-expressions">Regular Expressions</a></li>
-<li><a href="#json-format" id="toc-json-format" class="nav-link" data-scroll-target="#json-format">JSON Format</a>
+<li><a href="#regular-expressions" id="toc-regular-expressions" class="nav-link" data-scroll-target="#regular-expressions">Regular expressions</a></li>
+<li><a href="#json-format" id="toc-json-format" class="nav-link" data-scroll-target="#json-format">JSON format</a>
 <ul class="collapse">
-<li><a href="#header-information" id="toc-header-information" class="nav-link" data-scroll-target="#header-information">Header Information</a></li>
-<li><a href="#global-dataset-pattern" id="toc-global-dataset-pattern" class="nav-link" data-scroll-target="#global-dataset-pattern">Global Dataset Pattern</a></li>
-<li><a href="#grouping-datasets-by-image-names" id="toc-grouping-datasets-by-image-names" class="nav-link" data-scroll-target="#grouping-datasets-by-image-names">Grouping Datasets by Image Names</a></li>
+<li><a href="#header-information" id="toc-header-information" class="nav-link" data-scroll-target="#header-information">Header information</a></li>
+<li><a href="#global-dataset-pattern" id="toc-global-dataset-pattern" class="nav-link" data-scroll-target="#global-dataset-pattern">Global dataset pattern</a></li>
+<li><a href="#grouping-datasets-by-image-names" id="toc-grouping-datasets-by-image-names" class="nav-link" data-scroll-target="#grouping-datasets-by-image-names">Grouping datasets by image names</a></li>
 <li><a href="#extracting-datetime-information" id="toc-extracting-datetime-information" class="nav-link" data-scroll-target="#extracting-datetime-information">Extracting date/time information</a></li>
-<li><a href="#defining-image-collection-bands" id="toc-defining-image-collection-bands" class="nav-link" data-scroll-target="#defining-image-collection-bands">Defining Image Collection Bands</a></li>
+<li><a href="#defining-bands" id="toc-defining-bands" class="nav-link" data-scroll-target="#defining-bands">Defining bands</a></li>
 <li><a href="#reading-gdal-subdatasets" id="toc-reading-gdal-subdatasets" class="nav-link" data-scroll-target="#reading-gdal-subdatasets">Reading GDAL subdatasets</a></li>
-<li><a href="#defining-a-global-spatial-reference-system" id="toc-defining-a-global-spatial-reference-system" class="nav-link" data-scroll-target="#defining-a-global-spatial-reference-system">Defining a Global Spatial Reference System</a></li>
-<li><a href="#additional-image-metadata" id="toc-additional-image-metadata" class="nav-link" data-scroll-target="#additional-image-metadata">Additional Image Metadata</a></li>
+<li><a href="#defining-a-global-spatial-reference-system" id="toc-defining-a-global-spatial-reference-system" class="nav-link" data-scroll-target="#defining-a-global-spatial-reference-system">Defining a global spatial reference system</a></li>
+<li><a href="#additional-image-metadata" id="toc-additional-image-metadata" class="nav-link" data-scroll-target="#additional-image-metadata">Additional image metadata</a></li>
 </ul></li>
-<li><a href="#complete-examples" id="toc-complete-examples" class="nav-link" data-scroll-target="#complete-examples">Complete Examples</a></li>
-<li><a href="#notes-on-writing-custom-collection-formats" id="toc-notes-on-writing-custom-collection-formats" class="nav-link" data-scroll-target="#notes-on-writing-custom-collection-formats">Notes on Writing Custom Collection Formats</a></li>
+<li><a href="#complete-examples" id="toc-complete-examples" class="nav-link" data-scroll-target="#complete-examples">Complete examples</a></li>
+<li><a href="#notes-on-writing-custom-collection-formats" id="toc-notes-on-writing-custom-collection-formats" class="nav-link" data-scroll-target="#notes-on-writing-custom-collection-formats">Notes on writing custom collection formats</a></li>
 </ul></li>
 </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<section id="image-collection-formats" class="level1 page-columns page-full">
-<h1>Image Collection Formats</h1>
+<section id="image-collection-formats" class="level1">
+<h1>Image collection formats</h1>
 <p>Image collection formats describe how image collections are composed from GDAL datasets, considering specific data product organizations.</p>
 <p>A collection format is a JSON file defining rules, how to derive required metadata when a GDAL dataset (specified by its identifier, e.g.&nbsp;the path to a local GeoTIFF file) is added to an image collection.</p>
 <p>When adding a GDAL dataset (given its identifier) to a collection, we must find out</p>
@@ -325,13 +314,13 @@
 <li>how bands of the dataset relate to bands of the collection.</li>
 </ul>
 <section id="regular-expressions" class="level2">
-<h2 class="anchored" data-anchor-id="regular-expressions">Regular Expressions</h2>
+<h2 class="anchored" data-anchor-id="regular-expressions">Regular expressions</h2>
 <p>Rules are mostly defined as regular expresions on the GDAL dataset identifiers. Some expressions simply check whether a dataset <em>matches</em> the expression or not, whereas some expression return a captured substring (e.g.&nbsp;the datetime part). gdalcubes uses the <a href="http://www.cplusplus.com/reference/regex">standard C++11 regular expression library</a> with default <a href="http://www.cplusplus.com/reference/regex/ECMAScript">ECMAScript</a> syntax.</p>
 </section>
-<section id="json-format" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="json-format">JSON Format</h2>
+<section id="json-format" class="level2">
+<h2 class="anchored" data-anchor-id="json-format">JSON format</h2>
 <section id="header-information" class="level3">
-<h3 class="anchored" data-anchor-id="header-information">Header Information</h3>
+<h3 class="anchored" data-anchor-id="header-information">Header information</h3>
 <p>The JSON files for image collection formats start with some header information, including a short description of the particular product it adresses and some keywords. These header information are optional, but may be useful for searching.</p>
 <p>For example, the following description and tags are used in the collection format for Sentinel 2 Level 2A products.</p>
 <pre><code>{
@@ -340,92 +329,53 @@
 }</code></pre>
 </section>
 <section id="global-dataset-pattern" class="level3">
-<h3 class="anchored" data-anchor-id="global-dataset-pattern">Global Dataset Pattern</h3>
-<p>Collection formats include a global pattern as a regular expression such that input GDAL datasets not matching the regular expression will simply be ignored (quitly, without throwing exceptions). As a simple example, setting <code>"pattern" : ".*\\.tif$"</code> would ignore files that do not end with “.tif”.</p>
+<h3 class="anchored" data-anchor-id="global-dataset-pattern">Global dataset pattern</h3>
+<p>Collection formats include a global pattern as a regular expression such that input GDAL datasets not matching the regular expression will simply be ignored (quietly, without throwing exceptions). As a simple example, setting <code>"pattern" : ".*\\.tif$"</code> would ignore files that do not end with “.tif”.</p>
 </section>
 <section id="grouping-datasets-by-image-names" class="level3">
-<h3 class="anchored" data-anchor-id="grouping-datasets-by-image-names">Grouping Datasets by Image Names</h3>
+<h3 class="anchored" data-anchor-id="grouping-datasets-by-image-names">Grouping datasets by image names</h3>
 <p>Images can be composed from one or more GDAL datasets, where all datasets share the spatial extent, the spatial reference system, and acquisition date/time, but different datasets contain data for different bands.</p>
 <p>gdalcubes uses a regular expression to extract an <em>image name</em> from the GDAL dataset identifier. The extracted name must be identical for all datasets belonging to the same image.</p>
 <p>To extract the image name from the identifier, the first <em>marked subexpression</em> (or <em>capturing group</em>) of the provided regular expression under <code>"images" : {"pattern": "REGEX"}</code> is used, i.e., a part in the expression within the first pair of parentheses.</p>
+<hr>
 <section id="example-1-landsat-8-surface-reflectance" class="level4">
 <h4 class="anchored" data-anchor-id="example-1-landsat-8-surface-reflectance">Example 1 (Landsat 8 surface reflectance)</h4>
 <pre><code>{"images":{"pattern":".*(L[OTC]08_.{4}_.{6}_.{8}_.{8}_.{2}_.{2})[A-Za-z0-9_]+\\.tif"}}</code></pre>
-<table class="table">
-<colgroup>
-<col style="width: 100%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Example input GDAL dataset identifiers and extracted <strong>image name</strong> (bold)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><ol type="1">
-<li>“/path/to/<strong>&nbsp;LC08_L1TP_226063_20140719_20170421_01_T1</strong>&nbsp;_sr_band2.tif”</li>
-<li>“/path/to/<strong>&nbsp;LC08_L1TP_226063_20140820_20170420_01_T1</strong>&nbsp;_sr_aerosol.tif”</li>
-<li>“/path/to/<strong>&nbsp;LC08_L1TP_227064_20130621_20170503_01_T1</strong>&nbsp;_pixel_qa.tif”</li>
-</ol></td>
-</tr>
-</tbody>
-</table>
+<p>Example input GDAL dataset identifiers and extracted <strong>image name</strong> (bold):</p>
+<pre>1. /path/to/<b>LC08_L1TP_226063_20140719_20170421_01_T1</b>_sr_band2.tif
+2. /path/to/<b>LC08_L1TP_226063_20140820_20170420_01_T1</b>_sr_aerosol.tif
+3. /path/to/<b>LC08_L1TP_227064_20130621_20170503_01_T1</b>_pixel_qa.tif
+</pre>
+<hr>
 </section>
 <section id="example-2-modis-mod13a2" class="level4">
 <h4 class="anchored" data-anchor-id="example-2-modis-mod13a2">Example 2 (MODIS MOD13A2)</h4>
 <pre><code>{"images":{"pattern":"HDF4_EOS:EOS_GRID:\".+(MOD13A2\\.A.+)\\.hdf.*"}}</code></pre>
-<table class="table">
-<colgroup>
-<col style="width: 100%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Example input GDAL dataset identifiers and extracted <strong>image name</strong> (bold)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><ol type="1">
-<li>“HDF4_EOS:EOS_GRID:\”/path/to/<strong>&nbsp;MOD13A2.A2013353.h00v08.006.2018226105756</strong>&nbsp;.hdf\“:MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI”</li>
-<li>“HDF4_EOS:EOS_GRID:\”/path/to/<strong>&nbsp;MOD13A2.A2013353.h20v03.006.2018226105924</strong>&nbsp;.hdf\“:MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI”</li>
-<li>“HDF4_EOS:EOS_GRID:\”/path/to/<strong>&nbsp;MOD13A2.A2015033.h23v10.006.2015296122819</strong>&nbsp;.hdf\“:MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality”</li>
-</ol></td>
-</tr>
-</tbody>
-</table>
+<p>Example input GDAL dataset identifiers and extracted <strong>image name</strong> (bold):</p>
+<pre>1. HDF4_EOS:EOS_GRID:"/path/to/<b>MOD13A2.A2013353.h00v08.006.2018226105756</b>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI
+2. HDF4_EOS:EOS_GRID:"/path/to/<b>MOD13A2.A2013353.h20v03.006.2018226105924</b>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI 
+3. HDF4_EOS:EOS_GRID:"/path/to/<b>MOD13A2.A2015033.h23v10.006.2015296122819</b>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality
+</pre>
+<hr>
 </section>
 </section>
-<section id="extracting-datetime-information" class="level3 page-columns page-full">
+<section id="extracting-datetime-information" class="level3">
 <h3 class="anchored" data-anchor-id="extracting-datetime-information">Extracting date/time information</h3>
 <p>In the current version of gdalcubes, the acquisition date/time of images is derived from the dataset identifiers. Similar to the extraction of image names, a pattern defines a regular expression where the first marked subexpression / capturing group within parentheses is extracted. The <code>format</code> field in <code>datetime</code> JSON object then defines how to convert the extracted string to a date/time object, according to the <a href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/strptime.html">strptime function</a>.</p>
-<section id="example-1-sentinel-2-level-2a-safe-format-from-.zip-files" class="level4 page-columns page-full">
+<hr>
+<section id="example-1-sentinel-2-level-2a-safe-format-from-.zip-files" class="level4">
 <h4 class="anchored" data-anchor-id="example-1-sentinel-2-level-2a-safe-format-from-.zip-files">Example 1 (Sentinel 2 Level 2A SAFE format, from .zip files)</h4>
 <pre><code>{
    "datetime" : {
        "pattern" : ".*MSIL2A_(.+?)_.*\\.zip.*",
        "format" : "%Y%m%dT%H%M%S"}  
 } </code></pre>
-<div class="column-page">
-<table class="table">
-<colgroup>
-<col style="width: 100%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Example input GDAL dataset identifiers and extracted <strong>date/time string</strong> (bold)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><ol type="1">
-<li>“/vsizip//path/to/S2A_MSIL2A_&nbsp;<strong>20180328T093031</strong>&nbsp;_N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_B8A_20m.jp2”</li>
-<li>“/vsizip//path/to/S2A_MSIL2A_&nbsp;<strong>20180328T093031</strong>&nbsp;_N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_SCL_20m.jp2”</li>
-<li>“/vsizip//path/to/S2A_MSIL2A_&nbsp;<strong>20180430T094031</strong>&nbsp;_N0207_R036_T34UGD_20180430T114456.zip/S2A_MSIL2A_20180430T094031_N0207_R036_T34UGD_20180430T114456.SAFE/GRANULE/L2A_T34UGD_A014905_20180430T094109/IMG_DATA/R10m/T34UGD_20180430T094031_B08_10m.jp2”</li>
-</ol></td>
-</tr>
-</tbody>
-</table>
-</div>
+<p>Example input GDAL dataset identifiers and extracted <strong>date/time string</strong> (bold):</p>
+<pre>1. /vsizip//path/to/S2A_MSIL2A_<b>20180328T093031</b>_N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_B8A_20m.jp2"
+2. /vsizip//path/to/S2A_MSIL2A_<b>20180328T093031</b>_N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_SCL_20m.jp2
+3. /vsizip//path/to/S2A_MSIL2A_<b>20180430T094031</b>_N0207_R036_T34UGD_20180430T114456.zip/S2A_MSIL2A_20180430T094031_N0207_R036_T34UGD_20180430T114456.SAFE/GRANULE/L2A_T34UGD_A014905_20180430T094109/IMG_DATA/R10m/T34UGD_20180430T094031_B08_10m.jp2
+</pre>
+<hr>
 </section>
 <section id="example-2-modis-mod13a2-1" class="level4">
 <h4 class="anchored" data-anchor-id="example-2-modis-mod13a2-1">Example 2 (MODIS MOD13A2)</h4>
@@ -434,26 +384,13 @@
       "pattern" : ".*M[OY]D13A2\\.A(.{7}).*",
       "format" : "%Y%j"} 
 }</code></pre>
-<table class="table">
-<colgroup>
-<col style="width: 100%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Example input GDAL dataset identifiers and extracted <strong>date/time string</strong> (bold)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><ol type="1">
-<li>“HDF4_EOS:EOS_GRID:\”/path/to/MOD13A2.A&nbsp;<strong>2013353</strong>&nbsp;.h00v08.006.2018226105756.hdf\“:MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI”</li>
-<li>“HDF4_EOS:EOS_GRID:\”/path/to/MOD13A2.A&nbsp;<strong>2013353</strong>&nbsp;.h20v03.006.2018226105924.hdf\“:MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI”</li>
-<li>“HDF4_EOS:EOS_GRID:\”/path/to/MOD13A2.A&nbsp;<strong>2015033</strong>&nbsp;.h23v10.006.2015296122819.hdf\“:MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality”</li>
-</ol></td>
-</tr>
-</tbody>
-</table>
-<p>Some MODIS and climate model output datsets are provided as multidimensional HDF or netCDF files, where one file (or GDAL dataset) contains space and time of one variable. In these cases, GDAL exposes the additional time dimension as bands. For such datasets, gdalcubes supports the additional definition of the <em>duration</em> of a band. This duration is then added to the offset date/time, which is extracted from the filename as described above.</p>
+<p>Example input GDAL dataset identifiers and extracted <strong>date/time string</strong> (bold):</p>
+<pre>1. HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<b>2013353</b>.h00v08.006.2018226105756.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI
+2. HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<b>2013353</b>.h20v03.006.2018226105924.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI
+3. HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<b>2015033</b>.h23v10.006.2015296122819.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality
+</pre>
+<p>Some MODIS and climate model output datsets are provided as multidimensional HDF or netCDF files, where one file (or GDAL dataset) contains space and time of one variable. In these cases, GDAL exposes the additional time dimension as bands. For such datasets, gdalcubes supports the additional definition of the <em>duration</em> of a band. This duration is then added to the offset date/time, which is extracted from the filename as described below.</p>
+<hr>
 </section>
 <section id="example-3-pr_day_hadgem2-es_historical_r1i1p1" class="level4">
 <h4 class="anchored" data-anchor-id="example-3-pr_day_hadgem2-es_historical_r1i1p1">Example 3 (pr_day_HadGEM2-ES_historical_r1i1p1)</h4>
@@ -480,9 +417,9 @@ Note
 </div>
 </section>
 </section>
-<section id="defining-image-collection-bands" class="level3">
-<h3 class="anchored" data-anchor-id="defining-image-collection-bands">Defining Image Collection Bands</h3>
-<p>The <code>bands</code> object lists the bands of a data product as key value pairs, where the key is a unique band name, and the value is a JSON object with a pattern and optional other fields. The <code>pattern</code> field again defines a regular expression. If a GDAL dataset identifier matches the pattern, it is considered to contain data of the band. An dataset identifier may match the pattern of several bands (sometimes, all bands even define the same pattern) if a single input GDAL dataset contains multiple bands. In this case, the additional field <code>band</code> can be used to describe which internal band corresponds to the band of the image collection. <code>band</code> can be a one-based integer number and is identical to the band number of GDAL (as from running <code>gdalinfo</code>).</p>
+<section id="defining-bands" class="level3">
+<h3 class="anchored" data-anchor-id="defining-bands">Defining bands</h3>
+<p>The <code>bands</code> object lists the bands of a data product as key value pairs, where the key is a unique band name, and the value is a JSON object with a pattern and optional other fields. The <code>pattern</code> field again defines a regular expression. If a GDAL dataset identifier matches the pattern, it is considered to contain data of the band. A dataset identifier may match the pattern of several bands (sometimes, all bands even define the same pattern) if a single input GDAL dataset contains multiple bands. In this case, the additional field <code>band</code> can be used to describe which internal band corresponds to the band of the image collection. <code>band</code> can be a one-based integer number and is identical to the band number of GDAL (as from running <code>gdalinfo</code>).</p>
 <p>Some additional per-band metadata fields may be added to band definitions. In the current version, these include <code>nodata</code>, <code>scale</code>, <code>offset</code>, and <code>unit</code>. If these values are not provided, they are derived from the GDAL metadata (which may or may not be defined).</p>
 <section id="example-1-one-gdal-dataset---one-band" class="level4">
 <h4 class="anchored" data-anchor-id="example-1-one-gdal-dataset---one-band">Example 1: One GDAL dataset - one band</h4>
@@ -545,22 +482,22 @@ Note
 <p>For some data products (such as MODIS), bands are distributed as GDAL subdatasets within a single file (typically NetCDF or HDF). Adding <code>"subdatasets" : true</code> to the top-level JSON object makes sure that all subdatasets will be considered automatically. Other patterns of the collection format to extract image names amd date/time then relate to subdataset identifiers.</p>
 </section>
 <section id="defining-a-global-spatial-reference-system" class="level3">
-<h3 class="anchored" data-anchor-id="defining-a-global-spatial-reference-system">Defining a Global Spatial Reference System</h3>
+<h3 class="anchored" data-anchor-id="defining-a-global-spatial-reference-system">Defining a global spatial reference system</h3>
 <p>Some global climate data products distributed as NetCDF files do not encode the SRS of images in a way that GDAL reads automatically. In these cases the collection format allows to define a global spatial reference system that overwrites the reference system of individual images (if available). For example, adding <code>"srs" : "EPSG:4326"</code> to the top-level JSON object makes sure that the WGS84 spatial reference system will be used for all images.</p>
 </section>
 <section id="additional-image-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="additional-image-metadata">Additional Image Metadata</h3>
+<h3 class="anchored" data-anchor-id="additional-image-metadata">Additional image metadata</h3>
 <p>It is possible to extract further per-image metadata key value pairs from GDAL datasets. The collection format may include an optional field “image_md_fields” to list metadata keys as a JSON array of strings. When GDAL datasets are opened, GDAL tries to find the corresponding metadata keys and stores corresponding values in the image metadata table of the image collection.</p>
 <p>Metadata fields may be separated by domains (see <a href="https://gdal.org/user/raster_data_model.html#metadata">GDAL metadata model</a>). If metadata fields from a specific domain are needed, you can use <code>DOMAIN:KEY</code>, such as <code>IMAGERY:CLOUDCOVER</code>. The example below could be used to get some per-image quality flags from MODIS metadata.</p>
 <pre><code>{"image_md_fields" : ["PERCENTLAND", "QAPERCENTGOODQUALITY", "QAPERCENTNOTPRODUCEDCLOUD"]}</code></pre>
 </section>
 </section>
 <section id="complete-examples" class="level2">
-<h2 class="anchored" data-anchor-id="complete-examples">Complete Examples</h2>
+<h2 class="anchored" data-anchor-id="complete-examples">Complete examples</h2>
 <p>Complete examples of image collection formats can be found in the sources. There is also a <a href="https://github.com/appelmar/gdalcubes_formats/tree/master/formats">dedicated GitHub repository</a></p>
 </section>
 <section id="notes-on-writing-custom-collection-formats" class="level2">
-<h2 class="anchored" data-anchor-id="notes-on-writing-custom-collection-formats">Notes on Writing Custom Collection Formats</h2>
+<h2 class="anchored" data-anchor-id="notes-on-writing-custom-collection-formats">Notes on writing custom collection formats</h2>
 <p>When writing a collection format for new data products, please make sure to check the following notes:</p>
 <ul>
 <li>If available, read the data product handbook. Most official satellite image product handbooks include a section on filenaming conventions.</li>
@@ -579,103 +516,6 @@ Note
 </main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-    } else {
-      disableStylesheet(alternateStylesheets);
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } 
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -799,9 +639,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu"># Image Collection Formats</span></span>
+<div class="sourceCode" id="cb10" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu"># Image collection formats</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a></span>
 <span id="cb10-3"><a href="#cb10-3"></a>Image collection formats describe how image collections are composed from GDAL datasets, considering specific data product organizations.</span>
 <span id="cb10-4"><a href="#cb10-4"></a></span>
@@ -816,17 +672,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-13"><a href="#cb10-13"></a></span>
 <span id="cb10-14"><a href="#cb10-14"></a></span>
 <span id="cb10-15"><a href="#cb10-15"></a></span>
-<span id="cb10-16"><a href="#cb10-16"></a><span class="fu">## Regular Expressions</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="fu">## Regular expressions</span></span>
 <span id="cb10-17"><a href="#cb10-17"></a></span>
 <span id="cb10-18"><a href="#cb10-18"></a>Rules are mostly defined as regular expresions on the GDAL dataset identifiers. Some expressions</span>
 <span id="cb10-19"><a href="#cb10-19"></a>simply check whether a dataset *matches* the expression or not, whereas some expression return a captured substring (e.g. the datetime part). gdalcubes uses the <span class="co">[</span><span class="ot">standard C++11 regular expression library</span><span class="co">](http://www.cplusplus.com/reference/regex)</span> with default <span class="co">[</span><span class="ot">ECMAScript</span><span class="co">](http://www.cplusplus.com/reference/regex/ECMAScript)</span> syntax.</span>
 <span id="cb10-20"><a href="#cb10-20"></a></span>
 <span id="cb10-21"><a href="#cb10-21"></a></span>
 <span id="cb10-22"><a href="#cb10-22"></a></span>
-<span id="cb10-23"><a href="#cb10-23"></a><span class="fu">## JSON Format</span></span>
+<span id="cb10-23"><a href="#cb10-23"></a><span class="fu">## JSON format</span></span>
 <span id="cb10-24"><a href="#cb10-24"></a></span>
 <span id="cb10-25"><a href="#cb10-25"></a></span>
-<span id="cb10-26"><a href="#cb10-26"></a><span class="fu">### Header Information</span></span>
+<span id="cb10-26"><a href="#cb10-26"></a><span class="fu">### Header information</span></span>
 <span id="cb10-27"><a href="#cb10-27"></a></span>
 <span id="cb10-28"><a href="#cb10-28"></a>The JSON files for image collection formats start with some header information, </span>
 <span id="cb10-29"><a href="#cb10-29"></a>including a short description of the particular product it adresses and some keywords. These header information are optional, but may be useful for searching.</span>
@@ -844,18 +700,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-41"><a href="#cb10-41"></a></span>
 <span id="cb10-42"><a href="#cb10-42"></a></span>
 <span id="cb10-43"><a href="#cb10-43"></a></span>
-<span id="cb10-44"><a href="#cb10-44"></a><span class="fu">### Global Dataset Pattern </span></span>
+<span id="cb10-44"><a href="#cb10-44"></a><span class="fu">### Global dataset pattern </span></span>
 <span id="cb10-45"><a href="#cb10-45"></a></span>
 <span id="cb10-46"><a href="#cb10-46"></a>Collection formats include a global pattern as a regular expression </span>
 <span id="cb10-47"><a href="#cb10-47"></a>such that input GDAL datasets not matching the regular expression will </span>
-<span id="cb10-48"><a href="#cb10-48"></a>simply be ignored (quitly, without throwing exceptions). </span>
+<span id="cb10-48"><a href="#cb10-48"></a>simply be ignored (quietly, without throwing exceptions). </span>
 <span id="cb10-49"><a href="#cb10-49"></a>As a simple example, setting <span class="in">`"pattern" : ".*\\.tif$"`</span></span>
 <span id="cb10-50"><a href="#cb10-50"></a>would ignore files that do not end with ".tif".  </span>
 <span id="cb10-51"><a href="#cb10-51"></a></span>
 <span id="cb10-52"><a href="#cb10-52"></a></span>
 <span id="cb10-53"><a href="#cb10-53"></a></span>
 <span id="cb10-54"><a href="#cb10-54"></a></span>
-<span id="cb10-55"><a href="#cb10-55"></a><span class="fu">### Grouping Datasets by Image Names</span></span>
+<span id="cb10-55"><a href="#cb10-55"></a><span class="fu">### Grouping datasets by image names</span></span>
 <span id="cb10-56"><a href="#cb10-56"></a></span>
 <span id="cb10-57"><a href="#cb10-57"></a></span>
 <span id="cb10-58"><a href="#cb10-58"></a>Images can be composed from one or more GDAL datasets, </span>
@@ -873,7 +729,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-70"><a href="#cb10-70"></a>provided regular expression under <span class="in">`"images" : {"pattern": "REGEX"}`</span></span>
 <span id="cb10-71"><a href="#cb10-71"></a>is used, i.e., a part in the expression within the first pair of parentheses. </span>
 <span id="cb10-72"><a href="#cb10-72"></a></span>
-<span id="cb10-73"><a href="#cb10-73"></a></span>
+<span id="cb10-73"><a href="#cb10-73"></a>---</span>
 <span id="cb10-74"><a href="#cb10-74"></a></span>
 <span id="cb10-75"><a href="#cb10-75"></a><span class="fu">#### Example 1 (Landsat 8 surface reflectance)</span></span>
 <span id="cb10-76"><a href="#cb10-76"></a></span>
@@ -883,227 +739,243 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-80"><a href="#cb10-80"></a></span>
 <span id="cb10-81"><a href="#cb10-81"></a></span>
 <span id="cb10-82"><a href="#cb10-82"></a></span>
-<span id="cb10-83"><a href="#cb10-83"></a>+------------------------------------------------------------------------------------+ </span>
-<span id="cb10-84"><a href="#cb10-84"></a>| Example input GDAL dataset identifiers and extracted **image name** (bold)         |  </span>
-<span id="cb10-85"><a href="#cb10-85"></a>+====================================================================================+</span>
-<span id="cb10-86"><a href="#cb10-86"></a>| 1. "/path/to/**\ LC08_L1TP_226063_20140719_20170421_01_T1**\ _sr_band2.tif"        |</span>
-<span id="cb10-87"><a href="#cb10-87"></a>| 2. "/path/to/**\ LC08_L1TP_226063_20140820_20170420_01_T1**\ _sr_aerosol.tif"      |</span>
-<span id="cb10-88"><a href="#cb10-88"></a>| 3. "/path/to/**\ LC08_L1TP_227064_20130621_20170503_01_T1**\ _pixel_qa.tif"        |</span>
-<span id="cb10-89"><a href="#cb10-89"></a>+------------------------------------------------------------------------------------+ </span>
+<span id="cb10-83"><a href="#cb10-83"></a>Example input GDAL dataset identifiers and extracted **image name** (bold):</span>
+<span id="cb10-84"><a href="#cb10-84"></a></span>
+<span id="cb10-85"><a href="#cb10-85"></a><span class="kw">&lt;pre&gt;</span></span>
+<span id="cb10-86"><a href="#cb10-86"></a><span class="ss">1. </span>/path/to/<span class="kw">&lt;b&gt;</span>LC08_L1TP_226063_20140719_20170421_01_T1&lt;/b&gt;_sr_band2.tif</span>
+<span id="cb10-87"><a href="#cb10-87"></a><span class="ss">2. </span>/path/to/<span class="kw">&lt;b&gt;</span>LC08_L1TP_226063_20140820_20170420_01_T1&lt;/b&gt;_sr_aerosol.tif</span>
+<span id="cb10-88"><a href="#cb10-88"></a><span class="ss">3. </span>/path/to/<span class="kw">&lt;b&gt;</span>LC08_L1TP_227064_20130621_20170503_01_T1&lt;/b&gt;_pixel_qa.tif</span>
+<span id="cb10-89"><a href="#cb10-89"></a><span class="kw">&lt;/pre&gt;</span></span>
 <span id="cb10-90"><a href="#cb10-90"></a></span>
 <span id="cb10-91"><a href="#cb10-91"></a></span>
 <span id="cb10-92"><a href="#cb10-92"></a></span>
-<span id="cb10-93"><a href="#cb10-93"></a><span class="fu">#### Example 2 (MODIS MOD13A2)</span></span>
+<span id="cb10-93"><a href="#cb10-93"></a>---</span>
 <span id="cb10-94"><a href="#cb10-94"></a></span>
 <span id="cb10-95"><a href="#cb10-95"></a></span>
-<span id="cb10-96"><a href="#cb10-96"></a></span>
-<span id="cb10-97"><a href="#cb10-97"></a><span class="in">```</span></span>
-<span id="cb10-98"><a href="#cb10-98"></a><span class="in">{"images":{"pattern":"HDF4_EOS:EOS_GRID:\".+(MOD13A2\\.A.+)\\.hdf.*"}}</span></span>
-<span id="cb10-99"><a href="#cb10-99"></a><span class="in">```</span></span>
-<span id="cb10-100"><a href="#cb10-100"></a></span>
-<span id="cb10-101"><a href="#cb10-101"></a>   </span>
-<span id="cb10-102"><a href="#cb10-102"></a></span>
-<span id="cb10-103"><a href="#cb10-103"></a>+---------------------------------------------------------------------------------------------------------------------------------------------+ </span>
-<span id="cb10-104"><a href="#cb10-104"></a>| Example input GDAL dataset identifiers and extracted **image name** (bold)                                                                  |  </span>
-<span id="cb10-105"><a href="#cb10-105"></a>+=============================================================================================================================================+</span>
-<span id="cb10-106"><a href="#cb10-106"></a>| 1. "HDF4_EOS:EOS_GRID:<span class="sc">\\</span>"/path/to/**\ MOD13A2.A2013353.h00v08.006.2018226105756**\ .hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI"       |</span>
-<span id="cb10-107"><a href="#cb10-107"></a>| 2. "HDF4_EOS:EOS_GRID:<span class="sc">\\</span>"/path/to/**\ MOD13A2.A2013353.h20v03.006.2018226105924**\ .hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI"       |</span>
-<span id="cb10-108"><a href="#cb10-108"></a>| 3. "HDF4_EOS:EOS_GRID:<span class="sc">\\</span>"/path/to/**\ MOD13A2.A2015033.h23v10.006.2015296122819**\ .hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality" |</span>
-<span id="cb10-109"><a href="#cb10-109"></a>+---------------------------------------------------------------------------------------------------------------------------------------------+ </span>
-<span id="cb10-110"><a href="#cb10-110"></a></span>
-<span id="cb10-111"><a href="#cb10-111"></a></span>
+<span id="cb10-96"><a href="#cb10-96"></a><span class="fu">#### Example 2 (MODIS MOD13A2)</span></span>
+<span id="cb10-97"><a href="#cb10-97"></a></span>
+<span id="cb10-98"><a href="#cb10-98"></a></span>
+<span id="cb10-99"><a href="#cb10-99"></a></span>
+<span id="cb10-100"><a href="#cb10-100"></a><span class="in">```</span></span>
+<span id="cb10-101"><a href="#cb10-101"></a><span class="in">{"images":{"pattern":"HDF4_EOS:EOS_GRID:\".+(MOD13A2\\.A.+)\\.hdf.*"}}</span></span>
+<span id="cb10-102"><a href="#cb10-102"></a><span class="in">```</span></span>
+<span id="cb10-103"><a href="#cb10-103"></a></span>
+<span id="cb10-104"><a href="#cb10-104"></a></span>
+<span id="cb10-105"><a href="#cb10-105"></a>Example input GDAL dataset identifiers and extracted **image name** (bold):</span>
+<span id="cb10-106"><a href="#cb10-106"></a></span>
+<span id="cb10-107"><a href="#cb10-107"></a><span class="kw">&lt;pre&gt;</span></span>
+<span id="cb10-108"><a href="#cb10-108"></a><span class="ss">1. </span>HDF4_EOS:EOS_GRID:"/path/to/<span class="kw">&lt;b&gt;</span>MOD13A2.A2013353.h00v08.006.2018226105756<span class="kw">&lt;/b&gt;</span>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI</span>
+<span id="cb10-109"><a href="#cb10-109"></a><span class="ss">2. </span>HDF4_EOS:EOS_GRID:"/path/to/<span class="kw">&lt;b&gt;</span>MOD13A2.A2013353.h20v03.006.2018226105924<span class="kw">&lt;/b&gt;</span>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI </span>
+<span id="cb10-110"><a href="#cb10-110"></a><span class="ss">3. </span>HDF4_EOS:EOS_GRID:"/path/to/<span class="kw">&lt;b&gt;</span>MOD13A2.A2015033.h23v10.006.2015296122819<span class="kw">&lt;/b&gt;</span>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality</span>
+<span id="cb10-111"><a href="#cb10-111"></a><span class="kw">&lt;/pre&gt;</span></span>
 <span id="cb10-112"><a href="#cb10-112"></a></span>
-<span id="cb10-113"><a href="#cb10-113"></a><span class="fu">### Extracting date/time information</span></span>
+<span id="cb10-113"><a href="#cb10-113"></a>---</span>
 <span id="cb10-114"><a href="#cb10-114"></a></span>
-<span id="cb10-115"><a href="#cb10-115"></a>In the current version of gdalcubes, the acquisition </span>
-<span id="cb10-116"><a href="#cb10-116"></a>date/time of images is derived from the dataset identifiers. </span>
-<span id="cb10-117"><a href="#cb10-117"></a>Similar to the extraction of image names, a pattern defines a regular expression where the first marked subexpression / capturing group within parentheses is extracted. The ``format`` field in ``datetime`` JSON object then defines how to convert the extracted string to a date/time object, according to the <span class="co">[</span><span class="ot">strptime function</span><span class="co">](https://pubs.opengroup.org/onlinepubs/9699919799/functions/strptime.html)</span>.</span>
-<span id="cb10-118"><a href="#cb10-118"></a></span>
-<span id="cb10-119"><a href="#cb10-119"></a></span>
-<span id="cb10-120"><a href="#cb10-120"></a><span class="fu">#### Example 1 (Sentinel 2 Level 2A SAFE format, from .zip files)</span></span>
+<span id="cb10-115"><a href="#cb10-115"></a><span class="fu">### Extracting date/time information</span></span>
+<span id="cb10-116"><a href="#cb10-116"></a></span>
+<span id="cb10-117"><a href="#cb10-117"></a>In the current version of gdalcubes, the acquisition </span>
+<span id="cb10-118"><a href="#cb10-118"></a>date/time of images is derived from the dataset identifiers. </span>
+<span id="cb10-119"><a href="#cb10-119"></a>Similar to the extraction of image names, a pattern defines a regular expression where the first marked subexpression / capturing group within parentheses is extracted. The ``format`` field in ``datetime`` JSON object then defines how to convert the extracted string to a date/time object, according to the <span class="co">[</span><span class="ot">strptime function</span><span class="co">](https://pubs.opengroup.org/onlinepubs/9699919799/functions/strptime.html)</span>.</span>
+<span id="cb10-120"><a href="#cb10-120"></a></span>
 <span id="cb10-121"><a href="#cb10-121"></a></span>
-<span id="cb10-122"><a href="#cb10-122"></a></span>
-<span id="cb10-123"><a href="#cb10-123"></a><span class="in">```</span></span>
-<span id="cb10-124"><a href="#cb10-124"></a><span class="in">{</span></span>
-<span id="cb10-125"><a href="#cb10-125"></a><span class="in">   "datetime" : {</span></span>
-<span id="cb10-126"><a href="#cb10-126"></a><span class="in">       "pattern" : ".*MSIL2A_(.+?)_.*\\.zip.*",</span></span>
-<span id="cb10-127"><a href="#cb10-127"></a><span class="in">       "format" : "%Y%m%dT%H%M%S"}  </span></span>
-<span id="cb10-128"><a href="#cb10-128"></a><span class="in">} </span></span>
-<span id="cb10-129"><a href="#cb10-129"></a><span class="in">```</span></span>
-<span id="cb10-130"><a href="#cb10-130"></a></span>
-<span id="cb10-131"><a href="#cb10-131"></a>:::{.column-page}</span>
-<span id="cb10-132"><a href="#cb10-132"></a></span>
-<span id="cb10-133"><a href="#cb10-133"></a>+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ </span>
-<span id="cb10-134"><a href="#cb10-134"></a>| Example input GDAL dataset identifiers and extracted **date/time string** (bold)                                                                                                                    </span>
-<span id="cb10-135"><a href="#cb10-135"></a>|  </span>
-<span id="cb10-136"><a href="#cb10-136"></a>+================================================================================================================================================================================================================================================================+</span>
-<span id="cb10-137"><a href="#cb10-137"></a>| 1. "/vsizip//path/to/S2A_MSIL2A<span class="sc">\_</span>\ **20180328T093031**\ _N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_B8A_20m.jp2"  |</span>
-<span id="cb10-138"><a href="#cb10-138"></a>| 2. "/vsizip//path/to/S2A_MSIL2A<span class="sc">\_</span>\ **20180328T093031**\ _N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_SCL_20m.jp2"  |</span>
-<span id="cb10-139"><a href="#cb10-139"></a>| 3. "/vsizip//path/to/S2A_MSIL2A<span class="sc">\_</span>\ **20180430T094031**\ _N0207_R036_T34UGD_20180430T114456.zip/S2A_MSIL2A_20180430T094031_N0207_R036_T34UGD_20180430T114456.SAFE/GRANULE/L2A_T34UGD_A014905_20180430T094109/IMG_DATA/R10m/T34UGD_20180430T094031_B08_10m.jp2"  |</span>
-<span id="cb10-140"><a href="#cb10-140"></a>+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ </span>
-<span id="cb10-141"><a href="#cb10-141"></a></span>
-<span id="cb10-142"><a href="#cb10-142"></a>:::</span>
-<span id="cb10-143"><a href="#cb10-143"></a></span>
-<span id="cb10-144"><a href="#cb10-144"></a></span>
-<span id="cb10-145"><a href="#cb10-145"></a><span class="fu">#### Example 2 (MODIS MOD13A2)</span></span>
+<span id="cb10-122"><a href="#cb10-122"></a>---</span>
+<span id="cb10-123"><a href="#cb10-123"></a></span>
+<span id="cb10-124"><a href="#cb10-124"></a><span class="fu">#### Example 1 (Sentinel 2 Level 2A SAFE format, from .zip files)</span></span>
+<span id="cb10-125"><a href="#cb10-125"></a></span>
+<span id="cb10-126"><a href="#cb10-126"></a></span>
+<span id="cb10-127"><a href="#cb10-127"></a><span class="in">```</span></span>
+<span id="cb10-128"><a href="#cb10-128"></a><span class="in">{</span></span>
+<span id="cb10-129"><a href="#cb10-129"></a><span class="in">   "datetime" : {</span></span>
+<span id="cb10-130"><a href="#cb10-130"></a><span class="in">       "pattern" : ".*MSIL2A_(.+?)_.*\\.zip.*",</span></span>
+<span id="cb10-131"><a href="#cb10-131"></a><span class="in">       "format" : "%Y%m%dT%H%M%S"}  </span></span>
+<span id="cb10-132"><a href="#cb10-132"></a><span class="in">} </span></span>
+<span id="cb10-133"><a href="#cb10-133"></a><span class="in">```</span></span>
+<span id="cb10-134"><a href="#cb10-134"></a></span>
+<span id="cb10-135"><a href="#cb10-135"></a></span>
+<span id="cb10-136"><a href="#cb10-136"></a></span>
+<span id="cb10-137"><a href="#cb10-137"></a></span>
+<span id="cb10-138"><a href="#cb10-138"></a></span>
+<span id="cb10-139"><a href="#cb10-139"></a>Example input GDAL dataset identifiers and extracted **date/time string** (bold):</span>
+<span id="cb10-140"><a href="#cb10-140"></a></span>
+<span id="cb10-141"><a href="#cb10-141"></a><span class="kw">&lt;pre&gt;</span></span>
+<span id="cb10-142"><a href="#cb10-142"></a><span class="ss">1. </span>/vsizip//path/to/S2A_MSIL2A_&lt;b&gt;20180328T093031&lt;/b&gt;_N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_B8A_20m.jp2"</span>
+<span id="cb10-143"><a href="#cb10-143"></a><span class="ss">2. </span>/vsizip//path/to/S2A_MSIL2A_&lt;b&gt;20180328T093031&lt;/b&gt;_N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_SCL_20m.jp2</span>
+<span id="cb10-144"><a href="#cb10-144"></a><span class="ss">3. </span>/vsizip//path/to/S2A_MSIL2A_&lt;b&gt;20180430T094031&lt;/b&gt;_N0207_R036_T34UGD_20180430T114456.zip/S2A_MSIL2A_20180430T094031_N0207_R036_T34UGD_20180430T114456.SAFE/GRANULE/L2A_T34UGD_A014905_20180430T094109/IMG_DATA/R10m/T34UGD_20180430T094031_B08_10m.jp2</span>
+<span id="cb10-145"><a href="#cb10-145"></a><span class="kw">&lt;/pre&gt;</span></span>
 <span id="cb10-146"><a href="#cb10-146"></a></span>
-<span id="cb10-147"><a href="#cb10-147"></a><span class="in">```</span></span>
-<span id="cb10-148"><a href="#cb10-148"></a><span class="in">{</span></span>
-<span id="cb10-149"><a href="#cb10-149"></a><span class="in">  "datetime" : {</span></span>
-<span id="cb10-150"><a href="#cb10-150"></a><span class="in">      "pattern" : ".*M[OY]D13A2\\.A(.{7}).*",</span></span>
-<span id="cb10-151"><a href="#cb10-151"></a><span class="in">      "format" : "%Y%j"} </span></span>
-<span id="cb10-152"><a href="#cb10-152"></a><span class="in">}</span></span>
-<span id="cb10-153"><a href="#cb10-153"></a><span class="in">```</span></span>
-<span id="cb10-154"><a href="#cb10-154"></a></span>
-<span id="cb10-155"><a href="#cb10-155"></a>+---------------------------------------------------------------------------------------------------------------------------------------------+ </span>
-<span id="cb10-156"><a href="#cb10-156"></a>| Example input GDAL dataset identifiers and extracted **date/time string** (bold)                                                            |  </span>
-<span id="cb10-157"><a href="#cb10-157"></a>+=============================================================================================================================================+</span>
-<span id="cb10-158"><a href="#cb10-158"></a>| 1. "HDF4_EOS:EOS_GRID:<span class="sc">\\</span>"/path/to/MOD13A2.A\ **2013353**\ .h00v08.006.2018226105756.hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI"       |</span>
-<span id="cb10-159"><a href="#cb10-159"></a>| 2. "HDF4_EOS:EOS_GRID:<span class="sc">\\</span>"/path/to/MOD13A2.A\ **2013353**\ .h20v03.006.2018226105924.hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI"       |</span>
-<span id="cb10-160"><a href="#cb10-160"></a>| 3. "HDF4_EOS:EOS_GRID:<span class="sc">\\</span>"/path/to/MOD13A2.A\ **2015033**\ .h23v10.006.2015296122819.hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality" |</span>
-<span id="cb10-161"><a href="#cb10-161"></a>+---------------------------------------------------------------------------------------------------------------------------------------------+ </span>
+<span id="cb10-147"><a href="#cb10-147"></a></span>
+<span id="cb10-148"><a href="#cb10-148"></a></span>
+<span id="cb10-149"><a href="#cb10-149"></a>---</span>
+<span id="cb10-150"><a href="#cb10-150"></a></span>
+<span id="cb10-151"><a href="#cb10-151"></a></span>
+<span id="cb10-152"><a href="#cb10-152"></a><span class="fu">#### Example 2 (MODIS MOD13A2)</span></span>
+<span id="cb10-153"><a href="#cb10-153"></a></span>
+<span id="cb10-154"><a href="#cb10-154"></a><span class="in">```</span></span>
+<span id="cb10-155"><a href="#cb10-155"></a><span class="in">{</span></span>
+<span id="cb10-156"><a href="#cb10-156"></a><span class="in">  "datetime" : {</span></span>
+<span id="cb10-157"><a href="#cb10-157"></a><span class="in">      "pattern" : ".*M[OY]D13A2\\.A(.{7}).*",</span></span>
+<span id="cb10-158"><a href="#cb10-158"></a><span class="in">      "format" : "%Y%j"} </span></span>
+<span id="cb10-159"><a href="#cb10-159"></a><span class="in">}</span></span>
+<span id="cb10-160"><a href="#cb10-160"></a><span class="in">```</span></span>
+<span id="cb10-161"><a href="#cb10-161"></a></span>
 <span id="cb10-162"><a href="#cb10-162"></a></span>
-<span id="cb10-163"><a href="#cb10-163"></a></span>
-<span id="cb10-164"><a href="#cb10-164"></a>Some MODIS and climate model output datsets are provided as multidimensional HDF or netCDF files, where one file (or GDAL dataset) contains space and time of one variable.  In these cases, GDAL exposes the additional time dimension as bands. For such datasets, gdalcubes supports the additional definition of the *duration* of a band. This duration is then added to the offset date/time, which is extracted from the filename as described above. </span>
-<span id="cb10-165"><a href="#cb10-165"></a></span>
-<span id="cb10-166"><a href="#cb10-166"></a><span class="fu">#### Example 3 (pr_day_HadGEM2-ES_historical_r1i1p1)</span></span>
-<span id="cb10-167"><a href="#cb10-167"></a></span>
-<span id="cb10-168"><a href="#cb10-168"></a><span class="in">```</span></span>
-<span id="cb10-169"><a href="#cb10-169"></a><span class="in">{</span></span>
-<span id="cb10-170"><a href="#cb10-170"></a><span class="in">  "datetime" : {</span></span>
-<span id="cb10-171"><a href="#cb10-171"></a><span class="in">      "pattern" : ".*pr_day_HadGEM2-ES_historical_r1i1p1_EWEMBI_([0-9]{8}).*",</span></span>
-<span id="cb10-172"><a href="#cb10-172"></a><span class="in">      "format" : "%Y%m%d",</span></span>
-<span id="cb10-173"><a href="#cb10-173"></a><span class="in">      "bands" : {</span></span>
-<span id="cb10-174"><a href="#cb10-174"></a><span class="in">          "dt" : "P1D" }}</span></span>
-<span id="cb10-175"><a href="#cb10-175"></a><span class="in">}</span></span>
-<span id="cb10-176"><a href="#cb10-176"></a><span class="in">```</span></span>
+<span id="cb10-163"><a href="#cb10-163"></a>Example input GDAL dataset identifiers and extracted **date/time string** (bold):</span>
+<span id="cb10-164"><a href="#cb10-164"></a></span>
+<span id="cb10-165"><a href="#cb10-165"></a><span class="kw">&lt;pre&gt;</span></span>
+<span id="cb10-166"><a href="#cb10-166"></a><span class="ss">1. </span>HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<span class="kw">&lt;b&gt;</span>2013353<span class="kw">&lt;/b&gt;</span>.h00v08.006.2018226105756.hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI</span>
+<span id="cb10-167"><a href="#cb10-167"></a><span class="ss">2. </span>HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<span class="kw">&lt;b&gt;</span>2013353<span class="kw">&lt;/b&gt;</span>.h20v03.006.2018226105924.hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI</span>
+<span id="cb10-168"><a href="#cb10-168"></a><span class="ss">3. </span>HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<span class="kw">&lt;b&gt;</span>2015033<span class="kw">&lt;/b&gt;</span>.h23v10.006.2015296122819.hdf<span class="sc">\\</span>":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality</span>
+<span id="cb10-169"><a href="#cb10-169"></a><span class="kw">&lt;/pre&gt;</span></span>
+<span id="cb10-170"><a href="#cb10-170"></a></span>
+<span id="cb10-171"><a href="#cb10-171"></a></span>
+<span id="cb10-172"><a href="#cb10-172"></a></span>
+<span id="cb10-173"><a href="#cb10-173"></a></span>
+<span id="cb10-174"><a href="#cb10-174"></a></span>
+<span id="cb10-175"><a href="#cb10-175"></a></span>
+<span id="cb10-176"><a href="#cb10-176"></a></span>
 <span id="cb10-177"><a href="#cb10-177"></a></span>
-<span id="cb10-178"><a href="#cb10-178"></a>In this example the 10th band (zero-based) for example represents 10 days after the date extracted from the filename.</span>
+<span id="cb10-178"><a href="#cb10-178"></a>Some MODIS and climate model output datsets are provided as multidimensional HDF or netCDF files, where one file (or GDAL dataset) contains space and time of one variable.  In these cases, GDAL exposes the additional time dimension as bands. For such datasets, gdalcubes supports the additional definition of the *duration* of a band. This duration is then added to the offset date/time, which is extracted from the filename as described below. </span>
 <span id="cb10-179"><a href="#cb10-179"></a></span>
-<span id="cb10-180"><a href="#cb10-180"></a>:::{.callout-note}</span>
-<span id="cb10-181"><a href="#cb10-181"></a>This feature is experimental and only available in the development version.</span>
-<span id="cb10-182"><a href="#cb10-182"></a>:::</span>
-<span id="cb10-183"><a href="#cb10-183"></a>   </span>
-<span id="cb10-184"><a href="#cb10-184"></a></span>
-<span id="cb10-185"><a href="#cb10-185"></a></span>
-<span id="cb10-186"><a href="#cb10-186"></a></span>
-<span id="cb10-187"><a href="#cb10-187"></a></span>
-<span id="cb10-188"><a href="#cb10-188"></a></span>
-<span id="cb10-189"><a href="#cb10-189"></a><span class="fu">### Defining Image Collection Bands</span></span>
-<span id="cb10-190"><a href="#cb10-190"></a></span>
-<span id="cb10-191"><a href="#cb10-191"></a></span>
-<span id="cb10-192"><a href="#cb10-192"></a>The <span class="in">`bands`</span> object lists the bands of a data product as key value pairs, where the key is a unique band name, and the value is a JSON object with a pattern and optional other fields. The <span class="in">`pattern`</span> field again defines a regular expression. If a GDAL dataset identifier matches the pattern, it is considered to contain data of the band.  An dataset identifier may match the pattern of several bands (sometimes, all bands even define the same pattern) if a single input GDAL dataset contains multiple bands. In this case, the additional field <span class="in">`band`</span> can be used to describe which internal band corresponds to the band of the image collection. <span class="in">`band`</span> can be a one-based integer number and is identical to the band number of GDAL (as from running <span class="in">`gdalinfo`</span>).</span>
+<span id="cb10-180"><a href="#cb10-180"></a>---</span>
+<span id="cb10-181"><a href="#cb10-181"></a></span>
+<span id="cb10-182"><a href="#cb10-182"></a><span class="fu">#### Example 3 (pr_day_HadGEM2-ES_historical_r1i1p1)</span></span>
+<span id="cb10-183"><a href="#cb10-183"></a></span>
+<span id="cb10-184"><a href="#cb10-184"></a><span class="in">```</span></span>
+<span id="cb10-185"><a href="#cb10-185"></a><span class="in">{</span></span>
+<span id="cb10-186"><a href="#cb10-186"></a><span class="in">  "datetime" : {</span></span>
+<span id="cb10-187"><a href="#cb10-187"></a><span class="in">      "pattern" : ".*pr_day_HadGEM2-ES_historical_r1i1p1_EWEMBI_([0-9]{8}).*",</span></span>
+<span id="cb10-188"><a href="#cb10-188"></a><span class="in">      "format" : "%Y%m%d",</span></span>
+<span id="cb10-189"><a href="#cb10-189"></a><span class="in">      "bands" : {</span></span>
+<span id="cb10-190"><a href="#cb10-190"></a><span class="in">          "dt" : "P1D" }}</span></span>
+<span id="cb10-191"><a href="#cb10-191"></a><span class="in">}</span></span>
+<span id="cb10-192"><a href="#cb10-192"></a><span class="in">```</span></span>
 <span id="cb10-193"><a href="#cb10-193"></a></span>
-<span id="cb10-194"><a href="#cb10-194"></a></span>
-<span id="cb10-195"><a href="#cb10-195"></a>Some additional per-band metadata fields may be added to band definitions. In the current version, these include <span class="in">`nodata`</span>, <span class="in">`scale`</span>, <span class="in">`offset`</span>, and <span class="in">`unit`</span>. If these values are not provided, they are derived from the GDAL metadata (which may or may not be defined).</span>
-<span id="cb10-196"><a href="#cb10-196"></a></span>
-<span id="cb10-197"><a href="#cb10-197"></a></span>
-<span id="cb10-198"><a href="#cb10-198"></a><span class="fu">#### Example 1: One GDAL dataset - one band</span></span>
-<span id="cb10-199"><a href="#cb10-199"></a></span>
-<span id="cb10-200"><a href="#cb10-200"></a>The following example can be used to define some of the bands of Landsat 8 surface reflectance data, where each band is stored in a separate GeoTIFF file.</span>
+<span id="cb10-194"><a href="#cb10-194"></a>In this example the 10th band (zero-based) for example represents 10 days after the date extracted from the filename.</span>
+<span id="cb10-195"><a href="#cb10-195"></a></span>
+<span id="cb10-196"><a href="#cb10-196"></a>:::{.callout-note}</span>
+<span id="cb10-197"><a href="#cb10-197"></a>This feature is experimental and only available in the development version.</span>
+<span id="cb10-198"><a href="#cb10-198"></a>:::</span>
+<span id="cb10-199"><a href="#cb10-199"></a>   </span>
+<span id="cb10-200"><a href="#cb10-200"></a></span>
 <span id="cb10-201"><a href="#cb10-201"></a></span>
-<span id="cb10-202"><a href="#cb10-202"></a><span class="in">```</span></span>
-<span id="cb10-203"><a href="#cb10-203"></a><span class="in">{</span></span>
-<span id="cb10-204"><a href="#cb10-204"></a><span class="in">    "bands": {</span></span>
-<span id="cb10-205"><a href="#cb10-205"></a><span class="in">        "B01" : {</span></span>
-<span id="cb10-206"><a href="#cb10-206"></a><span class="in">            "pattern" : ".+sr_band1\\.tif",</span></span>
-<span id="cb10-207"><a href="#cb10-207"></a><span class="in">            "nodata" : -9999},</span></span>
-<span id="cb10-208"><a href="#cb10-208"></a><span class="in">        "B02" : {</span></span>
-<span id="cb10-209"><a href="#cb10-209"></a><span class="in">            "pattern" : ".+sr_band2\\.tif",</span></span>
-<span id="cb10-210"><a href="#cb10-210"></a><span class="in">            "nodata" : -9999},</span></span>
-<span id="cb10-211"><a href="#cb10-211"></a><span class="in">        "B03" : {</span></span>
-<span id="cb10-212"><a href="#cb10-212"></a><span class="in">            "pattern" : ".+sr_band3\\.tif",</span></span>
-<span id="cb10-213"><a href="#cb10-213"></a><span class="in">            "nodata" : -9999},</span></span>
-<span id="cb10-214"><a href="#cb10-214"></a><span class="in">        "B04" : {</span></span>
-<span id="cb10-215"><a href="#cb10-215"></a><span class="in">            "pattern" : ".+sr_band4\\.tif",</span></span>
-<span id="cb10-216"><a href="#cb10-216"></a><span class="in">            "nodata" : -9999},</span></span>
-<span id="cb10-217"><a href="#cb10-217"></a><span class="in">        "B05" : {</span></span>
-<span id="cb10-218"><a href="#cb10-218"></a><span class="in">            "pattern" : ".+sr_band5\\.tif",</span></span>
-<span id="cb10-219"><a href="#cb10-219"></a><span class="in">            "nodata" : -9999},</span></span>
-<span id="cb10-220"><a href="#cb10-220"></a><span class="in">        "B06" : {</span></span>
-<span id="cb10-221"><a href="#cb10-221"></a><span class="in">            "pattern" : ".+sr_band6\\.tif",</span></span>
-<span id="cb10-222"><a href="#cb10-222"></a><span class="in">            "nodata" : -9999},</span></span>
-<span id="cb10-223"><a href="#cb10-223"></a><span class="in">        "B07" : {</span></span>
-<span id="cb10-224"><a href="#cb10-224"></a><span class="in">            "pattern" : ".+sr_band7\\.tif",</span></span>
-<span id="cb10-225"><a href="#cb10-225"></a><span class="in">            "nodata" : -9999},</span></span>
-<span id="cb10-226"><a href="#cb10-226"></a><span class="in">        "..."</span></span>
-<span id="cb10-227"><a href="#cb10-227"></a><span class="in">    }</span></span>
-<span id="cb10-228"><a href="#cb10-228"></a><span class="in">}</span></span>
-<span id="cb10-229"><a href="#cb10-229"></a><span class="in">```</span></span>
-<span id="cb10-230"><a href="#cb10-230"></a></span>
-<span id="cb10-231"><a href="#cb10-231"></a><span class="fu">#### Example 2: One GDAL dataset - many bands</span></span>
-<span id="cb10-232"><a href="#cb10-232"></a></span>
-<span id="cb10-233"><a href="#cb10-233"></a>The following example can be used to define bands of PlanetScope surface reflectance data, where all bands (except a mask band) are stored in a single GeoTIFF file.</span>
-<span id="cb10-234"><a href="#cb10-234"></a></span>
-<span id="cb10-235"><a href="#cb10-235"></a><span class="in">```</span></span>
-<span id="cb10-236"><a href="#cb10-236"></a><span class="in"> {</span></span>
-<span id="cb10-237"><a href="#cb10-237"></a><span class="in">      "bands" : {</span></span>
-<span id="cb10-238"><a href="#cb10-238"></a><span class="in">          "red" : {</span></span>
-<span id="cb10-239"><a href="#cb10-239"></a><span class="in">              "nodata" : 0,</span></span>
-<span id="cb10-240"><a href="#cb10-240"></a><span class="in">              "pattern" : ".+_AnalyticMS_SR\\.tif$",</span></span>
-<span id="cb10-241"><a href="#cb10-241"></a><span class="in">              "band" : 3},</span></span>
-<span id="cb10-242"><a href="#cb10-242"></a><span class="in">          "green" : {</span></span>
-<span id="cb10-243"><a href="#cb10-243"></a><span class="in">              "nodata" : 0,</span></span>
-<span id="cb10-244"><a href="#cb10-244"></a><span class="in">              "pattern" : ".+_AnalyticMS_SR\\.tif$",</span></span>
-<span id="cb10-245"><a href="#cb10-245"></a><span class="in">              "band" : 2},</span></span>
-<span id="cb10-246"><a href="#cb10-246"></a><span class="in">          "blue" : {</span></span>
-<span id="cb10-247"><a href="#cb10-247"></a><span class="in">              "nodata" : 0,</span></span>
-<span id="cb10-248"><a href="#cb10-248"></a><span class="in">              "pattern" : ".+_AnalyticMS_SR\\.tif$",</span></span>
-<span id="cb10-249"><a href="#cb10-249"></a><span class="in">              "band" : 1},</span></span>
-<span id="cb10-250"><a href="#cb10-250"></a><span class="in">          "nir" : {</span></span>
-<span id="cb10-251"><a href="#cb10-251"></a><span class="in">              "nodata" : 0,</span></span>
-<span id="cb10-252"><a href="#cb10-252"></a><span class="in">              "pattern" : ".+_AnalyticMS_SR\\.tif$",</span></span>
-<span id="cb10-253"><a href="#cb10-253"></a><span class="in">              "band" : 4},</span></span>
-<span id="cb10-254"><a href="#cb10-254"></a><span class="in">          "..."</span></span>
-<span id="cb10-255"><a href="#cb10-255"></a><span class="in">      }</span></span>
-<span id="cb10-256"><a href="#cb10-256"></a><span class="in"> }</span></span>
-<span id="cb10-257"><a href="#cb10-257"></a><span class="in">```</span></span>
-<span id="cb10-258"><a href="#cb10-258"></a></span>
-<span id="cb10-259"><a href="#cb10-259"></a><span class="fu">### Reading GDAL subdatasets</span></span>
-<span id="cb10-260"><a href="#cb10-260"></a></span>
-<span id="cb10-261"><a href="#cb10-261"></a>For some data products (such as MODIS), bands are distributed as GDAL subdatasets within a single file (typically NetCDF or HDF). Adding <span class="in">`"subdatasets" : true`</span> to the top-level JSON object</span>
-<span id="cb10-262"><a href="#cb10-262"></a>makes sure that all subdatasets will be considered automatically. Other patterns of the collection format to extract image names amd date/time then relate to subdataset identifiers.</span>
-<span id="cb10-263"><a href="#cb10-263"></a></span>
-<span id="cb10-264"><a href="#cb10-264"></a></span>
-<span id="cb10-265"><a href="#cb10-265"></a></span>
-<span id="cb10-266"><a href="#cb10-266"></a><span class="fu">### Defining a Global Spatial Reference System</span></span>
-<span id="cb10-267"><a href="#cb10-267"></a></span>
-<span id="cb10-268"><a href="#cb10-268"></a>Some global climate data products distributed as NetCDF files do not encode the SRS of images in a way that GDAL reads automatically.</span>
-<span id="cb10-269"><a href="#cb10-269"></a>In these cases the collection format allows to define a global spatial reference system that overwrites the reference system </span>
-<span id="cb10-270"><a href="#cb10-270"></a>of individual images (if available). For example, adding <span class="in">`"srs" : "EPSG:4326"`</span> to the top-level JSON object</span>
-<span id="cb10-271"><a href="#cb10-271"></a>makes sure that the WGS84 spatial reference system will be used for all images.</span>
-<span id="cb10-272"><a href="#cb10-272"></a></span>
-<span id="cb10-273"><a href="#cb10-273"></a></span>
+<span id="cb10-202"><a href="#cb10-202"></a></span>
+<span id="cb10-203"><a href="#cb10-203"></a></span>
+<span id="cb10-204"><a href="#cb10-204"></a></span>
+<span id="cb10-205"><a href="#cb10-205"></a><span class="fu">### Defining bands</span></span>
+<span id="cb10-206"><a href="#cb10-206"></a></span>
+<span id="cb10-207"><a href="#cb10-207"></a></span>
+<span id="cb10-208"><a href="#cb10-208"></a>The <span class="in">`bands`</span> object lists the bands of a data product as key value pairs, where the key is a unique band name, and the value is a JSON object with a pattern and optional other fields. The <span class="in">`pattern`</span> field again defines a regular expression. If a GDAL dataset identifier matches the pattern, it is considered to contain data of the band.  A dataset identifier may match the pattern of several bands (sometimes, all bands even define the same pattern) if a single input GDAL dataset contains multiple bands. In this case, the additional field <span class="in">`band`</span> can be used to describe which internal band corresponds to the band of the image collection. <span class="in">`band`</span> can be a one-based integer number and is identical to the band number of GDAL (as from running <span class="in">`gdalinfo`</span>).</span>
+<span id="cb10-209"><a href="#cb10-209"></a></span>
+<span id="cb10-210"><a href="#cb10-210"></a></span>
+<span id="cb10-211"><a href="#cb10-211"></a>Some additional per-band metadata fields may be added to band definitions. In the current version, these include <span class="in">`nodata`</span>, <span class="in">`scale`</span>, <span class="in">`offset`</span>, and <span class="in">`unit`</span>. If these values are not provided, they are derived from the GDAL metadata (which may or may not be defined).</span>
+<span id="cb10-212"><a href="#cb10-212"></a></span>
+<span id="cb10-213"><a href="#cb10-213"></a></span>
+<span id="cb10-214"><a href="#cb10-214"></a><span class="fu">#### Example 1: One GDAL dataset - one band</span></span>
+<span id="cb10-215"><a href="#cb10-215"></a></span>
+<span id="cb10-216"><a href="#cb10-216"></a>The following example can be used to define some of the bands of Landsat 8 surface reflectance data, where each band is stored in a separate GeoTIFF file.</span>
+<span id="cb10-217"><a href="#cb10-217"></a></span>
+<span id="cb10-218"><a href="#cb10-218"></a><span class="in">```</span></span>
+<span id="cb10-219"><a href="#cb10-219"></a><span class="in">{</span></span>
+<span id="cb10-220"><a href="#cb10-220"></a><span class="in">    "bands": {</span></span>
+<span id="cb10-221"><a href="#cb10-221"></a><span class="in">        "B01" : {</span></span>
+<span id="cb10-222"><a href="#cb10-222"></a><span class="in">            "pattern" : ".+sr_band1\\.tif",</span></span>
+<span id="cb10-223"><a href="#cb10-223"></a><span class="in">            "nodata" : -9999},</span></span>
+<span id="cb10-224"><a href="#cb10-224"></a><span class="in">        "B02" : {</span></span>
+<span id="cb10-225"><a href="#cb10-225"></a><span class="in">            "pattern" : ".+sr_band2\\.tif",</span></span>
+<span id="cb10-226"><a href="#cb10-226"></a><span class="in">            "nodata" : -9999},</span></span>
+<span id="cb10-227"><a href="#cb10-227"></a><span class="in">        "B03" : {</span></span>
+<span id="cb10-228"><a href="#cb10-228"></a><span class="in">            "pattern" : ".+sr_band3\\.tif",</span></span>
+<span id="cb10-229"><a href="#cb10-229"></a><span class="in">            "nodata" : -9999},</span></span>
+<span id="cb10-230"><a href="#cb10-230"></a><span class="in">        "B04" : {</span></span>
+<span id="cb10-231"><a href="#cb10-231"></a><span class="in">            "pattern" : ".+sr_band4\\.tif",</span></span>
+<span id="cb10-232"><a href="#cb10-232"></a><span class="in">            "nodata" : -9999},</span></span>
+<span id="cb10-233"><a href="#cb10-233"></a><span class="in">        "B05" : {</span></span>
+<span id="cb10-234"><a href="#cb10-234"></a><span class="in">            "pattern" : ".+sr_band5\\.tif",</span></span>
+<span id="cb10-235"><a href="#cb10-235"></a><span class="in">            "nodata" : -9999},</span></span>
+<span id="cb10-236"><a href="#cb10-236"></a><span class="in">        "B06" : {</span></span>
+<span id="cb10-237"><a href="#cb10-237"></a><span class="in">            "pattern" : ".+sr_band6\\.tif",</span></span>
+<span id="cb10-238"><a href="#cb10-238"></a><span class="in">            "nodata" : -9999},</span></span>
+<span id="cb10-239"><a href="#cb10-239"></a><span class="in">        "B07" : {</span></span>
+<span id="cb10-240"><a href="#cb10-240"></a><span class="in">            "pattern" : ".+sr_band7\\.tif",</span></span>
+<span id="cb10-241"><a href="#cb10-241"></a><span class="in">            "nodata" : -9999},</span></span>
+<span id="cb10-242"><a href="#cb10-242"></a><span class="in">        "..."</span></span>
+<span id="cb10-243"><a href="#cb10-243"></a><span class="in">    }</span></span>
+<span id="cb10-244"><a href="#cb10-244"></a><span class="in">}</span></span>
+<span id="cb10-245"><a href="#cb10-245"></a><span class="in">```</span></span>
+<span id="cb10-246"><a href="#cb10-246"></a></span>
+<span id="cb10-247"><a href="#cb10-247"></a><span class="fu">#### Example 2: One GDAL dataset - many bands</span></span>
+<span id="cb10-248"><a href="#cb10-248"></a></span>
+<span id="cb10-249"><a href="#cb10-249"></a>The following example can be used to define bands of PlanetScope surface reflectance data, where all bands (except a mask band) are stored in a single GeoTIFF file.</span>
+<span id="cb10-250"><a href="#cb10-250"></a></span>
+<span id="cb10-251"><a href="#cb10-251"></a><span class="in">```</span></span>
+<span id="cb10-252"><a href="#cb10-252"></a><span class="in"> {</span></span>
+<span id="cb10-253"><a href="#cb10-253"></a><span class="in">      "bands" : {</span></span>
+<span id="cb10-254"><a href="#cb10-254"></a><span class="in">          "red" : {</span></span>
+<span id="cb10-255"><a href="#cb10-255"></a><span class="in">              "nodata" : 0,</span></span>
+<span id="cb10-256"><a href="#cb10-256"></a><span class="in">              "pattern" : ".+_AnalyticMS_SR\\.tif$",</span></span>
+<span id="cb10-257"><a href="#cb10-257"></a><span class="in">              "band" : 3},</span></span>
+<span id="cb10-258"><a href="#cb10-258"></a><span class="in">          "green" : {</span></span>
+<span id="cb10-259"><a href="#cb10-259"></a><span class="in">              "nodata" : 0,</span></span>
+<span id="cb10-260"><a href="#cb10-260"></a><span class="in">              "pattern" : ".+_AnalyticMS_SR\\.tif$",</span></span>
+<span id="cb10-261"><a href="#cb10-261"></a><span class="in">              "band" : 2},</span></span>
+<span id="cb10-262"><a href="#cb10-262"></a><span class="in">          "blue" : {</span></span>
+<span id="cb10-263"><a href="#cb10-263"></a><span class="in">              "nodata" : 0,</span></span>
+<span id="cb10-264"><a href="#cb10-264"></a><span class="in">              "pattern" : ".+_AnalyticMS_SR\\.tif$",</span></span>
+<span id="cb10-265"><a href="#cb10-265"></a><span class="in">              "band" : 1},</span></span>
+<span id="cb10-266"><a href="#cb10-266"></a><span class="in">          "nir" : {</span></span>
+<span id="cb10-267"><a href="#cb10-267"></a><span class="in">              "nodata" : 0,</span></span>
+<span id="cb10-268"><a href="#cb10-268"></a><span class="in">              "pattern" : ".+_AnalyticMS_SR\\.tif$",</span></span>
+<span id="cb10-269"><a href="#cb10-269"></a><span class="in">              "band" : 4},</span></span>
+<span id="cb10-270"><a href="#cb10-270"></a><span class="in">          "..."</span></span>
+<span id="cb10-271"><a href="#cb10-271"></a><span class="in">      }</span></span>
+<span id="cb10-272"><a href="#cb10-272"></a><span class="in"> }</span></span>
+<span id="cb10-273"><a href="#cb10-273"></a><span class="in">```</span></span>
 <span id="cb10-274"><a href="#cb10-274"></a></span>
-<span id="cb10-275"><a href="#cb10-275"></a></span>
-<span id="cb10-276"><a href="#cb10-276"></a><span class="fu">### Additional Image Metadata</span></span>
-<span id="cb10-277"><a href="#cb10-277"></a></span>
-<span id="cb10-278"><a href="#cb10-278"></a>It is possible to extract further per-image metadata key value pairs from GDAL datasets. The collection format may include an optional field "image_md_fields" to list metadata keys as a JSON array of strings. When GDAL datasets are opened, GDAL tries to find the corresponding metadata keys and stores corresponding values in the image metadata table of the image collection.</span>
+<span id="cb10-275"><a href="#cb10-275"></a><span class="fu">### Reading GDAL subdatasets</span></span>
+<span id="cb10-276"><a href="#cb10-276"></a></span>
+<span id="cb10-277"><a href="#cb10-277"></a>For some data products (such as MODIS), bands are distributed as GDAL subdatasets within a single file (typically NetCDF or HDF). Adding <span class="in">`"subdatasets" : true`</span> to the top-level JSON object</span>
+<span id="cb10-278"><a href="#cb10-278"></a>makes sure that all subdatasets will be considered automatically. Other patterns of the collection format to extract image names amd date/time then relate to subdataset identifiers.</span>
 <span id="cb10-279"><a href="#cb10-279"></a></span>
-<span id="cb10-280"><a href="#cb10-280"></a>Metadata fields may be separated by domains (see <span class="co">[</span><span class="ot">GDAL metadata model</span><span class="co">](https://gdal.org/user/raster_data_model.html#metadata)</span>). If metadata fields from a specific domain are needed, you can use <span class="in">`DOMAIN:KEY`</span>, such as <span class="in">`IMAGERY:CLOUDCOVER`</span>. The example below could be used to get some per-image quality flags from MODIS metadata.</span>
+<span id="cb10-280"><a href="#cb10-280"></a></span>
 <span id="cb10-281"><a href="#cb10-281"></a></span>
-<span id="cb10-282"><a href="#cb10-282"></a></span>
-<span id="cb10-283"><a href="#cb10-283"></a><span class="in">```</span></span>
-<span id="cb10-284"><a href="#cb10-284"></a><span class="in">{"image_md_fields" : ["PERCENTLAND", "QAPERCENTGOODQUALITY", "QAPERCENTNOTPRODUCEDCLOUD"]}</span></span>
-<span id="cb10-285"><a href="#cb10-285"></a><span class="in">```</span></span>
-<span id="cb10-286"><a href="#cb10-286"></a></span>
-<span id="cb10-287"><a href="#cb10-287"></a>   </span>
+<span id="cb10-282"><a href="#cb10-282"></a><span class="fu">### Defining a global spatial reference system</span></span>
+<span id="cb10-283"><a href="#cb10-283"></a></span>
+<span id="cb10-284"><a href="#cb10-284"></a>Some global climate data products distributed as NetCDF files do not encode the SRS of images in a way that GDAL reads automatically.</span>
+<span id="cb10-285"><a href="#cb10-285"></a>In these cases the collection format allows to define a global spatial reference system that overwrites the reference system </span>
+<span id="cb10-286"><a href="#cb10-286"></a>of individual images (if available). For example, adding <span class="in">`"srs" : "EPSG:4326"`</span> to the top-level JSON object</span>
+<span id="cb10-287"><a href="#cb10-287"></a>makes sure that the WGS84 spatial reference system will be used for all images.</span>
 <span id="cb10-288"><a href="#cb10-288"></a></span>
-<span id="cb10-289"><a href="#cb10-289"></a><span class="fu">## Complete Examples</span></span>
+<span id="cb10-289"><a href="#cb10-289"></a></span>
 <span id="cb10-290"><a href="#cb10-290"></a></span>
-<span id="cb10-291"><a href="#cb10-291"></a>Complete examples of image collection formats can be found in the sources. There is also a <span class="co">[</span><span class="ot">dedicated GitHub repository</span><span class="co">](https://github.com/appelmar/gdalcubes_formats/tree/master/formats)</span></span>
-<span id="cb10-292"><a href="#cb10-292"></a></span>
+<span id="cb10-291"><a href="#cb10-291"></a></span>
+<span id="cb10-292"><a href="#cb10-292"></a><span class="fu">### Additional image metadata</span></span>
 <span id="cb10-293"><a href="#cb10-293"></a></span>
-<span id="cb10-294"><a href="#cb10-294"></a></span>
-<span id="cb10-295"><a href="#cb10-295"></a><span class="fu">## Notes on Writing Custom Collection Formats</span></span>
-<span id="cb10-296"><a href="#cb10-296"></a></span>
-<span id="cb10-297"><a href="#cb10-297"></a>When writing a collection format for new data products, please make sure </span>
-<span id="cb10-298"><a href="#cb10-298"></a>to check the following notes:</span>
-<span id="cb10-299"><a href="#cb10-299"></a></span>
-<span id="cb10-300"><a href="#cb10-300"></a><span class="ss">- </span>If available, read the data product handbook. Most official satellite image product handbooks include a section on filenaming conventions.</span>
-<span id="cb10-301"><a href="#cb10-301"></a><span class="ss">- </span>For portability of local file-based image collections, make sure that preceding directory names (e.g. "C:<span class="sc">\\</span>Users<span class="sc">\\</span>", or "/home/user/data") do not matter to successfully create image collections.  </span>
-<span id="cb10-302"><a href="#cb10-302"></a><span class="ss">- </span>If possible, avoid using path separators in regular expressions or use *non-capturing alternation* ``(?:/|<span class="sc">\\</span>)`` if you have to.</span>
-<span id="cb10-303"><a href="#cb10-303"></a><span class="ss">- </span>Image collections do not need to include data for all bands. It is recommended to list all possible bands of a data product in the format. For example, Landsat 8 surface reflectance products may or may not include additional precomputed spectral index bands. To be able to use these bands if available, they must be listed in the collection format.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-294"><a href="#cb10-294"></a>It is possible to extract further per-image metadata key value pairs from GDAL datasets. The collection format may include an optional field "image_md_fields" to list metadata keys as a JSON array of strings. When GDAL datasets are opened, GDAL tries to find the corresponding metadata keys and stores corresponding values in the image metadata table of the image collection.</span>
+<span id="cb10-295"><a href="#cb10-295"></a></span>
+<span id="cb10-296"><a href="#cb10-296"></a>Metadata fields may be separated by domains (see <span class="co">[</span><span class="ot">GDAL metadata model</span><span class="co">](https://gdal.org/user/raster_data_model.html#metadata)</span>). If metadata fields from a specific domain are needed, you can use <span class="in">`DOMAIN:KEY`</span>, such as <span class="in">`IMAGERY:CLOUDCOVER`</span>. The example below could be used to get some per-image quality flags from MODIS metadata.</span>
+<span id="cb10-297"><a href="#cb10-297"></a></span>
+<span id="cb10-298"><a href="#cb10-298"></a></span>
+<span id="cb10-299"><a href="#cb10-299"></a><span class="in">```</span></span>
+<span id="cb10-300"><a href="#cb10-300"></a><span class="in">{"image_md_fields" : ["PERCENTLAND", "QAPERCENTGOODQUALITY", "QAPERCENTNOTPRODUCEDCLOUD"]}</span></span>
+<span id="cb10-301"><a href="#cb10-301"></a><span class="in">```</span></span>
+<span id="cb10-302"><a href="#cb10-302"></a></span>
+<span id="cb10-303"><a href="#cb10-303"></a>   </span>
+<span id="cb10-304"><a href="#cb10-304"></a></span>
+<span id="cb10-305"><a href="#cb10-305"></a><span class="fu">## Complete examples</span></span>
+<span id="cb10-306"><a href="#cb10-306"></a></span>
+<span id="cb10-307"><a href="#cb10-307"></a>Complete examples of image collection formats can be found in the sources. There is also a <span class="co">[</span><span class="ot">dedicated GitHub repository</span><span class="co">](https://github.com/appelmar/gdalcubes_formats/tree/master/formats)</span></span>
+<span id="cb10-308"><a href="#cb10-308"></a></span>
+<span id="cb10-309"><a href="#cb10-309"></a></span>
+<span id="cb10-310"><a href="#cb10-310"></a></span>
+<span id="cb10-311"><a href="#cb10-311"></a><span class="fu">## Notes on writing custom collection formats</span></span>
+<span id="cb10-312"><a href="#cb10-312"></a></span>
+<span id="cb10-313"><a href="#cb10-313"></a>When writing a collection format for new data products, please make sure </span>
+<span id="cb10-314"><a href="#cb10-314"></a>to check the following notes:</span>
+<span id="cb10-315"><a href="#cb10-315"></a></span>
+<span id="cb10-316"><a href="#cb10-316"></a><span class="ss">- </span>If available, read the data product handbook. Most official satellite image product handbooks include a section on filenaming conventions.</span>
+<span id="cb10-317"><a href="#cb10-317"></a><span class="ss">- </span>For portability of local file-based image collections, make sure that preceding directory names (e.g. "C:<span class="sc">\\</span>Users<span class="sc">\\</span>", or "/home/user/data") do not matter to successfully create image collections.  </span>
+<span id="cb10-318"><a href="#cb10-318"></a><span class="ss">- </span>If possible, avoid using path separators in regular expressions or use *non-capturing alternation* ``(?:/|<span class="sc">\\</span>)`` if you have to.</span>
+<span id="cb10-319"><a href="#cb10-319"></a><span class="ss">- </span>Image collections do not need to include data for all bands. It is recommended to list all possible bands of a data product in the format. For example, Landsat 8 surface reflectance products may or may not include additional precomputed spectral index bands. To be able to use these bands if available, they must be listed in the collection format.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

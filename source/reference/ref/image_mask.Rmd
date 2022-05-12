@@ -1,0 +1,67 @@
+# image_mask
+
+Create a mask for images in a raster data cube
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Create an image mask based on a band and provided values to filter pixels of images 
+read by [`raster_cube`](raster_cube.Rmd)
+
+
+## Usage
+
+
+```r
+image_mask(
+  band,
+  min = NULL,
+  max = NULL,
+  values = NULL,
+  bits = NULL,
+  invert = FALSE
+)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| band | name of the mask band |
+| min | minimum value, values between `min` and `max` will be masked |
+| max | maximum value, values between `min` and `max` will be masked |
+| values | numeric vector; specific values that will be masked. |
+| bits | for bitmasks, extract the given bits (integer vector) with a bitwise AND before filtering the mask values, bit indexes are zero-based |
+| invert | logical; invert mask |
+
+
+## Details
+
+Values of the selected mask band can be based on a range (by passing `min` and `max`) or on a set of values (by passing `values`). By default
+pixels with mask values contained in the range or in the values are masked out, i.e. set to NA. Setting `invert = TRUE` will invert the masking behavior.
+Passing `values` will override `min` and `max`.
+
+
+## Note
+
+Notice that masks are applied per image while reading images as a raster cube. They can be useful to eliminate e.g. cloudy pixels before applying the temporal aggregation to
+merge multiple values for the same data cube pixel.
+
+
+## Examples
+
+
+```{r}
+image_mask("SCL", values = c(3,8,9)) # Sentinel 2 L2A: mask cloud and cloud shadows
+image_mask("BQA", bits=4, values=16) # Landsat 8: mask clouds
+image_mask("B10", min = 8000, max=65000) 
+```
+
+

@@ -1,0 +1,86 @@
+# animate
+
+Animate a data cube as an image time series
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+This function can animate data cube time series as mp4 videos or animated GIFs.
+Depending on the desired output format, either the `av` or the `gifski`
+package is needed to create mp4 and GIF animations respectively.
+
+
+## Usage
+
+
+```r
+animate(
+  x,
+  ...,
+  fps = 1,
+  loop = TRUE,
+  width = 800,
+  height = 800,
+  save_as = tempfile(fileext = ".gif"),
+  preview = interactive()
+)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| x | a data cube proxy object (class cube) |
+| ... | parameters passed to plot.cube |
+| fps | frames per second of the animation |
+| loop | how many iterations, TRUE = infinite |
+| width | width (in pixels) of the animation |
+| height | height (in pixels) of the animation |
+| save_as | character path where the animation shall be stored, must end with ".mp4" or ".gif" |
+| preview | logical; preview the animation |
+
+
+## Details
+
+Animations can be created for single band data cubes or RGB plots of multi-band data cubes (by providing the argument rgb) only.
+
+
+## Value
+
+character; path pointing to the the created file
+
+
+## Examples
+
+
+```{r}
+if (!file.exists(file.path(tempdir(), "L8.db"))) {
+  L8_files <- list.files(system.file("L8NY18", package = "gdalcubes"),
+                         ".TIF", recursive = TRUE, full.names = TRUE)
+  create_image_collection(L8_files, "L8_L1TP", file.path(tempdir(), "L8.db"), quiet = TRUE)
+}
+
+L8.col = image_collection(file.path(tempdir(), "L8.db"))
+v = cube_view(extent=list(left=388941.2, right=766552.4,
+                          bottom=4345299, top=4744931, t0="2018-04", t1="2018-06"),
+              srs="EPSG:32618", nx = 497, ny=526, dt="P16D")
+
+animate(select_bands(raster_cube(L8.col, v), c("B02", "B03", "B04")), rgb=3:1,
+        zlim=c(0,20000), fps=1, loop=1)
+
+animate(select_bands(raster_cube(L8.col, v), c("B05")), col=terrain.colors, key.pos=1)
+```
+
+
+## See Also
+
+[`plot.cube`](plot.cube.Rmd)
+
+

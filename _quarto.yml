@@ -14,14 +14,36 @@ website:
     logo: source/gdalcubes_logo_mini.png
     search: true
     left:
-      - href: index.qmd
-        icon: favicon.png
-        text: Home
-     # - href: https://appelmar.github.io/gdalcubes
-    #    text: C++ API Reference (Doxygen)
-      # - href: https://appelmar.github.io/gdalcubes_R
-      #   text: R package reference (pkgdown)
-      - about.qmd
+      #- href: index.qmd
+      #  text: "Home"
+      - text: "Get started"
+        href: source/getstarted.qmd
+      - text: "Overview"
+        href: source/introduction/why.qmd
+      - text: "Tutorials"
+        href: source/tutorials/index.qmd
+      #- sidebar:overview
+      #- sidebar:concepts
+      #- sidebar:tutorials
+      # - href: https://appelmar.github.io/gdalcubes
+      #    text: C++ API Reference (Doxygen)
+      - text: "Reference"
+        href: "source/reference/index.qmd"
+      - text: "Help"
+        menu:
+          - text: Source code
+            icon: github
+            url:  https://github.com/appelmar/gdalcubes_R
+          - text: Report an issue
+            icon: bug
+            url:  https://github.com/appelmar/gdalcubes_R/issues
+          - text: FAQ
+            icon: question-circle
+            url:  source/introduction/faq.qmd
+      #- href: https://appelmar.github.io/gdalcubes_R
+      #  text: R package reference
+      #  icon: box-arrow-up-right
+      - source/about.qmd
     right:
       - icon: github
         href: https://github.com/appelmar/gdalcubes_R
@@ -31,34 +53,130 @@ website:
         #href: about.qmd
       
   sidebar:
-    style: "floating"
+    #style: "floating"
     #logo: "source/gdalcubes_logo_small.png"
     #header: "![](source/gdalcubes_logo_small.png){fig-align='center'}"
-    search: true
-    contents:
-      - section: "Introduction"
+    - id: overview
+      title: "Overview"
+      style: "floating"
+      collapse-level: 2
+      contents:
+      - section: "Overview"
         contents:
           - source/introduction/why.qmd
-          - source/introduction/overview.qmd
+          - source/introduction/components.qmd
           - source/introduction/installation.qmd
           - source/introduction/faq.qmd
           - source/introduction/license.qmd
           - source/introduction/credits.qmd
-      - section: "Basic Concepts"
+      - section: "Basic concepts"
         contents:
           - source/concepts/image_collections.qmd
           - source/concepts/collection_formats.qmd
           - source/concepts/datacubes.qmd
           - source/concepts/operations.qmd
-          - source/concepts/streaming.qmd
-          - source/concepts/distributed.qmd
-      - section: "R Tutorials"
-        contents:
-          - source/tutorials/vignettes/gc01_MODIS.Rmd
-          - source/tutorials/vignettes/gc02_AWS_Sentinel2.Rmd
-          - source/tutorials/vignettes/gc03_ML_training_data.Rmd
-          - source/tutorials/bfast/bfast.qmd
-
+          - source/concepts/execution.qmd
+          - source/concepts/udfs.qmd
+          #- source/concepts/streaming.qmd
+          #- source/concepts/distributed.qmd  
+    - id: tutorials
+      title: "Tutorials"
+      collapse-level: 1
+      contents:
+        - source/tutorials/index.qmd
+        - section: "Get started"
+          contents:
+            - href: "source/tutorials/vignettes/gc01_MODIS.Rmd"
+              text: "1. Quickstart: Creating data cubes from local MODIS imagery"
+            - href: "source/tutorials/Landsat8_getting_started/Landsat8_getting_started.Rmd"
+              text: "2. In-depth: Analyzing Landsat image collections"
+        - section: "User-defined functions"
+          contents:
+            - text: "1. Change detection with bfast"
+              href: "source/tutorials/bfast/bfast.qmd"
+        - section: "Cloud data access"
+          contents:
+            - text: "1. Sentinel-2 data on AWS"
+              href: "source/tutorials/vignettes/gc02_AWS_Sentinel2.Rmd"
+        - section: "Extraction from data cubes"
+          contents:
+            - text: "1. Extract training data for ML models"
+              href: "source/tutorials/vignettes/gc03_ML_training_data.Rmd"
+        - source/tutorials/videos.qmd
+    - id: reference
+      title: "Reference"
+      collapse-level: 1
+      contents:
+        - source/reference/index.qmd
+        - section: "Image collections"
+          contents:
+            - source/reference/ref/add_images.Rmd
+            - source/reference/ref/add_collection_format.Rmd
+            - source/reference/ref/create_image_collection.Rmd
+            - source/reference/ref/collection_formats.Rmd
+            - source/reference/ref/extent.Rmd 
+            - source/reference/ref/stac_image_collection.Rmd
+        - section: "Data cube creation"
+          contents:
+            - source/reference/ref/cube_view.Rmd
+            - source/reference/ref/image_mask.Rmd
+            - source/reference/ref/json_cube.Rmd
+            - source/reference/ref/ncdf_cube.Rmd
+            - source/reference/ref/raster_cube.Rmd
+            - source/reference/ref/stack_cube.Rmd
+        - section: "Data cube properties"
+          contents:
+            - source/reference/ref/bands.Rmd
+            - source/reference/ref/dim.cube.Rmd
+            - source/reference/ref/dimension_bounds.Rmd
+            - source/reference/ref/dimensions.Rmd
+            - source/reference/ref/dimension_values.Rmd
+            - source/reference/ref/names.cube.Rmd
+            - source/reference/ref/nbands.Rmd
+            - source/reference/ref/nt.Rmd
+            - source/reference/ref/nx.Rmd
+            - source/reference/ref/ny.Rmd
+            - source/reference/ref/size.Rmd
+            - source/reference/ref/srs.Rmd
+        - section: "Data cube operations"
+          contents:
+            - source/reference/ref/aggregate_space.Rmd
+            - source/reference/ref/aggregate_time.Rmd
+            - source/reference/ref/apply_pixel.cube.Rmd
+            - source/reference/ref/apply_time.cube.Rmd
+            - source/reference/ref/crop.Rmd
+            - source/reference/ref/extract_geom.Rmd
+            - source/reference/ref/fill_time.Rmd
+            - source/reference/ref/filter_geom.Rmd
+            - source/reference/ref/filter_pixel.Rmd
+            - source/reference/ref/gdalcubes_selection.Rmd
+            - source/reference/ref/join_bands.Rmd
+            - source/reference/ref/reduce_space.cube.Rmd
+            - source/reference/ref/reduce_time.cube.Rmd
+            - source/reference/ref/select_bands.Rmd
+            - source/reference/ref/select_time.Rmd
+            - source/reference/ref/slice_space.Rmd
+            - source/reference/ref/slice_time.Rmd
+            - source/reference/ref/window_time.Rmd
+        - section: "Export / visualization"
+          contents:
+            - source/reference/ref/animate.Rmd
+            - source/reference/ref/as_array.Rmd
+            - source/reference/ref/as_json.Rmd
+            - source/reference/ref/extract_geom.Rmd
+            - source/reference/ref/pack_minmax.Rmd
+            - source/reference/ref/plot.cube.Rmd
+            - source/reference/ref/st_as_stars.cube.Rmd
+            - source/reference/ref/write_ncdf.Rmd
+            - source/reference/ref/write_tif.Rmd
+        - section: "Miscellaneous"
+          contents:
+            - source/reference/ref/gdalcubes_options.Rmd
+            - source/reference/ref/gdalcubes_set_gdal_config.Rmd
+            - source/reference/ref/gdalcubes_gdalformats.Rmd
+            - source/reference/ref/gdalcubes_gdalversion.Rmd
+       
+          
 format:
   html:
     #theme: flatly
@@ -66,22 +184,29 @@ format:
     #margin-left: 0px
     #margin-right: 0px
     #max-width: 2000px
-    theme:
-      light: 
-        - flatly
-        - theme.scss
-      dark: 
-        - darkly
-        - theme.scss
+    
+    theme: [cosmo, theme.scss]
+      
+    # theme:
+    #   light: 
+    #     - cosmo
+    #     - theme.scss
+    #   dark: 
+    #     - darkly
+    #     - theme.scss
         
       
     #mainfont: "Roboto, Helvetica Neue, Helvetica, Arial, sans-serif"
     #monofont: "Roboto Mono"
     css: styles.css
     toc: true
+    link-external-newwindow: true
+    link-external-icon: true
+    citations-hover: true
    # code-fold: "show"
     #code-summary: "Show / hide source code"
     code-tools: true
+    code-link: true
     highlight-style: arrow
     code-block-bg: true
     code-block-background: true

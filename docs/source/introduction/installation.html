@@ -89,12 +89,10 @@
   <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
   <script src="../../site_libs/quarto-html/anchor.min.js"></script>
   <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
   <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
   <script id="quarto-search-options" type="application/json">{
     "location": "navbar",
     "copy-button": false,
@@ -119,7 +117,7 @@
   <![endif]-->
   <link rel="stylesheet" href="../../styles.css">
 </head>
-<body class="floating nav-fixed">
+<body class="floating nav-fixed fullcontent">
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
@@ -134,10 +132,39 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html">Home</a>
+    <a class="nav-link" href="../../source/getstarted.html">Get started</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link active" href="../../source/introduction/why.html" aria-current="page">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/tutorials/index.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/reference/index.html">Reference</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false">Help</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-help">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Source code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues"><i class="bi bi-bug" role="img">
+</i> 
+ <span class="dropdown-text">Report an issue</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../source/introduction/faq.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/about.html">About</a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -147,9 +174,6 @@
  </a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -167,16 +191,11 @@
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Introduction</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Overview</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -189,7 +208,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  <a href="../../source/introduction/components.html" class="sidebar-item-text sidebar-link">Components</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,7 +235,7 @@
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic Concepts</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic concepts</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -229,57 +248,27 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image Collection Formats</a>
+  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image collection formats</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data Cubes</a>
+  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data cubes</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data Cube Operations</a>
+  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data cube operations</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/streaming.html" class="sidebar-item-text sidebar-link">Streaming</a>
+  <a href="../../source/concepts/execution.html" class="sidebar-item-text sidebar-link">Execution and parallelization</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/distributed.html" class="sidebar-item-text sidebar-link">Distributed Data Cube Processing</a>
-  </div>
-</li>
-    </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">R Tutorials</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc01_MODIS.html" class="sidebar-item-text sidebar-link">1. Creating data cubes from local MODIS imagery</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc02_AWS_Sentinel2.html" class="sidebar-item-text sidebar-link">2. Data cubes from Sentinel-2 data in the cloud</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc03_ML_training_data.html" class="sidebar-item-text sidebar-link">3. Extracting training data for machine learning models</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/bfast/bfast.html" class="sidebar-item-text sidebar-link">Land cover change detection with gdalcubes and bfast</a>
+  <a href="../../source/concepts/udfs.html" class="sidebar-item-text sidebar-link">User-defined functions (UDFs)</a>
   </div>
 </li>
     </ul>
@@ -288,63 +277,17 @@
     </div>
 </nav>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation">Installation</a>
-<ul class="collapse">
-<li><a href="#c-library-and-tools" id="toc-c-library-and-tools" class="nav-link" data-scroll-target="#c-library-and-tools">C++ Library and Tools</a>
-<ul class="collapse">
-<li><a href="#docker" id="toc-docker" class="nav-link" data-scroll-target="#docker">Docker</a></li>
-</ul></li>
-<li><a href="#sec-install-rpackage" id="toc-sec-install-rpackage" class="nav-link" data-scroll-target="#sec-install-rpackage">R Package</a>
-<ul class="collapse">
-<li><a href="#windows" id="toc-windows" class="nav-link" data-scroll-target="#windows">Windows</a></li>
-<li><a href="#linux" id="toc-linux" class="nav-link" data-scroll-target="#linux">Linux</a></li>
-<li><a href="#macos" id="toc-macos" class="nav-link" data-scroll-target="#macos">MacOS</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
-
 <section id="installation" class="level1">
 <h1>Installation</h1>
-<section id="c-library-and-tools" class="level2">
-<h2 class="anchored" data-anchor-id="c-library-and-tools">C++ Library and Tools</h2>
-<p>gdalcubes can be compiled from sources via <a href="https://cmake.org">CMake</a>. CMake automatically checks for mandatory and optional dependencies and adapts the build configuration. The following commands install gdalcubes from sources.</p>
-<pre><code>  git clone https://github.com/appelmar/gdalcubes &amp;&amp; cd gdalcubes
-  mkdir -p build 
-  cd build 
-  cmake -DCMAKE_BUILD_TYPE=Release ../ 
-  make 
-  sudo make install</code></pre>
-<p>If any of the required libraries are not available on your system, please use your package manager to install these before, e.g.&nbsp;with (Ubuntu):</p>
-<pre><code>sudo apt-get install libgdal-dev libnetcdf-dev libcurl4-openssl-dev libsqlite3-dev
-
-# additional installs for command line interface 
-sudo apt-get install libboost-program-options-dev libboost-system-dev
-
-# additional installs for server executable
-sudo apt-get install libcpprest-dev</code></pre>
-<p>Please notice we have not yet tried to build with Microsoft Visual Studio. However, the R package installation from sources includes building the C++ library and works on Windows, MacOS and Linux (see <a href="#sec-install-rpackage">below</a>).</p>
-<section id="docker" class="level3">
-<h3 class="anchored" data-anchor-id="docker">Docker</h3>
-<p>The <code>Dockerfile</code> at the root of the project is built on a minimal Ubuntu installation, including installation of all dependencies and compiles gdalcubes from sources automatically.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">git</span> clone https://github.com/appelmar/gdalcubes <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> gdalcubes </span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="ex">docker</span> build <span class="at">-t</span> appelmar/gdalcubes .</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">-p</span> 11111:1111 appelmar/gdalcubes <span class="co"># runs gdalcubes_server as a deamon </span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="ex">docker</span> run appelmar/gdalcubes /bin/bash <span class="co"># run a command line where you can run gdalcubes </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
 <section id="sec-install-rpackage" class="level2">
-<h2 class="anchored" data-anchor-id="sec-install-rpackage">R Package</h2>
+<h2 class="anchored" data-anchor-id="sec-install-rpackage">R package</h2>
 <p>The R package can be installed from <a href="https://cran.r-project.org/package=gdalcubes">CRAN</a> including binary package builds for MacOS and Windows:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">install.packages</span>(<span class="st">"gdalcubes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Alternatively, to install the development version from sources is easiest with</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>remotes<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">"https://github.com/appelmar/gdalcubes_R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gdalcubes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Alternatively, installing the development version from GitHub is easiest with</p>
+<div class="sourceCode" id="cb2" data-code-line-numbers="false"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">"https://github.com/appelmar/gdalcubes_R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Please make sure that the git command line client is available on your system. Otherwise, the above command might not clone the gdalcubes C++ library as a submodule under src/gdalcubes. The package links to the external libraries <a href="https://www.gdal.org%3E">GDAL</a>, <a href="https://www.unidata.ucar.edu/software/netcdf">NetCDF</a>, and <a href="https://www.sqlite.org">SQLite</a> (see below).</p>
 <section id="windows" class="level3">
 <h3 class="anchored" data-anchor-id="windows">Windows</h3>
@@ -353,19 +296,46 @@ sudo apt-get install libcpprest-dev</code></pre>
 <section id="linux" class="level3">
 <h3 class="anchored" data-anchor-id="linux">Linux</h3>
 <p>Please install the system libraries e.g.&nbsp;from the package manager of your Linux distribution. Also make sure that you are using a recent version of GDAL (&gt; 2.3.0). On Ubuntu, the following commands install all required libraries.</p>
-<pre><code>sudo add-apt-repository ppa:ubuntugis/ppa &amp;&amp; sudo apt-get update
-sudo apt-get install libgdal-dev libnetcdf-dev libsqlite3-dev libudunits2-dev</code></pre>
+<div class="sourceCode" id="cb3" data-code-line-numbers="false"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ppa <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get update</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libgdal-dev libnetcdf-dev libsqlite3-dev libudunits2-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="macos" class="level3">
 <h3 class="anchored" data-anchor-id="macos">MacOS</h3>
 <p>Use <a href="https://brew.sh">Homebrew</a> to install system libraries with</p>
-<pre><code>brew install pkg-config
-brew install gdal
-brew install netcdf
-brew install libgit2
-brew install udunits
-brew install curl
-brew install sqlite</code></pre>
+<div class="sourceCode" id="cb4" data-code-line-numbers="false"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install pkg-config</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install gdal</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install netcdf</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install libgit2</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install udunits</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install curl</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">brew</span> install sqlite</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="c-library-and-tools" class="level2">
+<h2 class="anchored" data-anchor-id="c-library-and-tools">C++ library and tools</h2>
+<p>The C++ library and relatated tools can be compiled from sources via <a href="https://cmake.org">CMake</a>. CMake automatically checks for mandatory and optional dependencies and adapts the build configuration. The following commands install gdalcubes from sources.</p>
+<div class="sourceCode" id="cb5" data-code-line-numbers="false"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/appelmar/gdalcubes <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> gdalcubes</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> build </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> build </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>Release ../ </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> make install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If any of the required libraries are not available on your system, please use your package manager to install these before, e.g.&nbsp;with (Ubuntu):</p>
+<div class="sourceCode" id="cb6" data-code-line-numbers="false"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libgdal-dev libnetcdf-dev libcurl4-openssl-dev libsqlite3-dev</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># additional installs for command line interface </span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libboost-program-options-dev libboost-system-dev</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># additional installs for server executable</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt-get install libcpprest-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Please notice that we have not yet tried to build with Microsoft Visual Studio. However, the R package installation from sources includes building the C++ library and works on Windows, MacOS and Linux (see <a href="#sec-install-rpackage">R package installation</a>).</p>
+<section id="docker" class="level3">
+<h3 class="anchored" data-anchor-id="docker">Docker</h3>
+<p>The <code>Dockerfile</code> at the root of the project is built on a minimal Ubuntu installation, including installation of all dependencies and compiles gdalcubes from sources automatically.</p>
+<div class="sourceCode" id="cb7" data-code-line-numbers="false"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/appelmar/gdalcubes <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> gdalcubes </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> build <span class="at">-t</span> appelmar/gdalcubes .</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">-p</span> 11111:1111 appelmar/gdalcubes <span class="co"># runs gdalcubes_server as a deamon </span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run appelmar/gdalcubes /bin/bash <span class="co"># run a command line where you can run gdalcubes </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 
@@ -377,103 +347,6 @@ brew install sqlite</code></pre>
 </main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-    } else {
-      disableStylesheet(alternateStylesheets);
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } 
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -597,82 +470,113 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu"># Installation</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">## C++ Library and Tools</span></span>
+<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">---</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="an">toc:</span><span class="co"> false</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">---</span></span>
 <span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a>gdalcubes can be compiled from sources via <span class="co">[</span><span class="ot">CMake</span><span class="co">](https://cmake.org)</span>. CMake automatically checks for mandatory and optional dependencies and adapts the build configuration. The following commands install gdalcubes from sources.</span>
-<span id="cb8-6"><a href="#cb8-6"></a></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="in">      git clone https://github.com/appelmar/gdalcubes &amp;&amp; cd gdalcubes</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="in">      mkdir -p build </span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="in">      cd build </span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="in">      cmake -DCMAKE_BUILD_TYPE=Release ../ </span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="in">      make </span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="in">      sudo make install</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a></span>
-<span id="cb8-14"><a href="#cb8-14"></a>If any of the required libraries are not available on your system, please use your package manager to install these before, e.g. with (Ubuntu):</span>
-<span id="cb8-15"><a href="#cb8-15"></a></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="in">    sudo apt-get install libgdal-dev libnetcdf-dev libcurl4-openssl-dev libsqlite3-dev</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="in">    # additional installs for command line interface </span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="in">    sudo apt-get install libboost-program-options-dev libboost-system-dev</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="in">    # additional installs for server executable</span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="in">    sudo apt-get install libcpprest-dev</span></span>
-<span id="cb8-23"><a href="#cb8-23"></a></span>
-<span id="cb8-24"><a href="#cb8-24"></a>Please notice we have not yet tried to build with Microsoft Visual Studio. However, the R package installation from sources includes building the C++ library and works on Windows, MacOS and Linux (see <span class="co">[</span><span class="ot">below</span><span class="co">](#sec-install-rpackage)</span>).</span>
-<span id="cb8-25"><a href="#cb8-25"></a></span>
-<span id="cb8-26"><a href="#cb8-26"></a><span class="fu">### Docker</span></span>
-<span id="cb8-27"><a href="#cb8-27"></a></span>
-<span id="cb8-28"><a href="#cb8-28"></a>The <span class="in">`Dockerfile`</span> at the root of the project is built on a minimal Ubuntu installation, including installation of all dependencies and compiles gdalcubes from sources automatically.</span>
-<span id="cb8-29"><a href="#cb8-29"></a></span>
-<span id="cb8-30"><a href="#cb8-30"></a><span class="in">```{.bash}</span></span>
-<span id="cb8-31"><a href="#cb8-31"></a><span class="fu">git</span> clone https://github.com/appelmar/gdalcubes <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> gdalcubes </span>
-<span id="cb8-32"><a href="#cb8-32"></a><span class="ex">docker</span> build <span class="at">-t</span> appelmar/gdalcubes .</span>
-<span id="cb8-33"><a href="#cb8-33"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">-p</span> 11111:1111 appelmar/gdalcubes <span class="co"># runs gdalcubes_server as a deamon </span></span>
-<span id="cb8-34"><a href="#cb8-34"></a><span class="ex">docker</span> run appelmar/gdalcubes /bin/bash <span class="co"># run a command line where you can run gdalcubes </span></span>
-<span id="cb8-35"><a href="#cb8-35"></a><span class="in">```</span></span>
-<span id="cb8-36"><a href="#cb8-36"></a></span>
-<span id="cb8-37"><a href="#cb8-37"></a><span class="fu">## R Package {#sec-install-rpackage}</span></span>
-<span id="cb8-38"><a href="#cb8-38"></a></span>
-<span id="cb8-39"><a href="#cb8-39"></a>The R package can be installed from <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/package=gdalcubes)</span> including binary package builds for MacOS and Windows:</span>
-<span id="cb8-40"><a href="#cb8-40"></a></span>
-<span id="cb8-41"><a href="#cb8-41"></a><span class="in">```{.r}</span></span>
-<span id="cb8-42"><a href="#cb8-42"></a><span class="fu">install.packages</span>(<span class="st">"gdalcubes"</span>)</span>
-<span id="cb8-43"><a href="#cb8-43"></a><span class="in">```</span></span>
-<span id="cb8-44"><a href="#cb8-44"></a></span>
-<span id="cb8-45"><a href="#cb8-45"></a>Alternatively, to install the development version from sources is easiest with</span>
-<span id="cb8-46"><a href="#cb8-46"></a></span>
-<span id="cb8-47"><a href="#cb8-47"></a><span class="in">```{.r}</span></span>
-<span id="cb8-48"><a href="#cb8-48"></a>remotes<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">"https://github.com/appelmar/gdalcubes_R"</span>)</span>
-<span id="cb8-49"><a href="#cb8-49"></a><span class="in">```</span></span>
-<span id="cb8-50"><a href="#cb8-50"></a></span>
-<span id="cb8-51"><a href="#cb8-51"></a>Please make sure that the git command line client is available on your system. Otherwise, the above command might not clone the gdalcubes C++ library as a submodule under src/gdalcubes. The package links to the external libraries <span class="co">[</span><span class="ot">GDAL</span><span class="co">](https://www.gdal.org%3E)</span>, <span class="co">[</span><span class="ot">NetCDF</span><span class="co">](https://www.unidata.ucar.edu/software/netcdf)</span>, and <span class="co">[</span><span class="ot">SQLite</span><span class="co">](https://www.sqlite.org)</span> (see below).</span>
-<span id="cb8-52"><a href="#cb8-52"></a></span>
-<span id="cb8-53"><a href="#cb8-53"></a><span class="fu">### Windows</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="fu"># Installation</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a></span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="fu">## R package {#sec-install-rpackage}</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a>The R package can be installed from <span class="co">[</span><span class="ot">CRAN</span><span class="co">](https://cran.r-project.org/package=gdalcubes)</span> including binary package builds for MacOS and Windows:</span>
+<span id="cb8-12"><a href="#cb8-12"></a></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="in">```{.r code-line-numbers="false"}</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="fu">install.packages</span>(<span class="st">"gdalcubes"</span>)</span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="in">```</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a></span>
+<span id="cb8-17"><a href="#cb8-17"></a>Alternatively, installing the development version from GitHub is easiest with</span>
+<span id="cb8-18"><a href="#cb8-18"></a></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="in">```{.r code-line-numbers="false"}</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a>remotes<span class="sc">::</span><span class="fu">install_git</span>(<span class="st">"https://github.com/appelmar/gdalcubes_R"</span>)</span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="in">```</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a></span>
+<span id="cb8-23"><a href="#cb8-23"></a>Please make sure that the git command line client is available on your system. Otherwise, the above command might not clone the gdalcubes C++ library as a submodule under src/gdalcubes. The package links to the external libraries <span class="co">[</span><span class="ot">GDAL</span><span class="co">](https://www.gdal.org%3E)</span>, <span class="co">[</span><span class="ot">NetCDF</span><span class="co">](https://www.unidata.ucar.edu/software/netcdf)</span>, and <span class="co">[</span><span class="ot">SQLite</span><span class="co">](https://www.sqlite.org)</span> (see below).</span>
+<span id="cb8-24"><a href="#cb8-24"></a></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="fu">### Windows</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a></span>
+<span id="cb8-27"><a href="#cb8-27"></a>On Windows, you will need <span class="co">[</span><span class="ot">Rtools</span><span class="co">](https://cran.r-project.org/bin/windows/Rtools)</span> to compile the package from sources. System libraries are automatically downloaded from <span class="co">[</span><span class="ot">rwinlib</span><span class="co">](https://github.com/rwinlib)</span>.</span>
+<span id="cb8-28"><a href="#cb8-28"></a></span>
+<span id="cb8-29"><a href="#cb8-29"></a><span class="fu">### Linux</span></span>
+<span id="cb8-30"><a href="#cb8-30"></a></span>
+<span id="cb8-31"><a href="#cb8-31"></a>Please install the system libraries e.g. from the package manager of your Linux distribution. Also make sure that you are using a recent version of GDAL (<span class="sc">\&gt;</span> 2.3.0). On Ubuntu, the following commands install all required libraries.</span>
+<span id="cb8-32"><a href="#cb8-32"></a></span>
+<span id="cb8-33"><a href="#cb8-33"></a><span class="in">```{.bash code-line-numbers="false"}</span></span>
+<span id="cb8-34"><a href="#cb8-34"></a><span class="fu">sudo</span> add-apt-repository ppa:ubuntugis/ppa <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt-get update</span>
+<span id="cb8-35"><a href="#cb8-35"></a><span class="fu">sudo</span> apt-get install libgdal-dev libnetcdf-dev libsqlite3-dev libudunits2-dev</span>
+<span id="cb8-36"><a href="#cb8-36"></a><span class="in">```</span></span>
+<span id="cb8-37"><a href="#cb8-37"></a></span>
+<span id="cb8-38"><a href="#cb8-38"></a><span class="fu">### MacOS</span></span>
+<span id="cb8-39"><a href="#cb8-39"></a></span>
+<span id="cb8-40"><a href="#cb8-40"></a>Use <span class="co">[</span><span class="ot">Homebrew</span><span class="co">](https://brew.sh)</span> to install system libraries with</span>
+<span id="cb8-41"><a href="#cb8-41"></a></span>
+<span id="cb8-42"><a href="#cb8-42"></a><span class="in">```{.bash code-line-numbers="false"}</span></span>
+<span id="cb8-43"><a href="#cb8-43"></a><span class="ex">brew</span> install pkg-config</span>
+<span id="cb8-44"><a href="#cb8-44"></a><span class="ex">brew</span> install gdal</span>
+<span id="cb8-45"><a href="#cb8-45"></a><span class="ex">brew</span> install netcdf</span>
+<span id="cb8-46"><a href="#cb8-46"></a><span class="ex">brew</span> install libgit2</span>
+<span id="cb8-47"><a href="#cb8-47"></a><span class="ex">brew</span> install udunits</span>
+<span id="cb8-48"><a href="#cb8-48"></a><span class="ex">brew</span> install curl</span>
+<span id="cb8-49"><a href="#cb8-49"></a><span class="ex">brew</span> install sqlite</span>
+<span id="cb8-50"><a href="#cb8-50"></a><span class="in">```</span>   </span>
+<span id="cb8-51"><a href="#cb8-51"></a>    </span>
+<span id="cb8-52"><a href="#cb8-52"></a><span class="in">    </span></span>
+<span id="cb8-53"><a href="#cb8-53"></a><span class="fu">## C++ library and tools</span></span>
 <span id="cb8-54"><a href="#cb8-54"></a></span>
-<span id="cb8-55"><a href="#cb8-55"></a>On Windows, you will need <span class="co">[</span><span class="ot">Rtools</span><span class="co">](https://cran.r-project.org/bin/windows/Rtools)</span> to compile the package from sources. System libraries are automatically downloaded from <span class="co">[</span><span class="ot">rwinlib</span><span class="co">](https://github.com/rwinlib)</span>.</span>
+<span id="cb8-55"><a href="#cb8-55"></a>The C++ library and relatated tools can be compiled from sources via <span class="co">[</span><span class="ot">CMake</span><span class="co">](https://cmake.org)</span>. CMake automatically checks for mandatory and optional dependencies and adapts the build configuration. The following commands install gdalcubes from sources.</span>
 <span id="cb8-56"><a href="#cb8-56"></a></span>
-<span id="cb8-57"><a href="#cb8-57"></a><span class="fu">### Linux</span></span>
-<span id="cb8-58"><a href="#cb8-58"></a></span>
-<span id="cb8-59"><a href="#cb8-59"></a>Please install the system libraries e.g. from the package manager of your Linux distribution. Also make sure that you are using a recent version of GDAL (<span class="sc">\&gt;</span> 2.3.0). On Ubuntu, the following commands install all required libraries.</span>
-<span id="cb8-60"><a href="#cb8-60"></a></span>
-<span id="cb8-61"><a href="#cb8-61"></a><span class="in">    sudo add-apt-repository ppa:ubuntugis/ppa &amp;&amp; sudo apt-get update</span></span>
-<span id="cb8-62"><a href="#cb8-62"></a><span class="in">    sudo apt-get install libgdal-dev libnetcdf-dev libsqlite3-dev libudunits2-dev</span></span>
-<span id="cb8-63"><a href="#cb8-63"></a></span>
-<span id="cb8-64"><a href="#cb8-64"></a><span class="fu">### MacOS</span></span>
+<span id="cb8-57"><a href="#cb8-57"></a><span class="in">```{.bash code-line-numbers="false"}</span></span>
+<span id="cb8-58"><a href="#cb8-58"></a><span class="fu">git</span> clone https://github.com/appelmar/gdalcubes <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> gdalcubes</span>
+<span id="cb8-59"><a href="#cb8-59"></a><span class="fu">mkdir</span> <span class="at">-p</span> build </span>
+<span id="cb8-60"><a href="#cb8-60"></a><span class="bu">cd</span> build </span>
+<span id="cb8-61"><a href="#cb8-61"></a><span class="fu">cmake</span> <span class="at">-DCMAKE_BUILD_TYPE</span><span class="op">=</span>Release ../ </span>
+<span id="cb8-62"><a href="#cb8-62"></a><span class="fu">make</span> </span>
+<span id="cb8-63"><a href="#cb8-63"></a><span class="fu">sudo</span> make install</span>
+<span id="cb8-64"><a href="#cb8-64"></a><span class="in">```</span></span>
 <span id="cb8-65"><a href="#cb8-65"></a></span>
-<span id="cb8-66"><a href="#cb8-66"></a>Use <span class="co">[</span><span class="ot">Homebrew</span><span class="co">](https://brew.sh)</span> to install system libraries with</span>
+<span id="cb8-66"><a href="#cb8-66"></a>If any of the required libraries are not available on your system, please use your package manager to install these before, e.g. with (Ubuntu):</span>
 <span id="cb8-67"><a href="#cb8-67"></a></span>
-<span id="cb8-68"><a href="#cb8-68"></a><span class="in">    brew install pkg-config</span></span>
-<span id="cb8-69"><a href="#cb8-69"></a><span class="in">    brew install gdal</span></span>
-<span id="cb8-70"><a href="#cb8-70"></a><span class="in">    brew install netcdf</span></span>
-<span id="cb8-71"><a href="#cb8-71"></a><span class="in">    brew install libgit2</span></span>
-<span id="cb8-72"><a href="#cb8-72"></a><span class="in">    brew install udunits</span></span>
-<span id="cb8-73"><a href="#cb8-73"></a><span class="in">    brew install curl</span></span>
-<span id="cb8-74"><a href="#cb8-74"></a><span class="in">    brew install sqlite</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-68"><a href="#cb8-68"></a><span class="in">```{.bash code-line-numbers="false"}</span></span>
+<span id="cb8-69"><a href="#cb8-69"></a><span class="fu">sudo</span> apt-get install libgdal-dev libnetcdf-dev libcurl4-openssl-dev libsqlite3-dev</span>
+<span id="cb8-70"><a href="#cb8-70"></a></span>
+<span id="cb8-71"><a href="#cb8-71"></a><span class="co"># additional installs for command line interface </span></span>
+<span id="cb8-72"><a href="#cb8-72"></a><span class="fu">sudo</span> apt-get install libboost-program-options-dev libboost-system-dev</span>
+<span id="cb8-73"><a href="#cb8-73"></a></span>
+<span id="cb8-74"><a href="#cb8-74"></a><span class="co"># additional installs for server executable</span></span>
+<span id="cb8-75"><a href="#cb8-75"></a><span class="fu">sudo</span> apt-get install libcpprest-dev</span>
+<span id="cb8-76"><a href="#cb8-76"></a><span class="in">```</span></span>
+<span id="cb8-77"><a href="#cb8-77"></a></span>
+<span id="cb8-78"><a href="#cb8-78"></a>Please notice that we have not yet tried to build with Microsoft Visual Studio. However, the R package installation from sources includes building the C++ library and works on Windows, MacOS and Linux (see <span class="co">[</span><span class="ot">R package installation</span><span class="co">](#sec-install-rpackage)</span>).</span>
+<span id="cb8-79"><a href="#cb8-79"></a></span>
+<span id="cb8-80"><a href="#cb8-80"></a><span class="fu">### Docker</span></span>
+<span id="cb8-81"><a href="#cb8-81"></a></span>
+<span id="cb8-82"><a href="#cb8-82"></a>The <span class="in">`Dockerfile`</span> at the root of the project is built on a minimal Ubuntu installation, including installation of all dependencies and compiles gdalcubes from sources automatically.</span>
+<span id="cb8-83"><a href="#cb8-83"></a></span>
+<span id="cb8-84"><a href="#cb8-84"></a><span class="in">```{.bash code-line-numbers="false"}</span></span>
+<span id="cb8-85"><a href="#cb8-85"></a><span class="fu">git</span> clone https://github.com/appelmar/gdalcubes <span class="kw">&amp;&amp;</span> <span class="bu">cd</span> gdalcubes </span>
+<span id="cb8-86"><a href="#cb8-86"></a><span class="ex">docker</span> build <span class="at">-t</span> appelmar/gdalcubes .</span>
+<span id="cb8-87"><a href="#cb8-87"></a><span class="ex">docker</span> run <span class="at">-d</span> <span class="at">-p</span> 11111:1111 appelmar/gdalcubes <span class="co"># runs gdalcubes_server as a deamon </span></span>
+<span id="cb8-88"><a href="#cb8-88"></a><span class="ex">docker</span> run appelmar/gdalcubes /bin/bash <span class="co"># run a command line where you can run gdalcubes </span></span>
+<span id="cb8-89"><a href="#cb8-89"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -1,0 +1,34 @@
+---
+title: "About"
+code-tools: false
+image: profile.jpg
+about:
+  template: solana
+  image-shape: round
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/appelmar
+    - icon: github
+      text: GitHub
+      href: https://github.com/appelmar
+    - icon: globe
+      text: Personal Website
+      href: http://appel.staff.ifgi.de
+    # (additional links excluded for brevity)
+---
+
+The gdalcubes project is maintained and developed by Marius Appel.
+
+## Contact
+
+| Institute for Geoinformatics
+| University of Muenster
+| Heisenbergstraße 2
+| D-48149 Münster
+| Germany
+| 
+| Mail: marius.appel@uni-muenster.de
+| Phone: +49 251 83 33082
+| 
+| ORCID ID: [0000-0001-5281-3896](http://orcid.org/0000-0001-5281-3896)

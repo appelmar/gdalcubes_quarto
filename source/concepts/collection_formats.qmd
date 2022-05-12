@@ -1,4 +1,4 @@
-# Image Collection Formats
+# Image collection formats
 
 Image collection formats describe how image collections are composed from GDAL datasets, considering specific data product organizations.
 
@@ -13,17 +13,17 @@ When adding a GDAL dataset (given its identifier) to a collection, we must find 
 
 
 
-## Regular Expressions
+## Regular expressions
 
 Rules are mostly defined as regular expresions on the GDAL dataset identifiers. Some expressions
 simply check whether a dataset *matches* the expression or not, whereas some expression return a captured substring (e.g. the datetime part). gdalcubes uses the [standard C++11 regular expression library](http://www.cplusplus.com/reference/regex) with default [ECMAScript](http://www.cplusplus.com/reference/regex/ECMAScript) syntax.
 
 
 
-## JSON Format
+## JSON format
 
 
-### Header Information
+### Header information
 
 The JSON files for image collection formats start with some header information, 
 including a short description of the particular product it adresses and some keywords. These header information are optional, but may be useful for searching.
@@ -41,18 +41,18 @@ for Sentinel 2 Level 2A products.
 
 
 
-### Global Dataset Pattern 
+### Global dataset pattern 
 
 Collection formats include a global pattern as a regular expression 
 such that input GDAL datasets not matching the regular expression will 
-simply be ignored (quitly, without throwing exceptions). 
+simply be ignored (quietly, without throwing exceptions). 
 As a simple example, setting `"pattern" : ".*\\.tif$"`
 would ignore files that do not end with ".tif".  
 
 
 
 
-### Grouping Datasets by Image Names
+### Grouping datasets by image names
 
 
 Images can be composed from one or more GDAL datasets, 
@@ -70,7 +70,7 @@ the first *marked subexpression* (or *capturing group*) of the
 provided regular expression under `"images" : {"pattern": "REGEX"}`
 is used, i.e., a part in the expression within the first pair of parentheses. 
 
-
+---
 
 #### Example 1 (Landsat 8 surface reflectance)
 
@@ -80,14 +80,17 @@ is used, i.e., a part in the expression within the first pair of parentheses.
 
 
 
-+------------------------------------------------------------------------------------+ 
-| Example input GDAL dataset identifiers and extracted **image name** (bold)         |  
-+====================================================================================+
-| 1. "/path/to/**\ LC08_L1TP_226063_20140719_20170421_01_T1**\ _sr_band2.tif"        |
-| 2. "/path/to/**\ LC08_L1TP_226063_20140820_20170420_01_T1**\ _sr_aerosol.tif"      |
-| 3. "/path/to/**\ LC08_L1TP_227064_20130621_20170503_01_T1**\ _pixel_qa.tif"        |
-+------------------------------------------------------------------------------------+ 
+Example input GDAL dataset identifiers and extracted **image name** (bold):
 
+<pre>
+1. /path/to/<b>LC08_L1TP_226063_20140719_20170421_01_T1</b>_sr_band2.tif
+2. /path/to/<b>LC08_L1TP_226063_20140820_20170420_01_T1</b>_sr_aerosol.tif
+3. /path/to/<b>LC08_L1TP_227064_20130621_20170503_01_T1</b>_pixel_qa.tif
+</pre>
+
+
+
+---
 
 
 #### Example 2 (MODIS MOD13A2)
@@ -98,17 +101,16 @@ is used, i.e., a part in the expression within the first pair of parentheses.
 {"images":{"pattern":"HDF4_EOS:EOS_GRID:\".+(MOD13A2\\.A.+)\\.hdf.*"}}
 ```
 
-   
 
-+---------------------------------------------------------------------------------------------------------------------------------------------+ 
-| Example input GDAL dataset identifiers and extracted **image name** (bold)                                                                  |  
-+=============================================================================================================================================+
-| 1. "HDF4_EOS:EOS_GRID:\\"/path/to/**\ MOD13A2.A2013353.h00v08.006.2018226105756**\ .hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI"       |
-| 2. "HDF4_EOS:EOS_GRID:\\"/path/to/**\ MOD13A2.A2013353.h20v03.006.2018226105924**\ .hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI"       |
-| 3. "HDF4_EOS:EOS_GRID:\\"/path/to/**\ MOD13A2.A2015033.h23v10.006.2015296122819**\ .hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality" |
-+---------------------------------------------------------------------------------------------------------------------------------------------+ 
+Example input GDAL dataset identifiers and extracted **image name** (bold):
 
+<pre>
+1. HDF4_EOS:EOS_GRID:"/path/to/<b>MOD13A2.A2013353.h00v08.006.2018226105756</b>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI
+2. HDF4_EOS:EOS_GRID:"/path/to/<b>MOD13A2.A2013353.h20v03.006.2018226105924</b>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI 
+3. HDF4_EOS:EOS_GRID:"/path/to/<b>MOD13A2.A2015033.h23v10.006.2015296122819</b>.hdf":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality
+</pre>
 
+---
 
 ### Extracting date/time information
 
@@ -116,6 +118,8 @@ In the current version of gdalcubes, the acquisition
 date/time of images is derived from the dataset identifiers. 
 Similar to the extraction of image names, a pattern defines a regular expression where the first marked subexpression / capturing group within parentheses is extracted. The ``format`` field in ``datetime`` JSON object then defines how to convert the extracted string to a date/time object, according to the [strptime function](https://pubs.opengroup.org/onlinepubs/9699919799/functions/strptime.html).
 
+
+---
 
 #### Example 1 (Sentinel 2 Level 2A SAFE format, from .zip files)
 
@@ -128,18 +132,21 @@ Similar to the extraction of image names, a pattern defines a regular expression
 } 
 ```
 
-:::{.column-page}
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ 
-| Example input GDAL dataset identifiers and extracted **date/time string** (bold)                                                                                                                    
-|  
-+================================================================================================================================================================================================================================================================+
-| 1. "/vsizip//path/to/S2A_MSIL2A\_\ **20180328T093031**\ _N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_B8A_20m.jp2"  |
-| 2. "/vsizip//path/to/S2A_MSIL2A\_\ **20180328T093031**\ _N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_SCL_20m.jp2"  |
-| 3. "/vsizip//path/to/S2A_MSIL2A\_\ **20180430T094031**\ _N0207_R036_T34UGD_20180430T114456.zip/S2A_MSIL2A_20180430T094031_N0207_R036_T34UGD_20180430T114456.SAFE/GRANULE/L2A_T34UGD_A014905_20180430T094109/IMG_DATA/R10m/T34UGD_20180430T094031_B08_10m.jp2"  |
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+ 
 
-:::
+
+
+Example input GDAL dataset identifiers and extracted **date/time string** (bold):
+
+<pre>
+1. /vsizip//path/to/S2A_MSIL2A_<b>20180328T093031</b>_N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_B8A_20m.jp2"
+2. /vsizip//path/to/S2A_MSIL2A_<b>20180328T093031</b>_N0207_R136_T34UFD_20180328T145945.zip/S2A_MSIL2A_20180328T093031_N0207_R136_T34UFD_20180328T145945.SAFE/GRANULE/L2A_T34UFD_A014433_20180328T093032/IMG_DATA/R20m/T34UFD_20180328T093031_SCL_20m.jp2
+3. /vsizip//path/to/S2A_MSIL2A_<b>20180430T094031</b>_N0207_R036_T34UGD_20180430T114456.zip/S2A_MSIL2A_20180430T094031_N0207_R036_T34UGD_20180430T114456.SAFE/GRANULE/L2A_T34UGD_A014905_20180430T094109/IMG_DATA/R10m/T34UGD_20180430T094031_B08_10m.jp2
+</pre>
+
+
+
+---
 
 
 #### Example 2 (MODIS MOD13A2)
@@ -152,16 +159,25 @@ Similar to the extraction of image names, a pattern defines a regular expression
 }
 ```
 
-+---------------------------------------------------------------------------------------------------------------------------------------------+ 
-| Example input GDAL dataset identifiers and extracted **date/time string** (bold)                                                            |  
-+=============================================================================================================================================+
-| 1. "HDF4_EOS:EOS_GRID:\\"/path/to/MOD13A2.A\ **2013353**\ .h00v08.006.2018226105756.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI"       |
-| 2. "HDF4_EOS:EOS_GRID:\\"/path/to/MOD13A2.A\ **2013353**\ .h20v03.006.2018226105924.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI"       |
-| 3. "HDF4_EOS:EOS_GRID:\\"/path/to/MOD13A2.A\ **2015033**\ .h23v10.006.2015296122819.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality" |
-+---------------------------------------------------------------------------------------------------------------------------------------------+ 
+
+Example input GDAL dataset identifiers and extracted **date/time string** (bold):
+
+<pre>
+1. HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<b>2013353</b>.h00v08.006.2018226105756.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI
+2. HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<b>2013353</b>.h20v03.006.2018226105924.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days NDVI
+3. HDF4_EOS:EOS_GRID:"/path/to/MOD13A2.A<b>2015033</b>.h23v10.006.2015296122819.hdf\\":MODIS_Grid_16DAY_1km_VI:1 km 16 days VI Quality
+</pre>
 
 
-Some MODIS and climate model output datsets are provided as multidimensional HDF or netCDF files, where one file (or GDAL dataset) contains space and time of one variable.  In these cases, GDAL exposes the additional time dimension as bands. For such datasets, gdalcubes supports the additional definition of the *duration* of a band. This duration is then added to the offset date/time, which is extracted from the filename as described above. 
+
+
+
+
+
+
+Some MODIS and climate model output datsets are provided as multidimensional HDF or netCDF files, where one file (or GDAL dataset) contains space and time of one variable.  In these cases, GDAL exposes the additional time dimension as bands. For such datasets, gdalcubes supports the additional definition of the *duration* of a band. This duration is then added to the offset date/time, which is extracted from the filename as described below. 
+
+---
 
 #### Example 3 (pr_day_HadGEM2-ES_historical_r1i1p1)
 
@@ -186,10 +202,10 @@ This feature is experimental and only available in the development version.
 
 
 
-### Defining Image Collection Bands
+### Defining bands
 
 
-The `bands` object lists the bands of a data product as key value pairs, where the key is a unique band name, and the value is a JSON object with a pattern and optional other fields. The `pattern` field again defines a regular expression. If a GDAL dataset identifier matches the pattern, it is considered to contain data of the band.  An dataset identifier may match the pattern of several bands (sometimes, all bands even define the same pattern) if a single input GDAL dataset contains multiple bands. In this case, the additional field `band` can be used to describe which internal band corresponds to the band of the image collection. `band` can be a one-based integer number and is identical to the band number of GDAL (as from running `gdalinfo`).
+The `bands` object lists the bands of a data product as key value pairs, where the key is a unique band name, and the value is a JSON object with a pattern and optional other fields. The `pattern` field again defines a regular expression. If a GDAL dataset identifier matches the pattern, it is considered to contain data of the band.  A dataset identifier may match the pattern of several bands (sometimes, all bands even define the same pattern) if a single input GDAL dataset contains multiple bands. In this case, the additional field `band` can be used to describe which internal band corresponds to the band of the image collection. `band` can be a one-based integer number and is identical to the band number of GDAL (as from running `gdalinfo`).
 
 
 Some additional per-band metadata fields may be added to band definitions. In the current version, these include `nodata`, `scale`, `offset`, and `unit`. If these values are not provided, they are derived from the GDAL metadata (which may or may not be defined).
@@ -263,7 +279,7 @@ makes sure that all subdatasets will be considered automatically. Other patterns
 
 
 
-### Defining a Global Spatial Reference System
+### Defining a global spatial reference system
 
 Some global climate data products distributed as NetCDF files do not encode the SRS of images in a way that GDAL reads automatically.
 In these cases the collection format allows to define a global spatial reference system that overwrites the reference system 
@@ -273,7 +289,7 @@ makes sure that the WGS84 spatial reference system will be used for all images.
 
 
 
-### Additional Image Metadata
+### Additional image metadata
 
 It is possible to extract further per-image metadata key value pairs from GDAL datasets. The collection format may include an optional field "image_md_fields" to list metadata keys as a JSON array of strings. When GDAL datasets are opened, GDAL tries to find the corresponding metadata keys and stores corresponding values in the image metadata table of the image collection.
 
@@ -286,13 +302,13 @@ Metadata fields may be separated by domains (see [GDAL metadata model](https://g
 
    
 
-## Complete Examples
+## Complete examples
 
 Complete examples of image collection formats can be found in the sources. There is also a [dedicated GitHub repository](https://github.com/appelmar/gdalcubes_formats/tree/master/formats)
 
 
 
-## Notes on Writing Custom Collection Formats
+## Notes on writing custom collection formats
 
 When writing a collection format for new data products, please make sure 
 to check the following notes:

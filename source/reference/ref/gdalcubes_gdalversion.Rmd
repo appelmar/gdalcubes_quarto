@@ -1,0 +1,32 @@
+# gdalcubes_gdalversion
+
+Get the GDAL version used by gdalcubes
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Get the GDAL version used by gdalcubes
+
+
+## Usage
+
+
+```r
+gdalcubes_gdalversion()
+
+```
+
+
+## Examples
+
+
+```{r}
+gdalcubes_gdalversion()
+```
+
+

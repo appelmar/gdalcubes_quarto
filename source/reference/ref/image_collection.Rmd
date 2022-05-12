@@ -1,0 +1,55 @@
+# image_collection
+
+Load an existing image collection from a file
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+This function will load an image collection from an SQLite file. Image collection files
+index and reference existing imagery. To create a collection from files on disk,
+use [`create_image_collection`](create_image_collection.Rmd).
+
+
+## Usage
+
+
+```r
+image_collection(path)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| path | path to an existing image collection file |
+
+
+## Value
+
+an image collection proxy object, which can be used to create a data cube using [`raster_cube`](raster_cube.Rmd)
+
+
+## Examples
+
+
+```{r}
+# create image collection from example Landsat data only 
+# if not already done in other examples
+if (!file.exists(file.path(tempdir(), "L8.db"))) {
+  L8_files <- list.files(system.file("L8NY18", package = "gdalcubes"),
+                         ".TIF", recursive = TRUE, full.names = TRUE)
+  create_image_collection(L8_files, "L8_L1TP", file.path(tempdir(), "L8.db"), quiet = TRUE) 
+}
+
+L8.col = image_collection(file.path(tempdir(), "L8.db"))
+L8.col
+```
+
+

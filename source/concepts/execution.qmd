@@ -1,0 +1,209 @@
+# Execution and parallelization
+
+## Lazy evaluation
+
+Creating data cubes from image collections or deriving data cubes from existing data cubes using the [built-in operations](operations.qmd) is computationally cheap because no pixel values will be read and no complex computations will be started. Instead, gdalcubes uses _proxy objects_ that simply know the shape of a data cube, what operations they refer to, and where the data comes from. Actual computations are started when users explicitly read pixels from a data cube, e.g., by calling [`plot`](../reference/ref/plot.cube.Rmd), [`write_ncdf`](../reference/ref/write_ncdf.Rmd), [`write_tif`](../reference/ref/write_tif.Rmd), [`as_array`](../reference/ref/as_array.Rmd), or similar operations.
+
+This concept is sometimes referred to as _lazy evaluation_ and allows for a few optimizations when operations on data cubes are chained. For example, when plotting RGB bands only, it is possible to avoid reading any files that relate to other bands. 
+
+Chaining data cube operations will create a so called _process graph_ that can be converted to a JSON format.
+The format is not particularly important for users but it allows to save virtual data cube objects (no pixel data) to disk (see [here](operations.Rmd#savejson)). 
+
+Below you can find an example process graph for computing the median NDVI of pixel time series over some area in the Brazilian Amazon forest.
+
+```{json}
+{
+  "cube_type": "reduce_time",
+  "in_cube": {
+      "band_names": [
+      "NDVI"
+      ],
+      "cube_type": "apply_pixel",
+      "expr": [
+      "(b05-b04)/(b05+b04)"
+      ],
+      "in_cube": {
+      "bands": [
+          "B04",
+          "B05"
+      ],
+      "cube_type": "select_bands",
+      "in_cube": {
+          "chunk_size": [
+          1,
+          256,
+          256
+          ],
+          "cube_type": "image_collection",
+          "file": "/tmp/RtmpacmRAy/file11af57b771e8.sqlite",
+          "view": {
+          "aggregation": "median",
+          "resampling": "bilinear",
+          "space": {
+              "bottom": -550000.0,
+              "left": -6180000.0,
+              "nx": 2000,
+              "ny": 2000,
+              "right": -6080000.0,
+              "srs": "EPSG:3857",
+              "top": -450000.0
+          },
+          "time": {
+              "dt": "P1Y",
+              "t0": "2014",
+              "t1": "2018"
+          }
+          },
+          "warp_args": []
+      }
+      },
+      "keep_bands": false
+  },
+  "reducer_bands": [
+      [
+      "median",
+      "NDVI"
+      ]
+  ]
+}
+```
+
+
+## Multidimensional chunking {#chunking}
+
+To avoid running out of memory and to allow for parallel processing, gdalcubes divides data cubes into smaller chunks. A chunk is defined by its size in the temporal and spatial dimensions and contains all bands / variables. Internally, a chunk is simply stored as a four dimensional numeric (double-precision floating-point number) array. 
+
+_Empty chunks_ that do not contain any data in most cases do not consume any memory. Data cubes in many case contain quite a large number of empty chunks for example when there is simply no satellite image available in a collection that intersects with the spatiotemporal extent of the chunk. Most data cube operations propagate empty chunks, i.e., they check if a chunk of the input cube is empty and simply forward the chunk without doing expensive computations. As a result, the data model can be seen as a _semi-sparse_ array. One important consequence is that in many cases, using a higher temporal resolution (e.g. daily in case of Sentinel-2 data with 5 days revisit time) does not cause computations to take significantly longer. 
+
+
+While a data cube is being processed, gdalcubes simply iterates over its chunks. If the cube is the result from chained operations, the process graph is automatically traversed backwards and each chunk knows which chunks from the input cubes must be read or which images must be read. 
+
+
+### Defining custom chunk sizes in R
+
+A custom chunk size of data cubes can be set either as an additional argument `chunking` to the `raster_cube()` function, or as a global package default variable using `gdalcubes_options()`. Sizes are defined as an integer vector with 3 elements, representing the size in t, y, and x dimensions (in this order). For `gdalcubes_options()`, it is also possible to define a function that calculates the chunk size based on the size of the input cube. 
+
+The following examples show how to define a custom chunk size either for a specific cube, or as a global package variable.
+
+```{.r code-line-numbers="false"}
+L8.col = image_collection(file.path(tempdir(), "L8.db"))
+v = cube_view(extent=L8.col, srs="EPSG:32618", nx = 497, ny=526, dt="P1M")
+raster_cube(L8.col, v, chunking = c(1,512,512))
+```
+
+```{.r code-line-numbers="false"}
+gdalcubes_options(default_chunksize = c(1, 512, 512))
+```
+
+
+
+
+## Parallel execution
+
+gdalcubes has built-in support for processing data cubes in parallel using multiple CPU cores.
+Users can define the maximum number of _worker processes_ as a global package variable (see below). Chunks of the data cube will then be distributed among the worker processes. 
+
+```{.r code-line-numbers="false"}
+gdalcubes_options(parallel = 8)
+```
+
+
+## Practical considerations
+
+The size of data cube chunks has a strong effect on computation times and memory consumption.
+There is no golden rule to find an optimal chunk size, because it depends on
+
+- available hardware,
+- input imagery (data format, tiling), and
+- particular analysis (how the data is accessed).
+
+By default, gdalcubes tries to find an appropriate size considering the size of the cube and the number of worker processes. However, below are some practical considerations that might be helpful to find a better chunk size:
+
+1. The larger the chunks and the more parallel processes are being used, the more memory is consumed. If you run into out-of-memory issues / swapping, try decreasing one or both.
+
+2. If you find that the number of true processes used is lower than set, the data cube might have less chunks than worker processes. You can try to decrease the chunk size to improve parallelization.
+
+3. If the computations are I/O-bound (most time is required for disk reads / writes or downloads), try to find out the block size of the image data (e.g., with the `gdalinfo` utility) and use this as a chunk size. You also might want to try out different [GDAL configuration options](#gdaloptions) to define how downloads and/or memory blocks are being cached. 
+
+4. There are only very few cases where chunks with temporal size greater than one improve computation times, so there is likely no need to change this. 
+
+
+## Performance-related GDAL configuration options {#gdaloptions}
+
+gdalcubes heavily relies on GDAL to read image data. GDAL itself comes with a lot of 
+[configuration options](https://gdal.org/user/configoptions.html) that can be set to improve computation times and I/O or network transfer performance. Below, you find the most options for gdalcubes with a brief description. Please refer to the [original documentation](https://gdal.org/user/configoptions.html) for details.
+
+| Configuration option | Description                                        | 
+|:-------------------- |:-------------------------------------------------- |
+| `GDAL_CACHEMAX`      | Size of the default block cache, can be set in byte, MB, or as a percentage of available main,  memory. Defaults to 256 MB | 
+| `GDAL_DISABLE_READDIR_ON_OPEN` | Set to `TRUE` or `EMPTY_DIR` to avoid listing all files in the directory once a single file is opened (_this is **highly** recommended_). Defaults to `TRUE`  |                                   |
+| `GDAL_NUM_THREADS`      | Number of threads GDAL can use for block reads and (de)compression, set to `ALL_CPUS` to use all available cores. Defaults to 1. |
+| `VSI_CACHE`      | Enable / disable _per-file_ caching by setting to `TRUE` or `FALSE`. Default is `FALSE`.|
+| `VSI_CACHE_SIZE`      | _Per-file_ cache size in bytes, defaults to 25 MB. |
+| `CPL_VSIL_CURL_CACHE_SIZE`      | Global cache size for downloads in bytes, defaults to 16 MB. |
+
+
+<!-- | `GTIFF_DIRECT_IO`      | | -->
+<!-- | `GDAL_INGESTED_BYTES_AT_OPEN`      | | -->
+
+
+Please consider that settings apply for each gdalcubes worker process and you should calculate memory limits such as cache sizes accordingly. To set a configuration option, you can use `gdalcubes_set_gdal_config()` as in the following examples.
+
+
+```{.r code-line-numbers="false"}
+gdalcubes_set_gdal_config("GDAL_NUM_THREADS", "ALL_CPUS")
+gdalcubes_set_gdal_config("VSI_CACHE", "TRUE")
+gdalcubes_set_gdal_config("VSI_CACHE_SIZE", as.character(5*1000*1000)) # 5 MB per file
+gdalcubes_set_gdal_config("GDAL_CACHEMAX", "2%") 
+```
+
+
+
+
+
+
+
+<!-- ### AWS  -->
+
+<!-- | Configuration option | Description                                        | -->
+<!-- |:-------------------- | -------------------------------------------------- | -->
+<!-- | `AWS_REQUEST_PAYER`      | Set to "requester" to allow accessing requester pays buckets on AWS  -->
+<!-- | `AWS_ACCESS_KEY_ID`      | Access key | -->
+<!-- | `AWS_SECRET_ACCESS_KEY`  | Secret access key | -->
+<!-- | `CPL_AWS_CREDENTIALS_FILE` | Path to an AWS credentials file | -->
+<!-- | `AWS_CONFIG_FILE`      | Path to an AWS config file | -->
+
+<!-- For more details, please refer to the (GDAL /vsis3/ documentation )[https://gdal.org/user/virtual_file_systems.html#vsis3-aws-s3-files]. -->
+
+
+<!-- ### Azure  -->
+
+<!-- | Configuration option | Description                                        | -->
+<!-- |:-------------------- | -------------------------------------------------- | -->
+<!-- | `AZURE_STORAGE_CONNECTION_STRING`      | String containing account name and secret key | -->
+<!-- | `AZURE_STORAGE_ACCOUNT`      | Account name | -->
+<!-- | `AZURE_STORAGE_ACCESS_TOKEN`      | Access token | -->
+<!-- | `AZURE_STORAGE_ACCESS_KEY`      | Secret key | -->
+<!-- | `AZURE_STORAGE_SAS_TOKEN` and `AZURE_SAS` |  Shared access signature that is appended to URLs |  -->
+
+<!-- For more details, please refer to the (GDAL /vsiaz/ documentation )[https://gdal.org/user/virtual_file_systems.html#vsiaz-microsoft-azure-blob-files]. -->
+
+
+<!-- ### Google cloud  -->
+
+<!-- | `GS_ACCESS_KEY_ID`      | Access key | -->
+<!-- | `GS_SECRET_ACCESS_KEY`      | Secret access key | -->
+<!-- | `GOOGLE_APPLICATION_CREDENTIALS`      | Path to a JSON file containing OAuth2 user credentials | -->
+<!-- | `CPL_GS_CREDENTIALS_FILE`      | Path to a credentials file | -->
+
+<!-- For more details, please refer to the (GDAL /vsigs/ documentation )[https://gdal.org/user/virtual_file_systems.html#vsigs-google-cloud-storage-files]. -->
+
+
+
+
+
+
+
+
+
+

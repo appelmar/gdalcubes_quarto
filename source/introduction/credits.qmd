@@ -1,3 +1,8 @@
+---
+toc: false
+---
+
+
 # Credits
 
 gdalcubes wouldn't exist without other open-source projects. This document presents a list of used third-party software including their purpose, copyright, and licensing information in no particular order. Please notice that some libaries are only used by the command line client or gdalcubes_server, but not by the core library.

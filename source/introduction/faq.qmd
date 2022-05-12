@@ -1,4 +1,9 @@
-# FAQ
+---
+title: "FAQ"
+toc-location: body
+toc-depth: 2
+
+---
 
 
 ## Can I use gdalcubes for dataset XYZ?
@@ -12,6 +17,34 @@ Please share your collection formats via a pull request on the [GitHub collectio
 ## How to contribute?
 
 Contributions of any kind (whether fixing typos, improving documentation, reporting bugs, asking questions, or implementing new features) are very welcome. Please use issues and pull requests on GitHub.
+
+
+## What are the differences to the `terra` and `raster` packages?
+
+The main difference is that both [`terra`](https://cran.r-project.org/package=terra) [@terra] and [`raster`](https://cran.r-project.org/package=raster) [@raster] support three dimensions only.
+To work with 4d (multitemporal _and_ multitemporal) cubes, one needs to 
+use custom data structures like lists of raster stacks or similar. 
+Furthermore, gdalcubes can work automatically with image collections, where images have different spatial extents and projections.
+
+## Why is a data cube completely empty?
+
+There are two frequent cases when a data cube is completely empty: 
+
+#####  1. There is no image intersecting with the data cube. 
+Please check the data cube view and the extent of the collection. Make sure that the pixel size is set in the unit of the coordinate reference system (degrees, not meters for EPSG:4326).
+
+##### 2. GDAL could not to read any image file.
+Please set `gdalcubes_options(debug = TRUE)` and repeat the operations. This might be related to modified paths, unavailability of servers, or authentication issuess on cloud platforms.
+
+## What are the differences to the `stars` package?
+
+The [`stars` package](https://cran.r-project.org/package=stars) [@stars] is very generic, supporting arrays with arbitrary dimensions and even irregular spatial (curvilinear) grids. However, `stars` assumes that the data is already in array format, and hence does not work easily with image collections, , where images have different spatial extents and projections. `gdalcubes` also works with very large cubes, processing only smaller chunks of the cube at a time.
+
+
+
+## Where can I report bugs, ask questions, and request features?
+
+Please use the [GitHub respository](https://github.com/appelmar/gdalcubes_R) and post issues if you have any questions, found bugs or would like to propose some new features.
 
 
 

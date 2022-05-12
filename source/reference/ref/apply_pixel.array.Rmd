@@ -1,0 +1,57 @@
+# apply_pixel.array
+
+Apply a function over pixels in a four-dimensional (band, time, y, x) array
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Apply a function over pixels in a four-dimensional (band, time, y, x) array
+
+
+## Usage
+
+
+```r
+apply_pixel.array(x, FUN, ...)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| x | four-dimensional input array with dimensions band, time, y, x (in this order) |
+| FUN | function that receives a vector of band values in a one-dimensional array |
+| ... | further arguments passed to FUN |
+
+
+## Details
+
+FUN is expected to produce a numeric vector (or scalar) where elements are interpreted as new bands in the result.
+
+
+## Note
+
+This is a helper function that uses the same dimension ordering as gdalcubes. It can be used to simplify 
+the application of R functions e.g. over time series in a data cube.
+
+
+## Examples
+
+
+```{r}
+d <- c(4,16,32,32)
+x <- array(rnorm(prod(d)), d)
+y <- apply_pixel(x, function(v) {
+  v[1] + v[2] + v[3] - v[4]
+})
+dim(y)
+```
+
+

@@ -1,0 +1,76 @@
+# json_cube
+
+Read a data cube from a json description file
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Read a data cube from a json description file
+
+
+## Usage
+
+
+```r
+json_cube(json, path = NULL)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| json | length-one character vector with a valid json data cube description |
+| path | source data cube proxy object |
+
+
+## Details
+
+Data cubes can be stored as JSON description files. These files do not store any data but the recipe
+how a data cube is consructed, i.e., the chain (or graph) of processes involved. 
+
+Since data cube objects (as returned from [`raster_cube`](raster_cube.Rmd)) cannot be saved with normal R methods,
+the combination of [`as_json`](as_json.Rmd) and [`json_cube`](json_cube.Rmd) provides a cheap way to save data cube
+objects across several R sessions, as in the examples.
+
+
+## Value
+
+data cube proxy object
+
+
+## Examples
+
+
+```{r}
+{
+# create image collection from example Landsat data only 
+# if not already done in other examples
+if (!file.exists(file.path(tempdir(), "L8.db"))) {
+  L8_files <- list.files(system.file("L8NY18", package = "gdalcubes"),
+                         ".TIF", recursive = TRUE, full.names = TRUE)
+  create_image_collection(L8_files, "L8_L1TP", file.path(tempdir(), "L8.db"), quiet = TRUE) 
+}
+
+L8.col = image_collection(file.path(tempdir(), "L8.db"))
+v = cube_view(extent=list(left=388941.2, right=766552.4, 
+              bottom=4345299, top=4744931, t0="2018-01", t1="2018-12"),
+              srs="EPSG:32618", nx = 497, ny=526, dt="P1M")
+cube = raster_cube(L8.col, v) 
+
+# save
+fname = tempfile()
+writeLines(as_json(cube), fname)
+
+# load
+json_cube(path = fname)  
+}
+```
+
+

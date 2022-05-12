@@ -1,0 +1,46 @@
+# add_collection_format
+
+Download and install an image collection format from a URL
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Download and install an image collection format from a URL
+
+
+## Usage
+
+
+```r
+add_collection_format(url, name = NULL)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| url | URL pointing to the collection format JSON file |
+| name | optional name used to refer to the collection format |
+
+
+## Details
+
+By default, the collection format name will be derived from the basename of the URL.
+
+
+## Examples
+
+
+```{r}
+add_collection_format(
+   "https://raw.githubusercontent.com/appelmar/gdalcubes/dev/formats/Sentinel1_IW_GRD.json")
+```
+
+

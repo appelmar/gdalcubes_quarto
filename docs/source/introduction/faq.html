@@ -3,7 +3,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="quarto-0.9.238">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>gdalcubes – faq</title>
+  <title>gdalcubes - FAQ</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -74,6 +74,25 @@
     code span.va { color: #19177c; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
 
   <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -89,12 +108,10 @@
   <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
   <script src="../../site_libs/quarto-html/anchor.min.js"></script>
   <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
   <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
   <script id="quarto-search-options" type="application/json">{
     "location": "navbar",
     "copy-button": false,
@@ -134,10 +151,39 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html">Home</a>
+    <a class="nav-link" href="../../source/getstarted.html">Get started</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link active" href="../../source/introduction/why.html" aria-current="page">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/tutorials/index.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/reference/index.html">Reference</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false">Help</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-help">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Source code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues"><i class="bi bi-bug" role="img">
+</i> 
+ <span class="dropdown-text">Report an issue</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../source/introduction/faq.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/about.html">About</a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -147,16 +193,13 @@
  </a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <h1 class="quarto-secondary-nav-title">FAQ</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -167,16 +210,11 @@
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Introduction</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Overview</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -189,7 +227,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  <a href="../../source/introduction/components.html" class="sidebar-item-text sidebar-link">Components</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,7 +254,7 @@
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic Concepts</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic concepts</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -229,57 +267,27 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image Collection Formats</a>
+  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image collection formats</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data Cubes</a>
+  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data cubes</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data Cube Operations</a>
+  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data cube operations</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/streaming.html" class="sidebar-item-text sidebar-link">Streaming</a>
+  <a href="../../source/concepts/execution.html" class="sidebar-item-text sidebar-link">Execution and parallelization</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/distributed.html" class="sidebar-item-text sidebar-link">Distributed Data Cube Processing</a>
-  </div>
-</li>
-    </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">R Tutorials</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc01_MODIS.html" class="sidebar-item-text sidebar-link">1. Creating data cubes from local MODIS imagery</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc02_AWS_Sentinel2.html" class="sidebar-item-text sidebar-link">2. Data cubes from Sentinel-2 data in the cloud</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc03_ML_training_data.html" class="sidebar-item-text sidebar-link">3. Extracting training data for machine learning models</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/bfast/bfast.html" class="sidebar-item-text sidebar-link">Land cover change detection with gdalcubes and bfast</a>
+  <a href="../../source/concepts/udfs.html" class="sidebar-item-text sidebar-link">User-defined functions (UDFs)</a>
   </div>
 </li>
     </ul>
@@ -289,22 +297,23 @@
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
-<ul>
-<li><a href="#faq" id="toc-faq" class="nav-link active" data-scroll-target="#faq">FAQ</a>
-<ul class="collapse">
-<li><a href="#can-i-use-gdalcubes-for-dataset-xyz" id="toc-can-i-use-gdalcubes-for-dataset-xyz" class="nav-link" data-scroll-target="#can-i-use-gdalcubes-for-dataset-xyz">Can I use gdalcubes for dataset XYZ?</a></li>
-<li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute?</a></li>
-<li><a href="#how-do-i-cite-gdalcubes" id="toc-how-do-i-cite-gdalcubes" class="nav-link" data-scroll-target="#how-do-i-cite-gdalcubes">How do I cite gdalcubes?</a></li>
-</ul></li>
-</ul>
-</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+<header id="title-block-header" class="quarto-title-block default">
 
-<section id="faq" class="level1">
-<h1>FAQ</h1>
+<div class="quarto-title"><div class="quarto-title-block d-none d-lg-block"><div><h1 class="title d-none d-lg-block">FAQ</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div></div></header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#can-i-use-gdalcubes-for-dataset-xyz" id="toc-can-i-use-gdalcubes-for-dataset-xyz">Can I use gdalcubes for dataset XYZ?</a></li>
+<li><a href="#how-to-contribute" id="toc-how-to-contribute">How to contribute?</a></li>
+<li><a href="#what-are-the-differences-to-the-terra-and-raster-packages" id="toc-what-are-the-differences-to-the-terra-and-raster-packages">What are the differences to the <code>terra</code> and <code>raster</code> packages?</a></li>
+<li><a href="#why-is-a-data-cube-completely-empty" id="toc-why-is-a-data-cube-completely-empty">Why is a data cube completely empty?</a></li>
+<li><a href="#what-are-the-differences-to-the-stars-package" id="toc-what-are-the-differences-to-the-stars-package">What are the differences to the <code>stars</code> package?</a></li>
+<li><a href="#where-can-i-report-bugs-ask-questions-and-request-features" id="toc-where-can-i-report-bugs-ask-questions-and-request-features">Where can I report bugs, ask questions, and request features?</a></li>
+<li><a href="#how-do-i-cite-gdalcubes" id="toc-how-do-i-cite-gdalcubes">How do I cite gdalcubes?</a></li>
+</ul>
+</nav>
 <section id="can-i-use-gdalcubes-for-dataset-xyz" class="level2">
 <h2 class="anchored" data-anchor-id="can-i-use-gdalcubes-for-dataset-xyz">Can I use gdalcubes for dataset XYZ?</h2>
 <p>Most likely, not out of the box! gdalcubes comes with a few predefined image collection formats for Sentinel-2, Landsat, MODIS, and a few other datasets only. You will need to write a custom image collection format (see <a href="../../source/concepts/collection_formats.html">here</a>). Please share your collection formats via a pull request on the <a href="https://github.com/appelmar/gdalcubes_formats">GitHub collection format respository</a>.</p>
@@ -312,6 +321,30 @@
 <section id="how-to-contribute" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-contribute">How to contribute?</h2>
 <p>Contributions of any kind (whether fixing typos, improving documentation, reporting bugs, asking questions, or implementing new features) are very welcome. Please use issues and pull requests on GitHub.</p>
+</section>
+<section id="what-are-the-differences-to-the-terra-and-raster-packages" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-differences-to-the-terra-and-raster-packages">What are the differences to the <code>terra</code> and <code>raster</code> packages?</h2>
+<p>The main difference is that both <a href="https://cran.r-project.org/package=terra"><code>terra</code></a> <span class="citation" data-cites="terra">(<a href="#ref-terra" role="doc-biblioref">Hijmans 2022</a>)</span> and <a href="https://cran.r-project.org/package=raster"><code>raster</code></a> <span class="citation" data-cites="raster">(<a href="#ref-raster" role="doc-biblioref">Hijmans 2019</a>)</span> support three dimensions only. To work with 4d (multitemporal <em>and</em> multitemporal) cubes, one needs to use custom data structures like lists of raster stacks or similar. Furthermore, gdalcubes can work automatically with image collections, where images have different spatial extents and projections.</p>
+</section>
+<section id="why-is-a-data-cube-completely-empty" class="level2">
+<h2 class="anchored" data-anchor-id="why-is-a-data-cube-completely-empty">Why is a data cube completely empty?</h2>
+<p>There are two frequent cases when a data cube is completely empty:</p>
+<section id="there-is-no-image-intersecting-with-the-data-cube." class="level5">
+<h5 class="anchored" data-anchor-id="there-is-no-image-intersecting-with-the-data-cube.">1. There is no image intersecting with the data cube.</h5>
+<p>Please check the data cube view and the extent of the collection. Make sure that the pixel size is set in the unit of the coordinate reference system (degrees, not meters for EPSG:4326).</p>
+</section>
+<section id="gdal-could-not-to-read-any-image-file." class="level5">
+<h5 class="anchored" data-anchor-id="gdal-could-not-to-read-any-image-file.">2. GDAL could not to read any image file.</h5>
+<p>Please set <code>gdalcubes_options(debug = TRUE)</code> and repeat the operations. This might be related to modified paths, unavailability of servers, or authentication issuess on cloud platforms.</p>
+</section>
+</section>
+<section id="what-are-the-differences-to-the-stars-package" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-the-differences-to-the-stars-package">What are the differences to the <code>stars</code> package?</h2>
+<p>The <a href="https://cran.r-project.org/package=stars"><code>stars</code> package</a> <span class="citation" data-cites="stars">(<a href="#ref-stars" role="doc-biblioref">Pebesma 2019</a>)</span> is very generic, supporting arrays with arbitrary dimensions and even irregular spatial (curvilinear) grids. However, <code>stars</code> assumes that the data is already in array format, and hence does not work easily with image collections, , where images have different spatial extents and projections. <code>gdalcubes</code> also works with very large cubes, processing only smaller chunks of the cube at a time.</p>
+</section>
+<section id="where-can-i-report-bugs-ask-questions-and-request-features" class="level2">
+<h2 class="anchored" data-anchor-id="where-can-i-report-bugs-ask-questions-and-request-features">Where can I report bugs, ask questions, and request features?</h2>
+<p>Please use the <a href="https://github.com/appelmar/gdalcubes_R">GitHub respository</a> and post issues if you have any questions, found bugs or would like to propose some new features.</p>
 </section>
 <section id="how-do-i-cite-gdalcubes" class="level2">
 <h2 class="anchored" data-anchor-id="how-do-i-cite-gdalcubes">How do I cite gdalcubes?</h2>
@@ -333,108 +366,21 @@
 
 <!-- -->
 
+
 </section>
-</section>
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-raster" class="csl-entry" role="doc-biblioentry">
+Hijmans, Robert J. 2019. <em>Raster: Geographic Data Analysis and Modeling</em>. <a href="https://CRAN.R-project.org/package=raster">https://CRAN.R-project.org/package=raster</a>.
+</div>
+<div id="ref-terra" class="csl-entry" role="doc-biblioentry">
+———. 2022. <em>Terra: Spatial Data Analysis</em>. <a href="https://CRAN.R-project.org/package=terra">https://CRAN.R-project.org/package=terra</a>.
+</div>
+<div id="ref-stars" class="csl-entry" role="doc-biblioentry">
+Pebesma, Edzer. 2019. <em>Stars: Spatiotemporal Arrays, Raster and Vector Data Cubes</em>. <a href="https://CRAN.R-project.org/package=stars">https://CRAN.R-project.org/package=stars</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-    } else {
-      disableStylesheet(alternateStylesheets);
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } 
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -558,46 +504,95 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu"># FAQ</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">## Can I use gdalcubes for dataset XYZ?</span></span>
+<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="an">title:</span><span class="co"> "FAQ"</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="an">toc-location:</span><span class="co"> body</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="an">toc-depth:</span><span class="co"> 2</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a>Most likely, not out of the box! gdalcubes comes with a few predefined image collection</span>
-<span id="cb2-7"><a href="#cb2-7"></a>formats for Sentinel-2, Landsat, MODIS, and a few other datasets only. </span>
-<span id="cb2-8"><a href="#cb2-8"></a>You will need to write a custom image collection format (see <span class="co">[</span><span class="ot">here</span><span class="co">](../concepts/collection_formats.qmd)</span>). </span>
-<span id="cb2-9"><a href="#cb2-9"></a>Please share your collection formats via a pull request on the <span class="co">[</span><span class="ot">GitHub collection format respository</span><span class="co">](https://github.com/appelmar/gdalcubes_formats)</span>.</span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">---</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">## Can I use gdalcubes for dataset XYZ?</span></span>
 <span id="cb2-10"><a href="#cb2-10"></a></span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">## How to contribute?</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a></span>
-<span id="cb2-14"><a href="#cb2-14"></a>Contributions of any kind (whether fixing typos, improving documentation, reporting bugs, asking questions, or implementing new features) are very welcome. Please use issues and pull requests on GitHub.</span>
+<span id="cb2-11"><a href="#cb2-11"></a>Most likely, not out of the box! gdalcubes comes with a few predefined image collection</span>
+<span id="cb2-12"><a href="#cb2-12"></a>formats for Sentinel-2, Landsat, MODIS, and a few other datasets only. </span>
+<span id="cb2-13"><a href="#cb2-13"></a>You will need to write a custom image collection format (see <span class="co">[</span><span class="ot">here</span><span class="co">](../concepts/collection_formats.qmd)</span>). </span>
+<span id="cb2-14"><a href="#cb2-14"></a>Please share your collection formats via a pull request on the <span class="co">[</span><span class="ot">GitHub collection format respository</span><span class="co">](https://github.com/appelmar/gdalcubes_formats)</span>.</span>
 <span id="cb2-15"><a href="#cb2-15"></a></span>
 <span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="fu">## How do I cite gdalcubes?</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="fu">## How to contribute?</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a>Contributions of any kind (whether fixing typos, improving documentation, reporting bugs, asking questions, or implementing new features) are very welcome. Please use issues and pull requests on GitHub.</span>
 <span id="cb2-20"><a href="#cb2-20"></a></span>
-<span id="cb2-21"><a href="#cb2-21"></a>Please refer to our paper at <span class="co">[</span><span class="ot">https://doi.org/10.3390/data4030092</span><span class="co">](https://doi.org/10.3390/data4030092)</span>. You can use the corresponding BibTeX entry:</span>
-<span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a><span class="in">```</span></span>
-<span id="cb2-24"><a href="#cb2-24"></a><span class="in">    @Article{data4030092,</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a><span class="in">        AUTHOR = {Appel, Marius and Pebesma, Edzer},</span></span>
-<span id="cb2-26"><a href="#cb2-26"></a><span class="in">        TITLE = {On-Demand Processing of Data Cubes from Satellite Image Collections with the gdalcubes Library},</span></span>
-<span id="cb2-27"><a href="#cb2-27"></a><span class="in">        JOURNAL = {Data},</span></span>
-<span id="cb2-28"><a href="#cb2-28"></a><span class="in">        VOLUME = {4},</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a><span class="in">        YEAR = {2019},</span></span>
-<span id="cb2-30"><a href="#cb2-30"></a><span class="in">        NUMBER = {3},</span></span>
-<span id="cb2-31"><a href="#cb2-31"></a><span class="in">        ARTICLE-NUMBER = {92},</span></span>
-<span id="cb2-32"><a href="#cb2-32"></a><span class="in">        URL = {https://www.mdpi.com/2306-5729/4/3/92},</span></span>
-<span id="cb2-33"><a href="#cb2-33"></a><span class="in">        ISSN = {2306-5729},</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a><span class="in">        DOI = {10.3390/data4030092}</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a><span class="in">    }</span></span>
-<span id="cb2-36"><a href="#cb2-36"></a><span class="in">```</span></span>
-<span id="cb2-37"><a href="#cb2-37"></a></span>
-<span id="cb2-38"><a href="#cb2-38"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-21"><a href="#cb2-21"></a></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="fu">## What are the differences to the `terra` and `raster` packages?</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a>The main difference is that both <span class="co">[</span><span class="ot">`terra`</span><span class="co">](https://cran.r-project.org/package=terra)</span> <span class="co">[</span><span class="ot">@terra</span><span class="co">]</span> and <span class="co">[</span><span class="ot">`raster`</span><span class="co">](https://cran.r-project.org/package=raster)</span> <span class="co">[</span><span class="ot">@raster</span><span class="co">]</span> support three dimensions only.</span>
+<span id="cb2-25"><a href="#cb2-25"></a>To work with 4d (multitemporal _and_ multitemporal) cubes, one needs to </span>
+<span id="cb2-26"><a href="#cb2-26"></a>use custom data structures like lists of raster stacks or similar. </span>
+<span id="cb2-27"><a href="#cb2-27"></a>Furthermore, gdalcubes can work automatically with image collections, where images have different spatial extents and projections.</span>
+<span id="cb2-28"><a href="#cb2-28"></a></span>
+<span id="cb2-29"><a href="#cb2-29"></a><span class="fu">## Why is a data cube completely empty?</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a></span>
+<span id="cb2-31"><a href="#cb2-31"></a>There are two frequent cases when a data cube is completely empty: </span>
+<span id="cb2-32"><a href="#cb2-32"></a></span>
+<span id="cb2-33"><a href="#cb2-33"></a><span class="fu">#####  1. There is no image intersecting with the data cube. </span></span>
+<span id="cb2-34"><a href="#cb2-34"></a>Please check the data cube view and the extent of the collection. Make sure that the pixel size is set in the unit of the coordinate reference system (degrees, not meters for EPSG:4326).</span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="fu">##### 2. GDAL could not to read any image file.</span></span>
+<span id="cb2-37"><a href="#cb2-37"></a>Please set <span class="in">`gdalcubes_options(debug = TRUE)`</span> and repeat the operations. This might be related to modified paths, unavailability of servers, or authentication issuess on cloud platforms.</span>
+<span id="cb2-38"><a href="#cb2-38"></a></span>
+<span id="cb2-39"><a href="#cb2-39"></a><span class="fu">## What are the differences to the `stars` package?</span></span>
+<span id="cb2-40"><a href="#cb2-40"></a></span>
+<span id="cb2-41"><a href="#cb2-41"></a>The <span class="co">[</span><span class="ot">`stars` package</span><span class="co">](https://cran.r-project.org/package=stars)</span> <span class="co">[</span><span class="ot">@stars</span><span class="co">]</span> is very generic, supporting arrays with arbitrary dimensions and even irregular spatial (curvilinear) grids. However, <span class="in">`stars`</span> assumes that the data is already in array format, and hence does not work easily with image collections, , where images have different spatial extents and projections. <span class="in">`gdalcubes`</span> also works with very large cubes, processing only smaller chunks of the cube at a time.</span>
+<span id="cb2-42"><a href="#cb2-42"></a></span>
+<span id="cb2-43"><a href="#cb2-43"></a></span>
+<span id="cb2-44"><a href="#cb2-44"></a></span>
+<span id="cb2-45"><a href="#cb2-45"></a><span class="fu">## Where can I report bugs, ask questions, and request features?</span></span>
+<span id="cb2-46"><a href="#cb2-46"></a></span>
+<span id="cb2-47"><a href="#cb2-47"></a>Please use the <span class="co">[</span><span class="ot">GitHub respository</span><span class="co">](https://github.com/appelmar/gdalcubes_R)</span> and post issues if you have any questions, found bugs or would like to propose some new features.</span>
+<span id="cb2-48"><a href="#cb2-48"></a></span>
+<span id="cb2-49"><a href="#cb2-49"></a></span>
+<span id="cb2-50"><a href="#cb2-50"></a></span>
+<span id="cb2-51"><a href="#cb2-51"></a><span class="fu">## How do I cite gdalcubes?</span></span>
+<span id="cb2-52"><a href="#cb2-52"></a></span>
+<span id="cb2-53"><a href="#cb2-53"></a></span>
+<span id="cb2-54"><a href="#cb2-54"></a>Please refer to our paper at <span class="co">[</span><span class="ot">https://doi.org/10.3390/data4030092</span><span class="co">](https://doi.org/10.3390/data4030092)</span>. You can use the corresponding BibTeX entry:</span>
+<span id="cb2-55"><a href="#cb2-55"></a></span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="in">```</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a><span class="in">    @Article{data4030092,</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a><span class="in">        AUTHOR = {Appel, Marius and Pebesma, Edzer},</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a><span class="in">        TITLE = {On-Demand Processing of Data Cubes from Satellite Image Collections with the gdalcubes Library},</span></span>
+<span id="cb2-60"><a href="#cb2-60"></a><span class="in">        JOURNAL = {Data},</span></span>
+<span id="cb2-61"><a href="#cb2-61"></a><span class="in">        VOLUME = {4},</span></span>
+<span id="cb2-62"><a href="#cb2-62"></a><span class="in">        YEAR = {2019},</span></span>
+<span id="cb2-63"><a href="#cb2-63"></a><span class="in">        NUMBER = {3},</span></span>
+<span id="cb2-64"><a href="#cb2-64"></a><span class="in">        ARTICLE-NUMBER = {92},</span></span>
+<span id="cb2-65"><a href="#cb2-65"></a><span class="in">        URL = {https://www.mdpi.com/2306-5729/4/3/92},</span></span>
+<span id="cb2-66"><a href="#cb2-66"></a><span class="in">        ISSN = {2306-5729},</span></span>
+<span id="cb2-67"><a href="#cb2-67"></a><span class="in">        DOI = {10.3390/data4030092}</span></span>
+<span id="cb2-68"><a href="#cb2-68"></a><span class="in">    }</span></span>
+<span id="cb2-69"><a href="#cb2-69"></a><span class="in">```</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a></span>
+<span id="cb2-71"><a href="#cb2-71"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

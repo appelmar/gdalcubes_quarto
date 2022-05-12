@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="generator" content="quarto-0.9.238">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>gdalcubes – dimension_bounds</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+  <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+  <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+  <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+  <meta name="quarto:offset" content="../../../">
+  <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+  <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+  <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+  <link href="../../../favicon.png" rel="icon" type="image/png">
+  <script src="../../../site_libs/quarto-html/quarto.js"></script>
+  <script src="../../../site_libs/quarto-html/popper.min.js"></script>
+  <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+  <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+  <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+  <link id="quarto-text-highlighting-styles" href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+  <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+  <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+  <script id="quarto-search-options" type="application/json">{
+    "location": "navbar",
+    "copy-button": false,
+    "collapse-after": 3,
+    "panel-placement": "end",
+    "type": "overlay",
+    "limit": 20,
+    "language": {
+      "search-no-results-text": "No results",
+      "search-matching-documents-text": "matching documents",
+      "search-copy-link-title": "Copy link to search",
+      "search-hide-matches-text": "Hide additional matches",
+      "search-more-match-text": "more match in this document",
+      "search-more-matches-text": "more matches in this document",
+      "search-clear-button-title": "Clear",
+      "search-detached-cancel-button-title": "Cancel",
+      "search-submit-button-title": "Submit"
+    }
+  }</script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body class="floating nav-fixed">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <img src="../../../source/gdalcubes_logo_mini.png" alt="">
+    <span class="navbar-title">gdalcubes</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../source/getstarted.html">Get started</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../source/introduction/why.html">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../source/tutorials/index.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../../../source/reference/index.html" aria-current="page">Reference</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false">Help</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-help">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Source code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues"><i class="bi bi-bug" role="img">
+</i> 
+ <span class="dropdown-text">Report an issue</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../source/introduction/faq.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../../source/about.html">About</a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/index.html" class="sidebar-item-text sidebar-link">Reference</a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">Image collections</a>
+      <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/add_images.html" class="sidebar-item-text sidebar-link">add_images</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/add_collection_format.html" class="sidebar-item-text sidebar-link">add_collection_format</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/create_image_collection.html" class="sidebar-item-text sidebar-link">create_image_collection</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/collection_formats.html" class="sidebar-item-text sidebar-link">collection_formats</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/extent.html" class="sidebar-item-text sidebar-link">extent</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/stac_image_collection.html" class="sidebar-item-text sidebar-link">stac_image_collection</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">Data cube creation</a>
+      <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/cube_view.html" class="sidebar-item-text sidebar-link">cube_view</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/image_mask.html" class="sidebar-item-text sidebar-link">image_mask</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/json_cube.html" class="sidebar-item-text sidebar-link">json_cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/ncdf_cube.html" class="sidebar-item-text sidebar-link">ncdf_cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/raster_cube.html" class="sidebar-item-text sidebar-link">raster_cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/stack_cube.html" class="sidebar-item-text sidebar-link">stack_cube</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Data cube properties</a>
+      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/bands.html" class="sidebar-item-text sidebar-link">bands</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/dim.cube.html" class="sidebar-item-text sidebar-link">dim.cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/dimension_bounds.html" class="sidebar-item-text sidebar-link active">dimension_bounds</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/dimensions.html" class="sidebar-item-text sidebar-link">dimensions</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/dimension_values.html" class="sidebar-item-text sidebar-link">dimension_values</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/names.cube.html" class="sidebar-item-text sidebar-link">names.cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/nbands.html" class="sidebar-item-text sidebar-link">nbands</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/nt.html" class="sidebar-item-text sidebar-link">nt</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/nx.html" class="sidebar-item-text sidebar-link">nx</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/ny.html" class="sidebar-item-text sidebar-link">ny</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/size.html" class="sidebar-item-text sidebar-link">size</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/srs.html" class="sidebar-item-text sidebar-link">srs</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">Data cube operations</a>
+      <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/aggregate_space.html" class="sidebar-item-text sidebar-link">aggregate_space</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/aggregate_time.html" class="sidebar-item-text sidebar-link">aggregate_time</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/apply_pixel.cube.html" class="sidebar-item-text sidebar-link">apply_pixel.cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/apply_time.cube.html" class="sidebar-item-text sidebar-link">apply_time.cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/crop.html" class="sidebar-item-text sidebar-link">crop</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/extract_geom.html" class="sidebar-item-text sidebar-link">extract_geom</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/fill_time.html" class="sidebar-item-text sidebar-link">fill_time</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/filter_geom.html" class="sidebar-item-text sidebar-link">filter_geom</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/filter_pixel.html" class="sidebar-item-text sidebar-link">filter_pixel</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/gdalcubes_selection.html" class="sidebar-item-text sidebar-link">gdalcubes_selection</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/join_bands.html" class="sidebar-item-text sidebar-link">join_bands</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/reduce_space.cube.html" class="sidebar-item-text sidebar-link">reduce_space.cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/reduce_time.cube.html" class="sidebar-item-text sidebar-link">reduce_time.cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/select_bands.html" class="sidebar-item-text sidebar-link">select_bands</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/select_time.html" class="sidebar-item-text sidebar-link">select_time</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/slice_space.html" class="sidebar-item-text sidebar-link">slice_space</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/slice_time.html" class="sidebar-item-text sidebar-link">slice_time</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/window_time.html" class="sidebar-item-text sidebar-link">window_time</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">Export / visualization</a>
+      <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/animate.html" class="sidebar-item-text sidebar-link">animate</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/as_array.html" class="sidebar-item-text sidebar-link">as_array</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/as_json.html" class="sidebar-item-text sidebar-link">as_json</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/extract_geom.html" class="sidebar-item-text sidebar-link">extract_geom</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/pack_minmax.html" class="sidebar-item-text sidebar-link">pack_minmax</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/plot.cube.html" class="sidebar-item-text sidebar-link">plot.cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/st_as_stars.cube.html" class="sidebar-item-text sidebar-link">st_as_stars.cube</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/write_ncdf.html" class="sidebar-item-text sidebar-link">write_ncdf</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/write_tif.html" class="sidebar-item-text sidebar-link">write_tif</a>
+  </div>
+</li>
+    </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+    <div class="sidebar-item-container"> 
+        <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">Miscellaneous</a>
+      <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
+        <i class="bi bi-chevron-right ms-2"></i>
+      </a>
+    </div>
+    <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/gdalcubes_options.html" class="sidebar-item-text sidebar-link">gdalcubes_options</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/gdalcubes_set_gdal_config.html" class="sidebar-item-text sidebar-link">gdalcubes_set_gdal_config</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/gdalcubes_gdalformats.html" class="sidebar-item-text sidebar-link">gdalcubes_gdalformats</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/gdalcubes_gdalversion.html" class="sidebar-item-text sidebar-link">gdalcubes_gdalversion</a>
+  </div>
+</li>
+    </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#dimension_bounds" id="toc-dimension_bounds" class="nav-link active" data-scroll-target="#dimension_bounds">dimension_bounds</a>
+<ul class="collapse">
+<li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
+<li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
+<li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments">Arguments</a></li>
+<li><a href="#value" id="toc-value" class="nav-link" data-scroll-target="#value">Value</a></li>
+<li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<section id="dimension_bounds" class="level1">
+<h1>dimension_bounds</h1>
+<p>Query coordinate bounds for all dimensions of a data cube</p>
+<section id="description" class="level2">
+<h2 class="anchored" data-anchor-id="description">Description</h2>
+<p>Dimension values give the coordinates bounds the spatial and temporal axes of a data cube.</p>
+</section>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">Usage</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">dimension_bounds</span>(obj, <span class="at">datetime_unit =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="arguments" class="level2">
+<h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
+<table class="table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Argument</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">obj</td>
+<td style="text-align: left;">a data cube proxy (class cube)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">datetime_unit</td>
+<td style="text-align: left;">unit used to format values in the datetime dimension, one of “Y”, “m”, “d”, “H”, “M”, “S”, defaults to the unit of the cube.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="value" class="level2">
+<h2 class="anchored" data-anchor-id="value">Value</h2>
+<p>list with elements t,y,x, each a list with two elements, start and end</p>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">Examples</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb2-7"><a href="#cb2-7"></a>}</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb2-10"><a href="#cb2-10"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb2-11"><a href="#cb2-11"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
+<span id="cb2-12"><a href="#cb2-12"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="fu">dimension_bounds</span>(<span class="fu">raster_cube</span>(L8.col, v))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$t
+$t$start
+[1] "2018-04-01" "2018-05-01" "2018-06-01"
+
+$t$end
+[1] "2018-05-01" "2018-06-01" "2018-07-01"
+
+
+$y
+$y$start
+  [1] 4345299 4346059 4346819 4347578 4348338 4349098 4349858 4350617 4351377
+ [10] 4352137 4352897 4353656 4354416 4355176 4355936 4356695 4357455 4358215
+ [19] 4358975 4359734 4360494 4361254 4362014 4362773 4363533 4364293 4365053
+ [28] 4365812 4366572 4367332 4368092 4368851 4369611 4370371 4371131 4371890
+ [37] 4372650 4373410 4374170 4374930 4375689 4376449 4377209 4377969 4378728
+ [46] 4379488 4380248 4381008 4381767 4382527 4383287 4384047 4384806 4385566
+ [55] 4386326 4387086 4387845 4388605 4389365 4390125 4390884 4391644 4392404
+ [64] 4393164 4393923 4394683 4395443 4396203 4396962 4397722 4398482 4399242
+ [73] 4400001 4400761 4401521 4402281 4403041 4403800 4404560 4405320 4406080
+ [82] 4406839 4407599 4408359 4409119 4409878 4410638 4411398 4412158 4412917
+ [91] 4413677 4414437 4415197 4415956 4416716 4417476 4418236 4418995 4419755
+[100] 4420515 4421275 4422034 4422794 4423554 4424314 4425073 4425833 4426593
+[109] 4427353 4428112 4428872 4429632 4430392 4431152 4431911 4432671 4433431
+[118] 4434191 4434950 4435710 4436470 4437230 4437989 4438749 4439509 4440269
+[127] 4441028 4441788 4442548 4443308 4444067 4444827 4445587 4446347 4447106
+[136] 4447866 4448626 4449386 4450145 4450905 4451665 4452425 4453184 4453944
+[145] 4454704 4455464 4456223 4456983 4457743 4458503 4459262 4460022 4460782
+[154] 4461542 4462302 4463061 4463821 4464581 4465341 4466100 4466860 4467620
+[163] 4468380 4469139 4469899 4470659 4471419 4472178 4472938 4473698 4474458
+[172] 4475217 4475977 4476737 4477497 4478256 4479016 4479776 4480536 4481295
+[181] 4482055 4482815 4483575 4484334 4485094 4485854 4486614 4487373 4488133
+[190] 4488893 4489653 4490413 4491172 4491932 4492692 4493452 4494211 4494971
+[199] 4495731 4496491 4497250 4498010 4498770 4499530 4500289 4501049 4501809
+[208] 4502569 4503328 4504088 4504848 4505608 4506367 4507127 4507887 4508647
+[217] 4509406 4510166 4510926 4511686 4512445 4513205 4513965 4514725 4515484
+[226] 4516244 4517004 4517764 4518524 4519283 4520043 4520803 4521563 4522322
+[235] 4523082 4523842 4524602 4525361 4526121 4526881 4527641 4528400 4529160
+[244] 4529920 4530680 4531439 4532199 4532959 4533719 4534478 4535238 4535998
+[253] 4536758 4537517 4538277 4539037 4539797 4540556 4541316 4542076 4542836
+[262] 4543595 4544355 4545115 4545875 4546635 4547394 4548154 4548914 4549674
+[271] 4550433 4551193 4551953 4552713 4553472 4554232 4554992 4555752 4556511
+[280] 4557271 4558031 4558791 4559550 4560310 4561070 4561830 4562589 4563349
+[289] 4564109 4564869 4565628 4566388 4567148 4567908 4568667 4569427 4570187
+[298] 4570947 4571706 4572466 4573226 4573986 4574746 4575505 4576265 4577025
+[307] 4577785 4578544 4579304 4580064 4580824 4581583 4582343 4583103 4583863
+[316] 4584622 4585382 4586142 4586902 4587661 4588421 4589181 4589941 4590700
+[325] 4591460 4592220 4592980 4593739 4594499 4595259 4596019 4596778 4597538
+[334] 4598298 4599058 4599817 4600577 4601337 4602097 4602857 4603616 4604376
+[343] 4605136 4605896 4606655 4607415 4608175 4608935 4609694 4610454 4611214
+[352] 4611974 4612733 4613493 4614253 4615013 4615772 4616532 4617292 4618052
+[361] 4618811 4619571 4620331 4621091 4621850 4622610 4623370 4624130 4624889
+[370] 4625649 4626409 4627169 4627928 4628688 4629448 4630208 4630968 4631727
+[379] 4632487 4633247 4634007 4634766 4635526 4636286 4637046 4637805 4638565
+[388] 4639325 4640085 4640844 4641604 4642364 4643124 4643883 4644643 4645403
+[397] 4646163 4646922 4647682 4648442 4649202 4649961 4650721 4651481 4652241
+[406] 4653000 4653760 4654520 4655280 4656039 4656799 4657559 4658319 4659078
+[415] 4659838 4660598 4661358 4662118 4662877 4663637 4664397 4665157 4665916
+[424] 4666676 4667436 4668196 4668955 4669715 4670475 4671235 4671994 4672754
+[433] 4673514 4674274 4675033 4675793 4676553 4677313 4678072 4678832 4679592
+[442] 4680352 4681111 4681871 4682631 4683391 4684150 4684910 4685670 4686430
+[451] 4687189 4687949 4688709 4689469 4690229 4690988 4691748 4692508 4693268
+[460] 4694027 4694787 4695547 4696307 4697066 4697826 4698586 4699346 4700105
+[469] 4700865 4701625 4702385 4703144 4703904 4704664 4705424 4706183 4706943
+[478] 4707703 4708463 4709222 4709982 4710742 4711502 4712261 4713021 4713781
+[487] 4714541 4715300 4716060 4716820 4717580 4718340 4719099 4719859 4720619
+[496] 4721379 4722138 4722898 4723658 4724418 4725177 4725937 4726697 4727457
+[505] 4728216 4728976 4729736 4730496 4731255 4732015 4732775 4733535 4734294
+[514] 4735054 4735814 4736574 4737333 4738093 4738853 4739613 4740372 4741132
+[523] 4741892 4742652 4743411 4744171
+
+$y$end
+  [1] 4346059 4346819 4347578 4348338 4349098 4349858 4350617 4351377 4352137
+ [10] 4352897 4353656 4354416 4355176 4355936 4356695 4357455 4358215 4358975
+ [19] 4359734 4360494 4361254 4362014 4362773 4363533 4364293 4365053 4365812
+ [28] 4366572 4367332 4368092 4368851 4369611 4370371 4371131 4371890 4372650
+ [37] 4373410 4374170 4374930 4375689 4376449 4377209 4377969 4378728 4379488
+ [46] 4380248 4381008 4381767 4382527 4383287 4384047 4384806 4385566 4386326
+ [55] 4387086 4387845 4388605 4389365 4390125 4390884 4391644 4392404 4393164
+ [64] 4393923 4394683 4395443 4396203 4396962 4397722 4398482 4399242 4400001
+ [73] 4400761 4401521 4402281 4403041 4403800 4404560 4405320 4406080 4406839
+ [82] 4407599 4408359 4409119 4409878 4410638 4411398 4412158 4412917 4413677
+ [91] 4414437 4415197 4415956 4416716 4417476 4418236 4418995 4419755 4420515
+[100] 4421275 4422034 4422794 4423554 4424314 4425073 4425833 4426593 4427353
+[109] 4428112 4428872 4429632 4430392 4431152 4431911 4432671 4433431 4434191
+[118] 4434950 4435710 4436470 4437230 4437989 4438749 4439509 4440269 4441028
+[127] 4441788 4442548 4443308 4444067 4444827 4445587 4446347 4447106 4447866
+[136] 4448626 4449386 4450145 4450905 4451665 4452425 4453184 4453944 4454704
+[145] 4455464 4456223 4456983 4457743 4458503 4459262 4460022 4460782 4461542
+[154] 4462302 4463061 4463821 4464581 4465341 4466100 4466860 4467620 4468380
+[163] 4469139 4469899 4470659 4471419 4472178 4472938 4473698 4474458 4475217
+[172] 4475977 4476737 4477497 4478256 4479016 4479776 4480536 4481295 4482055
+[181] 4482815 4483575 4484334 4485094 4485854 4486614 4487373 4488133 4488893
+[190] 4489653 4490413 4491172 4491932 4492692 4493452 4494211 4494971 4495731
+[199] 4496491 4497250 4498010 4498770 4499530 4500289 4501049 4501809 4502569
+[208] 4503328 4504088 4504848 4505608 4506367 4507127 4507887 4508647 4509406
+[217] 4510166 4510926 4511686 4512445 4513205 4513965 4514725 4515484 4516244
+[226] 4517004 4517764 4518524 4519283 4520043 4520803 4521563 4522322 4523082
+[235] 4523842 4524602 4525361 4526121 4526881 4527641 4528400 4529160 4529920
+[244] 4530680 4531439 4532199 4532959 4533719 4534478 4535238 4535998 4536758
+[253] 4537517 4538277 4539037 4539797 4540556 4541316 4542076 4542836 4543595
+[262] 4544355 4545115 4545875 4546635 4547394 4548154 4548914 4549674 4550433
+[271] 4551193 4551953 4552713 4553472 4554232 4554992 4555752 4556511 4557271
+[280] 4558031 4558791 4559550 4560310 4561070 4561830 4562589 4563349 4564109
+[289] 4564869 4565628 4566388 4567148 4567908 4568667 4569427 4570187 4570947
+[298] 4571706 4572466 4573226 4573986 4574746 4575505 4576265 4577025 4577785
+[307] 4578544 4579304 4580064 4580824 4581583 4582343 4583103 4583863 4584622
+[316] 4585382 4586142 4586902 4587661 4588421 4589181 4589941 4590700 4591460
+[325] 4592220 4592980 4593739 4594499 4595259 4596019 4596778 4597538 4598298
+[334] 4599058 4599817 4600577 4601337 4602097 4602857 4603616 4604376 4605136
+[343] 4605896 4606655 4607415 4608175 4608935 4609694 4610454 4611214 4611974
+[352] 4612733 4613493 4614253 4615013 4615772 4616532 4617292 4618052 4618811
+[361] 4619571 4620331 4621091 4621850 4622610 4623370 4624130 4624889 4625649
+[370] 4626409 4627169 4627928 4628688 4629448 4630208 4630968 4631727 4632487
+[379] 4633247 4634007 4634766 4635526 4636286 4637046 4637805 4638565 4639325
+[388] 4640085 4640844 4641604 4642364 4643124 4643883 4644643 4645403 4646163
+[397] 4646922 4647682 4648442 4649202 4649961 4650721 4651481 4652241 4653000
+[406] 4653760 4654520 4655280 4656039 4656799 4657559 4658319 4659078 4659838
+[415] 4660598 4661358 4662118 4662877 4663637 4664397 4665157 4665916 4666676
+[424] 4667436 4668196 4668955 4669715 4670475 4671235 4671994 4672754 4673514
+[433] 4674274 4675033 4675793 4676553 4677313 4678072 4678832 4679592 4680352
+[442] 4681111 4681871 4682631 4683391 4684150 4684910 4685670 4686430 4687189
+[451] 4687949 4688709 4689469 4690229 4690988 4691748 4692508 4693268 4694027
+[460] 4694787 4695547 4696307 4697066 4697826 4698586 4699346 4700105 4700865
+[469] 4701625 4702385 4703144 4703904 4704664 4705424 4706183 4706943 4707703
+[478] 4708463 4709222 4709982 4710742 4711502 4712261 4713021 4713781 4714541
+[487] 4715300 4716060 4716820 4717580 4718340 4719099 4719859 4720619 4721379
+[496] 4722138 4722898 4723658 4724418 4725177 4725937 4726697 4727457 4728216
+[505] 4728976 4729736 4730496 4731255 4732015 4732775 4733535 4734294 4735054
+[514] 4735814 4736574 4737333 4738093 4738853 4739613 4740372 4741132 4741892
+[523] 4742652 4743411 4744171 4744931
+
+
+$x
+$x$start
+  [1] 388941.2 389701.0 390460.8 391220.5 391980.3 392740.1 393499.9 394259.7
+  [9] 395019.4 395779.2 396539.0 397298.8 398058.6 398818.4 399578.1 400337.9
+ [17] 401097.7 401857.5 402617.3 403377.0 404136.8 404896.6 405656.4 406416.2
+ [25] 407175.9 407935.7 408695.5 409455.3 410215.1 410974.9 411734.6 412494.4
+ [33] 413254.2 414014.0 414773.8 415533.5 416293.3 417053.1 417812.9 418572.7
+ [41] 419332.4 420092.2 420852.0 421611.8 422371.6 423131.3 423891.1 424650.9
+ [49] 425410.7 426170.5 426930.3 427690.0 428449.8 429209.6 429969.4 430729.2
+ [57] 431488.9 432248.7 433008.5 433768.3 434528.1 435287.8 436047.6 436807.4
+ [65] 437567.2 438327.0 439086.8 439846.5 440606.3 441366.1 442125.9 442885.7
+ [73] 443645.4 444405.2 445165.0 445924.8 446684.6 447444.3 448204.1 448963.9
+ [81] 449723.7 450483.5 451243.2 452003.0 452762.8 453522.6 454282.4 455042.2
+ [89] 455801.9 456561.7 457321.5 458081.3 458841.1 459600.8 460360.6 461120.4
+ [97] 461880.2 462640.0 463399.7 464159.5 464919.3 465679.1 466438.9 467198.7
+[105] 467958.4 468718.2 469478.0 470237.8 470997.6 471757.3 472517.1 473276.9
+[113] 474036.7 474796.5 475556.2 476316.0 477075.8 477835.6 478595.4 479355.1
+[121] 480114.9 480874.7 481634.5 482394.3 483154.1 483913.8 484673.6 485433.4
+[129] 486193.2 486953.0 487712.7 488472.5 489232.3 489992.1 490751.9 491511.6
+[137] 492271.4 493031.2 493791.0 494550.8 495310.6 496070.3 496830.1 497589.9
+[145] 498349.7 499109.5 499869.2 500629.0 501388.8 502148.6 502908.4 503668.1
+[153] 504427.9 505187.7 505947.5 506707.3 507467.0 508226.8 508986.6 509746.4
+[161] 510506.2 511266.0 512025.7 512785.5 513545.3 514305.1 515064.9 515824.6
+[169] 516584.4 517344.2 518104.0 518863.8 519623.5 520383.3 521143.1 521902.9
+[177] 522662.7 523422.5 524182.2 524942.0 525701.8 526461.6 527221.4 527981.1
+[185] 528740.9 529500.7 530260.5 531020.3 531780.0 532539.8 533299.6 534059.4
+[193] 534819.2 535578.9 536338.7 537098.5 537858.3 538618.1 539377.9 540137.6
+[201] 540897.4 541657.2 542417.0 543176.8 543936.5 544696.3 545456.1 546215.9
+[209] 546975.7 547735.4 548495.2 549255.0 550014.8 550774.6 551534.4 552294.1
+[217] 553053.9 553813.7 554573.5 555333.3 556093.0 556852.8 557612.6 558372.4
+[225] 559132.2 559891.9 560651.7 561411.5 562171.3 562931.1 563690.8 564450.6
+[233] 565210.4 565970.2 566730.0 567489.8 568249.5 569009.3 569769.1 570528.9
+[241] 571288.7 572048.4 572808.2 573568.0 574327.8 575087.6 575847.3 576607.1
+[249] 577366.9 578126.7 578886.5 579646.3 580406.0 581165.8 581925.6 582685.4
+[257] 583445.2 584204.9 584964.7 585724.5 586484.3 587244.1 588003.8 588763.6
+[265] 589523.4 590283.2 591043.0 591802.8 592562.5 593322.3 594082.1 594841.9
+[273] 595601.7 596361.4 597121.2 597881.0 598640.8 599400.6 600160.3 600920.1
+[281] 601679.9 602439.7 603199.5 603959.2 604719.0 605478.8 606238.6 606998.4
+[289] 607758.2 608517.9 609277.7 610037.5 610797.3 611557.1 612316.8 613076.6
+[297] 613836.4 614596.2 615356.0 616115.7 616875.5 617635.3 618395.1 619154.9
+[305] 619914.7 620674.4 621434.2 622194.0 622953.8 623713.6 624473.3 625233.1
+[313] 625992.9 626752.7 627512.5 628272.2 629032.0 629791.8 630551.6 631311.4
+[321] 632071.1 632830.9 633590.7 634350.5 635110.3 635870.1 636629.8 637389.6
+[329] 638149.4 638909.2 639669.0 640428.7 641188.5 641948.3 642708.1 643467.9
+[337] 644227.6 644987.4 645747.2 646507.0 647266.8 648026.6 648786.3 649546.1
+[345] 650305.9 651065.7 651825.5 652585.2 653345.0 654104.8 654864.6 655624.4
+[353] 656384.1 657143.9 657903.7 658663.5 659423.3 660183.0 660942.8 661702.6
+[361] 662462.4 663222.2 663982.0 664741.7 665501.5 666261.3 667021.1 667780.9
+[369] 668540.6 669300.4 670060.2 670820.0 671579.8 672339.5 673099.3 673859.1
+[377] 674618.9 675378.7 676138.5 676898.2 677658.0 678417.8 679177.6 679937.4
+[385] 680697.1 681456.9 682216.7 682976.5 683736.3 684496.0 685255.8 686015.6
+[393] 686775.4 687535.2 688294.9 689054.7 689814.5 690574.3 691334.1 692093.9
+[401] 692853.6 693613.4 694373.2 695133.0 695892.8 696652.5 697412.3 698172.1
+[409] 698931.9 699691.7 700451.4 701211.2 701971.0 702730.8 703490.6 704250.4
+[417] 705010.1 705769.9 706529.7 707289.5 708049.3 708809.0 709568.8 710328.6
+[425] 711088.4 711848.2 712607.9 713367.7 714127.5 714887.3 715647.1 716406.8
+[433] 717166.6 717926.4 718686.2 719446.0 720205.8 720965.5 721725.3 722485.1
+[441] 723244.9 724004.7 724764.4 725524.2 726284.0 727043.8 727803.6 728563.3
+[449] 729323.1 730082.9 730842.7 731602.5 732362.3 733122.0 733881.8 734641.6
+[457] 735401.4 736161.2 736920.9 737680.7 738440.5 739200.3 739960.1 740719.8
+[465] 741479.6 742239.4 742999.2 743759.0 744518.7 745278.5 746038.3 746798.1
+[473] 747557.9 748317.7 749077.4 749837.2 750597.0 751356.8 752116.6 752876.3
+[481] 753636.1 754395.9 755155.7 755915.5 756675.2 757435.0 758194.8 758954.6
+[489] 759714.4 760474.2 761233.9 761993.7 762753.5 763513.3 764273.1 765032.8
+[497] 765792.6
+
+$x$end
+  [1] 389701.0 390460.8 391220.5 391980.3 392740.1 393499.9 394259.7 395019.4
+  [9] 395779.2 396539.0 397298.8 398058.6 398818.4 399578.1 400337.9 401097.7
+ [17] 401857.5 402617.3 403377.0 404136.8 404896.6 405656.4 406416.2 407175.9
+ [25] 407935.7 408695.5 409455.3 410215.1 410974.9 411734.6 412494.4 413254.2
+ [33] 414014.0 414773.8 415533.5 416293.3 417053.1 417812.9 418572.7 419332.4
+ [41] 420092.2 420852.0 421611.8 422371.6 423131.3 423891.1 424650.9 425410.7
+ [49] 426170.5 426930.3 427690.0 428449.8 429209.6 429969.4 430729.2 431488.9
+ [57] 432248.7 433008.5 433768.3 434528.1 435287.8 436047.6 436807.4 437567.2
+ [65] 438327.0 439086.8 439846.5 440606.3 441366.1 442125.9 442885.7 443645.4
+ [73] 444405.2 445165.0 445924.8 446684.6 447444.3 448204.1 448963.9 449723.7
+ [81] 450483.5 451243.2 452003.0 452762.8 453522.6 454282.4 455042.2 455801.9
+ [89] 456561.7 457321.5 458081.3 458841.1 459600.8 460360.6 461120.4 461880.2
+ [97] 462640.0 463399.7 464159.5 464919.3 465679.1 466438.9 467198.7 467958.4
+[105] 468718.2 469478.0 470237.8 470997.6 471757.3 472517.1 473276.9 474036.7
+[113] 474796.5 475556.2 476316.0 477075.8 477835.6 478595.4 479355.1 480114.9
+[121] 480874.7 481634.5 482394.3 483154.1 483913.8 484673.6 485433.4 486193.2
+[129] 486953.0 487712.7 488472.5 489232.3 489992.1 490751.9 491511.6 492271.4
+[137] 493031.2 493791.0 494550.8 495310.6 496070.3 496830.1 497589.9 498349.7
+[145] 499109.5 499869.2 500629.0 501388.8 502148.6 502908.4 503668.1 504427.9
+[153] 505187.7 505947.5 506707.3 507467.0 508226.8 508986.6 509746.4 510506.2
+[161] 511266.0 512025.7 512785.5 513545.3 514305.1 515064.9 515824.6 516584.4
+[169] 517344.2 518104.0 518863.8 519623.5 520383.3 521143.1 521902.9 522662.7
+[177] 523422.5 524182.2 524942.0 525701.8 526461.6 527221.4 527981.1 528740.9
+[185] 529500.7 530260.5 531020.3 531780.0 532539.8 533299.6 534059.4 534819.2
+[193] 535578.9 536338.7 537098.5 537858.3 538618.1 539377.9 540137.6 540897.4
+[201] 541657.2 542417.0 543176.8 543936.5 544696.3 545456.1 546215.9 546975.7
+[209] 547735.4 548495.2 549255.0 550014.8 550774.6 551534.4 552294.1 553053.9
+[217] 553813.7 554573.5 555333.3 556093.0 556852.8 557612.6 558372.4 559132.2
+[225] 559891.9 560651.7 561411.5 562171.3 562931.1 563690.8 564450.6 565210.4
+[233] 565970.2 566730.0 567489.8 568249.5 569009.3 569769.1 570528.9 571288.7
+[241] 572048.4 572808.2 573568.0 574327.8 575087.6 575847.3 576607.1 577366.9
+[249] 578126.7 578886.5 579646.3 580406.0 581165.8 581925.6 582685.4 583445.2
+[257] 584204.9 584964.7 585724.5 586484.3 587244.1 588003.8 588763.6 589523.4
+[265] 590283.2 591043.0 591802.8 592562.5 593322.3 594082.1 594841.9 595601.7
+[273] 596361.4 597121.2 597881.0 598640.8 599400.6 600160.3 600920.1 601679.9
+[281] 602439.7 603199.5 603959.2 604719.0 605478.8 606238.6 606998.4 607758.2
+[289] 608517.9 609277.7 610037.5 610797.3 611557.1 612316.8 613076.6 613836.4
+[297] 614596.2 615356.0 616115.7 616875.5 617635.3 618395.1 619154.9 619914.7
+[305] 620674.4 621434.2 622194.0 622953.8 623713.6 624473.3 625233.1 625992.9
+[313] 626752.7 627512.5 628272.2 629032.0 629791.8 630551.6 631311.4 632071.1
+[321] 632830.9 633590.7 634350.5 635110.3 635870.1 636629.8 637389.6 638149.4
+[329] 638909.2 639669.0 640428.7 641188.5 641948.3 642708.1 643467.9 644227.6
+[337] 644987.4 645747.2 646507.0 647266.8 648026.6 648786.3 649546.1 650305.9
+[345] 651065.7 651825.5 652585.2 653345.0 654104.8 654864.6 655624.4 656384.1
+[353] 657143.9 657903.7 658663.5 659423.3 660183.0 660942.8 661702.6 662462.4
+[361] 663222.2 663982.0 664741.7 665501.5 666261.3 667021.1 667780.9 668540.6
+[369] 669300.4 670060.2 670820.0 671579.8 672339.5 673099.3 673859.1 674618.9
+[377] 675378.7 676138.5 676898.2 677658.0 678417.8 679177.6 679937.4 680697.1
+[385] 681456.9 682216.7 682976.5 683736.3 684496.0 685255.8 686015.6 686775.4
+[393] 687535.2 688294.9 689054.7 689814.5 690574.3 691334.1 692093.9 692853.6
+[401] 693613.4 694373.2 695133.0 695892.8 696652.5 697412.3 698172.1 698931.9
+[409] 699691.7 700451.4 701211.2 701971.0 702730.8 703490.6 704250.4 705010.1
+[417] 705769.9 706529.7 707289.5 708049.3 708809.0 709568.8 710328.6 711088.4
+[425] 711848.2 712607.9 713367.7 714127.5 714887.3 715647.1 716406.8 717166.6
+[433] 717926.4 718686.2 719446.0 720205.8 720965.5 721725.3 722485.1 723244.9
+[441] 724004.7 724764.4 725524.2 726284.0 727043.8 727803.6 728563.3 729323.1
+[449] 730082.9 730842.7 731602.5 732362.3 733122.0 733881.8 734641.6 735401.4
+[457] 736161.2 736920.9 737680.7 738440.5 739200.3 739960.1 740719.8 741479.6
+[465] 742239.4 742999.2 743759.0 744518.7 745278.5 746038.3 746798.1 747557.9
+[473] 748317.7 749077.4 749837.2 750597.0 751356.8 752116.6 752876.3 753636.1
+[481] 754395.9 755155.7 755915.5 756675.2 757435.0 758194.8 758954.6 759714.4
+[489] 760474.2 761233.9 761993.7 762753.5 763513.3 764273.1 765032.8 765792.6
+[497] 766552.4</code></pre>
+</div>
+</div>
+
+
+
+<!-- -->
+
+</section>
+</section>
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    setTimeout(function() {
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu"># dimension_bounds</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>Query coordinate bounds for all dimensions of a data cube</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="in">```{r include=FALSE}</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">library</span>(gdalcubes)</span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="in">```</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">## Description</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a>Dimension values give the coordinates bounds the spatial and temporal axes of a data cube.</span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="fu">## Usage</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="in">```r</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="fu">dimension_bounds</span>(obj, <span class="at">datetime_unit =</span> <span class="cn">NULL</span>)</span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="in">```</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a></span>
+<span id="cb4-24"><a href="#cb4-24"></a></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="fu">## Arguments</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a></span>
+<span id="cb4-27"><a href="#cb4-27"></a>| Argument    | Description                       |</span>
+<span id="cb4-28"><a href="#cb4-28"></a>|:------------|:----------------------------------|</span>
+<span id="cb4-29"><a href="#cb4-29"></a>| obj | a data cube proxy (class cube) |</span>
+<span id="cb4-30"><a href="#cb4-30"></a>| datetime_unit | unit used to format values in the datetime dimension, one of "Y", "m", "d", "H", "M", "S", defaults to the unit of the cube. |</span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a></span>
+<span id="cb4-33"><a href="#cb4-33"></a><span class="fu">## Value</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a></span>
+<span id="cb4-35"><a href="#cb4-35"></a>list with elements t,y,x, each a list with two elements, start and end</span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-37"><a href="#cb4-37"></a></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="fu">## Examples</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a></span>
+<span id="cb4-40"><a href="#cb4-40"></a></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="in">```{r}</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb4-45"><a href="#cb4-45"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb4-46"><a href="#cb4-46"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb4-47"><a href="#cb4-47"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb4-48"><a href="#cb4-48"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-49"><a href="#cb4-49"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb4-50"><a href="#cb4-50"></a>}</span>
+<span id="cb4-51"><a href="#cb4-51"></a></span>
+<span id="cb4-52"><a href="#cb4-52"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb4-53"><a href="#cb4-53"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb4-54"><a href="#cb4-54"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
+<span id="cb4-55"><a href="#cb4-55"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb4-56"><a href="#cb4-56"></a><span class="fu">dimension_bounds</span>(<span class="fu">raster_cube</span>(L8.col, v))</span>
+<span id="cb4-57"><a href="#cb4-57"></a><span class="in">```</span></span>
+<span id="cb4-58"><a href="#cb4-58"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ © 2022 Marius Appel
+  </li>  
+</ul>
+      </div>
+  </div>
+</footer>
+
+
+</body></html>

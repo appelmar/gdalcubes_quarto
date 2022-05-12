@@ -1,112 +1,88 @@
-# Data Cube Operations
+# Data cube operations
 
-gdalcubes includes some built-in functions to process data cubes. 
-
-The table below lists available operations that take one (or more) data cube(s) as input and produce a single result data cube.
+gdalcubes includes some built-in functions to process data cubes. The table below lists available operations that take one (or more) data cube(s) and produce a derived data cube as output. Depending on the operation and their parameters, the output data cube may have different shape.
 
 
+## Built-in operations
 
-## Built-in Operations
-
-
-
-| Operation           | Description   
-|:--------------------|:-----------------------------------------------------------------------------------|     
-|`select_bands`       | Select a subset of a data cube's bands.  |
-|`reduce_time`        | Apply a reducer function over individual pixel time series. |
-|`reduce_space`       | Apply a reducer function over spatial slices of a data cube.  |
-|`apply_pixel`        | Apply a arithmetic expression on band values per data cube pixel.    |
-|`filter_pixel`       | Filter pixels by a logical predicate on band values. |
-|`window_time`        | Apply a moving window aggregate or kernel on individual pixel time series. |
+| Operation           | Description                                                                        | 
+|:--------------------|:-----------------------------------------------------------------------------------|    
+|`aggregate_space`    | Reduce spatial resolution of a cube by applying a spatial aggregation function. |
+|`aggregate_time`     | Aggregate and/or regularize time series. |
+|`apply_pixel`        | Apply an arithmetic expression to all data cube pixels.    |
+|`crop`               | Extract a rectangular spatial / temporal / spatiotemporal window. |
 |`fill_time`          | Fill missing values of a data cube by simple time series interpolation. |
+|`filter_geom`        | Filter pixels by a a spatial polygon. |
+|`filter_pixel`       | Filter pixels by a logical expressions on band values. |
 |`join_bands`         | Combine bands of two identically shaped data cubes. |
-|`filter_geom`        | TODO|
-|`crop`               | TODO|
-|`select_time`        | TODO|
-|`slice_time`         | TODO|
-|`slice_space`        | TODO|
-|`aggregate_time`     | TODO|
+|`reduce_space`       | Apply a reducer function to all spatial slices of a data cube.  |
+|`reduce_time`        | Apply a reducer function to all pixel time series. |
+|`select_bands`       | Select specific bands of a data cube.  |
+|`select_time`        | Select irregular time slices of a data cube. |
+|`slice_space`        | Select a single time series of a data cube. |
+|`slice_time`         | Select a single time slice of a data cube. |
+|`window_time`        | Apply a moving window aggregate or convolution kernel to all pixel time series. |
 
 : Built-in data cube operations {#tbl-operations}
 
+Notice that results of these operations are still data cubes. There are other functions, e.g, extracting irregular points from data cubes / or computing zonal statistics resulting in a different output type (see [Reference](../reference/index.qmd)).
 
-Internally these operations inherit from the general ``cube`` class. They provide a cheap ``create`` method, returning 
-a *proxy* object without running any expensive computations on the data. 
+Creating data cubes and calling operations on data cubes is very fast, because no image data is read and actual computations are delayed.  Instead, operations return a *proxy* object or a _virtual_ data cube without running any expensive computations on the data (see [Execution](execution.qmd)). 
 
-This makes it possible to define and optimize chains of operations, where eexecution is delayed until users call a method
-that reads data of the resulting data cube (such as plotting, or exporting a derived data cube as a file, see `Data Cube Export`_). 
-Below, you can find examples in C++ and R, how data cube operations can be chained programmatically.
+## Chaining of operations
+
+Operations can be chained and still simply produce proxy objects without any expensive computations involved. Chained processes produce a _process graph_ that simply memorizes what operations need to be executed and where the data comes from. Actual computations are delayed until users call a method that reads data of the resulting data cube (such as plotting, or exporting a data cube as a file, see [Data cube export](#export)). Below, you can find some examples how data cube operations can be chained programmatically.
 
 
 ## Examples
 
+In R, chaining operations can be written nicely using the pipe symbol `|>` (or `%>%` from the [`magrittr` package](https://cran.r-project.org/package=magrittr)), as used in the following examples.
 
-::: {.panel-tabset}
-### C++
-
-```{.c}
-#include <gdalcubes.h>
-   
-int main() {
-
-   // load an existing image collection
-   auto ic = std::make_shared<gdalcubes::image_collection>("test.db");
-   
-   // define a data cube view
-   gdalcubes::cube_view v;
-   v.srs() = "EPSG:4326";
-   v.left() = -180;
-   v.top() = 60;
-   v.bottom() = -60;
-   v.right() = 180;
-   v.t0() = gdalcubes::datetime::from_string("2018-01-01");
-   v.t1() = gdalcubes::datetime::from_string("2018-12-31");
-   v.dx(0.1);
-   v.dy(0.1);
-   v.dt(gdalcubes::duration::from_string("P1D"));
- 
-   // chain data cube operations
-   auto x = gdalcubes::image_collection_cube(ic, v);
-   auto x_bands = gdalcubes::select_bands_cube::create(x, {"B04", "B08"});
-   auto x_ndvi = gdalcubes::apply_pixel_cube::create(x_bands, {"(B08-B04)/(B08+B04)"}, {"NDVI"});
-   auto x_reduced =  gdalcubes::reduce_time_cube::create(x_ndvi, {{"max", "NDVI"}});
-
-   // export result cube as a netCDF file
-   x_reduced->write_netcdf_file("test.nc");
-
-   return 0;
-}
-```
-
-### R
+#### Median NDVI over time series
 
 ``` {.r}
-library(gdalcubes)
-
-ic = image_collection("test.db")
-v = cube_view(srs = "EPSG:4326", dx = 0.1, dy = 0.1, dt = "P1D", 
-             extent = list(left = -180, right = 180, top = 60, bottom = -60,
-                           t0 = "2018-01-01", t1 = "2018-12-31"))
+col = image_collection("/path/to/collection.db")
+v = cube_view(srs = "EPSG:4326", extent = col, dx = 0.01, dy = 0.01, dt = "P5D")
                         
-raster_cube(ic, v) |>
+raster_cube(col, v) |>
  select_bands(c("B04", "B08")) |>
  apply_pixel("(B08-B04)/(B08+B04)","NDVI") |>
- reduce_time("median(NDVI)") |>
- write_ncdf("test.nc")
+ reduce_time("median(NDVI)") 
 ```
 
-:::
+#### Simple RGB composite for a polygon
 
+``` {.r}
+col = image_collection("/path/to/collection.db")
+v = cube_view(srs = "EPSG:4326", extent = col, dx = 0.01, dy = 0.01, dt = "P5D")
+                        
+raster_cube(col, v) |>
+ select_bands(c("B02", "B03", "B04")) |>
+ filter_geom(sf::read_sf("polygon_geometry.gpkg")$geometry) |>
+ reduce_time(c("median(B02)", "median(B03)", "median(B04)")  
+```
 
+#### Count large NDVI values within a forest area
 
+``` {.r}
+col = image_collection("/path/to/collection.db")
+v = cube_view(srs = "EPSG:4326", extent = col, dx = 0.01, dy = 0.01, dt = "P5D")
+                        
+raster_cube(col, v) |>
+ select_bands(c("B04", "B08")) |>
+ apply_pixel("(B08-B04)/(B08+B04)","NDVI") |>
+ filter_pixel("NDVI > 0.8") |>
+ filter_geom(sf::read_sf("forest_boundaries.gpkg")$geometry) |>
+ reduce_space("count(NDVI)")
+```
 
-## Data Cube Export
+## Data cube export {#export}
 
-Data cubes can be exported as single netCDF files, or as a collection of (possibly cloud-optimized) GeoTIFF files.
+Data cubes (including the output of operations, see above) can be exported as single netCDF files, or as a collection of (possibly cloud-optimized) GeoTIFF files.
 
-### NetCDF Export
+### NetCDF export
 
-Produced netCDF files use the enhanced netCDF-4 data model, follow the `CF-1.6 conventions <http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html>`_ and include bands of the data cube as variables. Dimensions are in the order *time*, *y*, *x* or *time*, *lat*, *lon* respectively.
+Produced netCDF files use the enhanced netCDF-4 data model, follow the [CF-1.6 conventions](http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html) and include bands of the data cube as variables. Dimensions are in the order *time*, *y*, *x* or *time*, *lat*, *lon* respectively.
 
 Users can pass additional options to control properties of the resulting netCDF file:
 
@@ -117,101 +93,45 @@ Users can pass additional options to control properties of the resulting netCDF 
 
 
 
-### GeoTIFF Export
+### GeoTIFF export
 
 Exporting a data cube as a collection of GeoTIFF files will produce one multiband GeoTIFF file per time slice of the data cube. Files will be named by a user defined prefix and the date/time of the slice, such as "cube_2018-01.tif". 
 
 Users can pass additional options to control properties of the resulting GeoTIFF files:
 
-- Setting ``overviews = true`` will generate GDAL overviews (image pyramids) for the resulting files. Overview levels reduce the pixel size by powers of 2, until width and height are lower than or equal to 256. The resampling algorithm for generating overviews can be selected from what GDAL offers (see `here <https://gdal.org/programs/gdaladdo.html#cmdoption-gdaladdo-r>`__, default is nearest neighbor).
+- Setting `overviews = TRUE` will generate GDAL overviews (image pyramids) for the resulting files. Overview levels reduce the pixel size by powers of 2, until width and height are lower than or equal to 256. The resampling algorithm for generating overviews can be selected from what GDAL offers (see [here](https://gdal.org/programs/gdaladdo.html#cmdoption-gdaladdo-r), default is nearest neighbor).
 
-- Setting ``COG = true`` will produce `cloud-optimized <https://www.cogeo.org/>`_ GeoTIFF files and includes ``overviews = true``. 
+- Setting `COG = TRUE` will produce [cloud-optimized GeoTIFF (COG)](https://www.cogeo.org) files and includes `overviews = TRUE`. 
 
-- Additional GDAL creation options can be passed, e.g., to define LZW or DEFLATE compression (see `here <https://gdal.org/drivers/raster/gtiff.html#creation-options>`__).
+- Additional GDAL creation options can be passed, e.g., to define LZW or DEFLATE compression (see [here](https://gdal.org/drivers/raster/gtiff.html#creation-options)).
 
 
 
-### Packing Data Values
+### Packing data values
 
 Both, GeoTIFF as well as netCDF export support *packing data*, i.e. reducing the size of the output file(s) by conversion of double values to smaller integer types using an affine transformation of original values by an offset and scale, where values are transformed according to the formula: 
 
-.. math::
-   x_{unpacked} = x_{packed} \cdot scale + offset
+$$
+  \hat{x} = \frac{x - offset}{scale} 
+$$
 
-Packing values reduces the precision of the data. Packing in gdalcubes requires users to pass 
+By conversion to integer, packing values reduces the precision of the data. Packing in gdalcubes requires users to pass 
 
-- the output data type (one of ``uint8`` , ``uint16``, ``int16``, ``uint32``, ``int32``, ``float32``).
-- scale, offset, and nodata values (unless type is ``float32`` ).
+- the output data type (one of `uint8` , `uint16`, `int16`, `uint32`, `int32`, `float32`).
+- scale, offset, and nodata values (unless type is `float32` ).
 
-NaN values of data cubes will automatically converted to provided nodata values in the target data type. Individual scale, offset, and nodata values 
+Nodata values of data cubes will automatically converted to provided nodata values in the target data type. Individual scale, offset, and nodata values 
 can be specified either once (applied for all bands), or individually per band.
-Packing to type ``float32`` will ignore any of the offset, scale, and nodata values but implicitly cast 8 byte doubles to 4 byte float values.
+Packing to type `float32` will ignore any of the offset, scale, and nodata values but implicitly cast 8 byte doubles to 4 byte float values.
 
 
 
 
 
+## Saving virtual data cubes as JSON files {#savejson}
 
-## JSON serialization
+Data cube and image collection objects cannot be saved and restored across different R sessions using `save()` and `load()`, because they simply point to a memory address that is destroyed when the R session ends (internally they are _external pointers_). 
+However, since the creation of objects is relatively cheap, it is possible to serialize and store the process graph as a lightweight JSON file using `as_json()` and recreate a cube from a file with `json_cube()`. 
 
-Data cube operations can be chained, producing a directed acyclic graph. This graph can be serialized
-as JSON document, that can be useful to recreate data cubes, or keeping track of how a dataset has been generated. 
-The following JSON document is an example, defining a median reduction of NDVI pixels on a yearly data cube over a small region in the Brazilian Amazon forest.  
 
-.. code-block:: json
-   :caption: Example process graph serialized as JSON document.
-   
-    {
-    "cube_type": "reduce_time",
-    "in_cube": {
-        "band_names": [
-        "NDVI"
-        ],
-        "cube_type": "apply_pixel",
-        "expr": [
-        "(b05-b04)/(b05+b04)"
-        ],
-        "in_cube": {
-        "bands": [
-            "B04",
-            "B05"
-        ],
-        "cube_type": "select_bands",
-        "in_cube": {
-            "chunk_size": [
-            16,
-            256,
-            256
-            ],
-            "cube_type": "image_collection",
-            "file": "/tmp/RtmpacmRAy/file11af57b771e8.sqlite",
-            "view": {
-            "aggregation": "median",
-            "resampling": "bilinear",
-            "space": {
-                "bottom": -550000.0,
-                "left": -6180000.0,
-                "nx": 2000,
-                "ny": 2000,
-                "right": -6080000.0,
-                "srs": "EPSG:3857",
-                "top": -450000.0
-            },
-            "time": {
-                "dt": "P1Y",
-                "t0": "2014",
-                "t1": "2018"
-            }
-            },
-            "warp_args": []
-        }
-        },
-        "keep_bands": false
-    },
-    "reducer_bands": [
-        [
-        "median",
-        "NDVI"
-        ]
-    ]
-    }
+

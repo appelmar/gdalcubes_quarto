@@ -1,0 +1,37 @@
+# gdalcubes_version
+
+Query gdalcubes version information
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Query gdalcubes version information
+
+
+## Usage
+
+
+```r
+gdalcubes_version()
+
+```
+
+
+## Value
+
+List with gdalcubes library version information
+
+
+## Examples
+
+
+```{r}
+gdalcubes_version()
+```
+
+

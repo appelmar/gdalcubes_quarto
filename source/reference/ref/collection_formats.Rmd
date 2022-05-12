@@ -1,0 +1,53 @@
+# collection_formats
+
+List predefined image collection formats
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+gdalcubes comes with some predefined collection formats e.g. to scan Sentinel 2 data. This function lists available formats  including brief descriptions.
+
+
+## Usage
+
+
+```r
+collection_formats(print = TRUE)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| print | logical; should available formats and their descriptions be printed nicely, defaults to TRUE |
+
+
+## Details
+
+Image collection formats define how individual files / GDAL datasets relate to an image collection, i.e., 
+which bands they contain, to which image they belong, and how to derive aquisition date/time.
+They are described as a set of regular expressions in a JSON file and used by gdalcubes to extract this information 
+from the paths and/or filenames.
+
+
+## Value
+
+data.frame with columns `name` and `description` where the former describes the unique identifier that can be used in `create_image_collection` and the
+latter gives a brief description of the format.
+
+
+## Examples
+
+
+```{r}
+collection_formats()
+```
+
+

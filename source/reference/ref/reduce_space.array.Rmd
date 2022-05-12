@@ -1,0 +1,60 @@
+# reduce_space.array
+
+Apply a function over space and bands in a four-dimensional (band, time, y, x) array and reduce
+spatial dimensions
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Apply a function over space and bands in a four-dimensional (band, time, y, x) array and reduce
+spatial dimensions
+
+
+## Usage
+
+
+```r
+reduce_space.array(x, FUN, ...)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| x | four-dimensional input array with dimensions band, time, y, x (in this order) |
+| FUN | function which receives one spatial slice in a three-dimensional array with dimensions bands, y, x as input |
+| ... | further arguments passed to FUN |
+
+
+## Details
+
+FUN is expected to produce a numeric vector (or scalar) where elements are interpreted as new bands in the result.
+
+
+## Note
+
+This is a helper function that uses the same dimension ordering as gdalcubes streaming. It can be used to simplify 
+the application of R functions e.g. over spatial slices in a data cube.
+
+
+## Examples
+
+
+```{r}
+d <- c(4,16,32,32)
+x <- array(rnorm(prod(d)), d)
+# reduce individual bands over spatial slices 
+y <- reduce_space(x, function(v) {
+  apply(v, 1, mean)
+})
+dim(y)
+```
+
+

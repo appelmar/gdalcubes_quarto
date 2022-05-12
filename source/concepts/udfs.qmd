@@ -1,0 +1,162 @@
+# User-defined functions (UDFs)
+
+Data cube operations such as [`apply_pixel`](../reference/ref/apply_pixel.cube.Rmd), or [`reduce_time`](../reference/ref/reduce_time.cube.Rmd) expect functions or expressions as arguments. For example, to compute summary statistics over time, [`reduce_time`](../reference/ref/reduce_time.cube.Rmd)
+supports computing minimum, maximum, mean, median, and a few other built-in statistics. These built-in functions are purely written in C++ and hence relatively efficient. However, in many cases, we would like to apply more complex functions from external R packages on data cubes.
+
+@tbl-udf lists data cube operations that additionally support calling user-defined R functions (e.g., on time series). For example, [`reduce_time`](../reference/ref/reduce_time.cube.Rmd) can not only be used for simple statistics but also for applying complex time series analysis like classification or change detection.
+
+
+| Operation                                         | UDF input<br>$(n_b, n_t, n_y, n_x)$         | UDF output<br>$(n_b, n_t, n_y, n_x)$     |
+|:--------------------------------------------------|:-----------------------------------------|:---------------------------------------|
+|[`apply_pixel`](../reference/ref/apply_pixel.cube.Rmd)   | $(n_b, 1, 1, 1)$                         | $(m_b, 1, 1, 1)$                       |
+|[`apply_time`](../reference/ref/apply_time.cube.Rmd)     | $(n_b, n_t, 1, 1)$                       | $(m_b, n_t, 1, 1)$                     |
+|[`reduce_space`](../reference/ref/reduce_space.cube.Rmd) | $(n_b, 1, n_y, n_x)$                     | $(m_b, 1, 1, 1)$                       |
+|[`reduce_time`](../reference/ref/reduce_time.cube.Rmd)   | $(n_b, n_t, 1, 1)$                       | $(m_b, 1, 1, 1)$                       |
+
+:Data cube operations supporting UDFs and shape of the input and output of the UDF. $n_b$,$n_t$,$n_y$,$n_x$ refer to the dimension sizes of the whole cube, $m_b$ means that the number of bands the function returns is flexible and independent from the number of input bands. {#tbl-udf}
+
+
+
+## Examples 
+
+::: {.panel-tabset}
+## reduce_time
+
+Fit a linear model to all time series and returns the coefficients:
+
+``` {.r}
+# z is a data cube with band NDVI
+reduce_time(z, names = c("intercept","slope"), 
+  FUN = function(x) {
+    df = data.frame(t=1:ncol(x), ndvi=x["NDVI",])
+    result = c(NA, NA)
+    if (sum(!is.na(df$ndvi)) > 3) {
+      result = coef(lm(ndvi ~ t, df, 
+                    na.action = na.exclude))
+    }
+    return(result) 
+})
+```
+
+
+
+## apply_pixel
+
+Derive wind speed from north/south and east/west wind components:
+
+``` {.r}
+# z is a data cube with bands u/v wind components
+apply_pixel(z, names="wind_speed", 
+  FUN=function(x) {
+    sqrt(x["u"]^2 + x["v"]^2)
+  })
+```
+
+
+
+
+## apply_time
+
+Calculate cumulative sums of NDVI times series after removing the (per time series) mean NDVI:  
+
+``` {.r}
+# z is a data cube with band NDVI
+apply_time(z, names = c("cusum"), 
+  FUN = function(x) {
+    res = x["NDVI",] - mean(x["NDVI",], na.rm = TRUE)
+    res[is.na(res)] = 0
+    return(cumsum(res)) 
+})
+```
+
+
+
+
+## reduce_space
+
+Calculate min, max, quartiles, and median for all image slices:  
+
+``` {.r}
+# z is a data cube with a single band
+reduce_space(z, names = paste0("q",1:5), FUN = function(x) {
+  quantile(x, c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE)
+})
+```
+
+
+:::
+
+
+
+## Notes on implementing more complex UDFs 
+
+Writing UDFs can sometimes become complicated and more difficult to debug (see [Debugging](#debugging)). However, you can reduce frustration if you consider the following rules:
+
+
+1. The function must **always** return an array of the corresponding dimensions (see @tbl-udf). Dimensions with size 1 _can_ be dropped in the result array.  
+
+
+2. The number of bands that a UDF returns can be independent from the number of input bands but must be identical for all function calls. For example, if a UDF outputs model parameters for time series model, it should **always** return the same number of parameters. 
+
+3. Make sure that the function does not crash due to NAs. It is quite common that there are for example time series without any valid observations at the corners of a data cube. Ideally, use `tryCatch` to handle errors and return an NA array of appropriate shape by default. If errors are not handled, computations will stop even if only a single call fails.
+
+4. Do not try to use variables, packages, or any other objects from the environment outside the function. Since the UDF runs in a new R process, make sure to load needed packages, data, etc. within the function. 
+
+
+
+
+## Debugging {#debugging}
+
+Because UDFs run in separate processes, debugging can be challenging. When developing UDFs, it is recommended to start with a minimal example, e.g. by working on lower resolution and/or spatiotemporal extent. Error messages are generally forwarded to the main R process. To get more detailed error messages, try setting `gdalcubes_options(debug = TRUE)`.
+
+
+
+
+
+
+
+## Technical details
+
+
+### Execution of UDFs 
+
+The following steps are performed when executing a UDF on a data cube. 
+
+1. If needed, chunks of data cubes are rearranged. For example, to apply a function on time series, this step makes sure that a single chunk contains complete time series of a small spatial block of pixels. 
+
+2. A chunk of the data cube is written to a temporary file on disk using a custom binary format (see [binary serialization format](#streaming-format)). 
+
+3. A new R process is started, reads the chunk from disk memory, applies the UDF, and finally writes the result to another temporary binary file.
+
+4. gdalcubes now loads the result file into memory and continues. 
+
+Notice that it is possible to change the directory where intermediate files are written, e.g. to use a shared memory device with `gdalcubes_options(streaming_dir = "/dev/shm")`. 
+
+
+
+### Binary serialization format {#streaming-format}
+
+To stream data to and from the external process, a custom binary serialization format is used.  
+The format includes data cube values of one chunk and includes dimension values, band names, and the spatial reference system.
+
+
+:::{.callout-warning}
+The binary serialization format will be replaced with CF compliant netCDF-4 / ZARR files in future versions. 
+:::
+
+
+
+The format contains
+
+1. the size of the chunk as 4 * 4 bytes in total (nbands:int32, nt:int32, ny:int32, nx:int32),
+
+2. band names, where each band starts with the number of characters as int32 followed by actual characters,
+
+3. dimension values in the order time, y, x as doubles, summing to (nt + ny + nx) * 8 bytes in total,
+
+4. the spatial reference system as a string (number of characters as int32, followed by actual characters), and
+
+5. actual values of the chunk as doubles (summing to nbands * nt * ny * nx * 8 bytes).
+
+
+

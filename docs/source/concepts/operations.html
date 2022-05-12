@@ -89,12 +89,10 @@
   <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
   <script src="../../site_libs/quarto-html/anchor.min.js"></script>
   <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-  <link class="quarto-color-scheme" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css">
+  <link id="quarto-text-highlighting-styles" href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
   <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
   <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link class="quarto-color-scheme" href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-  <link class="quarto-color-scheme quarto-color-alternate" rel="prefetch" href="../../site_libs/bootstrap/bootstrap-dark.min.css">
+  <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
   <script id="quarto-search-options" type="application/json">{
     "location": "navbar",
     "copy-button": false,
@@ -114,6 +112,7 @@
       "search-submit-button-title": "Submit"
     }
   }</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -134,10 +133,39 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html">Home</a>
+    <a class="nav-link" href="../../source/getstarted.html">Get started</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html">About</a>
+    <a class="nav-link active" href="../../source/introduction/why.html" aria-current="page">Overview</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/tutorials/index.html">Tutorials</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/reference/index.html">Reference</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false">Help</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-help">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+</i> 
+ <span class="dropdown-text">Source code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues"><i class="bi bi-bug" role="img">
+</i> 
+ <span class="dropdown-text">Report an issue</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../source/introduction/faq.html"><i class="bi bi-question-circle" role="img">
+</i> 
+ <span class="dropdown-text">FAQ</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../source/about.html">About</a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -147,9 +175,6 @@
  </a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -167,16 +192,11 @@
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Introduction</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Overview</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -189,7 +209,7 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/overview.html" class="sidebar-item-text sidebar-link">Overview</a>
+  <a href="../../source/introduction/components.html" class="sidebar-item-text sidebar-link">Components</a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,7 +236,7 @@
   </li>
         <li class="sidebar-item sidebar-item-section">
     <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic Concepts</a>
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic concepts</a>
       <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
         <i class="bi bi-chevron-right ms-2"></i>
       </a>
@@ -229,57 +249,27 @@
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image Collection Formats</a>
+  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image collection formats</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data Cubes</a>
+  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data cubes</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link active">Data Cube Operations</a>
+  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link active">Data cube operations</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/streaming.html" class="sidebar-item-text sidebar-link">Streaming</a>
+  <a href="../../source/concepts/execution.html" class="sidebar-item-text sidebar-link">Execution and parallelization</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/distributed.html" class="sidebar-item-text sidebar-link">Distributed Data Cube Processing</a>
-  </div>
-</li>
-    </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-    <div class="sidebar-item-container"> 
-        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">R Tutorials</a>
-      <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
-        <i class="bi bi-chevron-right ms-2"></i>
-      </a>
-    </div>
-    <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc01_MODIS.html" class="sidebar-item-text sidebar-link">1. Creating data cubes from local MODIS imagery</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc02_AWS_Sentinel2.html" class="sidebar-item-text sidebar-link">2. Data cubes from Sentinel-2 data in the cloud</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/vignettes/gc03_ML_training_data.html" class="sidebar-item-text sidebar-link">3. Extracting training data for machine learning models</a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../source/tutorials/bfast/bfast.html" class="sidebar-item-text sidebar-link">Land cover change detection with gdalcubes and bfast</a>
+  <a href="../../source/concepts/udfs.html" class="sidebar-item-text sidebar-link">User-defined functions (UDFs)</a>
   </div>
 </li>
     </ul>
@@ -291,17 +281,18 @@
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc">
 <ul>
-<li><a href="#data-cube-operations" id="toc-data-cube-operations" class="nav-link active" data-scroll-target="#data-cube-operations">Data Cube Operations</a>
+<li><a href="#data-cube-operations" id="toc-data-cube-operations" class="nav-link active" data-scroll-target="#data-cube-operations">Data cube operations</a>
 <ul class="collapse">
-<li><a href="#built-in-operations" id="toc-built-in-operations" class="nav-link" data-scroll-target="#built-in-operations">Built-in Operations</a></li>
+<li><a href="#built-in-operations" id="toc-built-in-operations" class="nav-link" data-scroll-target="#built-in-operations">Built-in operations</a></li>
+<li><a href="#chaining-of-operations" id="toc-chaining-of-operations" class="nav-link" data-scroll-target="#chaining-of-operations">Chaining of operations</a></li>
 <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
-<li><a href="#data-cube-export" id="toc-data-cube-export" class="nav-link" data-scroll-target="#data-cube-export">Data Cube Export</a>
+<li><a href="#export" id="toc-export" class="nav-link" data-scroll-target="#export">Data cube export</a>
 <ul class="collapse">
-<li><a href="#netcdf-export" id="toc-netcdf-export" class="nav-link" data-scroll-target="#netcdf-export">NetCDF Export</a></li>
-<li><a href="#geotiff-export" id="toc-geotiff-export" class="nav-link" data-scroll-target="#geotiff-export">GeoTIFF Export</a></li>
-<li><a href="#packing-data-values" id="toc-packing-data-values" class="nav-link" data-scroll-target="#packing-data-values">Packing Data Values</a></li>
+<li><a href="#netcdf-export" id="toc-netcdf-export" class="nav-link" data-scroll-target="#netcdf-export">NetCDF export</a></li>
+<li><a href="#geotiff-export" id="toc-geotiff-export" class="nav-link" data-scroll-target="#geotiff-export">GeoTIFF export</a></li>
+<li><a href="#packing-data-values" id="toc-packing-data-values" class="nav-link" data-scroll-target="#packing-data-values">Packing data values</a></li>
 </ul></li>
-<li><a href="#json-serialization" id="toc-json-serialization" class="nav-link" data-scroll-target="#json-serialization">JSON serialization</a></li>
+<li><a href="#savejson" id="toc-savejson" class="nav-link" data-scroll-target="#savejson">Saving virtual data cubes as JSON files</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -310,11 +301,10 @@
 <main class="content" id="quarto-document-content">
 
 <section id="data-cube-operations" class="level1">
-<h1>Data Cube Operations</h1>
-<p>gdalcubes includes some built-in functions to process data cubes.</p>
-<p>The table below lists available operations that take one (or more) data cube(s) as input and produce a single result data cube.</p>
+<h1>Data cube operations</h1>
+<p>gdalcubes includes some built-in functions to process data cubes. The table below lists available operations that take one (or more) data cube(s) and produce a derived data cube as output. Depending on the operation and their parameters, the output data cube may have different shape.</p>
 <section id="built-in-operations" class="level2">
-<h2 class="anchored" data-anchor-id="built-in-operations">Built-in Operations</h2>
+<h2 class="anchored" data-anchor-id="built-in-operations">Built-in operations</h2>
 <div id="tbl-operations" class="anchored">
 <table class="table">
 <caption>Table 1: Built-in data cube operations</caption>
@@ -330,128 +320,117 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><code>select_bands</code></td>
-<td style="text-align: left;">Select a subset of a data cube’s bands.</td>
+<td style="text-align: left;"><code>aggregate_space</code></td>
+<td style="text-align: left;">Reduce spatial resolution of a cube by applying a spatial aggregation function.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>reduce_time</code></td>
-<td style="text-align: left;">Apply a reducer function over individual pixel time series.</td>
+<td style="text-align: left;"><code>aggregate_time</code></td>
+<td style="text-align: left;">Aggregate and/or regularize time series.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>reduce_space</code></td>
-<td style="text-align: left;">Apply a reducer function over spatial slices of a data cube.</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;"><code>apply_pixel</code></td>
-<td style="text-align: left;">Apply a arithmetic expression on band values per data cube pixel.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><code>filter_pixel</code></td>
-<td style="text-align: left;">Filter pixels by a logical predicate on band values.</td>
+<td style="text-align: left;">Apply an arithmetic expression to all data cube pixels.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>window_time</code></td>
-<td style="text-align: left;">Apply a moving window aggregate or kernel on individual pixel time series.</td>
+<td style="text-align: left;"><code>crop</code></td>
+<td style="text-align: left;">Extract a rectangular spatial / temporal / spatiotemporal window.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>fill_time</code></td>
 <td style="text-align: left;">Fill missing values of a data cube by simple time series interpolation.</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;"><code>filter_geom</code></td>
+<td style="text-align: left;">Filter pixels by a a spatial polygon.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>filter_pixel</code></td>
+<td style="text-align: left;">Filter pixels by a logical expressions on band values.</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><code>join_bands</code></td>
 <td style="text-align: left;">Combine bands of two identically shaped data cubes.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>filter_geom</code></td>
-<td style="text-align: left;">TODO</td>
+<td style="text-align: left;"><code>reduce_space</code></td>
+<td style="text-align: left;">Apply a reducer function to all spatial slices of a data cube.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>crop</code></td>
-<td style="text-align: left;">TODO</td>
+<td style="text-align: left;"><code>reduce_time</code></td>
+<td style="text-align: left;">Apply a reducer function to all pixel time series.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><code>select_time</code></td>
-<td style="text-align: left;">TODO</td>
+<td style="text-align: left;"><code>select_bands</code></td>
+<td style="text-align: left;">Select specific bands of a data cube.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>slice_time</code></td>
-<td style="text-align: left;">TODO</td>
+<td style="text-align: left;"><code>select_time</code></td>
+<td style="text-align: left;">Select irregular time slices of a data cube.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><code>slice_space</code></td>
-<td style="text-align: left;">TODO</td>
+<td style="text-align: left;">Select a single time series of a data cube.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><code>aggregate_time</code></td>
-<td style="text-align: left;">TODO</td>
+<td style="text-align: left;"><code>slice_time</code></td>
+<td style="text-align: left;">Select a single time slice of a data cube.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>window_time</code></td>
+<td style="text-align: left;">Apply a moving window aggregate or convolution kernel to all pixel time series.</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>Internally these operations inherit from the general <code>cube</code> class. They provide a cheap <code>create</code> method, returning a <em>proxy</em> object without running any expensive computations on the data.</p>
-<p>This makes it possible to define and optimize chains of operations, where eexecution is delayed until users call a method that reads data of the resulting data cube (such as plotting, or exporting a derived data cube as a file, see <code>Data Cube Export</code>_). Below, you can find examples in C++ and R, how data cube operations can be chained programmatically.</p>
+<p>Notice that results of these operations are still data cubes. There are other functions, e.g, extracting irregular points from data cubes / or computing zonal statistics resulting in a different output type (see <a href="../../source/reference/index.html">Reference</a>).</p>
+<p>Creating data cubes and calling operations on data cubes is very fast, because no image data is read and actual computations are delayed. Instead, operations return a <em>proxy</em> object or a <em>virtual</em> data cube without running any expensive computations on the data (see <a href="../../source/concepts/execution.html">Execution</a>).</p>
+</section>
+<section id="chaining-of-operations" class="level2">
+<h2 class="anchored" data-anchor-id="chaining-of-operations">Chaining of operations</h2>
+<p>Operations can be chained and still simply produce proxy objects without any expensive computations involved. Chained processes produce a <em>process graph</em> that simply memorizes what operations need to be executed and where the data comes from. Actual computations are delayed until users call a method that reads data of the resulting data cube (such as plotting, or exporting a data cube as a file, see <a href="#export">Data cube export</a>). Below, you can find some examples how data cube operations can be chained programmatically.</p>
 </section>
 <section id="examples" class="level2">
 <h2 class="anchored" data-anchor-id="examples">Examples</h2>
-<div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">C++</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">R</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labeledby="tabset-1-1-tab">
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource c number-lines code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1"></a><span class="pp">#include </span><span class="im">&lt;gdalcubes.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>   </span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a>   <span class="co">// load an existing image collection</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>   <span class="dt">auto</span> ic <span class="op">=</span> std<span class="op">::</span>make_shared<span class="op">&lt;</span>gdalcubes<span class="op">::</span>image_collection<span class="op">&gt;(</span><span class="st">"test.db"</span><span class="op">);</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>   </span>
-<span id="cb1-8"><a href="#cb1-8"></a>   <span class="co">// define a data cube view</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>   gdalcubes<span class="op">::</span>cube_view v<span class="op">;</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>   v<span class="op">.</span>srs<span class="op">()</span> <span class="op">=</span> <span class="st">"EPSG:4326"</span><span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>   v<span class="op">.</span>left<span class="op">()</span> <span class="op">=</span> <span class="op">-</span><span class="dv">180</span><span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>   v<span class="op">.</span>top<span class="op">()</span> <span class="op">=</span> <span class="dv">60</span><span class="op">;</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>   v<span class="op">.</span>bottom<span class="op">()</span> <span class="op">=</span> <span class="op">-</span><span class="dv">60</span><span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>   v<span class="op">.</span>right<span class="op">()</span> <span class="op">=</span> <span class="dv">180</span><span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a>   v<span class="op">.</span>t0<span class="op">()</span> <span class="op">=</span> gdalcubes<span class="op">::</span>datetime<span class="op">::</span>from_string<span class="op">(</span><span class="st">"2018-01-01"</span><span class="op">);</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a>   v<span class="op">.</span>t1<span class="op">()</span> <span class="op">=</span> gdalcubes<span class="op">::</span>datetime<span class="op">::</span>from_string<span class="op">(</span><span class="st">"2018-12-31"</span><span class="op">);</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a>   v<span class="op">.</span>dx<span class="op">(</span><span class="fl">0.1</span><span class="op">);</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a>   v<span class="op">.</span>dy<span class="op">(</span><span class="fl">0.1</span><span class="op">);</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a>   v<span class="op">.</span>dt<span class="op">(</span>gdalcubes<span class="op">::</span>duration<span class="op">::</span>from_string<span class="op">(</span><span class="st">"P1D"</span><span class="op">));</span></span>
-<span id="cb1-20"><a href="#cb1-20"></a> </span>
-<span id="cb1-21"><a href="#cb1-21"></a>   <span class="co">// chain data cube operations</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>   <span class="dt">auto</span> x <span class="op">=</span> gdalcubes<span class="op">::</span>image_collection_cube<span class="op">(</span>ic<span class="op">,</span> v<span class="op">);</span></span>
-<span id="cb1-23"><a href="#cb1-23"></a>   <span class="dt">auto</span> x_bands <span class="op">=</span> gdalcubes<span class="op">::</span>select_bands_cube<span class="op">::</span>create<span class="op">(</span>x<span class="op">,</span> <span class="op">{</span><span class="st">"B04"</span><span class="op">,</span> <span class="st">"B08"</span><span class="op">});</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a>   <span class="dt">auto</span> x_ndvi <span class="op">=</span> gdalcubes<span class="op">::</span>apply_pixel_cube<span class="op">::</span>create<span class="op">(</span>x_bands<span class="op">,</span> <span class="op">{</span><span class="st">"(B08-B04)/(B08+B04)"</span><span class="op">},</span> <span class="op">{</span><span class="st">"NDVI"</span><span class="op">});</span></span>
-<span id="cb1-25"><a href="#cb1-25"></a>   <span class="dt">auto</span> x_reduced <span class="op">=</span>  gdalcubes<span class="op">::</span>reduce_time_cube<span class="op">::</span>create<span class="op">(</span>x_ndvi<span class="op">,</span> <span class="op">{{</span><span class="st">"max"</span><span class="op">,</span> <span class="st">"NDVI"</span><span class="op">}});</span></span>
-<span id="cb1-26"><a href="#cb1-26"></a></span>
-<span id="cb1-27"><a href="#cb1-27"></a>   <span class="co">// export result cube as a netCDF file</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a>   x_reduced<span class="op">-&gt;</span>write_netcdf_file<span class="op">(</span><span class="st">"test.nc"</span><span class="op">);</span></span>
-<span id="cb1-29"><a href="#cb1-29"></a></span>
-<span id="cb1-30"><a href="#cb1-30"></a>   <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-31"><a href="#cb1-31"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labeledby="tabset-1-2-tab">
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(gdalcubes)</span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a>ic <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="st">"test.db"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs =</span> <span class="st">"EPSG:4326"</span>, <span class="at">dx =</span> <span class="fl">0.1</span>, <span class="at">dy =</span> <span class="fl">0.1</span>, <span class="at">dt =</span> <span class="st">"P1D"</span>, </span>
-<span id="cb2-5"><a href="#cb2-5"></a>             <span class="at">extent =</span> <span class="fu">list</span>(<span class="at">left =</span> <span class="sc">-</span><span class="dv">180</span>, <span class="at">right =</span> <span class="dv">180</span>, <span class="at">top =</span> <span class="dv">60</span>, <span class="at">bottom =</span> <span class="sc">-</span><span class="dv">60</span>,</span>
-<span id="cb2-6"><a href="#cb2-6"></a>                           <span class="at">t0 =</span> <span class="st">"2018-01-01"</span>, <span class="at">t1 =</span> <span class="st">"2018-12-31"</span>))</span>
-<span id="cb2-7"><a href="#cb2-7"></a>                        </span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="fu">raster_cube</span>(ic, v) <span class="sc">|&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a> <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B08"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a> <span class="fu">apply_pixel</span>(<span class="st">"(B08-B04)/(B08+B04)"</span>,<span class="st">"NDVI"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a> <span class="fu">reduce_time</span>(<span class="st">"median(NDVI)"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a> <span class="fu">write_ncdf</span>(<span class="st">"test.nc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
+<p>In R, chaining operations can be written nicely using the pipe symbol <code>|&gt;</code> (or <code>%&gt;%</code> from the <a href="https://cran.r-project.org/package=magrittr"><code>magrittr</code> package</a>), as used in the following examples.</p>
+<section id="median-ndvi-over-time-series" class="level4">
+<h4 class="anchored" data-anchor-id="median-ndvi-over-time-series">Median NDVI over time series</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="st">"/path/to/collection.db"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs =</span> <span class="st">"EPSG:4326"</span>, <span class="at">extent =</span> col, <span class="at">dx =</span> <span class="fl">0.01</span>, <span class="at">dy =</span> <span class="fl">0.01</span>, <span class="at">dt =</span> <span class="st">"P5D"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a>                        </span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">raster_cube</span>(col, v) <span class="sc">|&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a> <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B08"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a> <span class="fu">apply_pixel</span>(<span class="st">"(B08-B04)/(B08+B04)"</span>,<span class="st">"NDVI"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a> <span class="fu">reduce_time</span>(<span class="st">"median(NDVI)"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="data-cube-export" class="level2">
-<h2 class="anchored" data-anchor-id="data-cube-export">Data Cube Export</h2>
-<p>Data cubes can be exported as single netCDF files, or as a collection of (possibly cloud-optimized) GeoTIFF files.</p>
+<section id="simple-rgb-composite-for-a-polygon" class="level4">
+<h4 class="anchored" data-anchor-id="simple-rgb-composite-for-a-polygon">Simple RGB composite for a polygon</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="st">"/path/to/collection.db"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs =</span> <span class="st">"EPSG:4326"</span>, <span class="at">extent =</span> col, <span class="at">dx =</span> <span class="fl">0.01</span>, <span class="at">dy =</span> <span class="fl">0.01</span>, <span class="at">dt =</span> <span class="st">"P5D"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                        </span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">raster_cube</span>(col, v) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a> <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B02"</span>, <span class="st">"B03"</span>, <span class="st">"B04"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a> <span class="fu">filter_geom</span>(sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"polygon_geometry.gpkg"</span>)<span class="sc">$</span>geometry) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a> <span class="fu">reduce_time</span>(<span class="fu">c</span>(<span class="st">"median(B02)"</span>, <span class="st">"median(B03)"</span>, <span class="st">"median(B04)"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="count-large-ndvi-values-within-a-forest-area" class="level4">
+<h4 class="anchored" data-anchor-id="count-large-ndvi-values-within-a-forest-area">Count large NDVI values within a forest area</h4>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="st">"/path/to/collection.db"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs =</span> <span class="st">"EPSG:4326"</span>, <span class="at">extent =</span> col, <span class="at">dx =</span> <span class="fl">0.01</span>, <span class="at">dy =</span> <span class="fl">0.01</span>, <span class="at">dt =</span> <span class="st">"P5D"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                        </span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">raster_cube</span>(col, v) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a> <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B08"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a> <span class="fu">apply_pixel</span>(<span class="st">"(B08-B04)/(B08+B04)"</span>,<span class="st">"NDVI"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a> <span class="fu">filter_pixel</span>(<span class="st">"NDVI &gt; 0.8"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a> <span class="fu">filter_geom</span>(sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"forest_boundaries.gpkg"</span>)<span class="sc">$</span>geometry) <span class="sc">|&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a> <span class="fu">reduce_space</span>(<span class="st">"count(NDVI)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="export" class="level2">
+<h2 class="anchored" data-anchor-id="export">Data cube export</h2>
+<p>Data cubes (including the output of operations, see above) can be exported as single netCDF files, or as a collection of (possibly cloud-optimized) GeoTIFF files.</p>
 <section id="netcdf-export" class="level3">
-<h3 class="anchored" data-anchor-id="netcdf-export">NetCDF Export</h3>
-<p>Produced netCDF files use the enhanced netCDF-4 data model, follow the <code>CF-1.6 conventions &lt;http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html&gt;</code>_ and include bands of the data cube as variables. Dimensions are in the order <em>time</em>, <em>y</em>, <em>x</em> or <em>time</em>, <em>lat</em>, <em>lon</em> respectively.</p>
+<h3 class="anchored" data-anchor-id="netcdf-export">NetCDF export</h3>
+<p>Produced netCDF files use the enhanced netCDF-4 data model, follow the <a href="http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html">CF-1.6 conventions</a> and include bands of the data cube as variables. Dimensions are in the order <em>time</em>, <em>y</em>, <em>x</em> or <em>time</em>, <em>lat</em>, <em>lon</em> respectively.</p>
 <p>Users can pass additional options to control properties of the resulting netCDF file:</p>
 <ul>
 <li><p>DEFLATE compression can be specified by integer values between 0 (no compression) and 9 (maximum compression).</p></li>
@@ -459,85 +438,32 @@
 </ul>
 </section>
 <section id="geotiff-export" class="level3">
-<h3 class="anchored" data-anchor-id="geotiff-export">GeoTIFF Export</h3>
+<h3 class="anchored" data-anchor-id="geotiff-export">GeoTIFF export</h3>
 <p>Exporting a data cube as a collection of GeoTIFF files will produce one multiband GeoTIFF file per time slice of the data cube. Files will be named by a user defined prefix and the date/time of the slice, such as “cube_2018-01.tif”.</p>
 <p>Users can pass additional options to control properties of the resulting GeoTIFF files:</p>
 <ul>
-<li><p>Setting <code>overviews = true</code> will generate GDAL overviews (image pyramids) for the resulting files. Overview levels reduce the pixel size by powers of 2, until width and height are lower than or equal to 256. The resampling algorithm for generating overviews can be selected from what GDAL offers (see <code>here &lt;https://gdal.org/programs/gdaladdo.html#cmdoption-gdaladdo-r&gt;</code>__, default is nearest neighbor).</p></li>
-<li><p>Setting <code>COG = true</code> will produce <code>cloud-optimized &lt;https://www.cogeo.org/&gt;</code>_ GeoTIFF files and includes <code>overviews = true</code>.</p></li>
-<li><p>Additional GDAL creation options can be passed, e.g., to define LZW or DEFLATE compression (see <code>here &lt;https://gdal.org/drivers/raster/gtiff.html#creation-options&gt;</code>__).</p></li>
+<li><p>Setting <code>overviews = TRUE</code> will generate GDAL overviews (image pyramids) for the resulting files. Overview levels reduce the pixel size by powers of 2, until width and height are lower than or equal to 256. The resampling algorithm for generating overviews can be selected from what GDAL offers (see <a href="https://gdal.org/programs/gdaladdo.html#cmdoption-gdaladdo-r">here</a>, default is nearest neighbor).</p></li>
+<li><p>Setting <code>COG = TRUE</code> will produce <a href="https://www.cogeo.org">cloud-optimized GeoTIFF (COG)</a> files and includes <code>overviews = TRUE</code>.</p></li>
+<li><p>Additional GDAL creation options can be passed, e.g., to define LZW or DEFLATE compression (see <a href="https://gdal.org/drivers/raster/gtiff.html#creation-options">here</a>).</p></li>
 </ul>
 </section>
 <section id="packing-data-values" class="level3">
-<h3 class="anchored" data-anchor-id="packing-data-values">Packing Data Values</h3>
+<h3 class="anchored" data-anchor-id="packing-data-values">Packing data values</h3>
 <p>Both, GeoTIFF as well as netCDF export support <em>packing data</em>, i.e.&nbsp;reducing the size of the output file(s) by conversion of double values to smaller integer types using an affine transformation of original values by an offset and scale, where values are transformed according to the formula:</p>
-<p>.. math:: x_{unpacked} = x_{packed} scale + offset</p>
-<p>Packing values reduces the precision of the data. Packing in gdalcubes requires users to pass</p>
+<p><span class="math display">\[
+  \hat{x} = \frac{x - offset}{scale}
+\]</span></p>
+<p>By conversion to integer, packing values reduces the precision of the data. Packing in gdalcubes requires users to pass</p>
 <ul>
 <li>the output data type (one of <code>uint8</code> , <code>uint16</code>, <code>int16</code>, <code>uint32</code>, <code>int32</code>, <code>float32</code>).</li>
 <li>scale, offset, and nodata values (unless type is <code>float32</code> ).</li>
 </ul>
-<p>NaN values of data cubes will automatically converted to provided nodata values in the target data type. Individual scale, offset, and nodata values can be specified either once (applied for all bands), or individually per band. Packing to type <code>float32</code> will ignore any of the offset, scale, and nodata values but implicitly cast 8 byte doubles to 4 byte float values.</p>
+<p>Nodata values of data cubes will automatically converted to provided nodata values in the target data type. Individual scale, offset, and nodata values can be specified either once (applied for all bands), or individually per band. Packing to type <code>float32</code> will ignore any of the offset, scale, and nodata values but implicitly cast 8 byte doubles to 4 byte float values.</p>
 </section>
 </section>
-<section id="json-serialization" class="level2">
-<h2 class="anchored" data-anchor-id="json-serialization">JSON serialization</h2>
-<p>Data cube operations can be chained, producing a directed acyclic graph. This graph can be serialized as JSON document, that can be useful to recreate data cubes, or keeping track of how a dataset has been generated. The following JSON document is an example, defining a median reduction of NDVI pixels on a yearly data cube over a small region in the Brazilian Amazon forest.</p>
-<p>.. code-block:: json :caption: Example process graph serialized as JSON document.</p>
-<pre><code>{
-"cube_type": "reduce_time",
-"in_cube": {
-    "band_names": [
-    "NDVI"
-    ],
-    "cube_type": "apply_pixel",
-    "expr": [
-    "(b05-b04)/(b05+b04)"
-    ],
-    "in_cube": {
-    "bands": [
-        "B04",
-        "B05"
-    ],
-    "cube_type": "select_bands",
-    "in_cube": {
-        "chunk_size": [
-        16,
-        256,
-        256
-        ],
-        "cube_type": "image_collection",
-        "file": "/tmp/RtmpacmRAy/file11af57b771e8.sqlite",
-        "view": {
-        "aggregation": "median",
-        "resampling": "bilinear",
-        "space": {
-            "bottom": -550000.0,
-            "left": -6180000.0,
-            "nx": 2000,
-            "ny": 2000,
-            "right": -6080000.0,
-            "srs": "EPSG:3857",
-            "top": -450000.0
-        },
-        "time": {
-            "dt": "P1Y",
-            "t0": "2014",
-            "t1": "2018"
-        }
-        },
-        "warp_args": []
-    }
-    },
-    "keep_bands": false
-},
-"reducer_bands": [
-    [
-    "median",
-    "NDVI"
-    ]
-]
-}</code></pre>
+<section id="savejson" class="level2">
+<h2 class="anchored" data-anchor-id="savejson">Saving virtual data cubes as JSON files</h2>
+<p>Data cube and image collection objects cannot be saved and restored across different R sessions using <code>save()</code> and <code>load()</code>, because they simply point to a memory address that is destroyed when the R session ends (internally they are <em>external pointers</em>). However, since the creation of objects is relatively cheap, it is possible to serialize and store the process graph as a lightweight JSON file using <code>as_json()</code> and recreate a cube from a file with <code>json_cube()</code>.</p>
 
 
 
@@ -548,103 +474,6 @@
 </main> <!-- /main -->
 <script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-    } else {
-      disableStylesheet(alternateStylesheets);
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } 
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -768,225 +597,160 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return popup.innerHTML;
     });
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu"># Data Cube Operations</span></span>
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu"># Data cube operations</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>gdalcubes includes some built-in functions to process data cubes. </span>
+<span id="cb4-3"><a href="#cb4-3"></a>gdalcubes includes some built-in functions to process data cubes. The table below lists available operations that take one (or more) data cube(s) and produce a derived data cube as output. Depending on the operation and their parameters, the output data cube may have different shape.</span>
 <span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a>The table below lists available operations that take one (or more) data cube(s) as input and produce a single result data cube.</span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="fu">## Built-in operations</span></span>
 <span id="cb4-7"><a href="#cb4-7"></a></span>
-<span id="cb4-8"><a href="#cb4-8"></a></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="fu">## Built-in Operations</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a></span>
-<span id="cb4-12"><a href="#cb4-12"></a></span>
-<span id="cb4-13"><a href="#cb4-13"></a>| Operation           | Description   </span>
-<span id="cb4-14"><a href="#cb4-14"></a>|:--------------------|:-----------------------------------------------------------------------------------|     </span>
-<span id="cb4-15"><a href="#cb4-15"></a>|<span class="in">`select_bands`</span>       | Select a subset of a data cube's bands.  |</span>
-<span id="cb4-16"><a href="#cb4-16"></a>|<span class="in">`reduce_time`</span>        | Apply a reducer function over individual pixel time series. |</span>
-<span id="cb4-17"><a href="#cb4-17"></a>|<span class="in">`reduce_space`</span>       | Apply a reducer function over spatial slices of a data cube.  |</span>
-<span id="cb4-18"><a href="#cb4-18"></a>|<span class="in">`apply_pixel`</span>        | Apply a arithmetic expression on band values per data cube pixel.    |</span>
-<span id="cb4-19"><a href="#cb4-19"></a>|<span class="in">`filter_pixel`</span>       | Filter pixels by a logical predicate on band values. |</span>
-<span id="cb4-20"><a href="#cb4-20"></a>|<span class="in">`window_time`</span>        | Apply a moving window aggregate or kernel on individual pixel time series. |</span>
-<span id="cb4-21"><a href="#cb4-21"></a>|<span class="in">`fill_time`</span>          | Fill missing values of a data cube by simple time series interpolation. |</span>
-<span id="cb4-22"><a href="#cb4-22"></a>|<span class="in">`join_bands`</span>         | Combine bands of two identically shaped data cubes. |</span>
-<span id="cb4-23"><a href="#cb4-23"></a>|<span class="in">`filter_geom`</span>        | TODO|</span>
-<span id="cb4-24"><a href="#cb4-24"></a>|<span class="in">`crop`</span>               | TODO|</span>
-<span id="cb4-25"><a href="#cb4-25"></a>|<span class="in">`select_time`</span>        | TODO|</span>
-<span id="cb4-26"><a href="#cb4-26"></a>|<span class="in">`slice_time`</span>         | TODO|</span>
-<span id="cb4-27"><a href="#cb4-27"></a>|<span class="in">`slice_space`</span>        | TODO|</span>
-<span id="cb4-28"><a href="#cb4-28"></a>|<span class="in">`aggregate_time`</span>     | TODO|</span>
+<span id="cb4-8"><a href="#cb4-8"></a>| Operation           | Description                                                                        | </span>
+<span id="cb4-9"><a href="#cb4-9"></a>|:--------------------|:-----------------------------------------------------------------------------------|    </span>
+<span id="cb4-10"><a href="#cb4-10"></a>|<span class="in">`aggregate_space`</span>    | Reduce spatial resolution of a cube by applying a spatial aggregation function. |</span>
+<span id="cb4-11"><a href="#cb4-11"></a>|<span class="in">`aggregate_time`</span>     | Aggregate and/or regularize time series. |</span>
+<span id="cb4-12"><a href="#cb4-12"></a>|<span class="in">`apply_pixel`</span>        | Apply an arithmetic expression to all data cube pixels.    |</span>
+<span id="cb4-13"><a href="#cb4-13"></a>|<span class="in">`crop`</span>               | Extract a rectangular spatial / temporal / spatiotemporal window. |</span>
+<span id="cb4-14"><a href="#cb4-14"></a>|<span class="in">`fill_time`</span>          | Fill missing values of a data cube by simple time series interpolation. |</span>
+<span id="cb4-15"><a href="#cb4-15"></a>|<span class="in">`filter_geom`</span>        | Filter pixels by a a spatial polygon. |</span>
+<span id="cb4-16"><a href="#cb4-16"></a>|<span class="in">`filter_pixel`</span>       | Filter pixels by a logical expressions on band values. |</span>
+<span id="cb4-17"><a href="#cb4-17"></a>|<span class="in">`join_bands`</span>         | Combine bands of two identically shaped data cubes. |</span>
+<span id="cb4-18"><a href="#cb4-18"></a>|<span class="in">`reduce_space`</span>       | Apply a reducer function to all spatial slices of a data cube.  |</span>
+<span id="cb4-19"><a href="#cb4-19"></a>|<span class="in">`reduce_time`</span>        | Apply a reducer function to all pixel time series. |</span>
+<span id="cb4-20"><a href="#cb4-20"></a>|<span class="in">`select_bands`</span>       | Select specific bands of a data cube.  |</span>
+<span id="cb4-21"><a href="#cb4-21"></a>|<span class="in">`select_time`</span>        | Select irregular time slices of a data cube. |</span>
+<span id="cb4-22"><a href="#cb4-22"></a>|<span class="in">`slice_space`</span>        | Select a single time series of a data cube. |</span>
+<span id="cb4-23"><a href="#cb4-23"></a>|<span class="in">`slice_time`</span>         | Select a single time slice of a data cube. |</span>
+<span id="cb4-24"><a href="#cb4-24"></a>|<span class="in">`window_time`</span>        | Apply a moving window aggregate or convolution kernel to all pixel time series. |</span>
+<span id="cb4-25"><a href="#cb4-25"></a></span>
+<span id="cb4-26"><a href="#cb4-26"></a>: Built-in data cube operations {#tbl-operations}</span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a>Notice that results of these operations are still data cubes. There are other functions, e.g, extracting irregular points from data cubes / or computing zonal statistics resulting in a different output type (see <span class="co">[</span><span class="ot">Reference</span><span class="co">](../reference/index.qmd)</span>).</span>
 <span id="cb4-29"><a href="#cb4-29"></a></span>
-<span id="cb4-30"><a href="#cb4-30"></a>: Built-in data cube operations {#tbl-operations}</span>
+<span id="cb4-30"><a href="#cb4-30"></a>Creating data cubes and calling operations on data cubes is very fast, because no image data is read and actual computations are delayed.  Instead, operations return a *proxy* object or a _virtual_ data cube without running any expensive computations on the data (see <span class="co">[</span><span class="ot">Execution</span><span class="co">](execution.qmd)</span>). </span>
 <span id="cb4-31"><a href="#cb4-31"></a></span>
-<span id="cb4-32"><a href="#cb4-32"></a></span>
-<span id="cb4-33"><a href="#cb4-33"></a>Internally these operations inherit from the general ``cube`` class. They provide a cheap ``create`` method, returning </span>
-<span id="cb4-34"><a href="#cb4-34"></a>a *proxy* object without running any expensive computations on the data. </span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="fu">## Chaining of operations</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a></span>
+<span id="cb4-34"><a href="#cb4-34"></a>Operations can be chained and still simply produce proxy objects without any expensive computations involved. Chained processes produce a _process graph_ that simply memorizes what operations need to be executed and where the data comes from. Actual computations are delayed until users call a method that reads data of the resulting data cube (such as plotting, or exporting a data cube as a file, see <span class="co">[</span><span class="ot">Data cube export</span><span class="co">](#export)</span>). Below, you can find some examples how data cube operations can be chained programmatically.</span>
 <span id="cb4-35"><a href="#cb4-35"></a></span>
-<span id="cb4-36"><a href="#cb4-36"></a>This makes it possible to define and optimize chains of operations, where eexecution is delayed until users call a method</span>
-<span id="cb4-37"><a href="#cb4-37"></a>that reads data of the resulting data cube (such as plotting, or exporting a derived data cube as a file, see <span class="in">`Data Cube Export`</span>_). </span>
-<span id="cb4-38"><a href="#cb4-38"></a>Below, you can find examples in C++ and R, how data cube operations can be chained programmatically.</span>
-<span id="cb4-39"><a href="#cb4-39"></a></span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="fu">## Examples</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a>In R, chaining operations can be written nicely using the pipe symbol <span class="in">`|&gt;`</span> (or <span class="in">`%&gt;%`</span> from the <span class="co">[</span><span class="ot">`magrittr` package</span><span class="co">](https://cran.r-project.org/package=magrittr)</span>), as used in the following examples.</span>
 <span id="cb4-40"><a href="#cb4-40"></a></span>
-<span id="cb4-41"><a href="#cb4-41"></a><span class="fu">## Examples</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a><span class="fu">#### Median NDVI over time series</span></span>
 <span id="cb4-42"><a href="#cb4-42"></a></span>
-<span id="cb4-43"><a href="#cb4-43"></a></span>
-<span id="cb4-44"><a href="#cb4-44"></a>::: {.panel-tabset}</span>
-<span id="cb4-45"><a href="#cb4-45"></a><span class="fu">### C++</span></span>
-<span id="cb4-46"><a href="#cb4-46"></a></span>
-<span id="cb4-47"><a href="#cb4-47"></a><span class="in">```{.c}</span></span>
-<span id="cb4-48"><a href="#cb4-48"></a><span class="pp">#include </span><span class="im">&lt;gdalcubes.h&gt;</span></span>
-<span id="cb4-49"><a href="#cb4-49"></a>   </span>
-<span id="cb4-50"><a href="#cb4-50"></a><span class="dt">int</span> main<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb4-51"><a href="#cb4-51"></a></span>
-<span id="cb4-52"><a href="#cb4-52"></a>   <span class="co">// load an existing image collection</span></span>
-<span id="cb4-53"><a href="#cb4-53"></a>   <span class="dt">auto</span> ic <span class="op">=</span> std<span class="op">::</span>make_shared<span class="op">&lt;</span>gdalcubes<span class="op">::</span>image_collection<span class="op">&gt;(</span><span class="st">"test.db"</span><span class="op">);</span></span>
-<span id="cb4-54"><a href="#cb4-54"></a>   </span>
-<span id="cb4-55"><a href="#cb4-55"></a>   <span class="co">// define a data cube view</span></span>
-<span id="cb4-56"><a href="#cb4-56"></a>   gdalcubes<span class="op">::</span>cube_view v<span class="op">;</span></span>
-<span id="cb4-57"><a href="#cb4-57"></a>   v<span class="op">.</span>srs<span class="op">()</span> <span class="op">=</span> <span class="st">"EPSG:4326"</span><span class="op">;</span></span>
-<span id="cb4-58"><a href="#cb4-58"></a>   v<span class="op">.</span>left<span class="op">()</span> <span class="op">=</span> <span class="op">-</span><span class="dv">180</span><span class="op">;</span></span>
-<span id="cb4-59"><a href="#cb4-59"></a>   v<span class="op">.</span>top<span class="op">()</span> <span class="op">=</span> <span class="dv">60</span><span class="op">;</span></span>
-<span id="cb4-60"><a href="#cb4-60"></a>   v<span class="op">.</span>bottom<span class="op">()</span> <span class="op">=</span> <span class="op">-</span><span class="dv">60</span><span class="op">;</span></span>
-<span id="cb4-61"><a href="#cb4-61"></a>   v<span class="op">.</span>right<span class="op">()</span> <span class="op">=</span> <span class="dv">180</span><span class="op">;</span></span>
-<span id="cb4-62"><a href="#cb4-62"></a>   v<span class="op">.</span>t0<span class="op">()</span> <span class="op">=</span> gdalcubes<span class="op">::</span>datetime<span class="op">::</span>from_string<span class="op">(</span><span class="st">"2018-01-01"</span><span class="op">);</span></span>
-<span id="cb4-63"><a href="#cb4-63"></a>   v<span class="op">.</span>t1<span class="op">()</span> <span class="op">=</span> gdalcubes<span class="op">::</span>datetime<span class="op">::</span>from_string<span class="op">(</span><span class="st">"2018-12-31"</span><span class="op">);</span></span>
-<span id="cb4-64"><a href="#cb4-64"></a>   v<span class="op">.</span>dx<span class="op">(</span><span class="fl">0.1</span><span class="op">);</span></span>
-<span id="cb4-65"><a href="#cb4-65"></a>   v<span class="op">.</span>dy<span class="op">(</span><span class="fl">0.1</span><span class="op">);</span></span>
-<span id="cb4-66"><a href="#cb4-66"></a>   v<span class="op">.</span>dt<span class="op">(</span>gdalcubes<span class="op">::</span>duration<span class="op">::</span>from_string<span class="op">(</span><span class="st">"P1D"</span><span class="op">));</span></span>
-<span id="cb4-67"><a href="#cb4-67"></a> </span>
-<span id="cb4-68"><a href="#cb4-68"></a>   <span class="co">// chain data cube operations</span></span>
-<span id="cb4-69"><a href="#cb4-69"></a>   <span class="dt">auto</span> x <span class="op">=</span> gdalcubes<span class="op">::</span>image_collection_cube<span class="op">(</span>ic<span class="op">,</span> v<span class="op">);</span></span>
-<span id="cb4-70"><a href="#cb4-70"></a>   <span class="dt">auto</span> x_bands <span class="op">=</span> gdalcubes<span class="op">::</span>select_bands_cube<span class="op">::</span>create<span class="op">(</span>x<span class="op">,</span> <span class="op">{</span><span class="st">"B04"</span><span class="op">,</span> <span class="st">"B08"</span><span class="op">});</span></span>
-<span id="cb4-71"><a href="#cb4-71"></a>   <span class="dt">auto</span> x_ndvi <span class="op">=</span> gdalcubes<span class="op">::</span>apply_pixel_cube<span class="op">::</span>create<span class="op">(</span>x_bands<span class="op">,</span> <span class="op">{</span><span class="st">"(B08-B04)/(B08+B04)"</span><span class="op">},</span> <span class="op">{</span><span class="st">"NDVI"</span><span class="op">});</span></span>
-<span id="cb4-72"><a href="#cb4-72"></a>   <span class="dt">auto</span> x_reduced <span class="op">=</span>  gdalcubes<span class="op">::</span>reduce_time_cube<span class="op">::</span>create<span class="op">(</span>x_ndvi<span class="op">,</span> <span class="op">{{</span><span class="st">"max"</span><span class="op">,</span> <span class="st">"NDVI"</span><span class="op">}});</span></span>
-<span id="cb4-73"><a href="#cb4-73"></a></span>
-<span id="cb4-74"><a href="#cb4-74"></a>   <span class="co">// export result cube as a netCDF file</span></span>
-<span id="cb4-75"><a href="#cb4-75"></a>   x_reduced<span class="op">-&gt;</span>write_netcdf_file<span class="op">(</span><span class="st">"test.nc"</span><span class="op">);</span></span>
-<span id="cb4-76"><a href="#cb4-76"></a></span>
-<span id="cb4-77"><a href="#cb4-77"></a>   <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-78"><a href="#cb4-78"></a><span class="op">}</span></span>
-<span id="cb4-79"><a href="#cb4-79"></a><span class="in">```</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a><span class="in">``` {.r}</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a>col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="st">"/path/to/collection.db"</span>)</span>
+<span id="cb4-45"><a href="#cb4-45"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs =</span> <span class="st">"EPSG:4326"</span>, <span class="at">extent =</span> col, <span class="at">dx =</span> <span class="fl">0.01</span>, <span class="at">dy =</span> <span class="fl">0.01</span>, <span class="at">dt =</span> <span class="st">"P5D"</span>)</span>
+<span id="cb4-46"><a href="#cb4-46"></a>                        </span>
+<span id="cb4-47"><a href="#cb4-47"></a><span class="fu">raster_cube</span>(col, v) <span class="sc">|&gt;</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a> <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B08"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-49"><a href="#cb4-49"></a> <span class="fu">apply_pixel</span>(<span class="st">"(B08-B04)/(B08+B04)"</span>,<span class="st">"NDVI"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a> <span class="fu">reduce_time</span>(<span class="st">"median(NDVI)"</span>) </span>
+<span id="cb4-51"><a href="#cb4-51"></a><span class="in">```</span></span>
+<span id="cb4-52"><a href="#cb4-52"></a></span>
+<span id="cb4-53"><a href="#cb4-53"></a><span class="fu">#### Simple RGB composite for a polygon</span></span>
+<span id="cb4-54"><a href="#cb4-54"></a></span>
+<span id="cb4-55"><a href="#cb4-55"></a><span class="in">``` {.r}</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a>col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="st">"/path/to/collection.db"</span>)</span>
+<span id="cb4-57"><a href="#cb4-57"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs =</span> <span class="st">"EPSG:4326"</span>, <span class="at">extent =</span> col, <span class="at">dx =</span> <span class="fl">0.01</span>, <span class="at">dy =</span> <span class="fl">0.01</span>, <span class="at">dt =</span> <span class="st">"P5D"</span>)</span>
+<span id="cb4-58"><a href="#cb4-58"></a>                        </span>
+<span id="cb4-59"><a href="#cb4-59"></a><span class="fu">raster_cube</span>(col, v) <span class="sc">|&gt;</span></span>
+<span id="cb4-60"><a href="#cb4-60"></a> <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B02"</span>, <span class="st">"B03"</span>, <span class="st">"B04"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-61"><a href="#cb4-61"></a> <span class="fu">filter_geom</span>(sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"polygon_geometry.gpkg"</span>)<span class="sc">$</span>geometry) <span class="sc">|&gt;</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a> <span class="fu">reduce_time</span>(<span class="fu">c</span>(<span class="st">"median(B02)"</span>, <span class="st">"median(B03)"</span>, <span class="st">"median(B04)"</span>)  </span>
+<span id="cb4-63"><a href="#cb4-63"></a><span class="st">```</span></span>
+<span id="cb4-64"><a href="#cb4-64"></a></span>
+<span id="cb4-65"><a href="#cb4-65"></a><span class="at">#### Count large NDVI values within a forest area</span></span>
+<span id="cb4-66"><a href="#cb4-66"></a></span>
+<span id="cb4-67"><a href="#cb4-67"></a><span class="st">```</span> {.r}</span>
+<span id="cb4-68"><a href="#cb4-68"></a><span class="at">col =</span> <span class="fu">image_collection</span>(<span class="st">"/path/to/collection.db"</span>)</span>
+<span id="cb4-69"><a href="#cb4-69"></a><span class="at">v =</span> <span class="fu">cube_view</span>(<span class="at">srs =</span> <span class="st">"EPSG:4326"</span>, <span class="at">extent =</span> col, <span class="at">dx =</span> <span class="fl">0.01</span>, <span class="at">dy =</span> <span class="fl">0.01</span>, <span class="at">dt =</span> <span class="st">"P5D"</span>)</span>
+<span id="cb4-70"><a href="#cb4-70"></a>                        </span>
+<span id="cb4-71"><a href="#cb4-71"></a><span class="fu">raster_cube</span>(col, v) <span class="sc">|&gt;</span></span>
+<span id="cb4-72"><a href="#cb4-72"></a> <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B08"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-73"><a href="#cb4-73"></a> <span class="fu">apply_pixel</span>(<span class="st">"(B08-B04)/(B08+B04)"</span>,<span class="st">"NDVI"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-74"><a href="#cb4-74"></a> <span class="fu">filter_pixel</span>(<span class="st">"NDVI &gt; 0.8"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-75"><a href="#cb4-75"></a> <span class="fu">filter_geom</span>(sf<span class="sc">::</span><span class="fu">read_sf</span>(<span class="st">"forest_boundaries.gpkg"</span>)<span class="sc">$</span>geometry) <span class="sc">|&gt;</span></span>
+<span id="cb4-76"><a href="#cb4-76"></a> <span class="fu">reduce_space</span>(<span class="st">"count(NDVI)"</span>)</span>
+<span id="cb4-77"><a href="#cb4-77"></a><span class="st">```</span></span>
+<span id="cb4-78"><a href="#cb4-78"></a></span>
+<span id="cb4-79"><a href="#cb4-79"></a><span class="at">## Data cube export {#export}</span></span>
 <span id="cb4-80"><a href="#cb4-80"></a></span>
-<span id="cb4-81"><a href="#cb4-81"></a><span class="fu">### R</span></span>
+<span id="cb4-81"><a href="#cb4-81"></a><span class="at">Data cubes (including the output of operations, see above) can be exported as single netCDF files, or as a collection of (possibly cloud-optimized) GeoTIFF files.</span></span>
 <span id="cb4-82"><a href="#cb4-82"></a></span>
-<span id="cb4-83"><a href="#cb4-83"></a><span class="in">``` {.r}</span></span>
-<span id="cb4-84"><a href="#cb4-84"></a><span class="fu">library</span>(gdalcubes)</span>
-<span id="cb4-85"><a href="#cb4-85"></a></span>
-<span id="cb4-86"><a href="#cb4-86"></a>ic <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="st">"test.db"</span>)</span>
-<span id="cb4-87"><a href="#cb4-87"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs =</span> <span class="st">"EPSG:4326"</span>, <span class="at">dx =</span> <span class="fl">0.1</span>, <span class="at">dy =</span> <span class="fl">0.1</span>, <span class="at">dt =</span> <span class="st">"P1D"</span>, </span>
-<span id="cb4-88"><a href="#cb4-88"></a>             <span class="at">extent =</span> <span class="fu">list</span>(<span class="at">left =</span> <span class="sc">-</span><span class="dv">180</span>, <span class="at">right =</span> <span class="dv">180</span>, <span class="at">top =</span> <span class="dv">60</span>, <span class="at">bottom =</span> <span class="sc">-</span><span class="dv">60</span>,</span>
-<span id="cb4-89"><a href="#cb4-89"></a>                           <span class="at">t0 =</span> <span class="st">"2018-01-01"</span>, <span class="at">t1 =</span> <span class="st">"2018-12-31"</span>))</span>
-<span id="cb4-90"><a href="#cb4-90"></a>                        </span>
-<span id="cb4-91"><a href="#cb4-91"></a><span class="fu">raster_cube</span>(ic, v) <span class="sc">|&gt;</span></span>
-<span id="cb4-92"><a href="#cb4-92"></a> <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B08"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb4-93"><a href="#cb4-93"></a> <span class="fu">apply_pixel</span>(<span class="st">"(B08-B04)/(B08+B04)"</span>,<span class="st">"NDVI"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-94"><a href="#cb4-94"></a> <span class="fu">reduce_time</span>(<span class="st">"median(NDVI)"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-95"><a href="#cb4-95"></a> <span class="fu">write_ncdf</span>(<span class="st">"test.nc"</span>)</span>
-<span id="cb4-96"><a href="#cb4-96"></a><span class="in">```</span></span>
+<span id="cb4-83"><a href="#cb4-83"></a><span class="at">### NetCDF export</span></span>
+<span id="cb4-84"><a href="#cb4-84"></a></span>
+<span id="cb4-85"><a href="#cb4-85"></a><span class="at">Produced netCDF files use the enhanced netCDF-4 data model, follow the [CF-1.6 conventions](http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html) and include bands of the data cube as variables. Dimensions are in the order *time*, *y*, *x* or *time*, *lat*, *lon* respectively.</span></span>
+<span id="cb4-86"><a href="#cb4-86"></a></span>
+<span id="cb4-87"><a href="#cb4-87"></a><span class="at">Users can pass additional options to control properties of the resulting netCDF file:</span></span>
+<span id="cb4-88"><a href="#cb4-88"></a></span>
+<span id="cb4-89"><a href="#cb4-89"></a><span class="at">- DEFLATE compression can be specified by integer values between 0 (no compression) and 9 (maximum compression).</span></span>
+<span id="cb4-90"><a href="#cb4-90"></a></span>
+<span id="cb4-91"><a href="#cb4-91"></a><span class="at">- Users can furthermore enable or disable the inclusion of boundary variables in the output netCDF file. These variables give exact upper and lower limits of dimension values (e.g. start and end time of a pixel). </span></span>
+<span id="cb4-92"><a href="#cb4-92"></a></span>
+<span id="cb4-93"><a href="#cb4-93"></a></span>
+<span id="cb4-94"><a href="#cb4-94"></a></span>
+<span id="cb4-95"><a href="#cb4-95"></a></span>
+<span id="cb4-96"><a href="#cb4-96"></a><span class="at">### GeoTIFF export</span></span>
 <span id="cb4-97"><a href="#cb4-97"></a></span>
-<span id="cb4-98"><a href="#cb4-98"></a>:::</span>
+<span id="cb4-98"><a href="#cb4-98"></a><span class="at">Exporting a data cube as a collection of GeoTIFF files will produce one multiband GeoTIFF file per time slice of the data cube. Files will be named by a user defined prefix and the date/time of the slice, such as "cube_2018-01.tif". </span></span>
 <span id="cb4-99"><a href="#cb4-99"></a></span>
-<span id="cb4-100"><a href="#cb4-100"></a></span>
+<span id="cb4-100"><a href="#cb4-100"></a><span class="at">Users can pass additional options to control properties of the resulting GeoTIFF files:</span></span>
 <span id="cb4-101"><a href="#cb4-101"></a></span>
-<span id="cb4-102"><a href="#cb4-102"></a></span>
-<span id="cb4-103"><a href="#cb4-103"></a><span class="fu">## Data Cube Export</span></span>
-<span id="cb4-104"><a href="#cb4-104"></a></span>
-<span id="cb4-105"><a href="#cb4-105"></a>Data cubes can be exported as single netCDF files, or as a collection of (possibly cloud-optimized) GeoTIFF files.</span>
-<span id="cb4-106"><a href="#cb4-106"></a></span>
-<span id="cb4-107"><a href="#cb4-107"></a><span class="fu">### NetCDF Export</span></span>
+<span id="cb4-102"><a href="#cb4-102"></a><span class="at">- Setting </span><span class="st">`</span><span class="at">overviews =</span> TRUE<span class="st">`</span><span class="at"> will generate GDAL overviews (image pyramids) for the resulting files. Overview levels reduce the pixel size by powers of 2, until width and height are lower than or equal to 256. The resampling algorithm for generating overviews can be selected from what GDAL offers (see [here](https://gdal.org/programs/gdaladdo.html#cmdoption-gdaladdo-r), default is nearest neighbor).</span></span>
+<span id="cb4-103"><a href="#cb4-103"></a></span>
+<span id="cb4-104"><a href="#cb4-104"></a><span class="at">- Setting </span><span class="st">`</span><span class="at">COG =</span> TRUE<span class="st">`</span><span class="at"> will produce [cloud-optimized GeoTIFF (COG)](https://www.cogeo.org) files and includes </span><span class="st">`</span><span class="at">overviews =</span> TRUE<span class="st">`</span><span class="at">. </span></span>
+<span id="cb4-105"><a href="#cb4-105"></a></span>
+<span id="cb4-106"><a href="#cb4-106"></a><span class="at">- Additional GDAL creation options can be passed, e.g., to define LZW or DEFLATE compression (see [here](https://gdal.org/drivers/raster/gtiff.html#creation-options)).</span></span>
+<span id="cb4-107"><a href="#cb4-107"></a></span>
 <span id="cb4-108"><a href="#cb4-108"></a></span>
-<span id="cb4-109"><a href="#cb4-109"></a>Produced netCDF files use the enhanced netCDF-4 data model, follow the <span class="in">`CF-1.6 conventions &lt;http://cfconventions.org/cf-conventions/v1.6.0/cf-conventions.html&gt;`</span>_ and include bands of the data cube as variables. Dimensions are in the order *time*, *y*, *x* or *time*, *lat*, *lon* respectively.</span>
-<span id="cb4-110"><a href="#cb4-110"></a></span>
-<span id="cb4-111"><a href="#cb4-111"></a>Users can pass additional options to control properties of the resulting netCDF file:</span>
-<span id="cb4-112"><a href="#cb4-112"></a></span>
-<span id="cb4-113"><a href="#cb4-113"></a><span class="ss">- </span>DEFLATE compression can be specified by integer values between 0 (no compression) and 9 (maximum compression).</span>
-<span id="cb4-114"><a href="#cb4-114"></a></span>
-<span id="cb4-115"><a href="#cb4-115"></a><span class="ss">- </span>Users can furthermore enable or disable the inclusion of boundary variables in the output netCDF file. These variables give exact upper and lower limits of dimension values (e.g. start and end time of a pixel). </span>
-<span id="cb4-116"><a href="#cb4-116"></a></span>
+<span id="cb4-109"><a href="#cb4-109"></a></span>
+<span id="cb4-110"><a href="#cb4-110"></a><span class="at">### Packing data values</span></span>
+<span id="cb4-111"><a href="#cb4-111"></a></span>
+<span id="cb4-112"><a href="#cb4-112"></a><span class="at">Both, GeoTIFF as well as netCDF export support *packing data*, i.e. reducing the size of the output file(s) by conversion of double values to smaller integer types using an affine transformation of original values by an offset and scale, where values are transformed according to the formula: </span></span>
+<span id="cb4-113"><a href="#cb4-113"></a></span>
+<span id="cb4-114"><a href="#cb4-114"></a><span class="at">$$</span></span>
+<span id="cb4-115"><a href="#cb4-115"></a><span class="at">  \hat{x} = </span><span class="sc">\f</span><span class="at">rac{x - offset}{scale} </span></span>
+<span id="cb4-116"><a href="#cb4-116"></a><span class="at">$$</span></span>
 <span id="cb4-117"><a href="#cb4-117"></a></span>
-<span id="cb4-118"><a href="#cb4-118"></a></span>
+<span id="cb4-118"><a href="#cb4-118"></a><span class="at">By conversion to integer, packing values reduces the precision of the data. Packing in gdalcubes requires users to pass </span></span>
 <span id="cb4-119"><a href="#cb4-119"></a></span>
-<span id="cb4-120"><a href="#cb4-120"></a><span class="fu">### GeoTIFF Export</span></span>
-<span id="cb4-121"><a href="#cb4-121"></a></span>
-<span id="cb4-122"><a href="#cb4-122"></a>Exporting a data cube as a collection of GeoTIFF files will produce one multiband GeoTIFF file per time slice of the data cube. Files will be named by a user defined prefix and the date/time of the slice, such as "cube_2018-01.tif". </span>
-<span id="cb4-123"><a href="#cb4-123"></a></span>
-<span id="cb4-124"><a href="#cb4-124"></a>Users can pass additional options to control properties of the resulting GeoTIFF files:</span>
-<span id="cb4-125"><a href="#cb4-125"></a></span>
-<span id="cb4-126"><a href="#cb4-126"></a><span class="ss">- </span>Setting ``overviews = true`<span class="in">` will generate GDAL overviews (image pyramids) for the resulting files. Overview levels reduce the pixel size by powers of 2, until width and height are lower than or equal to 256. The resampling algorithm for generating overviews can be selected from what GDAL offers (see `</span>here <span class="ot">&lt;https://gdal.org/programs/gdaladdo.html#cmdoption-gdaladdo-r&gt;</span>`__, default is nearest neighbor).</span>
+<span id="cb4-120"><a href="#cb4-120"></a><span class="at">- the output data type (one of </span><span class="st">`</span>uint8<span class="st">`</span><span class="at"> , </span><span class="st">`</span>uint16<span class="st">`</span><span class="at">, </span><span class="st">`</span>int16<span class="st">`</span><span class="at">, </span><span class="st">`</span>uint32<span class="st">`</span><span class="at">, </span><span class="st">`</span>int32<span class="st">`</span><span class="at">, </span><span class="st">`</span>float32<span class="st">`</span><span class="at">).</span></span>
+<span id="cb4-121"><a href="#cb4-121"></a><span class="at">- scale, offset, and nodata values (unless type is </span><span class="st">`</span>float32<span class="st">`</span><span class="at"> ).</span></span>
+<span id="cb4-122"><a href="#cb4-122"></a></span>
+<span id="cb4-123"><a href="#cb4-123"></a><span class="at">Nodata values of data cubes will automatically converted to provided nodata values in the target data type. Individual scale, offset, and nodata values </span></span>
+<span id="cb4-124"><a href="#cb4-124"></a><span class="at">can be specified either once (applied for all bands), or individually per band.</span></span>
+<span id="cb4-125"><a href="#cb4-125"></a><span class="at">Packing to type </span><span class="st">`</span>float32<span class="st">`</span><span class="at"> will ignore any of the offset, scale, and nodata values but implicitly cast 8 byte doubles to 4 byte float values.</span></span>
+<span id="cb4-126"><a href="#cb4-126"></a></span>
 <span id="cb4-127"><a href="#cb4-127"></a></span>
-<span id="cb4-128"><a href="#cb4-128"></a><span class="ss">- </span>Setting ``COG = true`<span class="in">` will produce `</span>cloud-optimized <span class="ot">&lt;https://www.cogeo.org/&gt;</span>`_ GeoTIFF files and includes ``overviews = true``. </span>
+<span id="cb4-128"><a href="#cb4-128"></a></span>
 <span id="cb4-129"><a href="#cb4-129"></a></span>
-<span id="cb4-130"><a href="#cb4-130"></a><span class="ss">- </span>Additional GDAL creation options can be passed, e.g., to define LZW or DEFLATE compression (see <span class="in">`here &lt;https://gdal.org/drivers/raster/gtiff.html#creation-options&gt;`</span>__).</span>
-<span id="cb4-131"><a href="#cb4-131"></a></span>
+<span id="cb4-130"><a href="#cb4-130"></a></span>
+<span id="cb4-131"><a href="#cb4-131"></a><span class="at">## Saving virtual data cubes as JSON files {#savejson}</span></span>
 <span id="cb4-132"><a href="#cb4-132"></a></span>
-<span id="cb4-133"><a href="#cb4-133"></a></span>
-<span id="cb4-134"><a href="#cb4-134"></a><span class="fu">### Packing Data Values</span></span>
+<span id="cb4-133"><a href="#cb4-133"></a><span class="at">Data cube and image collection objects cannot be saved and restored across different R sessions using </span><span class="st">`</span><span class="fu">save</span>()<span class="st">`</span><span class="at"> and </span><span class="st">`</span><span class="fu">load</span>()<span class="st">`</span><span class="at">, because they simply point to a memory address that is destroyed when the R session ends (internally they are _external pointers_). </span></span>
+<span id="cb4-134"><a href="#cb4-134"></a><span class="at">However, since the creation of objects is relatively cheap, it is possible to serialize and store the process graph as a lightweight JSON file using </span><span class="st">`</span><span class="fu">as_json</span>()<span class="st">`</span><span class="at"> and recreate a cube from a file with </span><span class="st">`</span><span class="fu">json_cube</span>()<span class="st">`</span><span class="at">. </span></span>
 <span id="cb4-135"><a href="#cb4-135"></a></span>
-<span id="cb4-136"><a href="#cb4-136"></a>Both, GeoTIFF as well as netCDF export support *packing data*, i.e. reducing the size of the output file(s) by conversion of double values to smaller integer types using an affine transformation of original values by an offset and scale, where values are transformed according to the formula: </span>
-<span id="cb4-137"><a href="#cb4-137"></a></span>
-<span id="cb4-138"><a href="#cb4-138"></a>.. math::</span>
-<span id="cb4-139"><a href="#cb4-139"></a>   x_{unpacked} = x_{packed} \cdot scale + offset</span>
-<span id="cb4-140"><a href="#cb4-140"></a></span>
-<span id="cb4-141"><a href="#cb4-141"></a>Packing values reduces the precision of the data. Packing in gdalcubes requires users to pass </span>
-<span id="cb4-142"><a href="#cb4-142"></a></span>
-<span id="cb4-143"><a href="#cb4-143"></a><span class="ss">- </span>the output data type (one of ``uint8`` , ``uint16<span class="in">``, ``</span>int16<span class="in">``, ``</span>uint32<span class="in">``, ``</span>int32<span class="in">``, ``</span>float32``).</span>
-<span id="cb4-144"><a href="#cb4-144"></a><span class="ss">- </span>scale, offset, and nodata values (unless type is ``float32`` ).</span>
-<span id="cb4-145"><a href="#cb4-145"></a></span>
-<span id="cb4-146"><a href="#cb4-146"></a>NaN values of data cubes will automatically converted to provided nodata values in the target data type. Individual scale, offset, and nodata values </span>
-<span id="cb4-147"><a href="#cb4-147"></a>can be specified either once (applied for all bands), or individually per band.</span>
-<span id="cb4-148"><a href="#cb4-148"></a>Packing to type ``float32`` will ignore any of the offset, scale, and nodata values but implicitly cast 8 byte doubles to 4 byte float values.</span>
-<span id="cb4-149"><a href="#cb4-149"></a></span>
-<span id="cb4-150"><a href="#cb4-150"></a></span>
-<span id="cb4-151"><a href="#cb4-151"></a></span>
-<span id="cb4-152"><a href="#cb4-152"></a></span>
-<span id="cb4-153"><a href="#cb4-153"></a></span>
-<span id="cb4-154"><a href="#cb4-154"></a></span>
-<span id="cb4-155"><a href="#cb4-155"></a><span class="fu">## JSON serialization</span></span>
-<span id="cb4-156"><a href="#cb4-156"></a></span>
-<span id="cb4-157"><a href="#cb4-157"></a>Data cube operations can be chained, producing a directed acyclic graph. This graph can be serialized</span>
-<span id="cb4-158"><a href="#cb4-158"></a>as JSON document, that can be useful to recreate data cubes, or keeping track of how a dataset has been generated. </span>
-<span id="cb4-159"><a href="#cb4-159"></a>The following JSON document is an example, defining a median reduction of NDVI pixels on a yearly data cube over a small region in the Brazilian Amazon forest.  </span>
-<span id="cb4-160"><a href="#cb4-160"></a></span>
-<span id="cb4-161"><a href="#cb4-161"></a>.. code-block:: json</span>
-<span id="cb4-162"><a href="#cb4-162"></a>   :caption: Example process graph serialized as JSON document.</span>
-<span id="cb4-163"><a href="#cb4-163"></a>   </span>
-<span id="cb4-164"><a href="#cb4-164"></a><span class="in">    {</span></span>
-<span id="cb4-165"><a href="#cb4-165"></a><span class="in">    "cube_type": "reduce_time",</span></span>
-<span id="cb4-166"><a href="#cb4-166"></a><span class="in">    "in_cube": {</span></span>
-<span id="cb4-167"><a href="#cb4-167"></a><span class="in">        "band_names": [</span></span>
-<span id="cb4-168"><a href="#cb4-168"></a><span class="in">        "NDVI"</span></span>
-<span id="cb4-169"><a href="#cb4-169"></a><span class="in">        ],</span></span>
-<span id="cb4-170"><a href="#cb4-170"></a><span class="in">        "cube_type": "apply_pixel",</span></span>
-<span id="cb4-171"><a href="#cb4-171"></a><span class="in">        "expr": [</span></span>
-<span id="cb4-172"><a href="#cb4-172"></a><span class="in">        "(b05-b04)/(b05+b04)"</span></span>
-<span id="cb4-173"><a href="#cb4-173"></a><span class="in">        ],</span></span>
-<span id="cb4-174"><a href="#cb4-174"></a><span class="in">        "in_cube": {</span></span>
-<span id="cb4-175"><a href="#cb4-175"></a><span class="in">        "bands": [</span></span>
-<span id="cb4-176"><a href="#cb4-176"></a><span class="in">            "B04",</span></span>
-<span id="cb4-177"><a href="#cb4-177"></a><span class="in">            "B05"</span></span>
-<span id="cb4-178"><a href="#cb4-178"></a><span class="in">        ],</span></span>
-<span id="cb4-179"><a href="#cb4-179"></a><span class="in">        "cube_type": "select_bands",</span></span>
-<span id="cb4-180"><a href="#cb4-180"></a><span class="in">        "in_cube": {</span></span>
-<span id="cb4-181"><a href="#cb4-181"></a><span class="in">            "chunk_size": [</span></span>
-<span id="cb4-182"><a href="#cb4-182"></a><span class="in">            16,</span></span>
-<span id="cb4-183"><a href="#cb4-183"></a><span class="in">            256,</span></span>
-<span id="cb4-184"><a href="#cb4-184"></a><span class="in">            256</span></span>
-<span id="cb4-185"><a href="#cb4-185"></a><span class="in">            ],</span></span>
-<span id="cb4-186"><a href="#cb4-186"></a><span class="in">            "cube_type": "image_collection",</span></span>
-<span id="cb4-187"><a href="#cb4-187"></a><span class="in">            "file": "/tmp/RtmpacmRAy/file11af57b771e8.sqlite",</span></span>
-<span id="cb4-188"><a href="#cb4-188"></a><span class="in">            "view": {</span></span>
-<span id="cb4-189"><a href="#cb4-189"></a><span class="in">            "aggregation": "median",</span></span>
-<span id="cb4-190"><a href="#cb4-190"></a><span class="in">            "resampling": "bilinear",</span></span>
-<span id="cb4-191"><a href="#cb4-191"></a><span class="in">            "space": {</span></span>
-<span id="cb4-192"><a href="#cb4-192"></a><span class="in">                "bottom": -550000.0,</span></span>
-<span id="cb4-193"><a href="#cb4-193"></a><span class="in">                "left": -6180000.0,</span></span>
-<span id="cb4-194"><a href="#cb4-194"></a><span class="in">                "nx": 2000,</span></span>
-<span id="cb4-195"><a href="#cb4-195"></a><span class="in">                "ny": 2000,</span></span>
-<span id="cb4-196"><a href="#cb4-196"></a><span class="in">                "right": -6080000.0,</span></span>
-<span id="cb4-197"><a href="#cb4-197"></a><span class="in">                "srs": "EPSG:3857",</span></span>
-<span id="cb4-198"><a href="#cb4-198"></a><span class="in">                "top": -450000.0</span></span>
-<span id="cb4-199"><a href="#cb4-199"></a><span class="in">            },</span></span>
-<span id="cb4-200"><a href="#cb4-200"></a><span class="in">            "time": {</span></span>
-<span id="cb4-201"><a href="#cb4-201"></a><span class="in">                "dt": "P1Y",</span></span>
-<span id="cb4-202"><a href="#cb4-202"></a><span class="in">                "t0": "2014",</span></span>
-<span id="cb4-203"><a href="#cb4-203"></a><span class="in">                "t1": "2018"</span></span>
-<span id="cb4-204"><a href="#cb4-204"></a><span class="in">            }</span></span>
-<span id="cb4-205"><a href="#cb4-205"></a><span class="in">            },</span></span>
-<span id="cb4-206"><a href="#cb4-206"></a><span class="in">            "warp_args": []</span></span>
-<span id="cb4-207"><a href="#cb4-207"></a><span class="in">        }</span></span>
-<span id="cb4-208"><a href="#cb4-208"></a><span class="in">        },</span></span>
-<span id="cb4-209"><a href="#cb4-209"></a><span class="in">        "keep_bands": false</span></span>
-<span id="cb4-210"><a href="#cb4-210"></a><span class="in">    },</span></span>
-<span id="cb4-211"><a href="#cb4-211"></a><span class="in">    "reducer_bands": [</span></span>
-<span id="cb4-212"><a href="#cb4-212"></a><span class="in">        [</span></span>
-<span id="cb4-213"><a href="#cb4-213"></a><span class="in">        "median",</span></span>
-<span id="cb4-214"><a href="#cb4-214"></a><span class="in">        "NDVI"</span></span>
-<span id="cb4-215"><a href="#cb4-215"></a><span class="in">        ]</span></span>
-<span id="cb4-216"><a href="#cb4-216"></a><span class="in">    ]</span></span>
-<span id="cb4-217"><a href="#cb4-217"></a><span class="in">    }</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-136"><a href="#cb4-136"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -1,0 +1,37 @@
+---
+toc: false
+---
+
+
+# Reference
+
+This page presents an auto-generated reference of most important package functions. 
+Functions are categorized into a few topics in the left menu. 
+
+## List of exported functions
+
+
+
+::: {layout-ncol=2}
+
+#####
+
+```{r, results='asis', echo = FALSE}
+files = sort(list.files("ref", pattern = ".Rmd"))
+i = seq(1, length(files), by = 2)
+for (f in files[i]) {
+  cat("-", paste0("[", tools::file_path_sans_ext(f), "](", "ref/", f, ")"), "\n")
+}
+```
+
+#####
+
+```{r, results='asis', echo = FALSE}
+i = seq(2, length(files), by = 2)
+for (f in files[i]) {
+  cat("-", paste0("[", tools::file_path_sans_ext(f), "](", "ref/", f, ")"), "\n")
+}
+```
+
+:::
+
