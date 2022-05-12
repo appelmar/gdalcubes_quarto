@@ -1,4 +1,3 @@
-# gdalcubes_quarto
-gdalcubes documentation rewrite using quarto.org
+# gdalcubes_website
 
-This repository is work in progress.
+Website for gdalcubes documentation written in Markdown and R using [quarto.org](https://quarto.org/).
