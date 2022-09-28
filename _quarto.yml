@@ -78,7 +78,9 @@ website:
           - source/concepts/execution.qmd
           - source/concepts/udfs.qmd
           #- source/concepts/streaming.qmd
-          #- source/concepts/distributed.qmd  
+          #- source/concepts/distributed.qmd
+      - text: "Configuration options"
+        href: "source/concepts/config.qmd"
     - id: tutorials
       title: "Tutorials"
       collapse-level: 1
