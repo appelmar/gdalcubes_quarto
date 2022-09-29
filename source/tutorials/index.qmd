@@ -16,7 +16,7 @@ The table below lists available tutorials and their core topics. Notice that fur
 |:---------------------------------------------------------------- |:------------- |:-------------------------- |
 | [Introduction to gdalcubes using local Landsat 8 imagery](Landsat8_getting_started/Landsat8_getting_started.Rmd)  | Beginner       | Collection formats<br>Local file access<br>User-defined functions | Local file access |
 | [Creating data cubes from local MODIS imagery](vignettes/gc01_MODIS.Rmd)  | Beginner        | Collection formats<br>Local file access |
-| [Data cubes from Sentinel-2 data in the cloud](vignetges/gc02_AWS_Sentinel2.Rmd)  | Advanced        | Cloud data access |
+| [Data cubes from Sentinel-2 data in the cloud](vignettes/gc02_AWS_Sentinel2.Rmd)  | Advanced        | Cloud data access |
 | [Extracting training data for machine learning models](vignettes/gc03_ML_training_data.Rmd) | Advanced         | Cloud data access<br>Machine learning |
 | [Land cover change detection with bfast](bfast/bfast.qmd)   | Advanced       | Time series analysis<br>User-defined functions<br>Cloud data access |
 
