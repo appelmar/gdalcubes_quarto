@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.3.313">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,16 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -41,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -128,168 +104,199 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../index.html">
-    <img src="../../source/gdalcubes_logo_mini.png" alt="">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../source/gdalcubes_logo_mini.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">gdalcubes</span>
-  </a>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../source/getstarted.html">Get started</a>
+    <a class="nav-link" href="../../source/getstarted.html" rel="" target="">
+ <span class="menu-text">Get started</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../source/introduction/why.html" aria-current="page">Overview</a>
+    <a class="nav-link active" href="../../source/introduction/why.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Overview</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../source/tutorials/index.html">Tutorials</a>
+    <a class="nav-link" href="../../source/tutorials/index.html" rel="" target="">
+ <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../source/reference/index.html">Reference</a>
+    <a class="nav-link" href="../../source/reference/index.html" rel="" target="">
+ <span class="menu-text">Reference</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false">Help</a>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-help" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Help</span>
+    </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-help">    
         <li>
-    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="dropdown-text">Source code</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues"><i class="bi bi-bug" role="img">
+    <a class="dropdown-item" href="https://github.com/appelmar/gdalcubes_R/issues" rel="" target=""><i class="bi bi-bug" role="img">
 </i> 
  <span class="dropdown-text">Report an issue</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../source/introduction/faq.html"><i class="bi bi-question-circle" role="img">
+    <a class="dropdown-item" href="../../source/introduction/faq.html" rel="" target=""><i class="bi bi-question-circle" role="img">
 </i> 
  <span class="dropdown-text">FAQ</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="../../source/about.html">About</a>
+    <a class="nav-link" href="../../source/about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/appelmar/gdalcubes_R"><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/appelmar/gdalcubes_R" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../source/concepts/image_collections.html">Basic concepts</a></li><li class="breadcrumb-item"><a href="../../source/concepts/execution.html">Execution and parallelization</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
     </div>
   </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Overview</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Overview</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/why.html" class="sidebar-item-text sidebar-link">Why gdalcubes?</a>
+  <a href="../../source/introduction/why.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why gdalcubes?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/components.html" class="sidebar-item-text sidebar-link">Components</a>
+  <a href="../../source/introduction/components.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Components</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/installation.html" class="sidebar-item-text sidebar-link">Installation</a>
+  <a href="../../source/introduction/installation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Installation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/faq.html" class="sidebar-item-text sidebar-link">FAQ</a>
+  <a href="../../source/introduction/faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FAQ</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/license.html" class="sidebar-item-text sidebar-link">License</a>
+  <a href="../../source/introduction/license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">License</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/introduction/credits.html" class="sidebar-item-text sidebar-link">Credits</a>
+  <a href="../../source/introduction/credits.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Credits</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Basic concepts</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Basic concepts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/image_collections.html" class="sidebar-item-text sidebar-link">Image collections</a>
+  <a href="../../source/concepts/image_collections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Image collections</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">Image collection formats</a>
+  <a href="../../source/concepts/collection_formats.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Image collection formats</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">Data cubes</a>
+  <a href="../../source/concepts/datacubes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data cubes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">Data cube operations</a>
+  <a href="../../source/concepts/operations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data cube operations</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/execution.html" class="sidebar-item-text sidebar-link active">Execution and parallelization</a>
+  <a href="../../source/concepts/execution.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Execution and parallelization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/udfs.html" class="sidebar-item-text sidebar-link">User-defined functions (UDFs)</a>
+  <a href="../../source/concepts/udfs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">User-defined functions (UDFs)</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../source/concepts/config.html" class="sidebar-item-text sidebar-link">Configuration options</a>
+  <a href="../../source/concepts/config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuration options</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -307,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><div class="quarto-title-block"><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 
 
 
@@ -444,9 +451,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -458,7 +479,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -537,31 +575,136 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -569,7 +712,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
-    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -649,66 +792,66 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-66"><a href="#cb5-66"></a>      ]</span>
 <span id="cb5-67"><a href="#cb5-67"></a>  ]</span>
 <span id="cb5-68"><a href="#cb5-68"></a>}</span>
-<span id="cb5-69"><a href="#cb5-69"></a><span class="vs">```</span></span>
+<span id="cb5-69"><a href="#cb5-69"></a><span class="in">```</span></span>
 <span id="cb5-70"><a href="#cb5-70"></a></span>
 <span id="cb5-71"><a href="#cb5-71"></a></span>
-<span id="cb5-72"><a href="#cb5-72"></a><span class="vs">## Multidimensional chunking {#chunking}</span></span>
+<span id="cb5-72"><a href="#cb5-72"></a><span class="fu">## Multidimensional chunking {#chunking}</span></span>
 <span id="cb5-73"><a href="#cb5-73"></a></span>
-<span id="cb5-74"><a href="#cb5-74"></a><span class="vs">To avoid running out of memory and to allow for parallel processing, gdalcubes divides data cubes into smaller chunks. A chunk is defined by its size in the temporal and spatial dimensions and contains all bands / variables. Internally, a chunk is simply stored as a four dimensional numeric (double-precision floating-point number) array. </span></span>
+<span id="cb5-74"><a href="#cb5-74"></a>To avoid running out of memory and to allow for parallel processing, gdalcubes divides data cubes into smaller chunks. A chunk is defined by its size in the temporal and spatial dimensions and contains all bands / variables. Internally, a chunk is simply stored as a four dimensional numeric (double-precision floating-point number) array. </span>
 <span id="cb5-75"><a href="#cb5-75"></a></span>
-<span id="cb5-76"><a href="#cb5-76"></a><span class="vs">_Empty chunks_ that do not contain any data in most cases do not consume any memory. Data cubes in many case contain quite a large number of empty chunks for example when there is simply no satellite image available in a collection that intersects with the spatiotemporal extent of the chunk. Most data cube operations propagate empty chunks, i.e., they check if a chunk of the input cube is empty and simply forward the chunk without doing expensive computations. As a result, the data model can be seen as a _semi-sparse_ array. One important consequence is that in many cases, using a higher temporal resolution (e.g. daily in case of Sentinel-2 data with 5 days revisit time) does not cause computations to take significantly longer. </span></span>
+<span id="cb5-76"><a href="#cb5-76"></a>_Empty chunks_ that do not contain any data in most cases do not consume any memory. Data cubes in many case contain quite a large number of empty chunks for example when there is simply no satellite image available in a collection that intersects with the spatiotemporal extent of the chunk. Most data cube operations propagate empty chunks, i.e., they check if a chunk of the input cube is empty and simply forward the chunk without doing expensive computations. As a result, the data model can be seen as a _semi-sparse_ array. One important consequence is that in many cases, using a higher temporal resolution (e.g. daily in case of Sentinel-2 data with 5 days revisit time) does not cause computations to take significantly longer. </span>
 <span id="cb5-77"><a href="#cb5-77"></a></span>
 <span id="cb5-78"><a href="#cb5-78"></a></span>
-<span id="cb5-79"><a href="#cb5-79"></a><span class="vs">While a data cube is being processed, gdalcubes simply iterates over its chunks. If the cube is the result from chained operations, the process graph is automatically traversed backwards and each chunk knows which chunks from the input cubes must be read or which images must be read. </span></span>
+<span id="cb5-79"><a href="#cb5-79"></a>While a data cube is being processed, gdalcubes simply iterates over its chunks. If the cube is the result from chained operations, the process graph is automatically traversed backwards and each chunk knows which chunks from the input cubes must be read or which images must be read. </span>
 <span id="cb5-80"><a href="#cb5-80"></a></span>
 <span id="cb5-81"><a href="#cb5-81"></a></span>
-<span id="cb5-82"><a href="#cb5-82"></a><span class="vs">### Defining custom chunk sizes in R</span></span>
+<span id="cb5-82"><a href="#cb5-82"></a><span class="fu">### Defining custom chunk sizes in R</span></span>
 <span id="cb5-83"><a href="#cb5-83"></a></span>
-<span id="cb5-84"><a href="#cb5-84"></a><span class="vs">A custom chunk size of data cubes can be set either as an additional argument `</span><span class="fu">chunking</span><span class="vs">` to the `</span><span class="fu">raster_cube</span>()<span class="vs">` function, or as a global package default variable using `</span><span class="fu">gdalcubes_options</span>()<span class="vs">`. Sizes are defined as an integer vector with 3 elements, representing the size in t, y, and x dimensions (in this order). For `</span><span class="fu">gdalcubes_options</span>()<span class="vs">`, it is also possible to define a function that calculates the chunk size based on the size of the input cube. </span></span>
+<span id="cb5-84"><a href="#cb5-84"></a>A custom chunk size of data cubes can be set either as an additional argument <span class="in">`chunking`</span> to the <span class="in">`raster_cube()`</span> function, or as a global package default variable using <span class="in">`gdalcubes_options()`</span>. Sizes are defined as an integer vector with 3 elements, representing the size in t, y, and x dimensions (in this order). For <span class="in">`gdalcubes_options()`</span>, it is also possible to define a function that calculates the chunk size based on the size of the input cube. </span>
 <span id="cb5-85"><a href="#cb5-85"></a></span>
-<span id="cb5-86"><a href="#cb5-86"></a><span class="vs">The following examples show how to define a custom chunk size either for a specific cube, or as a global package variable.</span></span>
+<span id="cb5-86"><a href="#cb5-86"></a>The following examples show how to define a custom chunk size either for a specific cube, or as a global package variable.</span>
 <span id="cb5-87"><a href="#cb5-87"></a></span>
-<span id="cb5-88"><a href="#cb5-88"></a><span class="vs">```</span>{<span class="op">.</span><span class="at">r</span> code<span class="op">-</span>line<span class="op">-</span>numbers<span class="op">=</span><span class="st">"false"</span>}</span>
-<span id="cb5-89"><a href="#cb5-89"></a>L8<span class="op">.</span><span class="at">col</span> <span class="op">=</span> <span class="fu">image_collection</span>(file<span class="op">.</span><span class="fu">path</span>(<span class="fu">tempdir</span>()<span class="op">,</span> <span class="st">"L8.db"</span>))</span>
-<span id="cb5-90"><a href="#cb5-90"></a>v <span class="op">=</span> <span class="fu">cube_view</span>(extent<span class="op">=</span>L8<span class="op">.</span><span class="at">col</span><span class="op">,</span> srs<span class="op">=</span><span class="st">"EPSG:32618"</span><span class="op">,</span> nx <span class="op">=</span> <span class="dv">497</span><span class="op">,</span> ny<span class="op">=</span><span class="dv">526</span><span class="op">,</span> dt<span class="op">=</span><span class="st">"P1M"</span>)</span>
-<span id="cb5-91"><a href="#cb5-91"></a><span class="fu">raster_cube</span>(L8<span class="op">.</span><span class="at">col</span><span class="op">,</span> v<span class="op">,</span> chunking <span class="op">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="op">,</span><span class="dv">512</span><span class="op">,</span><span class="dv">512</span>))</span>
-<span id="cb5-92"><a href="#cb5-92"></a><span class="vs">```</span></span>
+<span id="cb5-88"><a href="#cb5-88"></a><span class="in">```{.r code-line-numbers="false"}</span></span>
+<span id="cb5-89"><a href="#cb5-89"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb5-90"><a href="#cb5-90"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span>L8.col, <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb5-91"><a href="#cb5-91"></a><span class="fu">raster_cube</span>(L8.col, v, <span class="at">chunking =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">512</span>,<span class="dv">512</span>))</span>
+<span id="cb5-92"><a href="#cb5-92"></a><span class="in">```</span></span>
 <span id="cb5-93"><a href="#cb5-93"></a></span>
-<span id="cb5-94"><a href="#cb5-94"></a><span class="vs">```</span>{<span class="op">.</span><span class="at">r</span> code<span class="op">-</span>line<span class="op">-</span>numbers<span class="op">=</span><span class="st">"false"</span>}</span>
-<span id="cb5-95"><a href="#cb5-95"></a><span class="fu">gdalcubes_options</span>(default_chunksize <span class="op">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">512</span><span class="op">,</span> <span class="dv">512</span>))</span>
-<span id="cb5-96"><a href="#cb5-96"></a><span class="vs">```</span></span>
+<span id="cb5-94"><a href="#cb5-94"></a><span class="in">```{.r code-line-numbers="false"}</span></span>
+<span id="cb5-95"><a href="#cb5-95"></a><span class="fu">gdalcubes_options</span>(<span class="at">default_chunksize =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">512</span>, <span class="dv">512</span>))</span>
+<span id="cb5-96"><a href="#cb5-96"></a><span class="in">```</span></span>
 <span id="cb5-97"><a href="#cb5-97"></a></span>
 <span id="cb5-98"><a href="#cb5-98"></a></span>
 <span id="cb5-99"><a href="#cb5-99"></a></span>
 <span id="cb5-100"><a href="#cb5-100"></a></span>
-<span id="cb5-101"><a href="#cb5-101"></a><span class="vs">## Parallel execution</span></span>
+<span id="cb5-101"><a href="#cb5-101"></a><span class="fu">## Parallel execution</span></span>
 <span id="cb5-102"><a href="#cb5-102"></a></span>
-<span id="cb5-103"><a href="#cb5-103"></a><span class="vs">gdalcubes has built-in support for processing data cubes in parallel using multiple CPU cores.</span></span>
-<span id="cb5-104"><a href="#cb5-104"></a><span class="vs">Users can define the maximum number of _worker processes_ as a global package variable (see below). Chunks of the data cube will then be distributed among the worker processes. </span></span>
+<span id="cb5-103"><a href="#cb5-103"></a>gdalcubes has built-in support for processing data cubes in parallel using multiple CPU cores.</span>
+<span id="cb5-104"><a href="#cb5-104"></a>Users can define the maximum number of _worker processes_ as a global package variable (see below). Chunks of the data cube will then be distributed among the worker processes. </span>
 <span id="cb5-105"><a href="#cb5-105"></a></span>
-<span id="cb5-106"><a href="#cb5-106"></a><span class="vs">```</span>{<span class="op">.</span><span class="at">r</span> code<span class="op">-</span>line<span class="op">-</span>numbers<span class="op">=</span><span class="st">"false"</span>}</span>
-<span id="cb5-107"><a href="#cb5-107"></a><span class="fu">gdalcubes_options</span>(parallel <span class="op">=</span> <span class="dv">8</span>)</span>
-<span id="cb5-108"><a href="#cb5-108"></a><span class="vs">```</span></span>
+<span id="cb5-106"><a href="#cb5-106"></a><span class="in">```{.r code-line-numbers="false"}</span></span>
+<span id="cb5-107"><a href="#cb5-107"></a><span class="fu">gdalcubes_options</span>(<span class="at">parallel =</span> <span class="dv">8</span>)</span>
+<span id="cb5-108"><a href="#cb5-108"></a><span class="in">```</span></span>
 <span id="cb5-109"><a href="#cb5-109"></a></span>
 <span id="cb5-110"><a href="#cb5-110"></a></span>
-<span id="cb5-111"><a href="#cb5-111"></a><span class="vs">## Practical considerations</span></span>
+<span id="cb5-111"><a href="#cb5-111"></a><span class="fu">## Practical considerations</span></span>
 <span id="cb5-112"><a href="#cb5-112"></a></span>
-<span id="cb5-113"><a href="#cb5-113"></a><span class="vs">The size of data cube chunks has a strong effect on computation times and memory consumption.</span></span>
-<span id="cb5-114"><a href="#cb5-114"></a><span class="vs">There is no golden rule to find an optimal chunk size, because it depends on</span></span>
+<span id="cb5-113"><a href="#cb5-113"></a>The size of data cube chunks has a strong effect on computation times and memory consumption.</span>
+<span id="cb5-114"><a href="#cb5-114"></a>There is no golden rule to find an optimal chunk size, because it depends on</span>
 <span id="cb5-115"><a href="#cb5-115"></a></span>
-<span id="cb5-116"><a href="#cb5-116"></a><span class="vs">- available hardware,</span></span>
-<span id="cb5-117"><a href="#cb5-117"></a><span class="vs">- input imagery (data format, tiling), and</span></span>
-<span id="cb5-118"><a href="#cb5-118"></a><span class="vs">- particular analysis (how the data is accessed).</span></span>
+<span id="cb5-116"><a href="#cb5-116"></a><span class="ss">- </span>available hardware,</span>
+<span id="cb5-117"><a href="#cb5-117"></a><span class="ss">- </span>input imagery (data format, tiling), and</span>
+<span id="cb5-118"><a href="#cb5-118"></a><span class="ss">- </span>particular analysis (how the data is accessed).</span>
 <span id="cb5-119"><a href="#cb5-119"></a></span>
-<span id="cb5-120"><a href="#cb5-120"></a><span class="vs">By default, gdalcubes tries to find an appropriate size considering the size of the cube and the number of worker processes. However, below are some practical considerations that might be helpful to find a better chunk size:</span></span>
+<span id="cb5-120"><a href="#cb5-120"></a>By default, gdalcubes tries to find an appropriate size considering the size of the cube and the number of worker processes. However, below are some practical considerations that might be helpful to find a better chunk size:</span>
 <span id="cb5-121"><a href="#cb5-121"></a></span>
-<span id="cb5-122"><a href="#cb5-122"></a><span class="vs">1. The larger the chunks and the more parallel processes are being used, the more memory is consumed. If you run into out-of-memory issues / swapping, try decreasing one or both.</span></span>
+<span id="cb5-122"><a href="#cb5-122"></a><span class="ss">1. </span>The larger the chunks and the more parallel processes are being used, the more memory is consumed. If you run into out-of-memory issues / swapping, try decreasing one or both.</span>
 <span id="cb5-123"><a href="#cb5-123"></a></span>
-<span id="cb5-124"><a href="#cb5-124"></a><span class="vs">2. If you find that the number of true processes used is lower than set, the data cube might have less chunks than worker processes. You can try to decrease the chunk size to improve parallelization.</span></span>
+<span id="cb5-124"><a href="#cb5-124"></a><span class="ss">2. </span>If you find that the number of true processes used is lower than set, the data cube might have less chunks than worker processes. You can try to decrease the chunk size to improve parallelization.</span>
 <span id="cb5-125"><a href="#cb5-125"></a></span>
-<span id="cb5-126"><a href="#cb5-126"></a><span class="vs">3. If the computations are I/O-bound (most time is required for disk reads / writes or downloads), try to find out the block size of the image data (e.g., with the `</span><span class="fu">gdalinfo</span><span class="vs">` utility) and use this as a chunk size. You also might want to try out different [GDAL configuration options](#gdaloptions) to define how downloads and/or memory blocks are being cached. </span></span>
+<span id="cb5-126"><a href="#cb5-126"></a><span class="ss">3. </span>If the computations are I/O-bound (most time is required for disk reads / writes or downloads), try to find out the block size of the image data (e.g., with the <span class="in">`gdalinfo`</span> utility) and use this as a chunk size. You also might want to try out different <span class="co">[</span><span class="ot">GDAL configuration options</span><span class="co">](#gdaloptions)</span> to define how downloads and/or memory blocks are being cached. </span>
 <span id="cb5-127"><a href="#cb5-127"></a></span>
-<span id="cb5-128"><a href="#cb5-128"></a><span class="vs">4. There are only very few cases where chunks with temporal size greater than one improve computation times, so there is likely no need to change this. </span></span>
+<span id="cb5-128"><a href="#cb5-128"></a><span class="ss">4. </span>There are only very few cases where chunks with temporal size greater than one improve computation times, so there is likely no need to change this. </span>
 <span id="cb5-129"><a href="#cb5-129"></a></span>
 <span id="cb5-130"><a href="#cb5-130"></a></span>
 <span id="cb5-131"><a href="#cb5-131"></a></span>
@@ -719,13 +862,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-      <div class="nav-footer-center">
-        <ul class="footer-items list-unstyled">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
     <li class="nav-item">
- © 2022 Marius Appel
+ © 2023 Marius Appel
   </li>  
 </ul>
-      </div>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
   </div>
 </footer>
 

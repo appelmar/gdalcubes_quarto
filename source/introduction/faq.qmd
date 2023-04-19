@@ -44,7 +44,7 @@ The [`stars` package](https://cran.r-project.org/package=stars) [@stars] is very
 
 ## Where can I report bugs, ask questions, and request features?
 
-Please use the [GitHub respository](https://github.com/appelmar/gdalcubes_R) and post issues if you have any questions, found bugs or would like to propose some new features.
+Please use the [GitHub respository](https://github.com/appelmar/gdalcubes) and post issues if you have any questions, found bugs or would like to propose some new features.
 
 
 
@@ -70,3 +70,6 @@ Please refer to our paper at [https://doi.org/10.3390/data4030092](https://doi.o
 
 
 
+## Where is the C++ library repository?
+
+Since gdalcubes version 0.6.4, the C++ library has been completely integrated into the R package source tree (under `src/gdalcubes`). There is no separate repository anymore and the URL https://github.com/appelmar/gdalcubes now points to the R package repository (including the C++ library).  

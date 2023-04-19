@@ -24,9 +24,12 @@ stac_image_collection(
   out_file = tempfile(fileext = ".sqlite"),
   asset_names = NULL,
   asset_regex = NULL,
-  url_fun = function(x) {     paste0("/vsicurl/", x) },
+  url_fun = .default_url_fun,
   property_filter = NULL,
-  skip_image_metadata = FALSE
+  skip_image_metadata = FALSE,
+  srs = NULL,
+  srs_overwrite = FALSE,
+  duration = c("center", "start")
 )
 
 ```
@@ -43,6 +46,9 @@ stac_image_collection(
 | url_fun | optional function to modify URLs of assets, e.g, to add /vsicurl/ to URLS (the default) |
 | property_filter | optional function to filter STAC items (images) by their properties; see Details |
 | skip_image_metadata | logical, if TRUE per-image metadata (STAC item properties) will not be added to the image collection |
+| srs | character spatial reference system of images used either for images without corresponding STAC property ony or for all images |
+| srs_overwrite | logical, if FALSE, use srs only for images with unknown srs (missing STAC metadata) |
+| duration | character, if images represent time intervals, use either the"start" or "center" of time intervals |
 
 
 ## Details
@@ -55,7 +61,5 @@ where an image will be ignored if the function returns FALSE.
 ## Note
 
 Currently, bbox results are expected to be WGS84 coordinates, even if bbox-crs is given in the STAC response.
-
-This function is experimental.
 
 

@@ -1,5 +1,5 @@
 ---
-toc: false
+toc: true
 ---
 
 
@@ -49,13 +49,26 @@ brew install curl
 brew install sqlite
 ```   
     
+### Docker with RStudio Server
+
+The `Dockerfile` at the root of the project presents an image that runs an RStudio Server instance with gdalcubes. You can build and run it in a container e.g. with:
+
+```{.bash code-line-numbers="false"}
+docker build -t "appelmar/gdalcubes_demo" .
+docker run -d --restart unless-stopped -p 8787:8787 -v $(pwd):/home/rstudio -e PASSWORD=PLEASECHANGE appelmar/gdalcubes_demo
+```
+
     
 ## C++ library and tools
 
 The C++ library and relatated tools can be compiled from sources via [CMake](https://cmake.org). CMake automatically checks for mandatory and optional dependencies and adapts the build configuration. The following commands install gdalcubes from sources.
 
+::: {.callout-important}
+Starting with gdalcubes version 0.6.4, the C++ library has been completely integrated into the R package source tree (under `src/gdalcubes`). There is no separate repository anymore and the URL https://github.com/appelmar/gdalcubes now points to the R package repository (including the C++ library).  
+:::
+
 ```{.bash code-line-numbers="false"}
-git clone https://github.com/appelmar/gdalcubes && cd gdalcubes
+git clone https://github.com/appelmar/gdalcubes && cd gdalcubes/src/gdalcubes
 mkdir -p build 
 cd build 
 cmake -DCMAKE_BUILD_TYPE=Release ../ 
@@ -79,7 +92,9 @@ Please notice that we have not yet tried to build with Microsoft Visual Studio. 
 
 ### Docker
 
-The `Dockerfile` at the root of the project is built on a minimal Ubuntu installation, including installation of all dependencies and compiles gdalcubes from sources automatically.
+The C++ library under `src/gdalcubes` contains a ready-to-use Docker image that is built on top of a minimal Ubuntu installation. The image includes installation of all dependencies and compiles gdalcubes from sources automatically.
+
+The following commands can be used to build the image and run containers.
 
 ```{.bash code-line-numbers="false"}
 git clone https://github.com/appelmar/gdalcubes && cd gdalcubes 

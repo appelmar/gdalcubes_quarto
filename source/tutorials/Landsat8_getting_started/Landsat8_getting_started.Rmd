@@ -1,7 +1,7 @@
 ---
 title: "Introduction to gdalcubes using local Landsat 8 imagery"
 author: "Marius Appel"
-link-citations: yes
+link-citations: true
 ---
 
 ```{r setup, include=FALSE}

@@ -10,6 +10,10 @@ Among others, the library provides data structures for *image collections*, *ras
 
 The R package targets at data scientists and provides an easy to use interface to the gdalcubes library. It is, however, mostly a wrapper, i.e. does not add much functionality. The package includes the sources of the core library and does not link to the separately built library.
 
+::: {.callout-important}
+Starting with gdalcubes version 0.6.4, the C++ library has been completely integrated into the R package source tree (under `src/gdalcubes`). There is no separate repository anymore and the URL https://github.com/appelmar/gdalcubes now points to the R package repository (including the C++ library).  
+:::
+
 An executable command line interface links to the gdalcubes library and provides functionality to create and modify image collections, and to execute chains of data cube operations. It is mainly used for debugging and profiling.
 
 gdalcubes includes an **experimental** server application, exposing parts of the library functions as a REST-like web service. The web service is mainly used for distributed processing where server instances participate as worker nodes.

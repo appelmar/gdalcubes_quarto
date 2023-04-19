@@ -101,7 +101,6 @@ As expected, the result contains multiple rows per polygon (because polygons cov
 
 ```{r}
 x = extract_geom(ms_cube, training_sites, FUN = median)
-#x = extract_geom(ms_cube, training_sites)#), FUN = median)
 x
 ```
 
@@ -248,7 +247,7 @@ items = s |>
   stac_search(collections = "sentinel-s2-l2a-cogs",
               bbox = c(bbox["xmin"],bbox["ymin"],
                        bbox["xmax"],bbox["ymax"]), 
-              datetime = "2018-04-01/2018-12-31") |>
+              datetime = "2018-05-01/2018-09-30") |>
   post_request() |> items_fetch(progress = FALSE)
 ```
 

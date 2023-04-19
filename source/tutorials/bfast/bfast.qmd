@@ -141,7 +141,7 @@ To visualize the change detection results, we load the resulting netCDF file, co
 library(stars)
 ncdf_cube("result.nc") |>
   st_as_stars() -> x
-tm_shape(x["NETCDF:\"result.nc\":change_date"]) + tm_raster()
+tm_shape(x["change_date"]) + tm_raster()
 ```
 
 The result certainly needs some postprocessing to understand types of changes and to identify false positives. The larger region in the west of the study area however clearly shows some deforestation due to the construction of Tesla's Gigafactory Berlin-Brandenburg.
