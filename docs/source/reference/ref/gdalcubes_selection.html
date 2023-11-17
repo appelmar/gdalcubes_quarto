@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.313">
+<meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>gdalcubes – gdalcubes_selection</title>
 <style>
@@ -85,7 +85,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script><link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -606,10 +607,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3"></a>[<span class="fu">.cube</span>(x, <span class="at">ib =</span> <span class="cn">TRUE</span>, <span class="at">it =</span> <span class="cn">TRUE</span>, <span class="at">iy =</span> <span class="cn">TRUE</span>, <span class="at">ix =</span> <span class="cn">TRUE</span>, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
 <table class="table">
-<colgroup>
-<col style="width: 27%">
-<col style="width: 72%">
-</colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Argument</th>
 <th style="text-align: left;">Description</th>
@@ -625,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">ib</td>
-<td style="text-align: left;">first selector (optional), object of type character, list, Date, POSIXt, numeric, [sf::st_bbox](<a href="https://r-spatial.github.io/sf/reference/st_bbox.html">sf::st_bbox</a>), or [sf::st_sfc](<a href="https://r-spatial.github.io/sf/reference/sfc.html">sf::st_sfc</a>), see Details and examples</td>
+<td style="text-align: left;">first selector (optional), object of type character, list, Date, POSIXt, numeric, <a href="">sf::st_bbox</a>, or <a href="">sf::st_sfc</a>, see Details and examples</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">it</td>
@@ -669,15 +666,16 @@ bounding box, spatial points, and band names. Depending on the arguments, it sup
 <span id="cb2-13"><a href="#cb2-13"></a>L8.red <span class="ot">=</span> L8.cube<span class="sc">$</span>B04</span>
 <span id="cb2-14"><a href="#cb2-14"></a></span>
 <span id="cb2-15"><a href="#cb2-15"></a></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">plot</span>(L8.red)</span>
-<span id="cb2-17"><a href="#cb2-17"></a></span>
-<span id="cb2-18"><a href="#cb2-18"></a></span>
-<span id="cb2-19"><a href="#cb2-19"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>,</span>
-<span id="cb2-20"><a href="#cb2-20"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01-01"</span>, <span class="at">t1=</span><span class="st">"2018-12-31"</span>),</span>
-<span id="cb2-21"><a href="#cb2-21"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1D"</span>, <span class="at">aggregation =</span> <span class="st">"median"</span>)</span>
-<span id="cb2-22"><a href="#cb2-22"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">mask=</span><span class="fu">image_mask</span>(<span class="st">"BQA"</span>, <span class="at">bits=</span><span class="dv">4</span>, <span class="at">values=</span><span class="dv">16</span>))</span>
-<span id="cb2-23"><a href="#cb2-23"></a></span>
-<span id="cb2-24"><a href="#cb2-24"></a>L8.cube[<span class="fu">c</span>(<span class="st">"B05"</span>,<span class="st">"B04"</span>)] <span class="co"># select bands</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="fu">plot</span>(L8.red)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="gdalcubes_selection_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>,</span>
+<span id="cb3-2"><a href="#cb3-2"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01-01"</span>, <span class="at">t1=</span><span class="st">"2018-12-31"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1D"</span>, <span class="at">aggregation =</span> <span class="st">"median"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">mask=</span><span class="fu">image_mask</span>(<span class="st">"BQA"</span>, <span class="at">bits=</span><span class="dv">4</span>, <span class="at">values=</span><span class="dv">16</span>))</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>L8.cube[<span class="fu">c</span>(<span class="st">"B05"</span>,<span class="st">"B04"</span>)] <span class="co"># select bands</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -692,7 +690,7 @@ Bands:
 1  B05      0     1    NaN     
 2  B04      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>L8.cube[<span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">"2018-01-10"</span>, <span class="st">"2018-01-20"</span>))] <span class="co"># crop by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>L8.cube[<span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">"2018-01-10"</span>, <span class="st">"2018-01-20"</span>))] <span class="co"># crop by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -717,7 +715,7 @@ Bands:
 11  B11      0     1    NaN     
 12  BQA      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>L8.cube[<span class="fu">as.Date</span>(<span class="st">"2018-01-10"</span>)] <span class="co"># slice by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>L8.cube[<span class="fu">as.Date</span>(<span class="st">"2018-01-10"</span>)] <span class="co"># slice by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -742,7 +740,7 @@ Bands:
 11  B11      0     1    NaN     
 12  BQA      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>L8.cube[<span class="st">"B05"</span>, <span class="st">"2018-01-10"</span>] <span class="co"># select bands and slice by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>L8.cube[<span class="st">"B05"</span>, <span class="st">"2018-01-10"</span>] <span class="co"># select bands and slice by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -756,7 +754,7 @@ Bands:
   name offset scale nodata unit
 1  B05      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>L8.cube[<span class="st">"B05"</span>, <span class="fu">c</span>(<span class="st">"2018-01-10"</span>,<span class="st">"2018-01-17"</span>)] <span class="co"># select bands and crop by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>L8.cube[<span class="st">"B05"</span>, <span class="fu">c</span>(<span class="st">"2018-01-10"</span>,<span class="st">"2018-01-17"</span>)] <span class="co"># select bands and crop by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -770,7 +768,7 @@ Bands:
   name offset scale nodata unit
 1  B05      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>L8.cube[, <span class="fu">c</span>(<span class="st">"2018-01-10"</span>,<span class="st">"2018-01-17"</span>)] <span class="co"># crop by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>L8.cube[, <span class="fu">c</span>(<span class="st">"2018-01-10"</span>,<span class="st">"2018-01-17"</span>)] <span class="co"># crop by time</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -795,8 +793,8 @@ Bands:
 11  B11      0     1    NaN     
 12  BQA      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># crop by space (coordinates and integer indexes respectively)</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>L8.cube[<span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span> <span class="sc">+</span> <span class="fl">1e5</span>, <span class="at">right=</span><span class="fl">766552.4</span> <span class="sc">-</span> <span class="fl">1e5</span>, <span class="at">bottom=</span><span class="dv">4345299</span> <span class="sc">+</span> <span class="fl">1e5</span>, <span class="at">top=</span><span class="dv">4744931</span> <span class="sc">-</span> <span class="fl">1e5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># crop by space (coordinates and integer indexes respectively)</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>L8.cube[<span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span> <span class="sc">+</span> <span class="fl">1e5</span>, <span class="at">right=</span><span class="fl">766552.4</span> <span class="sc">-</span> <span class="fl">1e5</span>, <span class="at">bottom=</span><span class="dv">4345299</span> <span class="sc">+</span> <span class="fl">1e5</span>, <span class="at">top=</span><span class="dv">4744931</span> <span class="sc">-</span> <span class="fl">1e5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -821,7 +819,7 @@ Bands:
 11  B11      0     1    NaN     
 12  BQA      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>L8.cube[,,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">100</span>)] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>L8.cube[,,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">100</span>)] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -846,7 +844,7 @@ Bands:
 11  B11      0     1    NaN     
 12  BQA      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>L8.cube[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),,] <span class="co"># crop by time (integer indexes)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>L8.cube[,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),,] <span class="co"># crop by time (integer indexes)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -871,42 +869,15 @@ Bands:
 11  B11      0     1    NaN     
 12  BQA      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co"># subset by spatial point or bounding box</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"sf"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb20-3"><a href="#cb20-3"></a>  s <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_sfc</span>(sf<span class="sc">::</span><span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">500000</span>, <span class="dv">4500000</span>)), <span class="at">crs =</span> <span class="st">"EPSG:32618"</span>)</span>
-<span id="cb20-4"><a href="#cb20-4"></a>  L8.cube[s]</span>
-<span id="cb20-5"><a href="#cb20-5"></a></span>
-<span id="cb20-6"><a href="#cb20-6"></a>  bbox <span class="ot">=</span>  sf<span class="sc">::</span><span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="fl">388941.2</span> <span class="sc">+</span> <span class="fl">1e5</span>, <span class="at">xmax =</span> <span class="fl">766552.4</span> <span class="sc">-</span> <span class="fl">1e5</span>,</span>
-<span id="cb20-7"><a href="#cb20-7"></a>                   <span class="at">ymax =</span> <span class="dv">4744931</span> <span class="sc">-</span> <span class="fl">1e5</span>, <span class="at">ymin =</span> <span class="dv">4345299</span> <span class="sc">+</span> <span class="fl">1e5</span>), <span class="at">crs =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">32618</span>))</span>
-<span id="cb20-8"><a href="#cb20-8"></a>  L8.cube[bbox]</span>
-<span id="cb20-9"><a href="#cb20-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="gdalcubes_selection_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>A data cube proxy object
-
-Dimensions:
-               low             high count       pixel_size chunk_size
-t       2018-01-01       2018-12-31   365              P1D          1
-y   4445586.878327   4644643.121673   262 759.756653992395        384
-x 489232.303420523 666261.296579477   233 759.781086519115        384
-
-Bands:
-   name offset scale nodata unit
-1   B01      0     1    NaN     
-2   B02      0     1    NaN     
-3   B03      0     1    NaN     
-4   B04      0     1    NaN     
-5   B05      0     1    NaN     
-6   B06      0     1    NaN     
-7   B07      0     1    NaN     
-8   B08      0     1    NaN     
-9   B09      0     1    NaN     
-10  B10      0     1    NaN     
-11  B11      0     1    NaN     
-12  BQA      0     1    NaN     </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co"># subset by spatial point or bounding box</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"sf"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb21-3"><a href="#cb21-3"></a>  s <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_sfc</span>(sf<span class="sc">::</span><span class="fu">st_point</span>(<span class="fu">c</span>(<span class="dv">500000</span>, <span class="dv">4500000</span>)), <span class="at">crs =</span> <span class="st">"EPSG:32618"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>  L8.cube[s]</span>
+<span id="cb21-5"><a href="#cb21-5"></a></span>
+<span id="cb21-6"><a href="#cb21-6"></a>  bbox <span class="ot">=</span>  sf<span class="sc">::</span><span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="fl">388941.2</span> <span class="sc">+</span> <span class="fl">1e5</span>, <span class="at">xmax =</span> <span class="fl">766552.4</span> <span class="sc">-</span> <span class="fl">1e5</span>,</span>
+<span id="cb21-7"><a href="#cb21-7"></a>                   <span class="at">ymax =</span> <span class="dv">4744931</span> <span class="sc">-</span> <span class="fl">1e5</span>, <span class="at">ymin =</span> <span class="dv">4345299</span> <span class="sc">+</span> <span class="fl">1e5</span>), <span class="at">crs =</span> sf<span class="sc">::</span><span class="fu">st_crs</span>(<span class="dv">32618</span>))</span>
+<span id="cb21-8"><a href="#cb21-8"></a>  L8.cube[bbox]</span>
+<span id="cb21-9"><a href="#cb21-9"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -1244,7 +1215,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-30"><a href="#cb22-30"></a>|:------------|:----------------------------------|</span>
 <span id="cb22-31"><a href="#cb22-31"></a>| x | source data cube |</span>
 <span id="cb22-32"><a href="#cb22-32"></a>| name | character; name of selected band |</span>
-<span id="cb22-33"><a href="#cb22-33"></a>| ib | first selector (optional), object of type character, list, Date, POSIXt, numeric, <span class="co">[</span><span class="ot">sf::st_bbox</span><span class="co">](&lt;a href='https://r-spatial.github.io/sf/reference/st_bbox.html'&gt;sf::st_bbox&lt;/a&gt;)</span>, or <span class="co">[</span><span class="ot">sf::st_sfc</span><span class="co">](&lt;a href='https://r-spatial.github.io/sf/reference/sfc.html'&gt;sf::st_sfc&lt;/a&gt;)</span>, see Details and examples |</span>
+<span id="cb22-33"><a href="#cb22-33"></a>| ib | first selector (optional), object of type character, list, Date, POSIXt, numeric, <span class="co">[</span><span class="ot">sf::st_bbox</span><span class="co">]()</span>, or <span class="co">[</span><span class="ot">sf::st_sfc</span><span class="co">]()</span>, see Details and examples |</span>
 <span id="cb22-34"><a href="#cb22-34"></a>| it | second selector (optional), see <span class="in">`ib`</span> |</span>
 <span id="cb22-35"><a href="#cb22-35"></a>| iy | third selector (optional), see <span class="in">`ib`</span> |</span>
 <span id="cb22-36"><a href="#cb22-36"></a>| ix | fourth selector (optional), see <span class="in">`ib`</span> |</span>

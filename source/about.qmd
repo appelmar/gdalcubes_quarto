@@ -22,13 +22,13 @@ The gdalcubes project is maintained and developed by Marius Appel.
 
 ## Contact
 
-| Institute for Geoinformatics
-| University of Muenster
-| Heisenbergstraße 2
-| D-48149 Münster
+| Bochum University of Applied Sciences
+| Department of Geodesy
+| Am Hochschulcampus 1
+| 44801 Bochum 
 | Germany
 | 
-| Mail: marius.appel@uni-muenster.de
-| Phone: +49 251 83 33082
+| Mail: marius.appel@hs-bochum.de
+| Phone: +49 (0)234 32 10520
 | 
 | ORCID ID: [0000-0001-5281-3896](http://orcid.org/0000-0001-5281-3896)

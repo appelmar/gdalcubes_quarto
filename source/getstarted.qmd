@@ -14,10 +14,13 @@ install.packages("gdalcubes")
 
 ```{r, include = FALSE}
 need_download = !dir.exists("L8_Amazon")
+if (need_download) {
+  options(timeout = 300)
+}
 ```
 
 ```{r download, eval = need_download}
-download.file("https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download", destfile = "L8_Amazon.zip")
+download.file("https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download", destfile = "L8_Amazon.zip", mode="wb")
 unzip("L8_Amazon.zip", exdir = "L8_Amazon")
 ```
 
