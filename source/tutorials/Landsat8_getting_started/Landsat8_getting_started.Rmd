@@ -30,7 +30,7 @@ All the material of this tutorial is online at [GitHub](https://github.com/appel
 # Sample Data
 
 Most parts of the tutorial will use a collection of 180 Landsat 8 surface reflectance images, covering a small part of the Brazilian Amazon forest. 
-The live demonstration will use the full resolution dataset (62 gigabytes compressed; > 200 gigabytes unzipped; available [here](https://uni-muenster.sciebo.de/s/SmiqWcCCeFSwfuY/download)), whereas we will use a downsampled version of the same dataset with coarse spatial resolution (300 meter pixel size; 740 megabytes compressed; 2 gigabytes unzipped) in the practical part (available [here](https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download)). 
+The live demonstration will use the full resolution dataset (62 gigabytes compressed; > 200 gigabytes unzipped; available [here](https://hs-bochum.sciebo.de/s/OAcZqaLA28VyrH8/download)), whereas we will use a downsampled version of the same dataset with coarse spatial resolution (300 meter pixel size; 740 megabytes compressed; 2 gigabytes unzipped) in the practical part (available [here](https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download)). 
 
 After downloading whichever version of the dataset, make sure to unzip it. The following R code will download the low resolution version to your current working directory and unzip it.
 
@@ -41,7 +41,7 @@ options(timeout = max(1800, getOption("timeout")))
 ```
 
 ```{r download, eval = do_download, results='hide'}
-download.file("https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download", 
+download.file("https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download", 
               destfile = "L8_Amazon.zip", mode="wb")
 unzip("L8_Amazon.zip", exdir = "L8_Amazon")
 ```
@@ -341,7 +341,7 @@ The `chunking` argument defines the size of data cube chunks as a vector with th
 
 1. Start R. If not yet done, install the `gdalcubes` package from CRAN, and load it.
 
-2. If not yet done, download the sample dataset from https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download and unzip.
+2. If not yet done, download the sample dataset from https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download and unzip.
 
 3. Create an image collection from all GeoTIFF files in the unzipped directory.
 

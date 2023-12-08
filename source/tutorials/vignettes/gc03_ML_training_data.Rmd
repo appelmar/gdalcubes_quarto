@@ -45,11 +45,11 @@ Compared to the `extract()` function from the [`raster`](https://cran.r-project.
 
 ## 1. Extracting pixel values and summary statistics from spatial polygons
 
-As a small example how to prepare training data for simple classification tasks, we use a labeled land cover polygon dataset covering the city of Muenster, Germany, which can be downloaded from https://uni-muenster.sciebo.de/s/fgyaomOJxSd93H8/download. This GeoPackage dataset contains spatial polygons with a column _class_ representing land cover. We can directly download and plot the features using the [`sf` package](https://cran.r-project.org/package=sf):
+As a small example how to prepare training data for simple classification tasks, we use a labeled land cover polygon dataset covering the city of Muenster, Germany, which can be downloaded from https://hs-bochum.sciebo.de/s/3qna9TDZIdgFRhr/download. This GeoPackage dataset contains spatial polygons with a column _class_ representing land cover. We can directly download and plot the features using the [`sf` package](https://cran.r-project.org/package=sf):
 
 ```{r training_sites, fig.align='center'}
 library(sf)
-training_sites = read_sf("https://uni-muenster.sciebo.de/s/fgyaomOJxSd93H8/download")
+training_sites = read_sf("https://hs-bochum.sciebo.de/s/3qna9TDZIdgFRhr/download")
 plot(training_sites, axes = TRUE, key.pos = 1)
 ```
 This is a rather small toy dataset but since the features are polygons, they already cover quite a few 10m pixels from Sentinel-2 imagery. As a first step to extract Sentinel-2 values within the polygons, we create a (virtual) data cube from Sentinel-2 data on Amazon Web Services (see previous vignette). Since the data is openly available, we can still work locally and do not need to run a machine on AWS (though this would be much faster for larger polygon datasets).
@@ -123,7 +123,7 @@ We start with downloading the MODIS data, if needed:
 dest_dir = tempdir()
 if (!dir.exists(file.path(dest_dir,"MOD11A2"))) {
   options(timeout = max(1800, getOption("timeout")))
-  download.file("https://uni-muenster.sciebo.de/s/eP9E6OIkQbXrmsY/download", destfile=file.path(dest_dir, "MOD11A2.zip"),mode = "wb")
+  download.file("https://hs-bochum.sciebo.de/s/8mKf1Ye1z9SRUr8/download", destfile=file.path(dest_dir, "MOD11A2.zip"),mode = "wb")
   unzip(file.path(dest_dir, "MOD11A2.zip"), exdir = file.path(dest_dir,"MOD11A2"))
   unlink(file.path(dest_dir, "MOD11A2.zip"))
 }

@@ -15,7 +15,6 @@ about:
     - icon: globe
       text: Personal Website
       href: http://appel.staff.ifgi.de
-    # (additional links excluded for brevity)
 ---
 
 The gdalcubes project is maintained and developed by Marius Appel.

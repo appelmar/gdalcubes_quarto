@@ -20,7 +20,7 @@ if (need_download) {
 ```
 
 ```{r download, eval = need_download}
-download.file("https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download", destfile = "L8_Amazon.zip", mode="wb")
+download.file("https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download", destfile = "L8_Amazon.zip", mode="wb")
 unzip("L8_Amazon.zip", exdir = "L8_Amazon")
 ```
 

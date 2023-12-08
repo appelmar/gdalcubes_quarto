@@ -354,10 +354,10 @@ div.csl-indent {
 </ul>
 <p>All the material of this tutorial is online at <a href="https://github.com/appelmar/opengeohub_summerschool2019">GitHub</a>, including R markdown sources, rendered HTML output, and solutions to the practical exercises. However, the repository does <strong>not</strong> contain the data used in the tutorial due to its size.</p>
 <hr></section><section id="sample-data" class="level1"><h1>Sample Data</h1>
-<p>Most parts of the tutorial will use a collection of 180 Landsat 8 surface reflectance images, covering a small part of the Brazilian Amazon forest. The live demonstration will use the full resolution dataset (62 gigabytes compressed; &gt; 200 gigabytes unzipped; available <a href="https://uni-muenster.sciebo.de/s/SmiqWcCCeFSwfuY/download">here</a>), whereas we will use a downsampled version of the same dataset with coarse spatial resolution (300 meter pixel size; 740 megabytes compressed; 2 gigabytes unzipped) in the practical part (available <a href="https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download">here</a>).</p>
+<p>Most parts of the tutorial will use a collection of 180 Landsat 8 surface reflectance images, covering a small part of the Brazilian Amazon forest. The live demonstration will use the full resolution dataset (62 gigabytes compressed; &gt; 200 gigabytes unzipped; available <a href="https://hs-bochum.sciebo.de/s/OAcZqaLA28VyrH8/download">here</a>), whereas we will use a downsampled version of the same dataset with coarse spatial resolution (300 meter pixel size; 740 megabytes compressed; 2 gigabytes unzipped) in the practical part (available <a href="https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download">here</a>).</p>
 <p>After downloading whichever version of the dataset, make sure to unzip it. The following R code will download the low resolution version to your current working directory and unzip it.</p>
-<div class="cell" data-hash="Landsat8_getting_started_cache/html/download_775518f649d6d835ec3583e5c8347e8f">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">download.file</span>(<span class="st">"https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download"</span>, </span>
+<div class="cell" data-hash="Landsat8_getting_started_cache/html/download_fdf836e13e55be2cd23e76734b3b851c">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">download.file</span>(<span class="st">"https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download"</span>, </span>
 <span id="cb1-2"><a href="#cb1-2"></a>              <span class="at">destfile =</span> <span class="st">"L8_Amazon.zip"</span>, <span class="at">mode=</span><span class="st">"wb"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="fu">unzip</span>(<span class="st">"L8_Amazon.zip"</span>, <span class="at">exdir =</span> <span class="st">"L8_Amazon"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -859,7 +859,7 @@ names      : B05.1, B05.2, B05.3, B05.4, B05.5 </code></pre>
 <hr></section></section><section id="exercises-i" class="level1"><h1>Exercises (i)</h1>
 <ol type="1">
 <li><p>Start R. If not yet done, install the <code>gdalcubes</code> package from CRAN, and load it.</p></li>
-<li><p>If not yet done, download the sample dataset from https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download and unzip.</p></li>
+<li><p>If not yet done, download the sample dataset from https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download and unzip.</p></li>
 <li><p>Create an image collection from all GeoTIFF files in the unzipped directory.</p></li>
 <li><p>Create a <em>yearly</em> data cube from the image collection, covering the full spatiotemporal extent at 1 km resolution, using a <em>Brazil Mercator</em> projection (EPSG:5641).</p></li>
 <li><p>Select the near infrared band (<code>"B05"</code>) and plot the cube.</p></li>
@@ -1561,7 +1561,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb70-30"><a href="#cb70-30"></a><span class="fu"># Sample Data</span></span>
 <span id="cb70-31"><a href="#cb70-31"></a></span>
 <span id="cb70-32"><a href="#cb70-32"></a>Most parts of the tutorial will use a collection of 180 Landsat 8 surface reflectance images, covering a small part of the Brazilian Amazon forest. </span>
-<span id="cb70-33"><a href="#cb70-33"></a>The live demonstration will use the full resolution dataset (62 gigabytes compressed; &gt; 200 gigabytes unzipped; available <span class="co">[</span><span class="ot">here</span><span class="co">](https://uni-muenster.sciebo.de/s/SmiqWcCCeFSwfuY/download)</span>), whereas we will use a downsampled version of the same dataset with coarse spatial resolution (300 meter pixel size; 740 megabytes compressed; 2 gigabytes unzipped) in the practical part (available <span class="co">[</span><span class="ot">here</span><span class="co">](https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download)</span>). </span>
+<span id="cb70-33"><a href="#cb70-33"></a>The live demonstration will use the full resolution dataset (62 gigabytes compressed; &gt; 200 gigabytes unzipped; available <span class="co">[</span><span class="ot">here</span><span class="co">](https://hs-bochum.sciebo.de/s/OAcZqaLA28VyrH8/download)</span>), whereas we will use a downsampled version of the same dataset with coarse spatial resolution (300 meter pixel size; 740 megabytes compressed; 2 gigabytes unzipped) in the practical part (available <span class="co">[</span><span class="ot">here</span><span class="co">](https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download)</span>). </span>
 <span id="cb70-34"><a href="#cb70-34"></a></span>
 <span id="cb70-35"><a href="#cb70-35"></a>After downloading whichever version of the dataset, make sure to unzip it. The following R code will download the low resolution version to your current working directory and unzip it.</span>
 <span id="cb70-36"><a href="#cb70-36"></a></span>
@@ -1572,7 +1572,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb70-41"><a href="#cb70-41"></a><span class="in">```</span></span>
 <span id="cb70-42"><a href="#cb70-42"></a></span>
 <span id="cb70-43"><a href="#cb70-43"></a><span class="in">```{r download, eval = do_download, results='hide'}</span></span>
-<span id="cb70-44"><a href="#cb70-44"></a><span class="fu">download.file</span>(<span class="st">"https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download"</span>, </span>
+<span id="cb70-44"><a href="#cb70-44"></a><span class="fu">download.file</span>(<span class="st">"https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download"</span>, </span>
 <span id="cb70-45"><a href="#cb70-45"></a>              <span class="at">destfile =</span> <span class="st">"L8_Amazon.zip"</span>, <span class="at">mode=</span><span class="st">"wb"</span>)</span>
 <span id="cb70-46"><a href="#cb70-46"></a><span class="fu">unzip</span>(<span class="st">"L8_Amazon.zip"</span>, <span class="at">exdir =</span> <span class="st">"L8_Amazon"</span>)</span>
 <span id="cb70-47"><a href="#cb70-47"></a><span class="in">```</span></span>
@@ -1872,7 +1872,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb70-341"><a href="#cb70-341"></a></span>
 <span id="cb70-342"><a href="#cb70-342"></a><span class="ss">1. </span>Start R. If not yet done, install the <span class="in">`gdalcubes`</span> package from CRAN, and load it.</span>
 <span id="cb70-343"><a href="#cb70-343"></a></span>
-<span id="cb70-344"><a href="#cb70-344"></a><span class="ss">2. </span>If not yet done, download the sample dataset from https://uni-muenster.sciebo.de/s/e5yUZmYGX0bo4u9/download and unzip.</span>
+<span id="cb70-344"><a href="#cb70-344"></a><span class="ss">2. </span>If not yet done, download the sample dataset from https://hs-bochum.sciebo.de/s/8XcKAmPfPGp2CYh/download and unzip.</span>
 <span id="cb70-345"><a href="#cb70-345"></a></span>
 <span id="cb70-346"><a href="#cb70-346"></a><span class="ss">3. </span>Create an image collection from all GeoTIFF files in the unzipped directory.</span>
 <span id="cb70-347"><a href="#cb70-347"></a></span>

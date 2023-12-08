@@ -34,7 +34,7 @@ We will use 8-daily land surface temperature from the MODIS product [MOD11A2](ht
 ```{r data_download, echo=TRUE, results='hide'}
 options(timeout = max(1800, getOption("timeout")))
 dest_dir = tempdir()
-download.file("https://uni-muenster.sciebo.de/s/eP9E6OIkQbXrmsY/download", destfile=file.path(dest_dir, "MOD11A2.zip"),mode = "wb")
+download.file("https://hs-bochum.sciebo.de/s/8mKf1Ye1z9SRUr8/download", destfile=file.path(dest_dir, "MOD11A2.zip"),mode = "wb")
 unzip(file.path(dest_dir, "MOD11A2.zip"), exdir = file.path(dest_dir,"MOD11A2"))
 unlink(file.path(dest_dir, "MOD11A2.zip"))
 ```
