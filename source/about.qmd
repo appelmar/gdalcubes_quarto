@@ -14,7 +14,7 @@ about:
       href: https://github.com/appelmar
     - icon: globe
       text: Personal Website
-      href: http://appel.staff.ifgi.de
+      href: https://appelmar.github.io
 ---
 
 The gdalcubes project is maintained and developed by Marius Appel.

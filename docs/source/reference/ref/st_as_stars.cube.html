@@ -640,8 +640,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Loading required package: stars</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-logical.return = TRUE, : there is no package called 'stars'</code></pre>
+<pre><code>Loading required package: abind</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: sf</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 3 dimensions and 2 attributes
+attribute(s):
+   Min. 1st Qu. Median     Mean 3rd Qu.  Max.  NA's
+4  6119    6928   8717 11063.82   10620 53002 99070
+5  5564    6411  13519 14300.35   17073 57497 99070
+dimension(s):
+     from  to  offset  delta                refsys point
+x       1 497  388941  759.8 WGS 84 / UTM zone 18N    NA
+y       1 526 4744931 -759.8 WGS 84 / UTM zone 18N    NA
+time    1   1      NA     NA               POSIXct FALSE
+                      values x/y
+x                       NULL [x]
+y                       NULL [y]
+time [2018-04-01,2018-05-01)    </code></pre>
 </div>
 </div>
 
@@ -948,64 +969,64 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu"># st_as_stars.cube</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>Coerce gdalcubes object into a stars object</span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="in">```{r include=FALSE}</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">library</span>(gdalcubes)</span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="in">```</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="fu">## Description</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a></span>
-<span id="cb5-13"><a href="#cb5-13"></a>The function materializes a data cube as a temporary netCDF file and loads the file </span>
-<span id="cb5-14"><a href="#cb5-14"></a>with the stars package.</span>
-<span id="cb5-15"><a href="#cb5-15"></a></span>
-<span id="cb5-16"><a href="#cb5-16"></a></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="fu">## Usage</span></span>
-<span id="cb5-18"><a href="#cb5-18"></a></span>
-<span id="cb5-19"><a href="#cb5-19"></a></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="in">```r</span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="fu">st_as_stars.cube</span>(.x, ...)</span>
-<span id="cb5-22"><a href="#cb5-22"></a></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="in">```</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a></span>
-<span id="cb5-25"><a href="#cb5-25"></a></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="fu">## Arguments</span></span>
-<span id="cb5-27"><a href="#cb5-27"></a></span>
-<span id="cb5-28"><a href="#cb5-28"></a>| Argument    | Description                       |</span>
-<span id="cb5-29"><a href="#cb5-29"></a>|:------------|:----------------------------------|</span>
-<span id="cb5-30"><a href="#cb5-30"></a>| .x | data cube object to coerce |</span>
-<span id="cb5-31"><a href="#cb5-31"></a>| ... | not used |</span>
-<span id="cb5-32"><a href="#cb5-32"></a></span>
-<span id="cb5-33"><a href="#cb5-33"></a></span>
-<span id="cb5-34"><a href="#cb5-34"></a><span class="fu">## Value</span></span>
-<span id="cb5-35"><a href="#cb5-35"></a></span>
-<span id="cb5-36"><a href="#cb5-36"></a>stars object</span>
-<span id="cb5-37"><a href="#cb5-37"></a></span>
-<span id="cb5-38"><a href="#cb5-38"></a></span>
-<span id="cb5-39"><a href="#cb5-39"></a><span class="fu">## Examples</span></span>
-<span id="cb5-40"><a href="#cb5-40"></a></span>
-<span id="cb5-41"><a href="#cb5-41"></a></span>
-<span id="cb5-44"><a href="#cb5-44"></a><span class="in">```{r}</span></span>
-<span id="cb5-45"><a href="#cb5-45"></a><span class="co"># create image collection from example Landsat data only </span></span>
-<span id="cb5-46"><a href="#cb5-46"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb5-47"><a href="#cb5-47"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb5-48"><a href="#cb5-48"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb5-49"><a href="#cb5-49"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-50"><a href="#cb5-50"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb5-51"><a href="#cb5-51"></a>}</span>
-<span id="cb5-52"><a href="#cb5-52"></a></span>
-<span id="cb5-53"><a href="#cb5-53"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb5-54"><a href="#cb5-54"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
-<span id="cb5-55"><a href="#cb5-55"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-04"</span>),</span>
-<span id="cb5-56"><a href="#cb5-56"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
-<span id="cb5-57"><a href="#cb5-57"></a><span class="cf">if</span>(<span class="fu">require</span>(<span class="st">"stars"</span>))</span>
-<span id="cb5-58"><a href="#cb5-58"></a>  <span class="fu">st_as_stars</span>(<span class="fu">select_bands</span>(<span class="fu">raster_cube</span>(L8.col, v), <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>)))</span>
-<span id="cb5-59"><a href="#cb5-59"></a><span class="in">```</span></span>
-<span id="cb5-60"><a href="#cb5-60"></a></span>
+<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu"># st_as_stars.cube</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>Coerce gdalcubes object into a stars object</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="in">```{r include=FALSE}</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="fu">library</span>(gdalcubes)</span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="in">```</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="fu">## Description</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a></span>
+<span id="cb8-13"><a href="#cb8-13"></a>The function materializes a data cube as a temporary netCDF file and loads the file </span>
+<span id="cb8-14"><a href="#cb8-14"></a>with the stars package.</span>
+<span id="cb8-15"><a href="#cb8-15"></a></span>
+<span id="cb8-16"><a href="#cb8-16"></a></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="fu">## Usage</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a></span>
+<span id="cb8-19"><a href="#cb8-19"></a></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="in">```r</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="fu">st_as_stars.cube</span>(.x, ...)</span>
+<span id="cb8-22"><a href="#cb8-22"></a></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="in">```</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a></span>
+<span id="cb8-25"><a href="#cb8-25"></a></span>
+<span id="cb8-26"><a href="#cb8-26"></a><span class="fu">## Arguments</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a></span>
+<span id="cb8-28"><a href="#cb8-28"></a>| Argument    | Description                       |</span>
+<span id="cb8-29"><a href="#cb8-29"></a>|:------------|:----------------------------------|</span>
+<span id="cb8-30"><a href="#cb8-30"></a>| .x | data cube object to coerce |</span>
+<span id="cb8-31"><a href="#cb8-31"></a>| ... | not used |</span>
+<span id="cb8-32"><a href="#cb8-32"></a></span>
+<span id="cb8-33"><a href="#cb8-33"></a></span>
+<span id="cb8-34"><a href="#cb8-34"></a><span class="fu">## Value</span></span>
+<span id="cb8-35"><a href="#cb8-35"></a></span>
+<span id="cb8-36"><a href="#cb8-36"></a>stars object</span>
+<span id="cb8-37"><a href="#cb8-37"></a></span>
+<span id="cb8-38"><a href="#cb8-38"></a></span>
+<span id="cb8-39"><a href="#cb8-39"></a><span class="fu">## Examples</span></span>
+<span id="cb8-40"><a href="#cb8-40"></a></span>
+<span id="cb8-41"><a href="#cb8-41"></a></span>
+<span id="cb8-44"><a href="#cb8-44"></a><span class="in">```{r}</span></span>
+<span id="cb8-45"><a href="#cb8-45"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb8-46"><a href="#cb8-46"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb8-47"><a href="#cb8-47"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb8-48"><a href="#cb8-48"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb8-49"><a href="#cb8-49"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-50"><a href="#cb8-50"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb8-51"><a href="#cb8-51"></a>}</span>
+<span id="cb8-52"><a href="#cb8-52"></a></span>
+<span id="cb8-53"><a href="#cb8-53"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb8-54"><a href="#cb8-54"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb8-55"><a href="#cb8-55"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-04"</span>),</span>
+<span id="cb8-56"><a href="#cb8-56"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb8-57"><a href="#cb8-57"></a><span class="cf">if</span>(<span class="fu">require</span>(<span class="st">"stars"</span>))</span>
+<span id="cb8-58"><a href="#cb8-58"></a>  <span class="fu">st_as_stars</span>(<span class="fu">select_bands</span>(<span class="fu">raster_cube</span>(L8.col, v), <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>)))</span>
+<span id="cb8-59"><a href="#cb8-59"></a><span class="in">```</span></span>
+<span id="cb8-60"><a href="#cb8-60"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
