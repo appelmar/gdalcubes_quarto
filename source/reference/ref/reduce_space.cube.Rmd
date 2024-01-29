@@ -17,7 +17,15 @@ Create a proxy data cube, which applies one or more reducer functions to selecte
 
 
 ```r
-reduce_space.cube(x, expr, ..., FUN, names = NULL)
+reduce_space.cube(
+  x,
+  expr,
+  ...,
+  FUN,
+  names = NULL,
+  load_pkgs = FALSE,
+  load_env = FALSE
+)
 
 ```
 
@@ -30,15 +38,20 @@ reduce_space.cube(x, expr, ..., FUN, names = NULL)
 | expr | either a single string, or a vector of strings defining which reducers will be applied over which bands of the input cube |
 | ... | optional additional expressions (if `expr` is not a vector) |
 | FUN | a user-defined R function applied over pixel time series (see Details) |
-| names | character vector; if FUN is provided, names can be used to define the number and name of output bands |
+| names | character vector; names of the output bands, if FUN is provided, the length of names is used as the expected number of output bands |
+| load_pkgs | logical or character; if TRUE, all currently attached packages will be attached automatically before executing FUN in spawned R processes, specific packages can alternatively be provided as a character vector. |
+| load_env | logical or environment; if TRUE, the current global environment will be restored automatically before executing FUN in spawned R processes, can be set to a custom environment. |
 
 
 ## Details
 
-Notice that expressions have a very simple format: the reducer is followed by the name of a band in parantheses. You cannot add
+Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses. You cannot add
 more complex functions or arguments.
 
-Possible reducers currently are "min", "max", "sum", "prod", "count", "mean", "median", "var", "sd".
+Possible reducers currently include "min", "max", "sum", "prod", "count", "mean", "median", "var", and "sd".
+
+For more details and examples on how to write user-defined functions, please refer to the gdalcubes website 
+at [https://gdalcubes.github.io/source/concepts/udfs.html](https://gdalcubes.github.io/source/concepts/udfs.html).
 
 
 ## Value

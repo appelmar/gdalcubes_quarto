@@ -30,7 +30,7 @@ $.cube(x, name)
 |:------------|:----------------------------------|
 | x | source data cube |
 | name | character; name of selected band |
-| ib | first selector (optional), object of type character, list, Date, POSIXt, numeric, [sf::st_bbox](), or [sf::st_sfc](), see Details and examples |
+| ib | first selector (optional), object of type character, list, Date, POSIXt, numeric, [sf::st_bbox](<a href='https://r-spatial.github.io/sf/reference/st_bbox.html'>sf::st_bbox</a>), or [sf::st_sfc](<a href='https://r-spatial.github.io/sf/reference/sfc.html'>sf::st_sfc</a>), see Details and examples |
 | it | second selector (optional), see `ib` |
 | iy | third selector (optional), see `ib` |
 | ix | fourth selector (optional), see `ib` |

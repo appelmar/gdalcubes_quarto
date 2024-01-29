@@ -433,6 +433,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/predict.cube.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">predict.cube</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/reduce_space.cube.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">reduce_space.cube</span></a>
   </div>
@@ -494,6 +500,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/as_array.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">as_array</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/as.data.frame.cube.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">as.data.frame.cube</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -603,7 +615,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="description" class="level2"><h2 class="anchored" data-anchor-id="description">Description</h2>
 <p>Create a proxy data cube, which applies one or more reducer functions to selected bands over spatial slices of a data cube</p>
 </section><section id="usage" class="level2"><h2 class="anchored" data-anchor-id="usage">Usage</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">reduce_space.cube</span>(x, expr, ..., FUN, <span class="at">names =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">reduce_space.cube</span>(</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  x,</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  expr,</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  ...,</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  FUN,</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="at">names =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="at">load_pkgs =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">load_env =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
 <table class="table">
 <colgroup>
@@ -633,12 +653,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">names</td>
-<td style="text-align: left;">character vector; if FUN is provided, names can be used to define the number and name of output bands</td>
+<td style="text-align: left;">character vector; names of the output bands, if FUN is provided, the length of names is used as the expected number of output bands</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">load_pkgs</td>
+<td style="text-align: left;">logical or character; if TRUE, all currently attached packages will be attached automatically before executing FUN in spawned R processes, specific packages can alternatively be provided as a character vector.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">load_env</td>
+<td style="text-align: left;">logical or environment; if TRUE, the current global environment will be restored automatically before executing FUN in spawned R processes, can be set to a custom environment.</td>
 </tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
-<p>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parantheses. You cannot add more complex functions or arguments.</p>
-<p>Possible reducers currently are “min”, “max”, “sum”, “prod”, “count”, “mean”, “median”, “var”, “sd”.</p>
+<p>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses. You cannot add more complex functions or arguments.</p>
+<p>Possible reducers currently include “min”, “max”, “sum”, “prod”, “count”, “mean”, “median”, “var”, and “sd”.</p>
+<p>For more details and examples on how to write user-defined functions, please refer to the gdalcubes website at <a href="https://gdalcubes.github.io/source/concepts/udfs.html">https://gdalcubes.github.io/source/concepts/udfs.html</a>.</p>
 </section><section id="value" class="level2"><h2 class="anchored" data-anchor-id="value">Value</h2>
 <p>proxy data cube object</p>
 </section><section id="note" class="level2"><h2 class="anchored" data-anchor-id="note">Note</h2>
@@ -1003,66 +1032,79 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-17"><a href="#cb5-17"></a></span>
 <span id="cb5-18"><a href="#cb5-18"></a></span>
 <span id="cb5-19"><a href="#cb5-19"></a><span class="in">```r</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="fu">reduce_space.cube</span>(x, expr, ..., FUN, <span class="at">names =</span> <span class="cn">NULL</span>)</span>
-<span id="cb5-21"><a href="#cb5-21"></a></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="in">```</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a></span>
-<span id="cb5-24"><a href="#cb5-24"></a></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="fu">## Arguments</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a></span>
-<span id="cb5-27"><a href="#cb5-27"></a>| Argument    | Description                       |</span>
-<span id="cb5-28"><a href="#cb5-28"></a>|:------------|:----------------------------------|</span>
-<span id="cb5-29"><a href="#cb5-29"></a>| x | source data cube |</span>
-<span id="cb5-30"><a href="#cb5-30"></a>| expr | either a single string, or a vector of strings defining which reducers will be applied over which bands of the input cube |</span>
-<span id="cb5-31"><a href="#cb5-31"></a>| ... | optional additional expressions (if <span class="in">`expr`</span> is not a vector) |</span>
-<span id="cb5-32"><a href="#cb5-32"></a>| FUN | a user-defined R function applied over pixel time series (see Details) |</span>
-<span id="cb5-33"><a href="#cb5-33"></a>| names | character vector; if FUN is provided, names can be used to define the number and name of output bands |</span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="fu">reduce_space.cube</span>(</span>
+<span id="cb5-21"><a href="#cb5-21"></a>  x,</span>
+<span id="cb5-22"><a href="#cb5-22"></a>  expr,</span>
+<span id="cb5-23"><a href="#cb5-23"></a>  ...,</span>
+<span id="cb5-24"><a href="#cb5-24"></a>  FUN,</span>
+<span id="cb5-25"><a href="#cb5-25"></a>  <span class="at">names =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-26"><a href="#cb5-26"></a>  <span class="at">load_pkgs =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-27"><a href="#cb5-27"></a>  <span class="at">load_env =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-28"><a href="#cb5-28"></a>)</span>
+<span id="cb5-29"><a href="#cb5-29"></a></span>
+<span id="cb5-30"><a href="#cb5-30"></a><span class="in">```</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a></span>
+<span id="cb5-32"><a href="#cb5-32"></a></span>
+<span id="cb5-33"><a href="#cb5-33"></a><span class="fu">## Arguments</span></span>
 <span id="cb5-34"><a href="#cb5-34"></a></span>
-<span id="cb5-35"><a href="#cb5-35"></a></span>
-<span id="cb5-36"><a href="#cb5-36"></a><span class="fu">## Details</span></span>
-<span id="cb5-37"><a href="#cb5-37"></a></span>
-<span id="cb5-38"><a href="#cb5-38"></a>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parantheses. You cannot add</span>
-<span id="cb5-39"><a href="#cb5-39"></a>more complex functions or arguments.</span>
-<span id="cb5-40"><a href="#cb5-40"></a></span>
-<span id="cb5-41"><a href="#cb5-41"></a>Possible reducers currently are "min", "max", "sum", "prod", "count", "mean", "median", "var", "sd".</span>
-<span id="cb5-42"><a href="#cb5-42"></a></span>
-<span id="cb5-43"><a href="#cb5-43"></a></span>
-<span id="cb5-44"><a href="#cb5-44"></a><span class="fu">## Value</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a>| Argument    | Description                       |</span>
+<span id="cb5-36"><a href="#cb5-36"></a>|:------------|:----------------------------------|</span>
+<span id="cb5-37"><a href="#cb5-37"></a>| x | source data cube |</span>
+<span id="cb5-38"><a href="#cb5-38"></a>| expr | either a single string, or a vector of strings defining which reducers will be applied over which bands of the input cube |</span>
+<span id="cb5-39"><a href="#cb5-39"></a>| ... | optional additional expressions (if <span class="in">`expr`</span> is not a vector) |</span>
+<span id="cb5-40"><a href="#cb5-40"></a>| FUN | a user-defined R function applied over pixel time series (see Details) |</span>
+<span id="cb5-41"><a href="#cb5-41"></a>| names | character vector; names of the output bands, if FUN is provided, the length of names is used as the expected number of output bands |</span>
+<span id="cb5-42"><a href="#cb5-42"></a>| load_pkgs | logical or character; if TRUE, all currently attached packages will be attached automatically before executing FUN in spawned R processes, specific packages can alternatively be provided as a character vector. |</span>
+<span id="cb5-43"><a href="#cb5-43"></a>| load_env | logical or environment; if TRUE, the current global environment will be restored automatically before executing FUN in spawned R processes, can be set to a custom environment. |</span>
+<span id="cb5-44"><a href="#cb5-44"></a></span>
 <span id="cb5-45"><a href="#cb5-45"></a></span>
-<span id="cb5-46"><a href="#cb5-46"></a>proxy data cube object</span>
+<span id="cb5-46"><a href="#cb5-46"></a><span class="fu">## Details</span></span>
 <span id="cb5-47"><a href="#cb5-47"></a></span>
-<span id="cb5-48"><a href="#cb5-48"></a></span>
-<span id="cb5-49"><a href="#cb5-49"></a><span class="fu">## Note</span></span>
+<span id="cb5-48"><a href="#cb5-48"></a>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses. You cannot add</span>
+<span id="cb5-49"><a href="#cb5-49"></a>more complex functions or arguments.</span>
 <span id="cb5-50"><a href="#cb5-50"></a></span>
-<span id="cb5-51"><a href="#cb5-51"></a>Implemented reducers will ignore any NAN values (as na.rm=TRUE does).</span>
+<span id="cb5-51"><a href="#cb5-51"></a>Possible reducers currently include "min", "max", "sum", "prod", "count", "mean", "median", "var", and "sd".</span>
 <span id="cb5-52"><a href="#cb5-52"></a></span>
-<span id="cb5-53"><a href="#cb5-53"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
-<span id="cb5-54"><a href="#cb5-54"></a></span>
+<span id="cb5-53"><a href="#cb5-53"></a>For more details and examples on how to write user-defined functions, please refer to the gdalcubes website </span>
+<span id="cb5-54"><a href="#cb5-54"></a>at <span class="co">[</span><span class="ot">https://gdalcubes.github.io/source/concepts/udfs.html</span><span class="co">](https://gdalcubes.github.io/source/concepts/udfs.html)</span>.</span>
 <span id="cb5-55"><a href="#cb5-55"></a></span>
-<span id="cb5-56"><a href="#cb5-56"></a><span class="fu">## Examples</span></span>
-<span id="cb5-57"><a href="#cb5-57"></a></span>
+<span id="cb5-56"><a href="#cb5-56"></a></span>
+<span id="cb5-57"><a href="#cb5-57"></a><span class="fu">## Value</span></span>
 <span id="cb5-58"><a href="#cb5-58"></a></span>
-<span id="cb5-61"><a href="#cb5-61"></a><span class="in">```{r}</span></span>
-<span id="cb5-62"><a href="#cb5-62"></a><span class="co"># create image collection from example Landsat data only </span></span>
-<span id="cb5-63"><a href="#cb5-63"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb5-64"><a href="#cb5-64"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb5-65"><a href="#cb5-65"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb5-66"><a href="#cb5-66"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-67"><a href="#cb5-67"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb5-68"><a href="#cb5-68"></a>}</span>
-<span id="cb5-69"><a href="#cb5-69"></a></span>
-<span id="cb5-70"><a href="#cb5-70"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb5-71"><a href="#cb5-71"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
-<span id="cb5-72"><a href="#cb5-72"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01"</span>, <span class="at">t1=</span><span class="st">"2018-12"</span>),</span>
-<span id="cb5-73"><a href="#cb5-73"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
-<span id="cb5-74"><a href="#cb5-74"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v) </span>
-<span id="cb5-75"><a href="#cb5-75"></a>L8.b02 <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B02"</span>))</span>
-<span id="cb5-76"><a href="#cb5-76"></a>L8.b02.median <span class="ot">=</span> <span class="fu">reduce_space</span>(L8.b02, <span class="st">"median(B02)"</span>)  </span>
-<span id="cb5-77"><a href="#cb5-77"></a>L8.b02.median</span>
-<span id="cb5-78"><a href="#cb5-78"></a></span>
-<span id="cb5-79"><a href="#cb5-79"></a><span class="fu">plot</span>(L8.b02.median)</span>
-<span id="cb5-80"><a href="#cb5-80"></a><span class="in">```</span></span>
-<span id="cb5-81"><a href="#cb5-81"></a></span>
+<span id="cb5-59"><a href="#cb5-59"></a>proxy data cube object</span>
+<span id="cb5-60"><a href="#cb5-60"></a></span>
+<span id="cb5-61"><a href="#cb5-61"></a></span>
+<span id="cb5-62"><a href="#cb5-62"></a><span class="fu">## Note</span></span>
+<span id="cb5-63"><a href="#cb5-63"></a></span>
+<span id="cb5-64"><a href="#cb5-64"></a>Implemented reducers will ignore any NAN values (as na.rm=TRUE does).</span>
+<span id="cb5-65"><a href="#cb5-65"></a></span>
+<span id="cb5-66"><a href="#cb5-66"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb5-67"><a href="#cb5-67"></a></span>
+<span id="cb5-68"><a href="#cb5-68"></a></span>
+<span id="cb5-69"><a href="#cb5-69"></a><span class="fu">## Examples</span></span>
+<span id="cb5-70"><a href="#cb5-70"></a></span>
+<span id="cb5-71"><a href="#cb5-71"></a></span>
+<span id="cb5-74"><a href="#cb5-74"></a><span class="in">```{r}</span></span>
+<span id="cb5-75"><a href="#cb5-75"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb5-76"><a href="#cb5-76"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb5-77"><a href="#cb5-77"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb5-78"><a href="#cb5-78"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb5-79"><a href="#cb5-79"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-80"><a href="#cb5-80"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb5-81"><a href="#cb5-81"></a>}</span>
+<span id="cb5-82"><a href="#cb5-82"></a></span>
+<span id="cb5-83"><a href="#cb5-83"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb5-84"><a href="#cb5-84"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb5-85"><a href="#cb5-85"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01"</span>, <span class="at">t1=</span><span class="st">"2018-12"</span>),</span>
+<span id="cb5-86"><a href="#cb5-86"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb5-87"><a href="#cb5-87"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v) </span>
+<span id="cb5-88"><a href="#cb5-88"></a>L8.b02 <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B02"</span>))</span>
+<span id="cb5-89"><a href="#cb5-89"></a>L8.b02.median <span class="ot">=</span> <span class="fu">reduce_space</span>(L8.b02, <span class="st">"median(B02)"</span>)  </span>
+<span id="cb5-90"><a href="#cb5-90"></a>L8.b02.median</span>
+<span id="cb5-91"><a href="#cb5-91"></a></span>
+<span id="cb5-92"><a href="#cb5-92"></a><span class="fu">plot</span>(L8.b02.median)</span>
+<span id="cb5-93"><a href="#cb5-93"></a><span class="in">```</span></span>
+<span id="cb5-94"><a href="#cb5-94"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
@@ -1073,7 +1115,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
 <li class="nav-item">
- © 2023 Marius Appel
+ © 2024 Marius Appel
   </li>  
 </ul>
 </div>

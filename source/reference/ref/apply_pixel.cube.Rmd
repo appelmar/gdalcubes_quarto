@@ -17,7 +17,16 @@ Create a proxy data cube, which applies arithmetic expressions over all pixels o
 
 
 ```r
-apply_pixel.cube(x, expr, names = NULL, keep_bands = FALSE, ..., FUN)
+apply_pixel.cube(
+  x,
+  expr,
+  names = NULL,
+  keep_bands = FALSE,
+  ...,
+  FUN,
+  load_pkgs = FALSE,
+  load_env = FALSE
+)
 
 ```
 
@@ -32,6 +41,8 @@ apply_pixel.cube(x, expr, names = NULL, keep_bands = FALSE, ..., FUN)
 | keep_bands | logical; keep bands of input data cube, defaults to FALSE, i.e. original bands will be dropped |
 | ... | not used |
 | FUN | user-defined R function that is applied on all pixels (see Details) |
+| load_pkgs | logical or character; if TRUE, all currently attached packages will be attached automatically before executing FUN in spawned R processes, specific packages can alternatively be provided as a character vector. |
+| load_env | logical or environment; if TRUE, the current global environment will be restored automatically before executing FUN in spawned R processes, can be set to a custom environment. |
 
 
 ## Details
@@ -39,10 +50,16 @@ apply_pixel.cube(x, expr, names = NULL, keep_bands = FALSE, ..., FUN)
 The function can either apply simple arithmetic C expressions given as a character vector (expr argument), or apply a custom R reducer function if FUN is provided.
 
 In the former case, gdalcubes uses the [tinyexpr library](https://github.com/codeplea/tinyexpr) to evaluate expressions in C / C++, you can look at the [library documentation](https://github.com/codeplea/tinyexpr#functions-supported)
-to see what kind of expressions you can execute. Pixel band values can be accessed by name.
-
+to see what kind of expressions you can execute. Pixel band values can be accessed by name. Predefined variables that can be used within the expression include integer pixel indexes (`ix`, `iy`, `it`), and 
+pixel coordinates (`left`, `right`, `top`, `bottom`), `t0`, `t1`), where the last two values are provided seconds since epoch time.
+ 
 FUN receives values of the bands from one pixel as a (named) vector and should return a numeric vector with identical length for all pixels. Elements of the
-result vectors will be interpreted as bands in the result data cube.
+result vectors will be interpreted as bands in the result data cube. Notice that by default, since FUN is executed in a separate
+R process, it cannot access any variables from outside and required packages must be loaded within FUN. To restore the current environment and
+automatically load packages, set `load_env` and/or `load_pkgs` to `TRUE`.
+
+For more details and examples on how to write user-defined functions, please refer to the gdalcubes website 
+at [https://gdalcubes.github.io/source/concepts/udfs.html](https://gdalcubes.github.io/source/concepts/udfs.html).
 
 
 ## Value
@@ -87,6 +104,7 @@ L8.ndvi.noisy = apply_pixel(L8.cube, names="NDVI_noisy",
        rnorm(1, 0, 0.1) + (x["B05"]-x["B04"])/(x["B05"]+x["B04"])
    })
 L8.ndvi.noisy
+
 
 
 plot(L8.ndvi.noisy)

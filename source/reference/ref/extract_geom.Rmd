@@ -38,7 +38,7 @@ extract_geom(
 | Argument    | Description                       |
 |:------------|:----------------------------------|
 | cube | source data cube to extract values from |
-| sf | object of class `sf`, see [sf package]() |
+| sf | object of class `sf`, see [sf package](<a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'>sf::st_as_sf</a>) |
 | datetime | Date, POSIXt, or character vector containing per feature time information; length must be identical to the number of features in `sf` |
 | time_column | name of the column in `sf` containing per feature time information |
 | FUN | optional function to compute per feature summary statistics |

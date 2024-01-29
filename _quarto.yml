@@ -49,7 +49,7 @@ website:
         href: https://github.com/appelmar/gdalcubes_R
   page-footer:
     center: 
-      - text: "© 2023 Marius Appel"
+      - text: "© 2024 Marius Appel"
         #href: about.qmd
       
   sidebar:
@@ -153,6 +153,7 @@ website:
             - source/reference/ref/filter_pixel.Rmd
             - source/reference/ref/gdalcubes_selection.Rmd
             - source/reference/ref/join_bands.Rmd
+            - source/reference/ref/predict.cube.Rmd
             - source/reference/ref/reduce_space.cube.Rmd
             - source/reference/ref/reduce_time.cube.Rmd
             - source/reference/ref/select_bands.Rmd
@@ -164,6 +165,7 @@ website:
           contents:
             - source/reference/ref/animate.Rmd
             - source/reference/ref/as_array.Rmd
+            - source/reference/ref/as.data.frame.cube.Rmd
             - source/reference/ref/as_json.Rmd
             - source/reference/ref/extract_geom.Rmd
             - source/reference/ref/pack_minmax.Rmd

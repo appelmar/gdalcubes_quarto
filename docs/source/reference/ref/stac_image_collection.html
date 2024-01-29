@@ -433,6 +433,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/predict.cube.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">predict.cube</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/reduce_space.cube.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">reduce_space.cube</span></a>
   </div>
@@ -494,6 +500,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/as_array.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">as_array</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/as.data.frame.cube.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">as.data.frame.cube</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -603,7 +615,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="usage" class="level2"><h2 class="anchored" data-anchor-id="usage">Usage</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">stac_image_collection</span>(</span>
 <span id="cb1-2"><a href="#cb1-2"></a>  s,</span>
-<span id="cb1-3"><a href="#cb1-3"></a>  <span class="at">out_file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".sqlite"</span>),</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="at">out_file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".db"</span>),</span>
 <span id="cb1-4"><a href="#cb1-4"></a>  <span class="at">asset_names =</span> <span class="cn">NULL</span>,</span>
 <span id="cb1-5"><a href="#cb1-5"></a>  <span class="at">asset_regex =</span> <span class="cn">NULL</span>,</span>
 <span id="cb1-6"><a href="#cb1-6"></a>  <span class="at">url_fun =</span> .default_url_fun,</span>
@@ -997,7 +1009,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb2-21"><a href="#cb2-21"></a><span class="in">```r</span></span>
 <span id="cb2-22"><a href="#cb2-22"></a><span class="fu">stac_image_collection</span>(</span>
 <span id="cb2-23"><a href="#cb2-23"></a>  s,</span>
-<span id="cb2-24"><a href="#cb2-24"></a>  <span class="at">out_file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".sqlite"</span>),</span>
+<span id="cb2-24"><a href="#cb2-24"></a>  <span class="at">out_file =</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".db"</span>),</span>
 <span id="cb2-25"><a href="#cb2-25"></a>  <span class="at">asset_names =</span> <span class="cn">NULL</span>,</span>
 <span id="cb2-26"><a href="#cb2-26"></a>  <span class="at">asset_regex =</span> <span class="cn">NULL</span>,</span>
 <span id="cb2-27"><a href="#cb2-27"></a>  <span class="at">url_fun =</span> .default_url_fun,</span>
@@ -1050,7 +1062,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
 <li class="nav-item">
- © 2023 Marius Appel
+ © 2024 Marius Appel
   </li>  
 </ul>
 </div>

@@ -1,0 +1,60 @@
+# as.data.frame.cube
+
+Convert a data cube to a data.frame
+
+
+
+```{r include=FALSE}
+library(gdalcubes)
+```
+
+## Description
+
+Convert a data cube to a data.frame
+
+
+## Usage
+
+
+```r
+as.data.frame.cube(x, ..., complete_only = FALSE)
+
+```
+
+
+## Arguments
+
+| Argument    | Description                       |
+|:------------|:----------------------------------|
+| x | data cube object |
+| ... | not used |
+| complete_only | logical; if TRUE, remove rows with one or more missing values |
+
+
+## Value
+
+A data.frame with bands / variables of the cube as columns and pixels as rows
+
+
+## Examples
+
+
+```{r}
+# create image collection from example Landsat data only 
+# if not already done in other examples
+if (!file.exists(file.path(tempdir(), "L8.db"))) {
+  L8_files <- list.files(system.file("L8NY18", package = "gdalcubes"),
+                         ".TIF", recursive = TRUE, full.names = TRUE)
+  create_image_collection(L8_files, "L8_L1TP", file.path(tempdir(), "L8.db"), quiet = TRUE) 
+}
+
+L8.col = image_collection(file.path(tempdir(), "L8.db"))
+v = cube_view(extent=list(left=388941.2, right=766552.4, 
+              bottom=4345299, top=4744931, t0="2018-04", t1="2018-05"),
+              srs="EPSG:32618", nx = 100, ny=100, dt="P1M")
+x = select_bands(raster_cube(L8.col, v), c("B04", "B05"))
+df = as.data.frame(x, complete_only = TRUE)
+head(df)
+```
+
+

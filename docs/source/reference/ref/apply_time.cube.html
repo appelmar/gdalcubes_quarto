@@ -433,6 +433,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/predict.cube.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">predict.cube</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/reduce_space.cube.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">reduce_space.cube</span></a>
   </div>
@@ -494,6 +500,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/as_array.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">as_array</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/as.data.frame.cube.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">as.data.frame.cube</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -603,7 +615,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="description" class="level2"><h2 class="anchored" data-anchor-id="description">Description</h2>
 <p>Create a proxy data cube, which applies a user-defined R function over all pixel time series of a data cube. In contrast to <a href="../../../source/reference/ref/reduce_time.html"><code>reduce_time</code></a>, the time dimension is not reduced, i.e., resulting time series must have identical length as the input data cube but may contain a different number of bands / variables. Example uses of this function may include time series decompositions, cumulative sums / products, smoothing, sophisticated NA filling, or similar.</p>
 </section><section id="usage" class="level2"><h2 class="anchored" data-anchor-id="usage">Usage</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">apply_time.cube</span>(x, <span class="at">names =</span> <span class="cn">NULL</span>, <span class="at">keep_bands =</span> <span class="cn">FALSE</span>, FUN, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">apply_time.cube</span>(</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  x,</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="at">names =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="at">keep_bands =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  FUN,</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="at">load_pkgs =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="at">load_env =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  ...</span>
+<span id="cb1-9"><a href="#cb1-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
 <table class="table">
 <colgroup>
@@ -632,12 +652,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">user-defined R function that is applied on all pixel time series (see Details)</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">load_pkgs</td>
+<td style="text-align: left;">logical or character; if TRUE, all currently attached packages will be attached automatically before executing FUN in spawned R processes, specific packages can alternatively be provided as a character vector.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">load_env</td>
+<td style="text-align: left;">logical or environment; if TRUE, the current global environment will be restored automatically before executing FUN in spawned R processes, can be set to a custom environment.</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">…</td>
 <td style="text-align: left;">not used</td>
 </tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
-<p>FUN receives a single (multi-band) pixel time series as a matrix with rows corresponding to bands and columns corresponding to time. In general, the function must return a matrix with the same number of columns. If re result contains only a single band, it may alternatively return a vector with length identical to the length of the input time series (number of columns of the input).</p>
+<p>FUN receives a single (multi-band) pixel time series as a matrix with rows corresponding to bands and columns corresponding to time. In general, the function must return a matrix with the same number of columns. If the result contains only a single band, it may alternatively return a vector with length identical to the length of the input time series (number of columns of the input).</p>
+<p>For more details and examples on how to write user-defined functions, please refer to the gdalcubes website at <a href="https://gdalcubes.github.io/source/concepts/udfs.html">https://gdalcubes.github.io/source/concepts/udfs.html</a>.</p>
 </section><section id="value" class="level2"><h2 class="anchored" data-anchor-id="value">Value</h2>
 <p>a proxy data cube object</p>
 </section><section id="note" class="level2"><h2 class="anchored" data-anchor-id="note">Note</h2>
@@ -1016,77 +1045,90 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb5-21"><a href="#cb5-21"></a></span>
 <span id="cb5-22"><a href="#cb5-22"></a></span>
 <span id="cb5-23"><a href="#cb5-23"></a><span class="in">```r</span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="fu">apply_time.cube</span>(x, <span class="at">names =</span> <span class="cn">NULL</span>, <span class="at">keep_bands =</span> <span class="cn">FALSE</span>, FUN, ...)</span>
-<span id="cb5-25"><a href="#cb5-25"></a></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="in">```</span></span>
-<span id="cb5-27"><a href="#cb5-27"></a></span>
-<span id="cb5-28"><a href="#cb5-28"></a></span>
-<span id="cb5-29"><a href="#cb5-29"></a><span class="fu">## Arguments</span></span>
-<span id="cb5-30"><a href="#cb5-30"></a></span>
-<span id="cb5-31"><a href="#cb5-31"></a>| Argument    | Description                       |</span>
-<span id="cb5-32"><a href="#cb5-32"></a>|:------------|:----------------------------------|</span>
-<span id="cb5-33"><a href="#cb5-33"></a>| x | source data cube |</span>
-<span id="cb5-34"><a href="#cb5-34"></a>| names | optional character vector to specify band names for the output cube |</span>
-<span id="cb5-35"><a href="#cb5-35"></a>| keep_bands | logical; keep bands of input data cube, defaults to FALSE, i.e., original bands will be dropped |</span>
-<span id="cb5-36"><a href="#cb5-36"></a>| FUN | user-defined R function that is applied on all pixel time series (see Details) |</span>
-<span id="cb5-37"><a href="#cb5-37"></a>| ... | not used |</span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="fu">apply_time.cube</span>(</span>
+<span id="cb5-25"><a href="#cb5-25"></a>  x,</span>
+<span id="cb5-26"><a href="#cb5-26"></a>  <span class="at">names =</span> <span class="cn">NULL</span>,</span>
+<span id="cb5-27"><a href="#cb5-27"></a>  <span class="at">keep_bands =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-28"><a href="#cb5-28"></a>  FUN,</span>
+<span id="cb5-29"><a href="#cb5-29"></a>  <span class="at">load_pkgs =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-30"><a href="#cb5-30"></a>  <span class="at">load_env =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-31"><a href="#cb5-31"></a>  ...</span>
+<span id="cb5-32"><a href="#cb5-32"></a>)</span>
+<span id="cb5-33"><a href="#cb5-33"></a></span>
+<span id="cb5-34"><a href="#cb5-34"></a><span class="in">```</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a></span>
+<span id="cb5-36"><a href="#cb5-36"></a></span>
+<span id="cb5-37"><a href="#cb5-37"></a><span class="fu">## Arguments</span></span>
 <span id="cb5-38"><a href="#cb5-38"></a></span>
-<span id="cb5-39"><a href="#cb5-39"></a></span>
-<span id="cb5-40"><a href="#cb5-40"></a><span class="fu">## Details</span></span>
-<span id="cb5-41"><a href="#cb5-41"></a></span>
-<span id="cb5-42"><a href="#cb5-42"></a>FUN receives a single (multi-band) pixel time series as a matrix with rows corresponding to bands and columns corresponding to time.</span>
-<span id="cb5-43"><a href="#cb5-43"></a>In general, the function must return a matrix with the same number of columns. If re result contains only a single band, it may alternatively return a vector </span>
-<span id="cb5-44"><a href="#cb5-44"></a>with length identical to the length of the input time series (number of columns of the input).</span>
-<span id="cb5-45"><a href="#cb5-45"></a></span>
-<span id="cb5-46"><a href="#cb5-46"></a></span>
-<span id="cb5-47"><a href="#cb5-47"></a><span class="fu">## Value</span></span>
+<span id="cb5-39"><a href="#cb5-39"></a>| Argument    | Description                       |</span>
+<span id="cb5-40"><a href="#cb5-40"></a>|:------------|:----------------------------------|</span>
+<span id="cb5-41"><a href="#cb5-41"></a>| x | source data cube |</span>
+<span id="cb5-42"><a href="#cb5-42"></a>| names | optional character vector to specify band names for the output cube |</span>
+<span id="cb5-43"><a href="#cb5-43"></a>| keep_bands | logical; keep bands of input data cube, defaults to FALSE, i.e., original bands will be dropped |</span>
+<span id="cb5-44"><a href="#cb5-44"></a>| FUN | user-defined R function that is applied on all pixel time series (see Details) |</span>
+<span id="cb5-45"><a href="#cb5-45"></a>| load_pkgs | logical or character; if TRUE, all currently attached packages will be attached automatically before executing FUN in spawned R processes, specific packages can alternatively be provided as a character vector. |</span>
+<span id="cb5-46"><a href="#cb5-46"></a>| load_env | logical or environment; if TRUE, the current global environment will be restored automatically before executing FUN in spawned R processes, can be set to a custom environment. |</span>
+<span id="cb5-47"><a href="#cb5-47"></a>| ... | not used |</span>
 <span id="cb5-48"><a href="#cb5-48"></a></span>
-<span id="cb5-49"><a href="#cb5-49"></a>a proxy data cube object</span>
-<span id="cb5-50"><a href="#cb5-50"></a></span>
+<span id="cb5-49"><a href="#cb5-49"></a></span>
+<span id="cb5-50"><a href="#cb5-50"></a><span class="fu">## Details</span></span>
 <span id="cb5-51"><a href="#cb5-51"></a></span>
-<span id="cb5-52"><a href="#cb5-52"></a><span class="fu">## Note</span></span>
-<span id="cb5-53"><a href="#cb5-53"></a></span>
-<span id="cb5-54"><a href="#cb5-54"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb5-52"><a href="#cb5-52"></a>FUN receives a single (multi-band) pixel time series as a matrix with rows corresponding to bands and columns corresponding to time.</span>
+<span id="cb5-53"><a href="#cb5-53"></a>In general, the function must return a matrix with the same number of columns. If the result contains only a single band, it may alternatively return a vector </span>
+<span id="cb5-54"><a href="#cb5-54"></a>with length identical to the length of the input time series (number of columns of the input).</span>
 <span id="cb5-55"><a href="#cb5-55"></a></span>
-<span id="cb5-56"><a href="#cb5-56"></a></span>
-<span id="cb5-57"><a href="#cb5-57"></a><span class="fu">## Examples</span></span>
+<span id="cb5-56"><a href="#cb5-56"></a>For more details and examples on how to write user-defined functions, please refer to the gdalcubes website </span>
+<span id="cb5-57"><a href="#cb5-57"></a>at <span class="co">[</span><span class="ot">https://gdalcubes.github.io/source/concepts/udfs.html</span><span class="co">](https://gdalcubes.github.io/source/concepts/udfs.html)</span>.</span>
 <span id="cb5-58"><a href="#cb5-58"></a></span>
 <span id="cb5-59"><a href="#cb5-59"></a></span>
-<span id="cb5-62"><a href="#cb5-62"></a><span class="in">```{r}</span></span>
-<span id="cb5-63"><a href="#cb5-63"></a><span class="co"># create image collection from example Landsat data only </span></span>
-<span id="cb5-64"><a href="#cb5-64"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb5-65"><a href="#cb5-65"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb5-66"><a href="#cb5-66"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb5-67"><a href="#cb5-67"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-68"><a href="#cb5-68"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb5-69"><a href="#cb5-69"></a>}</span>
-<span id="cb5-70"><a href="#cb5-70"></a></span>
-<span id="cb5-71"><a href="#cb5-71"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb5-72"><a href="#cb5-72"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
-<span id="cb5-73"><a href="#cb5-73"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
-<span id="cb5-74"><a href="#cb5-74"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
-<span id="cb5-75"><a href="#cb5-75"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v) </span>
-<span id="cb5-76"><a href="#cb5-76"></a>L8.cube <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>)) </span>
-<span id="cb5-77"><a href="#cb5-77"></a>L8.ndvi <span class="ot">=</span> <span class="fu">apply_pixel</span>(L8.cube, <span class="st">"(B05-B04)/(B05+B04)"</span>, <span class="st">"NDVI"</span>)</span>
-<span id="cb5-78"><a href="#cb5-78"></a></span>
-<span id="cb5-79"><a href="#cb5-79"></a><span class="co"># Apply a user defined R function</span></span>
-<span id="cb5-80"><a href="#cb5-80"></a>L8.ndvi.resid <span class="ot">=</span> <span class="fu">apply_time</span>(L8.ndvi, <span class="at">names=</span><span class="st">"NDVI_residuals"</span>, </span>
-<span id="cb5-81"><a href="#cb5-81"></a>   <span class="at">FUN=</span><span class="cf">function</span>(x) {</span>
-<span id="cb5-82"><a href="#cb5-82"></a>      y <span class="ot">=</span> x[<span class="st">"NDVI"</span>,]</span>
-<span id="cb5-83"><a href="#cb5-83"></a>      <span class="cf">if</span> (<span class="fu">sum</span>(<span class="fu">is.finite</span>(y)) <span class="sc">&lt;</span> <span class="dv">3</span>) {</span>
-<span id="cb5-84"><a href="#cb5-84"></a>         <span class="fu">return</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,<span class="fu">ncol</span>(x)))</span>
-<span id="cb5-85"><a href="#cb5-85"></a>      }</span>
-<span id="cb5-86"><a href="#cb5-86"></a>      t <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x)</span>
-<span id="cb5-87"><a href="#cb5-87"></a>      <span class="fu">return</span>(<span class="fu">predict</span>(<span class="fu">lm</span>(y <span class="sc">~</span> t)) <span class="sc">-</span>  x[<span class="st">"NDVI"</span>,])</span>
-<span id="cb5-88"><a href="#cb5-88"></a>   })</span>
-<span id="cb5-89"><a href="#cb5-89"></a>L8.ndvi.resid</span>
-<span id="cb5-90"><a href="#cb5-90"></a></span>
+<span id="cb5-60"><a href="#cb5-60"></a><span class="fu">## Value</span></span>
+<span id="cb5-61"><a href="#cb5-61"></a></span>
+<span id="cb5-62"><a href="#cb5-62"></a>a proxy data cube object</span>
+<span id="cb5-63"><a href="#cb5-63"></a></span>
+<span id="cb5-64"><a href="#cb5-64"></a></span>
+<span id="cb5-65"><a href="#cb5-65"></a><span class="fu">## Note</span></span>
+<span id="cb5-66"><a href="#cb5-66"></a></span>
+<span id="cb5-67"><a href="#cb5-67"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb5-68"><a href="#cb5-68"></a></span>
+<span id="cb5-69"><a href="#cb5-69"></a></span>
+<span id="cb5-70"><a href="#cb5-70"></a><span class="fu">## Examples</span></span>
+<span id="cb5-71"><a href="#cb5-71"></a></span>
+<span id="cb5-72"><a href="#cb5-72"></a></span>
+<span id="cb5-75"><a href="#cb5-75"></a><span class="in">```{r}</span></span>
+<span id="cb5-76"><a href="#cb5-76"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb5-77"><a href="#cb5-77"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb5-78"><a href="#cb5-78"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb5-79"><a href="#cb5-79"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb5-80"><a href="#cb5-80"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-81"><a href="#cb5-81"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb5-82"><a href="#cb5-82"></a>}</span>
+<span id="cb5-83"><a href="#cb5-83"></a></span>
+<span id="cb5-84"><a href="#cb5-84"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb5-85"><a href="#cb5-85"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb5-86"><a href="#cb5-86"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
+<span id="cb5-87"><a href="#cb5-87"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb5-88"><a href="#cb5-88"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v) </span>
+<span id="cb5-89"><a href="#cb5-89"></a>L8.cube <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>)) </span>
+<span id="cb5-90"><a href="#cb5-90"></a>L8.ndvi <span class="ot">=</span> <span class="fu">apply_pixel</span>(L8.cube, <span class="st">"(B05-B04)/(B05+B04)"</span>, <span class="st">"NDVI"</span>)</span>
 <span id="cb5-91"><a href="#cb5-91"></a></span>
-<span id="cb5-92"><a href="#cb5-92"></a><span class="fu">plot</span>(L8.ndvi.resid)</span>
-<span id="cb5-93"><a href="#cb5-93"></a></span>
-<span id="cb5-94"><a href="#cb5-94"></a> </span>
-<span id="cb5-95"><a href="#cb5-95"></a><span class="in">```</span></span>
-<span id="cb5-96"><a href="#cb5-96"></a></span>
+<span id="cb5-92"><a href="#cb5-92"></a><span class="co"># Apply a user defined R function</span></span>
+<span id="cb5-93"><a href="#cb5-93"></a>L8.ndvi.resid <span class="ot">=</span> <span class="fu">apply_time</span>(L8.ndvi, <span class="at">names=</span><span class="st">"NDVI_residuals"</span>, </span>
+<span id="cb5-94"><a href="#cb5-94"></a>   <span class="at">FUN=</span><span class="cf">function</span>(x) {</span>
+<span id="cb5-95"><a href="#cb5-95"></a>      y <span class="ot">=</span> x[<span class="st">"NDVI"</span>,]</span>
+<span id="cb5-96"><a href="#cb5-96"></a>      <span class="cf">if</span> (<span class="fu">sum</span>(<span class="fu">is.finite</span>(y)) <span class="sc">&lt;</span> <span class="dv">3</span>) {</span>
+<span id="cb5-97"><a href="#cb5-97"></a>         <span class="fu">return</span>(<span class="fu">rep</span>(<span class="cn">NA</span>,<span class="fu">ncol</span>(x)))</span>
+<span id="cb5-98"><a href="#cb5-98"></a>      }</span>
+<span id="cb5-99"><a href="#cb5-99"></a>      t <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(x)</span>
+<span id="cb5-100"><a href="#cb5-100"></a>      <span class="fu">return</span>(<span class="fu">predict</span>(<span class="fu">lm</span>(y <span class="sc">~</span> t)) <span class="sc">-</span>  x[<span class="st">"NDVI"</span>,])</span>
+<span id="cb5-101"><a href="#cb5-101"></a>   })</span>
+<span id="cb5-102"><a href="#cb5-102"></a>L8.ndvi.resid</span>
+<span id="cb5-103"><a href="#cb5-103"></a></span>
+<span id="cb5-104"><a href="#cb5-104"></a></span>
+<span id="cb5-105"><a href="#cb5-105"></a><span class="fu">plot</span>(L8.ndvi.resid)</span>
+<span id="cb5-106"><a href="#cb5-106"></a></span>
+<span id="cb5-107"><a href="#cb5-107"></a> </span>
+<span id="cb5-108"><a href="#cb5-108"></a><span class="in">```</span></span>
+<span id="cb5-109"><a href="#cb5-109"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
@@ -1097,7 +1139,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
 <li class="nav-item">
- © 2023 Marius Appel
+ © 2024 Marius Appel
   </li>  
 </ul>
 </div>
