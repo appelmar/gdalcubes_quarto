@@ -60,6 +60,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../source/reference/ref/reduce_space.cube.html" rel="next">
+<link href="../../../source/reference/ref/join_bands.html" rel="prev">
 <link href="../../../favicon.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -158,6 +160,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
 <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -602,6 +609,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   <li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments">Arguments</a></li>
   <li><a href="#details" id="toc-details" class="nav-link" data-scroll-target="#details">Details</a></li>
+  <li><a href="#note" id="toc-note" class="nav-link" data-scroll-target="#note">Note</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   </ul>
 </li>
@@ -613,9 +621,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="description" class="level2"><h2 class="anchored" data-anchor-id="description">Description</h2>
 <p>Predict values based on a trained model to all pixels of a data cube.</p>
 </section><section id="usage" class="level2"><h2 class="anchored" data-anchor-id="usage">Usage</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">predict.cube</span>(object, model, ...)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">predict.cube</span>(object, model, ..., <span class="at">output_names =</span> <span class="fu">c</span>(<span class="st">"pred"</span>), <span class="at">keep_bands =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
 <table class="table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 72%">
+</colgroup>
 <thead><tr class="header">
 <th style="text-align: left;">Argument</th>
 <th style="text-align: left;">Description</th>
@@ -633,9 +645,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">…</td>
 <td style="text-align: left;">further arguments passed to predict</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">output_names</td>
+<td style="text-align: left;">optional character vector for output variable(s)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">keep_bands</td>
+<td style="text-align: left;">logical; keep bands of input data cube, defaults to FALSE, i.e.&nbsp;original bands will be dropped</td>
+</tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
-<p>The predict method used will be automatically chosen based on the model class. It should support models from the <code>caret</code> package and simple models as from <code>lm</code> or <code>glm</code> . However, it currently works only for a single output variable and requires a <code>data.frame</code> input.</p>
+<p>The predict method will be automatically chosen based on the class of the provided model. It aims at supporting models from the packages <code>tidymodels</code>, <code>caret</code>, and simple models as from <code>lm</code> or <code>glm</code>.</p>
+<p>For multiple output variables and/or output in list or data.frame form, <code>output_names</code> must be provided and match names of the columns / items of the result object returned from the underlying predict method. For example, predictions using <code>tidymodels</code> return a tibble (data.frame) with columns like <code>.pred_class</code> (lassification case). This must be explicitly provided as <code>output_names</code>. Similarly, <code>predict.lm</code> and the like produce lists if the standard error is requested by the user and <code>output_names</code> hence should be set to <code>c("fit","se.fit")</code>.</p>
+<p>For more complex cases or when predict expects something else than a <code>data.frame</code>, this function may not work at all.</p>
+</section><section id="note" class="level2"><h2 class="anchored" data-anchor-id="note">Note</h2>
+<p>This function returns a proxy object, i.e., it will not immediately start any computations.</p>
 </section><section id="examples" class="level2"><h2 class="anchored" data-anchor-id="examples">Examples</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># create image collection from example Landsat data only</span></span>
@@ -986,7 +1010,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../../../source/reference/ref/join_bands.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">join_bands</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../source/reference/ref/reduce_space.cube.html" class="pagination-link">
+        <span class="nav-page-text">reduce_space.cube</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb7" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu"># predict.cube</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a></span>
 <span id="cb7-3"><a href="#cb7-3"></a>Predict values based on a trained model to all pixels of a data cube.</span>
@@ -1006,7 +1040,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-17"><a href="#cb7-17"></a></span>
 <span id="cb7-18"><a href="#cb7-18"></a></span>
 <span id="cb7-19"><a href="#cb7-19"></a><span class="in">```r</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="fu">predict.cube</span>(object, model, ...)</span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="fu">predict.cube</span>(object, model, ..., <span class="at">output_names =</span> <span class="fu">c</span>(<span class="st">"pred"</span>), <span class="at">keep_bands =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb7-21"><a href="#cb7-21"></a></span>
 <span id="cb7-22"><a href="#cb7-22"></a><span class="in">```</span></span>
 <span id="cb7-23"><a href="#cb7-23"></a></span>
@@ -1018,51 +1052,65 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-29"><a href="#cb7-29"></a>| object | a data cube proxy object (class cube) |</span>
 <span id="cb7-30"><a href="#cb7-30"></a>| model | model used for prediction (e.g. from <span class="in">`caret`</span>) |</span>
 <span id="cb7-31"><a href="#cb7-31"></a>| ... | further arguments passed to predict |</span>
-<span id="cb7-32"><a href="#cb7-32"></a></span>
-<span id="cb7-33"><a href="#cb7-33"></a></span>
-<span id="cb7-34"><a href="#cb7-34"></a><span class="fu">## Details</span></span>
+<span id="cb7-32"><a href="#cb7-32"></a>| output_names | optional character vector for output variable(s) |</span>
+<span id="cb7-33"><a href="#cb7-33"></a>| keep_bands | logical; keep bands of input data cube, defaults to FALSE, i.e. original bands will be dropped |</span>
+<span id="cb7-34"><a href="#cb7-34"></a></span>
 <span id="cb7-35"><a href="#cb7-35"></a></span>
-<span id="cb7-36"><a href="#cb7-36"></a>The predict method used will be automatically chosen based on the model class. It should support models from the <span class="in">`caret`</span> </span>
-<span id="cb7-37"><a href="#cb7-37"></a>package and simple models as from <span class="in">`lm`</span> or <span class="in">`glm`</span> . However, it  currently works only for a single output variable and </span>
-<span id="cb7-38"><a href="#cb7-38"></a>requires a <span class="in">`data.frame`</span> input.</span>
-<span id="cb7-39"><a href="#cb7-39"></a></span>
+<span id="cb7-36"><a href="#cb7-36"></a><span class="fu">## Details</span></span>
+<span id="cb7-37"><a href="#cb7-37"></a></span>
+<span id="cb7-38"><a href="#cb7-38"></a>The predict method will be automatically chosen based on the class of the provided model. It aims at supporting models from the packages</span>
+<span id="cb7-39"><a href="#cb7-39"></a><span class="in">`tidymodels`</span>, <span class="in">`caret`</span>, and simple models as from <span class="in">`lm`</span> or <span class="in">`glm`</span>. </span>
 <span id="cb7-40"><a href="#cb7-40"></a></span>
-<span id="cb7-41"><a href="#cb7-41"></a><span class="fu">## Examples</span></span>
-<span id="cb7-42"><a href="#cb7-42"></a></span>
-<span id="cb7-43"><a href="#cb7-43"></a></span>
-<span id="cb7-46"><a href="#cb7-46"></a><span class="in">```{r}</span></span>
-<span id="cb7-47"><a href="#cb7-47"></a><span class="co"># create image collection from example Landsat data only</span></span>
-<span id="cb7-48"><a href="#cb7-48"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb7-49"><a href="#cb7-49"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb7-50"><a href="#cb7-50"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb7-51"><a href="#cb7-51"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-52"><a href="#cb7-52"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-53"><a href="#cb7-53"></a>}</span>
+<span id="cb7-41"><a href="#cb7-41"></a>For multiple output variables and/or output in list or data.frame form, <span class="in">`output_names`</span> must be provided and match </span>
+<span id="cb7-42"><a href="#cb7-42"></a>names of the columns / items of the result object returned from the underlying predict method. For example, </span>
+<span id="cb7-43"><a href="#cb7-43"></a>predictions using <span class="in">`tidymodels`</span> return a tibble (data.frame) with columns like <span class="in">`.pred_class`</span> (lassification case).</span>
+<span id="cb7-44"><a href="#cb7-44"></a>This must be explicitly provided as <span class="in">`output_names`</span>. Similarly, <span class="in">`predict.lm`</span> and the like produce lists</span>
+<span id="cb7-45"><a href="#cb7-45"></a>if the standard error is requested by the user and  <span class="in">`output_names`</span> hence should be set to <span class="in">`c("fit","se.fit")`</span>.</span>
+<span id="cb7-46"><a href="#cb7-46"></a></span>
+<span id="cb7-47"><a href="#cb7-47"></a>For more complex cases or when predict expects something else than a <span class="in">`data.frame`</span>, this function may not work at all.</span>
+<span id="cb7-48"><a href="#cb7-48"></a></span>
+<span id="cb7-49"><a href="#cb7-49"></a></span>
+<span id="cb7-50"><a href="#cb7-50"></a><span class="fu">## Note</span></span>
+<span id="cb7-51"><a href="#cb7-51"></a></span>
+<span id="cb7-52"><a href="#cb7-52"></a>This function returns a proxy object, i.e., it will not immediately start any computations.</span>
+<span id="cb7-53"><a href="#cb7-53"></a></span>
 <span id="cb7-54"><a href="#cb7-54"></a></span>
-<span id="cb7-55"><a href="#cb7-55"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>,</span>
-<span id="cb7-56"><a href="#cb7-56"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
-<span id="cb7-57"><a href="#cb7-57"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P3M"</span>)</span>
-<span id="cb7-58"><a href="#cb7-58"></a></span>
-<span id="cb7-59"><a href="#cb7-59"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb7-60"><a href="#cb7-60"></a></span>
-<span id="cb7-61"><a href="#cb7-61"></a>x <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">"ny_samples.gpkg"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>))</span>
-<span id="cb7-62"><a href="#cb7-62"></a></span>
-<span id="cb7-63"><a href="#cb7-63"></a><span class="fu">raster_cube</span>(L8.col, v) <span class="sc">|&gt;</span></span>
-<span id="cb7-64"><a href="#cb7-64"></a>  <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B02"</span>,<span class="st">"B03"</span>,<span class="st">"B04"</span>,<span class="st">"B05"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-65"><a href="#cb7-65"></a>  <span class="fu">extract_geom</span>(x) <span class="ot">-&gt;</span> train</span>
-<span id="cb7-66"><a href="#cb7-66"></a></span>
-<span id="cb7-67"><a href="#cb7-67"></a>x<span class="sc">$</span>FID <span class="ot">=</span> <span class="fu">rownames</span>(x)  </span>
-<span id="cb7-68"><a href="#cb7-68"></a>train <span class="ot">=</span> <span class="fu">merge</span>(train, x, <span class="at">by =</span> <span class="st">"FID"</span>)</span>
-<span id="cb7-69"><a href="#cb7-69"></a>train<span class="sc">$</span>iswater <span class="ot">=</span> <span class="fu">as.factor</span>(train<span class="sc">$</span>class <span class="sc">==</span> <span class="st">"water"</span>)</span>
-<span id="cb7-70"><a href="#cb7-70"></a></span>
-<span id="cb7-71"><a href="#cb7-71"></a>log_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(iswater <span class="sc">~</span> B02 <span class="sc">+</span> B03 <span class="sc">+</span> B04 <span class="sc">+</span> B05, <span class="at">data =</span> train, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb7-55"><a href="#cb7-55"></a><span class="fu">## Examples</span></span>
+<span id="cb7-56"><a href="#cb7-56"></a></span>
+<span id="cb7-57"><a href="#cb7-57"></a></span>
+<span id="cb7-60"><a href="#cb7-60"></a><span class="in">```{r}</span></span>
+<span id="cb7-61"><a href="#cb7-61"></a><span class="co"># create image collection from example Landsat data only</span></span>
+<span id="cb7-62"><a href="#cb7-62"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb7-63"><a href="#cb7-63"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb7-64"><a href="#cb7-64"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb7-65"><a href="#cb7-65"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-66"><a href="#cb7-66"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-67"><a href="#cb7-67"></a>}</span>
+<span id="cb7-68"><a href="#cb7-68"></a></span>
+<span id="cb7-69"><a href="#cb7-69"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>,</span>
+<span id="cb7-70"><a href="#cb7-70"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
+<span id="cb7-71"><a href="#cb7-71"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P3M"</span>)</span>
 <span id="cb7-72"><a href="#cb7-72"></a></span>
-<span id="cb7-73"><a href="#cb7-73"></a><span class="fu">raster_cube</span>(L8.col, v) <span class="sc">|&gt;</span></span>
-<span id="cb7-74"><a href="#cb7-74"></a>  <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B02"</span>,<span class="st">"B03"</span>,<span class="st">"B04"</span>,<span class="st">"B05"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb7-75"><a href="#cb7-75"></a>  <span class="fu">predict</span>(<span class="at">model=</span>log_model, <span class="at">type=</span><span class="st">"response"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-76"><a href="#cb7-76"></a>  <span class="fu">plot</span>(<span class="at">key.pos=</span><span class="dv">1</span>)</span>
-<span id="cb7-77"><a href="#cb7-77"></a><span class="in">```</span></span>
-<span id="cb7-78"><a href="#cb7-78"></a></span>
+<span id="cb7-73"><a href="#cb7-73"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb7-74"><a href="#cb7-74"></a></span>
+<span id="cb7-75"><a href="#cb7-75"></a>x <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">"ny_samples.gpkg"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>))</span>
+<span id="cb7-76"><a href="#cb7-76"></a></span>
+<span id="cb7-77"><a href="#cb7-77"></a><span class="fu">raster_cube</span>(L8.col, v) <span class="sc">|&gt;</span></span>
+<span id="cb7-78"><a href="#cb7-78"></a>  <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B02"</span>,<span class="st">"B03"</span>,<span class="st">"B04"</span>,<span class="st">"B05"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-79"><a href="#cb7-79"></a>  <span class="fu">extract_geom</span>(x) <span class="ot">-&gt;</span> train</span>
+<span id="cb7-80"><a href="#cb7-80"></a></span>
+<span id="cb7-81"><a href="#cb7-81"></a>x<span class="sc">$</span>FID <span class="ot">=</span> <span class="fu">rownames</span>(x)  </span>
+<span id="cb7-82"><a href="#cb7-82"></a>train <span class="ot">=</span> <span class="fu">merge</span>(train, x, <span class="at">by =</span> <span class="st">"FID"</span>)</span>
+<span id="cb7-83"><a href="#cb7-83"></a>train<span class="sc">$</span>iswater <span class="ot">=</span> <span class="fu">as.factor</span>(train<span class="sc">$</span>class <span class="sc">==</span> <span class="st">"water"</span>)</span>
+<span id="cb7-84"><a href="#cb7-84"></a></span>
+<span id="cb7-85"><a href="#cb7-85"></a>log_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(iswater <span class="sc">~</span> B02 <span class="sc">+</span> B03 <span class="sc">+</span> B04 <span class="sc">+</span> B05, <span class="at">data =</span> train, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb7-86"><a href="#cb7-86"></a></span>
+<span id="cb7-87"><a href="#cb7-87"></a><span class="fu">raster_cube</span>(L8.col, v) <span class="sc">|&gt;</span></span>
+<span id="cb7-88"><a href="#cb7-88"></a>  <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"B02"</span>,<span class="st">"B03"</span>,<span class="st">"B04"</span>,<span class="st">"B05"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-89"><a href="#cb7-89"></a>  <span class="fu">predict</span>(<span class="at">model=</span>log_model, <span class="at">type=</span><span class="st">"response"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-90"><a href="#cb7-90"></a>  <span class="fu">plot</span>(<span class="at">key.pos=</span><span class="dv">1</span>)</span>
+<span id="cb7-91"><a href="#cb7-91"></a><span class="in">```</span></span>
+<span id="cb7-92"><a href="#cb7-92"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

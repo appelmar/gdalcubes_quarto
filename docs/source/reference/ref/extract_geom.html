@@ -60,6 +60,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../source/reference/ref/fill_time.html" rel="next">
+<link href="../../../source/reference/ref/crop.html" rel="prev">
 <link href="../../../favicon.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -158,6 +160,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
 <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -620,9 +627,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4"></a>  <span class="at">datetime =</span> <span class="cn">NULL</span>,</span>
 <span id="cb1-5"><a href="#cb1-5"></a>  <span class="at">time_column =</span> <span class="cn">NULL</span>,</span>
 <span id="cb1-6"><a href="#cb1-6"></a>  <span class="at">FUN =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-7"><a href="#cb1-7"></a>  ...,</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">reduce_time =</span> <span class="cn">FALSE</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="at">merge =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">drop_geom =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-9"><a href="#cb1-9"></a>  ...,</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  <span class="at">reduce_time =</span> <span class="cn">FALSE</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
 <table class="table">
 <colgroup>
@@ -664,10 +673,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">reduce_time</td>
 <td style="text-align: left;">logical; if TRUE, time is ignored when <code>FUN</code> is applied</td>
 </tr>
+<tr class="even">
+<td style="text-align: left;">merge;</td>
+<td style="text-align: left;">logical; return a combined data.frame with data cube values and labels, defaults to FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">drop_geom;</td>
+<td style="text-align: left;">remove geometries from output, only applicable if merge is TRUE, defaults to FALSE</td>
+</tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
 <p>The geometry in <code>sf</code> can be of any simple feature type supported by GDAL, including POINTS, LINES, POLYGONS, MULTI*, and more. If no time information is provided in one of the arguments <code>datetime</code> or <code>time_column</code>, the full time series of pixels with regard to the features are returned.</p>
-<p>Notice that feature identifiers in the <code>FID</code> column typically correspond to the row names / numbers of the provided sf object. This can be used to combine the output with the original geometries, e.g., using [<code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code>](<a href="https://rdrr.io/r/base/merge.html">base::merge</a>).</p>
+<p>Notice that feature identifiers in the <code>FID</code> column typically correspond to the row names / numbers of the provided sf object. This can be used to combine the output with the original geometries, e.g., using [<code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code>](<a href="https://rdrr.io/r/base/merge.html">base::merge</a>). with gdalcubes &gt; 0.6.4, this can be done automatically by setting <code>merge=TRUE</code>. In this case, the <code>FID</code> column is dropped from the result.</p>
 <p>Pixels with missing values are automatically dropped from the result. It is hence not guaranteed that the result will contain rows for all input features.</p>
 <p>Features are automatically reprojected if the coordinate reference system differs from the data cube.</p>
 <p>Extracted values can be aggregated by features by providing a summary function. If <code>reduce_time</code> is FALSE (the default), the values are grouped by feature and time, i.e., the result will contain unique combinations of FID and time. To ignore time and produce a single value per feature, <code>reduce_time</code> can be set to TRUE.</p>
@@ -722,16 +739,12 @@ Bands:
 <span id="cb4-16"><a href="#cb4-16"></a>  </span>
 <span id="cb4-17"><a href="#cb4-17"></a>    <span class="co"># 3. summary statistics over polygons</span></span>
 <span id="cb4-18"><a href="#cb4-18"></a>    x <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">"nycd.gpkg"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>))</span>
-<span id="cb4-19"><a href="#cb4-19"></a>    zstats <span class="ot">=</span> <span class="fu">extract_geom</span>(L8.ndvi,x, <span class="at">FUN=</span>median, <span class="at">reduce_time =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-19"><a href="#cb4-19"></a>    zstats <span class="ot">=</span> <span class="fu">extract_geom</span>(L8.ndvi,x, <span class="at">FUN=</span>median, <span class="at">reduce_time =</span> <span class="cn">TRUE</span>, <span class="at">merge =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb4-20"><a href="#cb4-20"></a>    zstats</span>
-<span id="cb4-21"><a href="#cb4-21"></a>    <span class="co"># combine with original sf object</span></span>
-<span id="cb4-22"><a href="#cb4-22"></a>    x<span class="sc">$</span>FID <span class="ot">=</span> <span class="fu">rownames</span>(x)</span>
-<span id="cb4-23"><a href="#cb4-23"></a>    x <span class="ot">=</span> <span class="fu">merge</span>(x, zstats, <span class="at">by =</span> <span class="st">"FID"</span>)</span>
-<span id="cb4-24"><a href="#cb4-24"></a>    x</span>
-<span id="cb4-25"><a href="#cb4-25"></a>    <span class="fu">plot</span>(x[<span class="st">"NDVI"</span>])</span>
-<span id="cb4-26"><a href="#cb4-26"></a>    </span>
-<span id="cb4-27"><a href="#cb4-27"></a>  }</span>
-<span id="cb4-28"><a href="#cb4-28"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-21"><a href="#cb4-21"></a>    <span class="fu">plot</span>(zstats[<span class="st">"NDVI"</span>])</span>
+<span id="cb4-22"><a href="#cb4-22"></a>    </span>
+<span id="cb4-23"><a href="#cb4-23"></a>  }</span>
+<span id="cb4-24"><a href="#cb4-24"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `nycd_1' from data source 
   `/home/marius/R/x86_64-pc-linux-gnu-library/4.3/gdalcubes/nycd.gpkg' 
@@ -1049,7 +1062,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../../../source/reference/ref/crop.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">crop</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../source/reference/ref/fill_time.html" class="pagination-link">
+        <span class="nav-page-text">fill_time</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu"># extract_geom</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a></span>
 <span id="cb6-3"><a href="#cb6-3"></a>Extract values from a data cube by spatial or spatiotemporal features</span>
@@ -1078,103 +1101,104 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-26"><a href="#cb6-26"></a>  <span class="at">datetime =</span> <span class="cn">NULL</span>,</span>
 <span id="cb6-27"><a href="#cb6-27"></a>  <span class="at">time_column =</span> <span class="cn">NULL</span>,</span>
 <span id="cb6-28"><a href="#cb6-28"></a>  <span class="at">FUN =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-29"><a href="#cb6-29"></a>  ...,</span>
-<span id="cb6-30"><a href="#cb6-30"></a>  <span class="at">reduce_time =</span> <span class="cn">FALSE</span></span>
-<span id="cb6-31"><a href="#cb6-31"></a>)</span>
-<span id="cb6-32"><a href="#cb6-32"></a></span>
-<span id="cb6-33"><a href="#cb6-33"></a><span class="in">```</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a>  <span class="at">merge =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-30"><a href="#cb6-30"></a>  <span class="at">drop_geom =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb6-31"><a href="#cb6-31"></a>  ...,</span>
+<span id="cb6-32"><a href="#cb6-32"></a>  <span class="at">reduce_time =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-33"><a href="#cb6-33"></a>)</span>
 <span id="cb6-34"><a href="#cb6-34"></a></span>
-<span id="cb6-35"><a href="#cb6-35"></a></span>
-<span id="cb6-36"><a href="#cb6-36"></a><span class="fu">## Arguments</span></span>
+<span id="cb6-35"><a href="#cb6-35"></a><span class="in">```</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a></span>
 <span id="cb6-37"><a href="#cb6-37"></a></span>
-<span id="cb6-38"><a href="#cb6-38"></a>| Argument    | Description                       |</span>
-<span id="cb6-39"><a href="#cb6-39"></a>|:------------|:----------------------------------|</span>
-<span id="cb6-40"><a href="#cb6-40"></a>| cube | source data cube to extract values from |</span>
-<span id="cb6-41"><a href="#cb6-41"></a>| sf | object of class <span class="in">`sf`</span>, see <span class="co">[</span><span class="ot">sf package</span><span class="co">](&lt;a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'&gt;sf::st_as_sf&lt;/a&gt;)</span> |</span>
-<span id="cb6-42"><a href="#cb6-42"></a>| datetime | Date, POSIXt, or character vector containing per feature time information; length must be identical to the number of features in <span class="in">`sf`</span> |</span>
-<span id="cb6-43"><a href="#cb6-43"></a>| time_column | name of the column in <span class="in">`sf`</span> containing per feature time information |</span>
-<span id="cb6-44"><a href="#cb6-44"></a>| FUN | optional function to compute per feature summary statistics |</span>
-<span id="cb6-45"><a href="#cb6-45"></a>| ... | additional arguments passed to <span class="in">`FUN`</span> |</span>
-<span id="cb6-46"><a href="#cb6-46"></a>| reduce_time | logical; if TRUE, time is ignored when <span class="in">`FUN`</span> is applied |</span>
-<span id="cb6-47"><a href="#cb6-47"></a></span>
-<span id="cb6-48"><a href="#cb6-48"></a></span>
-<span id="cb6-49"><a href="#cb6-49"></a><span class="fu">## Details</span></span>
-<span id="cb6-50"><a href="#cb6-50"></a></span>
-<span id="cb6-51"><a href="#cb6-51"></a>The geometry in <span class="in">`sf`</span> can be of any simple feature type supported by GDAL, including </span>
-<span id="cb6-52"><a href="#cb6-52"></a>POINTS, LINES, POLYGONS, MULTI*, and more. If no time information is provided</span>
-<span id="cb6-53"><a href="#cb6-53"></a>in one of the arguments <span class="in">`datetime`</span> or <span class="in">`time_column`</span>, the full time series</span>
-<span id="cb6-54"><a href="#cb6-54"></a>of pixels with regard to the features are returned. </span>
-<span id="cb6-55"><a href="#cb6-55"></a></span>
-<span id="cb6-56"><a href="#cb6-56"></a>Notice that feature identifiers in the <span class="in">`FID`</span> column typically correspond to the row names / numbers </span>
-<span id="cb6-57"><a href="#cb6-57"></a>of the provided sf object. This can be used to combine the output with the original geometries, e.g., using <span class="co">[</span><span class="ot">`merge()`</span><span class="co">](&lt;a href='https://rdrr.io/r/base/merge.html'&gt;base::merge&lt;/a&gt;)</span>.</span>
-<span id="cb6-58"><a href="#cb6-58"></a> </span>
-<span id="cb6-59"><a href="#cb6-59"></a>Pixels with missing values are automatically dropped from the result. It is hence not</span>
-<span id="cb6-60"><a href="#cb6-60"></a>guaranteed that the result will contain rows for all input features.</span>
-<span id="cb6-61"><a href="#cb6-61"></a></span>
-<span id="cb6-62"><a href="#cb6-62"></a>Features are automatically reprojected if the coordinate reference system differs from the data cube.</span>
-<span id="cb6-63"><a href="#cb6-63"></a></span>
-<span id="cb6-64"><a href="#cb6-64"></a>Extracted values can be aggregated by features by providing a summary function. </span>
-<span id="cb6-65"><a href="#cb6-65"></a>If <span class="in">`reduce_time`</span> is FALSE (the default), the values are grouped </span>
-<span id="cb6-66"><a href="#cb6-66"></a>by feature and time, i.e., the result will contain unique combinations of FID and time.</span>
-<span id="cb6-67"><a href="#cb6-67"></a>To ignore time and produce a single value per feature, <span class="in">`reduce_time`</span> can be set to TRUE.</span>
+<span id="cb6-38"><a href="#cb6-38"></a><span class="fu">## Arguments</span></span>
+<span id="cb6-39"><a href="#cb6-39"></a></span>
+<span id="cb6-40"><a href="#cb6-40"></a>| Argument    | Description                       |</span>
+<span id="cb6-41"><a href="#cb6-41"></a>|:------------|:----------------------------------|</span>
+<span id="cb6-42"><a href="#cb6-42"></a>| cube | source data cube to extract values from |</span>
+<span id="cb6-43"><a href="#cb6-43"></a>| sf | object of class <span class="in">`sf`</span>, see <span class="co">[</span><span class="ot">sf package</span><span class="co">](&lt;a href='https://r-spatial.github.io/sf/reference/st_as_sf.html'&gt;sf::st_as_sf&lt;/a&gt;)</span> |</span>
+<span id="cb6-44"><a href="#cb6-44"></a>| datetime | Date, POSIXt, or character vector containing per feature time information; length must be identical to the number of features in <span class="in">`sf`</span> |</span>
+<span id="cb6-45"><a href="#cb6-45"></a>| time_column | name of the column in <span class="in">`sf`</span> containing per feature time information |</span>
+<span id="cb6-46"><a href="#cb6-46"></a>| FUN | optional function to compute per feature summary statistics |</span>
+<span id="cb6-47"><a href="#cb6-47"></a>| ... | additional arguments passed to <span class="in">`FUN`</span> |</span>
+<span id="cb6-48"><a href="#cb6-48"></a>| reduce_time | logical; if TRUE, time is ignored when <span class="in">`FUN`</span> is applied |</span>
+<span id="cb6-49"><a href="#cb6-49"></a>| merge; | logical; return a combined data.frame with data cube values and labels, defaults to FALSE |</span>
+<span id="cb6-50"><a href="#cb6-50"></a>| drop_geom; | remove geometries from output, only applicable if merge is TRUE, defaults to FALSE |</span>
+<span id="cb6-51"><a href="#cb6-51"></a></span>
+<span id="cb6-52"><a href="#cb6-52"></a></span>
+<span id="cb6-53"><a href="#cb6-53"></a><span class="fu">## Details</span></span>
+<span id="cb6-54"><a href="#cb6-54"></a></span>
+<span id="cb6-55"><a href="#cb6-55"></a>The geometry in <span class="in">`sf`</span> can be of any simple feature type supported by GDAL, including </span>
+<span id="cb6-56"><a href="#cb6-56"></a>POINTS, LINES, POLYGONS, MULTI*, and more. If no time information is provided</span>
+<span id="cb6-57"><a href="#cb6-57"></a>in one of the arguments <span class="in">`datetime`</span> or <span class="in">`time_column`</span>, the full time series</span>
+<span id="cb6-58"><a href="#cb6-58"></a>of pixels with regard to the features are returned. </span>
+<span id="cb6-59"><a href="#cb6-59"></a></span>
+<span id="cb6-60"><a href="#cb6-60"></a>Notice that feature identifiers in the <span class="in">`FID`</span> column typically correspond to the row names / numbers </span>
+<span id="cb6-61"><a href="#cb6-61"></a>of the provided sf object. This can be used to combine the output with the original geometries, e.g., using <span class="co">[</span><span class="ot">`merge()`</span><span class="co">](&lt;a href='https://rdrr.io/r/base/merge.html'&gt;base::merge&lt;/a&gt;)</span>.</span>
+<span id="cb6-62"><a href="#cb6-62"></a>with gdalcubes &gt; 0.6.4, this can be done automatically by setting <span class="in">`merge=TRUE`</span>. In this case, the <span class="in">`FID`</span> column is dropped from the result. </span>
+<span id="cb6-63"><a href="#cb6-63"></a> </span>
+<span id="cb6-64"><a href="#cb6-64"></a>Pixels with missing values are automatically dropped from the result. It is hence not</span>
+<span id="cb6-65"><a href="#cb6-65"></a>guaranteed that the result will contain rows for all input features.</span>
+<span id="cb6-66"><a href="#cb6-66"></a></span>
+<span id="cb6-67"><a href="#cb6-67"></a>Features are automatically reprojected if the coordinate reference system differs from the data cube.</span>
 <span id="cb6-68"><a href="#cb6-68"></a></span>
-<span id="cb6-69"><a href="#cb6-69"></a></span>
-<span id="cb6-70"><a href="#cb6-70"></a><span class="fu">## Value</span></span>
-<span id="cb6-71"><a href="#cb6-71"></a></span>
-<span id="cb6-72"><a href="#cb6-72"></a>A data.frame with columns FID, time, and data cube bands / variables, see Details</span>
+<span id="cb6-69"><a href="#cb6-69"></a>Extracted values can be aggregated by features by providing a summary function. </span>
+<span id="cb6-70"><a href="#cb6-70"></a>If <span class="in">`reduce_time`</span> is FALSE (the default), the values are grouped </span>
+<span id="cb6-71"><a href="#cb6-71"></a>by feature and time, i.e., the result will contain unique combinations of FID and time.</span>
+<span id="cb6-72"><a href="#cb6-72"></a>To ignore time and produce a single value per feature, <span class="in">`reduce_time`</span> can be set to TRUE.</span>
 <span id="cb6-73"><a href="#cb6-73"></a></span>
 <span id="cb6-74"><a href="#cb6-74"></a></span>
-<span id="cb6-75"><a href="#cb6-75"></a><span class="fu">## Examples</span></span>
+<span id="cb6-75"><a href="#cb6-75"></a><span class="fu">## Value</span></span>
 <span id="cb6-76"><a href="#cb6-76"></a></span>
-<span id="cb6-77"><a href="#cb6-77"></a></span>
-<span id="cb6-80"><a href="#cb6-80"></a><span class="in">```{r}</span></span>
-<span id="cb6-81"><a href="#cb6-81"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb6-82"><a href="#cb6-82"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb6-83"><a href="#cb6-83"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb6-84"><a href="#cb6-84"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-85"><a href="#cb6-85"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-86"><a href="#cb6-86"></a>}</span>
-<span id="cb6-87"><a href="#cb6-87"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb6-88"><a href="#cb6-88"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">dy=</span><span class="dv">1000</span>, <span class="at">dx=</span><span class="dv">1000</span>, <span class="at">dt=</span><span class="st">"P1M"</span>,</span>
-<span id="cb6-89"><a href="#cb6-89"></a>              <span class="at">aggregation =</span> <span class="st">"median"</span>, <span class="at">resampling =</span> <span class="st">"bilinear"</span>,</span>
-<span id="cb6-90"><a href="#cb6-90"></a>              <span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>,</span>
-<span id="cb6-91"><a href="#cb6-91"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>,</span>
-<span id="cb6-92"><a href="#cb6-92"></a>                          <span class="at">t0=</span><span class="st">"2018-01-01"</span>, <span class="at">t1=</span><span class="st">"2018-04-30"</span>))</span>
-<span id="cb6-93"><a href="#cb6-93"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v)</span>
-<span id="cb6-94"><a href="#cb6-94"></a>L8.cube <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>))</span>
-<span id="cb6-95"><a href="#cb6-95"></a>L8.ndvi <span class="ot">=</span> <span class="fu">apply_pixel</span>(L8.cube, <span class="st">"(B05-B04)/(B05+B04)"</span>, <span class="st">"NDVI"</span>)</span>
-<span id="cb6-96"><a href="#cb6-96"></a>L8.ndvi</span>
-<span id="cb6-97"><a href="#cb6-97"></a></span>
-<span id="cb6-98"><a href="#cb6-98"></a><span class="cf">if</span> (<span class="fu">gdalcubes_gdal_has_geos</span>()) {</span>
-<span id="cb6-99"><a href="#cb6-99"></a>  <span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"sf"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb6-100"><a href="#cb6-100"></a>  </span>
-<span id="cb6-101"><a href="#cb6-101"></a>    <span class="co"># create 50 random point locations</span></span>
-<span id="cb6-102"><a href="#cb6-102"></a>    x <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">50</span>, v<span class="sc">$</span>space<span class="sc">$</span>left, v<span class="sc">$</span>space<span class="sc">$</span>right)</span>
-<span id="cb6-103"><a href="#cb6-103"></a>    y <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">50</span>, v<span class="sc">$</span>space<span class="sc">$</span>bottom, v<span class="sc">$</span>space<span class="sc">$</span>top)</span>
-<span id="cb6-104"><a href="#cb6-104"></a>    t <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2018-01-01"</span>),<span class="fu">as.Date</span>(<span class="st">"2018-04-30"</span>), <span class="at">by =</span> <span class="dv">1</span>),<span class="dv">50</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-105"><a href="#cb6-105"></a>    df <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), <span class="at">crs =</span> v<span class="sc">$</span>space<span class="sc">$</span>srs)</span>
-<span id="cb6-106"><a href="#cb6-106"></a></span>
-<span id="cb6-107"><a href="#cb6-107"></a>    <span class="co"># 1. spatiotemporal points</span></span>
-<span id="cb6-108"><a href="#cb6-108"></a>    <span class="fu">extract_geom</span>(L8.ndvi, df, <span class="at">datetime =</span> t)</span>
-<span id="cb6-109"><a href="#cb6-109"></a></span>
-<span id="cb6-110"><a href="#cb6-110"></a>    </span>
-<span id="cb6-111"><a href="#cb6-111"></a>    <span class="co"># 2. time series at spatial points</span></span>
-<span id="cb6-112"><a href="#cb6-112"></a>    <span class="fu">extract_geom</span>(L8.ndvi, df)</span>
-<span id="cb6-113"><a href="#cb6-113"></a>  </span>
-<span id="cb6-114"><a href="#cb6-114"></a>    <span class="co"># 3. summary statistics over polygons</span></span>
-<span id="cb6-115"><a href="#cb6-115"></a>    x <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">"nycd.gpkg"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>))</span>
-<span id="cb6-116"><a href="#cb6-116"></a>    zstats <span class="ot">=</span> <span class="fu">extract_geom</span>(L8.ndvi,x, <span class="at">FUN=</span>median, <span class="at">reduce_time =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-117"><a href="#cb6-117"></a>    zstats</span>
-<span id="cb6-118"><a href="#cb6-118"></a>    <span class="co"># combine with original sf object</span></span>
-<span id="cb6-119"><a href="#cb6-119"></a>    x<span class="sc">$</span>FID <span class="ot">=</span> <span class="fu">rownames</span>(x)</span>
-<span id="cb6-120"><a href="#cb6-120"></a>    x <span class="ot">=</span> <span class="fu">merge</span>(x, zstats, <span class="at">by =</span> <span class="st">"FID"</span>)</span>
-<span id="cb6-121"><a href="#cb6-121"></a>    x</span>
-<span id="cb6-122"><a href="#cb6-122"></a>    <span class="fu">plot</span>(x[<span class="st">"NDVI"</span>])</span>
-<span id="cb6-123"><a href="#cb6-123"></a>    </span>
-<span id="cb6-124"><a href="#cb6-124"></a>  }</span>
-<span id="cb6-125"><a href="#cb6-125"></a>}</span>
-<span id="cb6-126"><a href="#cb6-126"></a><span class="in">```</span></span>
-<span id="cb6-127"><a href="#cb6-127"></a></span>
+<span id="cb6-77"><a href="#cb6-77"></a>A data.frame with columns FID, time, and data cube bands / variables, see Details</span>
+<span id="cb6-78"><a href="#cb6-78"></a></span>
+<span id="cb6-79"><a href="#cb6-79"></a></span>
+<span id="cb6-80"><a href="#cb6-80"></a><span class="fu">## Examples</span></span>
+<span id="cb6-81"><a href="#cb6-81"></a></span>
+<span id="cb6-82"><a href="#cb6-82"></a></span>
+<span id="cb6-85"><a href="#cb6-85"></a><span class="in">```{r}</span></span>
+<span id="cb6-86"><a href="#cb6-86"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb6-87"><a href="#cb6-87"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb6-88"><a href="#cb6-88"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb6-89"><a href="#cb6-89"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-90"><a href="#cb6-90"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-91"><a href="#cb6-91"></a>}</span>
+<span id="cb6-92"><a href="#cb6-92"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb6-93"><a href="#cb6-93"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">dy=</span><span class="dv">1000</span>, <span class="at">dx=</span><span class="dv">1000</span>, <span class="at">dt=</span><span class="st">"P1M"</span>,</span>
+<span id="cb6-94"><a href="#cb6-94"></a>              <span class="at">aggregation =</span> <span class="st">"median"</span>, <span class="at">resampling =</span> <span class="st">"bilinear"</span>,</span>
+<span id="cb6-95"><a href="#cb6-95"></a>              <span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>,</span>
+<span id="cb6-96"><a href="#cb6-96"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>,</span>
+<span id="cb6-97"><a href="#cb6-97"></a>                          <span class="at">t0=</span><span class="st">"2018-01-01"</span>, <span class="at">t1=</span><span class="st">"2018-04-30"</span>))</span>
+<span id="cb6-98"><a href="#cb6-98"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v)</span>
+<span id="cb6-99"><a href="#cb6-99"></a>L8.cube <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>))</span>
+<span id="cb6-100"><a href="#cb6-100"></a>L8.ndvi <span class="ot">=</span> <span class="fu">apply_pixel</span>(L8.cube, <span class="st">"(B05-B04)/(B05+B04)"</span>, <span class="st">"NDVI"</span>)</span>
+<span id="cb6-101"><a href="#cb6-101"></a>L8.ndvi</span>
+<span id="cb6-102"><a href="#cb6-102"></a></span>
+<span id="cb6-103"><a href="#cb6-103"></a><span class="cf">if</span> (<span class="fu">gdalcubes_gdal_has_geos</span>()) {</span>
+<span id="cb6-104"><a href="#cb6-104"></a>  <span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">"sf"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb6-105"><a href="#cb6-105"></a>  </span>
+<span id="cb6-106"><a href="#cb6-106"></a>    <span class="co"># create 50 random point locations</span></span>
+<span id="cb6-107"><a href="#cb6-107"></a>    x <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">50</span>, v<span class="sc">$</span>space<span class="sc">$</span>left, v<span class="sc">$</span>space<span class="sc">$</span>right)</span>
+<span id="cb6-108"><a href="#cb6-108"></a>    y <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">50</span>, v<span class="sc">$</span>space<span class="sc">$</span>bottom, v<span class="sc">$</span>space<span class="sc">$</span>top)</span>
+<span id="cb6-109"><a href="#cb6-109"></a>    t <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2018-01-01"</span>),<span class="fu">as.Date</span>(<span class="st">"2018-04-30"</span>), <span class="at">by =</span> <span class="dv">1</span>),<span class="dv">50</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-110"><a href="#cb6-110"></a>    df <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_as_sf</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), <span class="at">crs =</span> v<span class="sc">$</span>space<span class="sc">$</span>srs)</span>
+<span id="cb6-111"><a href="#cb6-111"></a></span>
+<span id="cb6-112"><a href="#cb6-112"></a>    <span class="co"># 1. spatiotemporal points</span></span>
+<span id="cb6-113"><a href="#cb6-113"></a>    <span class="fu">extract_geom</span>(L8.ndvi, df, <span class="at">datetime =</span> t)</span>
+<span id="cb6-114"><a href="#cb6-114"></a></span>
+<span id="cb6-115"><a href="#cb6-115"></a>    </span>
+<span id="cb6-116"><a href="#cb6-116"></a>    <span class="co"># 2. time series at spatial points</span></span>
+<span id="cb6-117"><a href="#cb6-117"></a>    <span class="fu">extract_geom</span>(L8.ndvi, df)</span>
+<span id="cb6-118"><a href="#cb6-118"></a>  </span>
+<span id="cb6-119"><a href="#cb6-119"></a>    <span class="co"># 3. summary statistics over polygons</span></span>
+<span id="cb6-120"><a href="#cb6-120"></a>    x <span class="ot">=</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">"nycd.gpkg"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>))</span>
+<span id="cb6-121"><a href="#cb6-121"></a>    zstats <span class="ot">=</span> <span class="fu">extract_geom</span>(L8.ndvi,x, <span class="at">FUN=</span>median, <span class="at">reduce_time =</span> <span class="cn">TRUE</span>, <span class="at">merge =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-122"><a href="#cb6-122"></a>    zstats</span>
+<span id="cb6-123"><a href="#cb6-123"></a>    <span class="fu">plot</span>(zstats[<span class="st">"NDVI"</span>])</span>
+<span id="cb6-124"><a href="#cb6-124"></a>    </span>
+<span id="cb6-125"><a href="#cb6-125"></a>  }</span>
+<span id="cb6-126"><a href="#cb6-126"></a>}</span>
+<span id="cb6-127"><a href="#cb6-127"></a><span class="in">```</span></span>
+<span id="cb6-128"><a href="#cb6-128"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

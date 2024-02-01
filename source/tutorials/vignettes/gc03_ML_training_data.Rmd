@@ -33,7 +33,7 @@ One function that can do all of this is `extract_geom()`, which is similar to th
 
 ## The `extract_geom()` function
 
-Given a data cube and any simple feature geometries as an `sf` object, the `extract_geom()` function can be used as a general method to extract data cube pixel values at irregular locations. `extract_geom()` returns a `data.frame` with columns for feature identifiers (FIDs, often row numbers of the `sf` object), time, and bands / variables of the data cube. Each row represents the data cube values of one pixel relating to the feature given by the FID column. For anything other than simple point geometries (e.g. POLYGON, LINESTRING, MULTIPOINT, and similar), the result may contain multiple rows per feature. In these cases, it is possible to apply an aggregation function to compute mean, median or similar summary statistics over features. 
+Given a data cube and any simple feature geometries as an `sf` object, the `extract_geom()` function can be used as a general method to extract data cube pixel values at irregular locations. `extract_geom()` returns a `data.frame` with columns for feature identifiers (FIDs, often row numbers of the `sf` object), time, and bands / variables of the data cube. Each row represents the data cube values of one pixel relating to the feature given by the FID column. For anything other than simple point geometries (e.g. POLYGON, LINESTRING, MULTIPOINT, and similar), the result may contain multiple rows per feature. In these cases, it is possible to apply an aggregation function to compute mean, median or similar summary statistics over features. Instead of returning values from the data cube only, it is also possible to combine them with original geometries and attributes from the provided `sf` object by setting `merge = TRUE`. In this case, the `FID` column is dropped. Setting `drop_geom = TRUE` will furthermore drop the geometries from the output `data.frame` after merging.
 
 `extract_geom()` drops any pixels with missing values only. Hence, if a feature is outside the extent of the data cube, or all pixels  of a feature are NA due to clouds or unavailability of images, these pixels will not be included in the result. In contrast, if the input features contain overlapping geometries, pixels may be included several times (with different values in the FID column). 
 
@@ -97,21 +97,16 @@ nrow(x)
 head(x)
 ```
 
-As expected, the result contains multiple rows per polygon (because polygons cover multiple pixels). To compute summary statistics per polygon, we can provide a function as the `FUN` argument:
+As expected, the result contains multiple rows per polygon (because polygons cover multiple pixels). In the next example, we compute summary statistics per polygon by providing a function as `FUN` argument and directly combine the extracted features with the original geometries. 
+
 
 ```{r}
-x = extract_geom(ms_cube, training_sites, FUN = median)
-x
-```
-
-To combine the extracted data cube values with the original `sf` objects including the geometries, the `merge()` function can be used. `merge()` performs table join operations on common columns (e.g. IDs). We therefore first need to add an FID column to the features and then join both tables by their FID columns. Notice that by default, this is performing an _inner join_, i.e. rows with FIDs that only exist in one table will be dropped. Alternatively, we can set `all.x=TRUE` to make sure that our result contains all features from the original dataset (left outer join). Below, we combine the tables, drop the geometries and order by NDVI, showing a clear relation between class and NDVI.
-
-```{r}
+x = extract_geom(ms_cube, training_sites, FUN = median, merge = TRUE)
 x = x[order(x$NDVI,decreasing = T),]
-training_sites$FID = rownames(training_sites)
-trn_df = sf::st_drop_geometry(merge(training_sites, x, by = "FID"))
-trn_df[order(trn_df$NDVI, decreasing = TRUE),]
 ```
+
+
+
 
 ## 2. Time series extraction from spatial points
 
@@ -167,30 +162,25 @@ v = cube_view(extent=MODIS.collection, srs = "EPSG:3035", dx = 1000, dy = 1000, 
 raster_cube(MODIS.collection, v)  |>
   select_bands(c("LST_DAY")) |>
   apply_pixel("LST_DAY * 0.02 - 273.15", "LST") |>
-  extract_geom(sf) -> result
+  extract_geom(sf, merge = TRUE) -> result
 head(result, n = 40)
 ```
-The result contains FID, time, and LST as columns and we can combine the data with the original sf object with `merge()`:
 
-
-```{r}
-sf$FID = rownames(sf)
-df = merge(sf, result, by = "FID")
-```
+We again combine the extracted data with the original sf object by setting `merge = TRUE`. As such, the result contains time, LST, and the point geometry as columns. 
 
 We can plot the time series as in the example below, showing some differences between the rural and the urban locations for Paris and Barcelona.
 
 ```{r, fig.align='center'}
 library(ggplot2)
 
-df |>
+result |>
   dplyr::filter(startsWith(name, "PARIS")) |>
-  ggplot( aes(x = as.Date(time), y = LST, color = FID, group = FID)) +
+  ggplot( aes(x = as.Date(time), y = LST, color = name, group = name)) +
   geom_line() + geom_point() + ggtitle("Paris") + xlab("Time") + ylab("LST [K]")
   
-df |>
+result |>
   dplyr::filter(startsWith(name, "BARCELONA")) |>
-  ggplot( aes(x = as.Date(time), y = LST, color = FID, group = FID)) +
+  ggplot( aes(x = as.Date(time), y = LST, color = name, group = name)) +
   geom_line() + geom_point()  + ggtitle("Barcelona") + xlab("Time") + ylab("LST [K]")
 ```
 
@@ -283,17 +273,13 @@ Please notice that we use quite a few parallel worker instances (even more than 
 
 ```{r}
 gdalcubes_options(parallel = 12)
-cubex <- extract_geom(cube,training, time_column = "t")
-nrow(cubex)
+df <- extract_geom(cube,training, time_column = "t", merge = TRUE)
+nrow(df)
 ```
 
-Once available, notice that the number of results is smaller than the number of selected sample points simply because for some points there was no (cloud-free) image available. We can now merge the results with the point features and plot the NDVI by time for the different crop types.
+Once available, notice that the number of results is smaller than the number of selected sample points simply because for some points there was no (cloud-free) image available. We can now plot the NDVI by time for different crop types as in the following.
 
 ```{r, results='hide', warning=FALSE, fig.align='center'}
-sf = training
-sf$FID = rownames(sf)
-df = merge(sf, cubex, by = "FID")
-
 library(ggplot2)
 library(cowplot)
 p = lapply(names, function(x) {

@@ -17,7 +17,7 @@ Predict values based on a trained model to all pixels of a data cube.
 
 
 ```r
-predict.cube(object, model, ...)
+predict.cube(object, model, ..., output_names = c("pred"), keep_bands = FALSE)
 
 ```
 
@@ -29,13 +29,27 @@ predict.cube(object, model, ...)
 | object | a data cube proxy object (class cube) |
 | model | model used for prediction (e.g. from `caret`) |
 | ... | further arguments passed to predict |
+| output_names | optional character vector for output variable(s) |
+| keep_bands | logical; keep bands of input data cube, defaults to FALSE, i.e. original bands will be dropped |
 
 
 ## Details
 
-The predict method used will be automatically chosen based on the model class. It should support models from the `caret` 
-package and simple models as from `lm` or `glm` . However, it  currently works only for a single output variable and 
-requires a `data.frame` input.
+The predict method will be automatically chosen based on the class of the provided model. It aims at supporting models from the packages
+`tidymodels`, `caret`, and simple models as from `lm` or `glm`. 
+
+For multiple output variables and/or output in list or data.frame form, `output_names` must be provided and match 
+names of the columns / items of the result object returned from the underlying predict method. For example, 
+predictions using `tidymodels` return a tibble (data.frame) with columns like `.pred_class` (lassification case).
+This must be explicitly provided as `output_names`. Similarly, `predict.lm` and the like produce lists
+if the standard error is requested by the user and  `output_names` hence should be set to `c("fit","se.fit")`.
+
+For more complex cases or when predict expects something else than a `data.frame`, this function may not work at all.
+
+
+## Note
+
+This function returns a proxy object, i.e., it will not immediately start any computations.
 
 
 ## Examples

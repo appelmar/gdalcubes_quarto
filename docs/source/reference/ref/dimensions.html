@@ -60,6 +60,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
+<link href="../../../source/reference/ref/dimension_values.html" rel="next">
+<link href="../../../source/reference/ref/dimension_bounds.html" rel="prev">
 <link href="../../../favicon.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -158,6 +160,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
 <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
@@ -700,69 +707,7 @@ $x$chunk_size
 
 <!-- -->
 
-</section></section></main><!-- /main --><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu"># dimensions</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>Query data cube properties</span>
-<span id="cb4-4"><a href="#cb4-4"></a></span>
-<span id="cb4-5"><a href="#cb4-5"></a></span>
-<span id="cb4-6"><a href="#cb4-6"></a></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="in">```{r include=FALSE}</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">library</span>(gdalcubes)</span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="in">```</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">## Description</span></span>
-<span id="cb4-12"><a href="#cb4-12"></a></span>
-<span id="cb4-13"><a href="#cb4-13"></a>Query data cube properties</span>
-<span id="cb4-14"><a href="#cb4-14"></a></span>
-<span id="cb4-15"><a href="#cb4-15"></a></span>
-<span id="cb4-16"><a href="#cb4-16"></a><span class="fu">## Usage</span></span>
-<span id="cb4-17"><a href="#cb4-17"></a></span>
-<span id="cb4-18"><a href="#cb4-18"></a></span>
-<span id="cb4-19"><a href="#cb4-19"></a><span class="in">```r</span></span>
-<span id="cb4-20"><a href="#cb4-20"></a><span class="fu">dimensions</span>(obj)</span>
-<span id="cb4-21"><a href="#cb4-21"></a></span>
-<span id="cb4-22"><a href="#cb4-22"></a><span class="in">```</span></span>
-<span id="cb4-23"><a href="#cb4-23"></a></span>
-<span id="cb4-24"><a href="#cb4-24"></a></span>
-<span id="cb4-25"><a href="#cb4-25"></a><span class="fu">## Arguments</span></span>
-<span id="cb4-26"><a href="#cb4-26"></a></span>
-<span id="cb4-27"><a href="#cb4-27"></a>| Argument    | Description                       |</span>
-<span id="cb4-28"><a href="#cb4-28"></a>|:------------|:----------------------------------|</span>
-<span id="cb4-29"><a href="#cb4-29"></a>| obj | a data cube proxy object (class cube) |</span>
-<span id="cb4-30"><a href="#cb4-30"></a></span>
-<span id="cb4-31"><a href="#cb4-31"></a></span>
-<span id="cb4-32"><a href="#cb4-32"></a><span class="fu">## Details</span></span>
-<span id="cb4-33"><a href="#cb4-33"></a></span>
-<span id="cb4-34"><a href="#cb4-34"></a>Elements of the returned list represent individual dimensions with properties such as dimension boundaries, names, and chunk size stored as inner lists</span>
-<span id="cb4-35"><a href="#cb4-35"></a></span>
-<span id="cb4-36"><a href="#cb4-36"></a></span>
-<span id="cb4-37"><a href="#cb4-37"></a><span class="fu">## Value</span></span>
-<span id="cb4-38"><a href="#cb4-38"></a></span>
-<span id="cb4-39"><a href="#cb4-39"></a>Dimension information as a list</span>
-<span id="cb4-40"><a href="#cb4-40"></a></span>
-<span id="cb4-41"><a href="#cb4-41"></a></span>
-<span id="cb4-42"><a href="#cb4-42"></a><span class="fu">## Examples</span></span>
-<span id="cb4-43"><a href="#cb4-43"></a></span>
-<span id="cb4-44"><a href="#cb4-44"></a></span>
-<span id="cb4-47"><a href="#cb4-47"></a><span class="in">```{r}</span></span>
-<span id="cb4-48"><a href="#cb4-48"></a><span class="co"># create image collection from example Landsat data only </span></span>
-<span id="cb4-49"><a href="#cb4-49"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb4-50"><a href="#cb4-50"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb4-51"><a href="#cb4-51"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb4-52"><a href="#cb4-52"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-53"><a href="#cb4-53"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb4-54"><a href="#cb4-54"></a>}</span>
-<span id="cb4-55"><a href="#cb4-55"></a></span>
-<span id="cb4-56"><a href="#cb4-56"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb4-57"><a href="#cb4-57"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
-<span id="cb4-58"><a href="#cb4-58"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
-<span id="cb4-59"><a href="#cb4-59"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
-<span id="cb4-60"><a href="#cb4-60"></a><span class="fu">dimensions</span>(<span class="fu">raster_cube</span>(L8.col, v))</span>
-<span id="cb4-61"><a href="#cb4-61"></a><span class="in">```</span></span>
-<span id="cb4-62"><a href="#cb4-62"></a></span>
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1050,4 +995,107 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.to</script></div></body></html>
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="../../../source/reference/ref/dimension_bounds.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">dimension_bounds</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../../source/reference/ref/dimension_values.html" class="pagination-link">
+        <span class="nav-page-text">dimension_values</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu"># dimensions</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a>Query data cube properties</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="in">```{r include=FALSE}</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">library</span>(gdalcubes)</span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="in">```</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="fu">## Description</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a>Query data cube properties</span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="fu">## Usage</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a></span>
+<span id="cb4-18"><a href="#cb4-18"></a></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="in">```r</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="fu">dimensions</span>(obj)</span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="in">```</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a></span>
+<span id="cb4-24"><a href="#cb4-24"></a></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="fu">## Arguments</span></span>
+<span id="cb4-26"><a href="#cb4-26"></a></span>
+<span id="cb4-27"><a href="#cb4-27"></a>| Argument    | Description                       |</span>
+<span id="cb4-28"><a href="#cb4-28"></a>|:------------|:----------------------------------|</span>
+<span id="cb4-29"><a href="#cb4-29"></a>| obj | a data cube proxy object (class cube) |</span>
+<span id="cb4-30"><a href="#cb4-30"></a></span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="fu">## Details</span></span>
+<span id="cb4-33"><a href="#cb4-33"></a></span>
+<span id="cb4-34"><a href="#cb4-34"></a>Elements of the returned list represent individual dimensions with properties such as dimension boundaries, names, and chunk size stored as inner lists</span>
+<span id="cb4-35"><a href="#cb4-35"></a></span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-37"><a href="#cb4-37"></a><span class="fu">## Value</span></span>
+<span id="cb4-38"><a href="#cb4-38"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a>Dimension information as a list</span>
+<span id="cb4-40"><a href="#cb4-40"></a></span>
+<span id="cb4-41"><a href="#cb4-41"></a></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="fu">## Examples</span></span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
+<span id="cb4-44"><a href="#cb4-44"></a></span>
+<span id="cb4-47"><a href="#cb4-47"></a><span class="in">```{r}</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb4-49"><a href="#cb4-49"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb4-50"><a href="#cb4-50"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb4-51"><a href="#cb4-51"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb4-52"><a href="#cb4-52"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-53"><a href="#cb4-53"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb4-54"><a href="#cb4-54"></a>}</span>
+<span id="cb4-55"><a href="#cb4-55"></a></span>
+<span id="cb4-56"><a href="#cb4-56"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb4-57"><a href="#cb4-57"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb4-58"><a href="#cb4-58"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
+<span id="cb4-59"><a href="#cb4-59"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb4-60"><a href="#cb4-60"></a><span class="fu">dimensions</span>(<span class="fu">raster_cube</span>(L8.col, v))</span>
+<span id="cb4-61"><a href="#cb4-61"></a><span class="in">```</span></span>
+<span id="cb4-62"><a href="#cb4-62"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+<li class="nav-item">
+ © 2024 Marius Appel
+  </li>  
+</ul>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+</body></html>

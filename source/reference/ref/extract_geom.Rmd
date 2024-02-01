@@ -26,6 +26,8 @@ extract_geom(
   datetime = NULL,
   time_column = NULL,
   FUN = NULL,
+  merge = FALSE,
+  drop_geom = FALSE,
   ...,
   reduce_time = FALSE
 )
@@ -44,6 +46,8 @@ extract_geom(
 | FUN | optional function to compute per feature summary statistics |
 | ... | additional arguments passed to `FUN` |
 | reduce_time | logical; if TRUE, time is ignored when `FUN` is applied |
+| merge; | logical; return a combined data.frame with data cube values and labels, defaults to FALSE |
+| drop_geom; | remove geometries from output, only applicable if merge is TRUE, defaults to FALSE |
 
 
 ## Details
@@ -55,6 +59,7 @@ of pixels with regard to the features are returned.
 
 Notice that feature identifiers in the `FID` column typically correspond to the row names / numbers 
 of the provided sf object. This can be used to combine the output with the original geometries, e.g., using [`merge()`](<a href='https://rdrr.io/r/base/merge.html'>base::merge</a>).
+with gdalcubes > 0.6.4, this can be done automatically by setting `merge=TRUE`. In this case, the `FID` column is dropped from the result. 
  
 Pixels with missing values are automatically dropped from the result. It is hence not
 guaranteed that the result will contain rows for all input features.
@@ -111,13 +116,9 @@ if (gdalcubes_gdal_has_geos()) {
   
     # 3. summary statistics over polygons
     x = sf::st_read(system.file("nycd.gpkg", package = "gdalcubes"))
-    zstats = extract_geom(L8.ndvi,x, FUN=median, reduce_time = TRUE)
+    zstats = extract_geom(L8.ndvi,x, FUN=median, reduce_time = TRUE, merge = TRUE)
     zstats
-    # combine with original sf object
-    x$FID = rownames(x)
-    x = merge(x, zstats, by = "FID")
-    x
-    plot(x["NDVI"])
+    plot(zstats["NDVI"])
     
   }
 }

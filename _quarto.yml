@@ -8,7 +8,8 @@ website:
   search:
     location: navbar
     type: overlay
-  #reader-mode: true
+  reader-mode: true
+  page-navigation: true
   navbar:
     background: primary
     logo: source/gdalcubes_logo_mini.png
@@ -100,10 +101,12 @@ website:
           contents:
             - text: "1. Sentinel-2 data on AWS"
               href: "source/tutorials/vignettes/gc02_AWS_Sentinel2.Rmd"
-        - section: "Extraction from data cubes"
+        - section: "Machine learning on data cubes"
           contents:
             - text: "1. Extract training data for ML models"
               href: "source/tutorials/vignettes/gc03_ML_training_data.Rmd"
+            - text: "2. Model prediction on data cubes"
+              href: "source/tutorials/prediction/prediction.qmd"
         - source/tutorials/videos.qmd
     - id: reference
       title: "Reference"
