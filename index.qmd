@@ -5,18 +5,19 @@ code-tools: false
 ---
 
 
-gdalcubes is an R package and C++ library aiming at making processing large collections of satellite imagery *easier*, *faster*, and *more interactive*.
+gdalcubes is an R package and C++ library aiming at making processing collections of satellite imagery *easier*, *faster*, and *more interactive*.
 
 It provides functions to create and process *four-dimensional regular raster data cubes* from irregular image collections, hiding complexities in the data such as different map projections and spatial overlaps of images, or different spatial resolutions of spectral bands. 
 
 ## Features
 
 - Create data cubes from local files or cloud storage
-- Process data cubes by applying arithmetic operations on pixels (e.g. to compute vegetation indexes), computing summary statistics over space and time filtering by space, time, and  bands, and applying user-defined R functions
+- Process data cubes by applying arithmetic operations on pixels (e.g. to compute vegetation indexes), computing summary statistics over space and time, filtering by space, time, and bands, and applying user-defined R functions on data cubes
 - Extract time series or pixels from spatial polygons and points
 - Export data cubes as netCDF or GeoTIFF file(s)
-- Process data cubes in parallel, reading only small chunks of a cube at a time
-- Develop methods efficiently on lower resolution / smaller areas
+- Create training data and apply predictions for machine learning models
+- Process data cubes in parallel while reading only smaller (memory-friendly) chunks of a cube at a time
 
+Among others, the package has been successfully used to process data from the Sentinel-2, Sentinel-5P, Landsat, PlanetScope, MODIS, and Global Precipitation Measurement Earth observation satellites / missions.
 
 ![](source/gdalcubes_logo_small.png){fig-align="center"}

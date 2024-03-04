@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "gdalcubes",
     "section": "",
-    "text": "gdalcubes is an R package and C++ library aiming at making processing large collections of satellite imagery easier, faster, and more interactive.\nIt provides functions to create and process four-dimensional regular raster data cubes from irregular image collections, hiding complexities in the data such as different map projections and spatial overlaps of images, or different spatial resolutions of spectral bands."
+    "text": "gdalcubes is an R package and C++ library aiming at making processing collections of satellite imagery easier, faster, and more interactive.\nIt provides functions to create and process four-dimensional regular raster data cubes from irregular image collections, hiding complexities in the data such as different map projections and spatial overlaps of images, or different spatial resolutions of spectral bands."
   },
   {
     "objectID": "index.html#features",
     "href": "index.html#features",
     "title": "gdalcubes",
     "section": "Features",
-    "text": "Features\n\nCreate data cubes from local files or cloud storage\nProcess data cubes by applying arithmetic operations on pixels (e.g. to compute vegetation indexes), computing summary statistics over space and time filtering by space, time, and bands, and applying user-defined R functions\nExtract time series or pixels from spatial polygons and points\nExport data cubes as netCDF or GeoTIFF file(s)\nProcess data cubes in parallel, reading only small chunks of a cube at a time\nDevelop methods efficiently on lower resolution / smaller areas"
+    "text": "Features\n\nCreate data cubes from local files or cloud storage\nProcess data cubes by applying arithmetic operations on pixels (e.g. to compute vegetation indexes), computing summary statistics over space and time, filtering by space, time, and bands, and applying user-defined R functions on data cubes\nExtract time series or pixels from spatial polygons and points\nExport data cubes as netCDF or GeoTIFF file(s)\nCreate training data and apply predictions for machine learning models\nProcess data cubes in parallel while reading only smaller (memory-friendly) chunks of a cube at a time\n\nAmong others, the package has been successfully used to process data from the Sentinel-2, Sentinel-5P, Landsat, PlanetScope, MODIS, and Global Precipitation Measurement Earth observation satellites / missions."
   },
   {
     "objectID": "source/introduction/faq.html",

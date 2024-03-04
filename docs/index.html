@@ -171,18 +171,19 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>gdalcubes is an R package and C++ library aiming at making processing large collections of satellite imagery <em>easier</em>, <em>faster</em>, and <em>more interactive</em>.</p>
+<p>gdalcubes is an R package and C++ library aiming at making processing collections of satellite imagery <em>easier</em>, <em>faster</em>, and <em>more interactive</em>.</p>
 <p>It provides functions to create and process <em>four-dimensional regular raster data cubes</em> from irregular image collections, hiding complexities in the data such as different map projections and spatial overlaps of images, or different spatial resolutions of spectral bands.</p>
 <section id="features" class="level2">
 <h2 class="anchored" data-anchor-id="features">Features</h2>
 <ul>
 <li>Create data cubes from local files or cloud storage</li>
-<li>Process data cubes by applying arithmetic operations on pixels (e.g.&nbsp;to compute vegetation indexes), computing summary statistics over space and time filtering by space, time, and bands, and applying user-defined R functions</li>
+<li>Process data cubes by applying arithmetic operations on pixels (e.g.&nbsp;to compute vegetation indexes), computing summary statistics over space and time, filtering by space, time, and bands, and applying user-defined R functions on data cubes</li>
 <li>Extract time series or pixels from spatial polygons and points</li>
 <li>Export data cubes as netCDF or GeoTIFF file(s)</li>
-<li>Process data cubes in parallel, reading only small chunks of a cube at a time</li>
-<li>Develop methods efficiently on lower resolution / smaller areas</li>
+<li>Create training data and apply predictions for machine learning models</li>
+<li>Process data cubes in parallel while reading only smaller (memory-friendly) chunks of a cube at a time</li>
 </ul>
+<p>Among others, the package has been successfully used to process data from the Sentinel-2, Sentinel-5P, Landsat, PlanetScope, MODIS, and Global Precipitation Measurement Earth observation satellites / missions.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="source/gdalcubes_logo_small.png" class="img-fluid figure-img"></p>
