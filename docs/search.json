@@ -11,7 +11,7 @@
     "href": "index.html#features",
     "title": "gdalcubes",
     "section": "Features",
-    "text": "Features\n\nCreate data cubes from local files or cloud storage\nProcess data cubes by applying arithmetic operations on pixels (e.g. to compute vegetation indexes), computing summary statistics over space and time, filtering by space, time, and bands, and applying user-defined R functions on data cubes\nExtract time series or pixels from spatial polygons and points\nExport data cubes as netCDF or GeoTIFF file(s)\nCreate training data and apply predictions for machine learning models\nProcess data cubes in parallel while reading only smaller (memory-friendly) chunks of a cube at a time\n\nAmong others, the package has been successfully used to process data from the Sentinel-2, Sentinel-5P, Landsat, PlanetScope, MODIS, and Global Precipitation Measurement Earth observation satellites / missions."
+    "text": "Features\n\nCreate data cubes from local files or cloud storage\nProcess data cubes by applying arithmetic operations on pixels (e.g. to compute vegetation indexes), computing summary statistics over space and time, filtering by space, time, and bands, and applying user-defined R functions on data cubes\nExtract time series or pixels from spatial polygons and points\nExport data cubes as netCDF or GeoTIFF file(s)\nCreate training data and apply predictions for machine learning models\nProcess data cubes in parallel while reading only smaller (memory-friendly) chunks of a cube at a time\n\nAmong others, gdalcubes has been successfully used to process data from the Sentinel-2, Sentinel-5P, Landsat, PlanetScope, MODIS, and Global Precipitation Measurement Earth observation satellites / missions."
   },
   {
     "objectID": "source/introduction/faq.html",
@@ -249,7 +249,7 @@
     "href": "source/reference/ref/predict.cube.html#description",
     "title": "",
     "section": "Description",
-    "text": "Description\nPredict values based on a trained model to all pixels of a data cube."
+    "text": "Description\nApply a trained model on all pixels of a data cube."
   },
   {
     "objectID": "source/reference/ref/predict.cube.html#usage",
@@ -263,14 +263,14 @@
     "href": "source/reference/ref/predict.cube.html#arguments",
     "title": "",
     "section": "Arguments",
-    "text": "Arguments\n\n\n\n\n\n\nArgument\nDescription\n\n\n\nobject\na data cube proxy object (class cube)\n\n\nmodel\nmodel used for prediction (e.g. from caret)\n\n\n…\nfurther arguments passed to predict\n\n\noutput_names\noptional character vector for output variable(s)\n\n\nkeep_bands\nlogical; keep bands of input data cube, defaults to FALSE, i.e. original bands will be dropped"
+    "text": "Arguments\n\n\n\n\n\n\nArgument\nDescription\n\n\n\nobject\na data cube proxy object (class cube)\n\n\nmodel\nmodel used for prediction (e.g. from caret or tidymodels)\n\n\n…\nfurther arguments passed to the model-specific predict method\n\n\noutput_names\noptional character vector for output variable(s)\n\n\nkeep_bands\nlogical; keep bands of input data cube, defaults to FALSE, i.e. original bands will be dropped"
   },
   {
     "objectID": "source/reference/ref/predict.cube.html#details",
     "href": "source/reference/ref/predict.cube.html#details",
     "title": "",
     "section": "Details",
-    "text": "Details\nThe predict method will be automatically chosen based on the class of the provided model. It aims at supporting models from the packages tidymodels, caret, and simple models as from lm or glm.\nFor multiple output variables and/or output in list or data.frame form, output_names must be provided and match names of the columns / items of the result object returned from the underlying predict method. For example, predictions using tidymodels return a tibble (data.frame) with columns like .pred_class (lassification case). This must be explicitly provided as output_names. Similarly, predict.lm and the like produce lists if the standard error is requested by the user and output_names hence should be set to c(\"fit\",\"se.fit\").\nFor more complex cases or when predict expects something else than a data.frame, this function may not work at all."
+    "text": "Details\nThe model-specific predict method will be automatically chosen based on the class of the provided model. It aims at supporting models from the packages tidymodels, caret, and simple models as from lm or glm.\nFor multiple output variables or output in form of lists or data.frames, output_names must be provided and match names of the columns / items of the result object returned from the underlying predict method. For example, predictions using tidymodels return a tibble (data.frame) with columns like .pred_class (classification case). This must be explicitly provided as output_names. Similarly, predict.lm and the like return lists if the standard error is requested by the user and output_names hence should be set to c(\"fit\",\"se.fit\").\nFor more complex cases or when predict expects something else than a data.frame, this function may not work at all."
   },
   {
     "objectID": "source/reference/ref/predict.cube.html#note",
@@ -3035,7 +3035,7 @@
     "href": "source/reference/ref/window_time.html#description",
     "title": "",
     "section": "Description",
-    "text": "Description\nCreate a proxy data cube, which applies one ore more moving window functions to selected bands over pixel time series of a data cube. The fuction can either use a predefined agggregation function or apply a custom convolution kernel."
+    "text": "Description\nCreate a proxy data cube, which applies one ore more moving window functions to selected bands over pixel time series of a data cube. The function can either apply a built-in aggregation function or apply a custom one-dimensional convolution kernel."
   },
   {
     "objectID": "source/reference/ref/window_time.html#usage",
@@ -3056,7 +3056,7 @@
     "href": "source/reference/ref/window_time.html#details",
     "title": "",
     "section": "Details",
-    "text": "Details\nThe function either applies a kernel convolution (if the kernel argument is provided) or a general reducer function over moving temporal windows. In the former case, the kernel convolution will be applied over all bands of the input cube, i.e., the output cube will have the same number of bands as the input cubes. If a kernel is given and the window argument is missing, the window will be symmetric to the center pixel with the size of the provided kernel. For general reducer functions, the window argument must be provided and several expressions can be used to create multiple bands in the output cube.\nNotice that expressions have a very simple format: the reducer is followed by the name of a band in parantheses. You cannot add more complex functions or arguments.\nPossible reducers currently are “min”, “max”, “sum”, “prod”, “count”, “mean”, “median”."
+    "text": "Details\nThe function either applies a kernel convolution (if the kernel argument is provided) or a general reducer function over moving temporal windows. In the former case, the kernel convolution will be applied over all bands of the input cube, i.e., the output cube will have the same number of bands as the input cubes. If a kernel is given and the window argument is missing, the window will be symmetric to the center pixel with the size of the provided kernel. For general reducer functions, the window argument must be provided and several expressions can be used to create multiple bands in the output cube.\nNotice that expressions have a very simple format: the reducer is followed by the name of a band in parantheses. You cannot add more complex functions or arguments.\nPossible reducers include “min”, “max”, “sum”, “prod”, “count”, “mean”, and “median”."
   },
   {
     "objectID": "source/reference/ref/window_time.html#value",
@@ -3602,7 +3602,7 @@
     "href": "source/reference/ref/window_space.html#description",
     "title": "",
     "section": "Description",
-    "text": "Description\nCreate a proxy data cube, which applies a convolution kernel or an aggregation functions on two-dimensional moving windows sliding over spatial slices of a data cube. The function can either execute a predefined agggregation function or apply a custom convolution kernel. Among others, use cases include image processing (edge detection, median filter noise reduction, etc.) and enriching pixel values with local neighborhood properties (e.g. to use as predictor variables in ML models)."
+    "text": "Description\nCreate a proxy data cube, which applies a convolution kernel or aggregation functions over two-dimensional moving windows sliding over spatial slices of a data cube. The function can either execute one or more predefined aggregation functions or apply a custom convolution kernel. Among others, use cases include image processing (edge detection, noise reduction, etc.) and enriching pixel values with local neighborhood properties (e.g. to use as predictor variables in ML models)."
   },
   {
     "objectID": "source/reference/ref/window_space.html#usage",
@@ -3616,14 +3616,14 @@
     "href": "source/reference/ref/window_space.html#arguments",
     "title": "",
     "section": "Arguments",
-    "text": "Arguments\n\n\n\n\n\n\nArgument\nDescription\n\n\n\nx\nsource data cube\n\n\nexpr\neither a single string, or a vector of strings, defining which reducers will be applied over which bands of the input cube\n\n\n…\noptional additional expressions (if expr is not a vector)\n\n\nkernel\ntwo dimensional kernel (matrix) applied as convolution (must have odd number of rows and columns)\n\n\nwindow\ninteger vector with two elements defining the size of the window before and after a cell, the total size of the window is window[1] + 1 + window[2]\n\n\nkeep_bands\nlogical; if FALSE (the default), original data cube bands will be dropped.\n\n\npad\nPadding method applied to the borders; use NULL for no padding, a numeric a fill value, or one of “REPLICATE”, “REFLECT”, “REFLECT_PIXEL”"
+    "text": "Arguments\n\n\n\n\n\n\nArgument\nDescription\n\n\n\nx\nsource data cube\n\n\nexpr\neither a single string, or a vector of strings, defining which reducers will be applied over which bands of the input cube\n\n\n…\noptional additional expressions (if expr is not a vector)\n\n\nkernel\ntwo dimensional kernel (matrix) applied as convolution (with odd number of rows and columns)\n\n\nwindow\ninteger vector with two elements defining the size (number of pixels) of the window in y and x direction, the total size of the window is window[1] * window[2]\n\n\nkeep_bands\nlogical; if FALSE (the default), original data cube bands will be dropped.\n\n\npad\npadding method applied to the borders; use NULL for no padding (NA), a numeric a fill value, or one of “REPLICATE”, “REFLECT”, “REFLECT_PIXEL”"
   },
   {
     "objectID": "source/reference/ref/window_space.html#details",
     "href": "source/reference/ref/window_space.html#details",
     "title": "",
     "section": "Details",
-    "text": "Details\nThe function either applies a kernel convolution (if the kernel argument is provided) or one or more built-in reducer function over moving windows. In the former case, the kernel convolution will be applied over all bands of the input cube, i.e., the output cube will have the same number of bands as the input cubes. To apply one or more reducer functions, the window argument must be provided as a vector with two integer sizes in the order y, x. Several string expressions can be provided to create multiple bands in the output cube.\nNotice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses. You cannot add more complex functions or arguments. Possible reducers currently include “min”, “max”, “sum”, “prod”, “count”, “mean”, “median”, “var”, and “sd”."
+    "text": "Details\nThe function either applies a kernel convolution (if the kernel argument is provided) or one or more built-in reducer function over moving windows.\nIn the former case, the kernel convolution will be applied over all bands of the input cube, i.e., the output cube will have the same number of bands as the input cubes.\nTo apply one or more aggregation functions over moving windows, the window argument must be provided as a vector with two integer sizes in the order y, x. Several string expressions can be provided to create multiple bands in the output cube. Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses, e.g, “mean(band1)”. Possible reducers include “min”, “max”, “sum”, “prod”, “count”, “mean”, “median”, “var”, and “sd”.\nPadding methods “REPLICATE”, “REFLECT”, “REFLEX_PIXEL” are defined according to https://openeo.org/documentation/1.0/processes.html#apply_kernel."
   },
   {
     "objectID": "source/reference/ref/window_space.html#value",
@@ -3644,7 +3644,7 @@
     "href": "source/reference/ref/window_space.html#examples",
     "title": "",
     "section": "Examples",
-    "text": "Examples\n\n# create image collection from example Landsat data only \n# if not already done in other examples\nif (!file.exists(file.path(tempdir(), \"L8.db\"))) {\n  L8_files &lt;- list.files(system.file(\"L8NY18\", package = \"gdalcubes\"),\n                         \".TIF\", recursive = TRUE, full.names = TRUE)\n  create_image_collection(L8_files, \"L8_L1TP\", file.path(tempdir(), \"L8.db\"), quiet = TRUE) \n}\n\nL8.col = image_collection(file.path(tempdir(), \"L8.db\"))\nv = cube_view(extent=list(left=388941.2, right=766552.4, \n                          bottom=4345299, top=4744931, t0=\"2018-04\", t1=\"2018-06\"),\n              srs=\"EPSG:32618\", nx = 497, ny=526, dt=\"P1M\")\nL8.cube = raster_cube(L8.col, v, chunking = c(1,1000,1000)) \nL8.cube = select_bands(L8.cube, c(\"B04\", \"B05\")) \nL8.cube.mean5x5 = window_space(L8.cube, kernel = matrix(1/25, 5, 5))\nL8.cube.mean5x5\n\nA data cube proxy object\n\nDimensions:\n         low       high count       pixel_size chunk_size\nt 2018-04-01 2018-06-30     3              P1M          1\ny    4345299    4744931   526 759.756653992395       1000\nx   388941.2   766552.4   497 759.781086519115       1000\n\nBands:\n  name offset scale nodata unit\n1  B04      0     1    NaN     \n2  B05      0     1    NaN     \n\nL8.cube.med_sd = window_space(L8.cube, \"median(B04)\" ,\"sd(B04)\", \"median(B05)\", \"sd(B05)\", \n                              window = c(5,5), keep_bands = TRUE)\nL8.cube.med_sd\n\nA data cube proxy object\n\nDimensions:\n         low       high count       pixel_size chunk_size\nt 2018-04-01 2018-06-30     3              P1M          1\ny    4345299    4744931   526 759.756653992395       1000\nx   388941.2   766552.4   497 759.781086519115       1000\n\nBands:\n        name offset scale nodata unit\n1        B04      0     1    NaN     \n2        B05      0     1    NaN     \n3 B04_median      0     1    NaN     \n4     B04_sd      0     1    NaN     \n5 B05_median      0     1    NaN     \n6     B05_sd      0     1    NaN"
+    "text": "Examples\n\n# create image collection from example Landsat data only \n# if not already done in other examples\nif (!file.exists(file.path(tempdir(), \"L8.db\"))) {\n  L8_files &lt;- list.files(system.file(\"L8NY18\", package = \"gdalcubes\"),\n                         \".TIF\", recursive = TRUE, full.names = TRUE)\n  create_image_collection(L8_files, \"L8_L1TP\", file.path(tempdir(), \"L8.db\"), quiet = TRUE) \n}\n\nL8.col = image_collection(file.path(tempdir(), \"L8.db\"))\nv = cube_view(extent=list(left=388941.2, right=766552.4, \n                          bottom=4345299, top=4744931, t0=\"2018-04\", t1=\"2018-06\"),\n              srs=\"EPSG:32618\", nx = 497, ny=526, dt=\"P1M\")\nL8.cube = raster_cube(L8.col, v, chunking = c(1,1000,1000)) \nL8.cube = select_bands(L8.cube, c(\"B04\", \"B05\")) \nL8.cube.mean5x5 = window_space(L8.cube, kernel = matrix(1/25, 5, 5))\nL8.cube.mean5x5\n\nA data cube proxy object\n\nDimensions:\n         low       high count       pixel_size chunk_size\nt 2018-04-01 2018-06-30     3              P1M          1\ny    4345299    4744931   526 759.756653992395       1000\nx   388941.2   766552.4   497 759.781086519115       1000\n\nBands:\n  name offset scale nodata unit\n1  B04      0     1    NaN     \n2  B05      0     1    NaN     \n\nplot(L8.cube.mean5x5, key.pos=1)\n\n\n\nL8.cube.med_sd = window_space(L8.cube, \"median(B04)\" ,\"sd(B04)\", \"median(B05)\", \"sd(B05)\", \n                              window = c(5,5), keep_bands = TRUE)\nL8.cube.med_sd\n\nA data cube proxy object\n\nDimensions:\n         low       high count       pixel_size chunk_size\nt 2018-04-01 2018-06-30     3              P1M          1\ny    4345299    4744931   526 759.756653992395       1000\nx   388941.2   766552.4   497 759.781086519115       1000\n\nBands:\n        name offset scale nodata unit\n1        B04      0     1    NaN     \n2        B05      0     1    NaN     \n3 B04_median      0     1    NaN     \n4     B04_sd      0     1    NaN     \n5 B05_median      0     1    NaN     \n6     B05_sd      0     1    NaN     \n\nplot(L8.cube.med_sd, key.pos=1)"
   },
   {
     "objectID": "source/reference/ref/stack_cube.html",

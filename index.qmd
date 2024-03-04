@@ -18,6 +18,6 @@ It provides functions to create and process *four-dimensional regular raster dat
 - Create training data and apply predictions for machine learning models
 - Process data cubes in parallel while reading only smaller (memory-friendly) chunks of a cube at a time
 
-Among others, the package has been successfully used to process data from the Sentinel-2, Sentinel-5P, Landsat, PlanetScope, MODIS, and Global Precipitation Measurement Earth observation satellites / missions.
+Among others, gdalcubes has been successfully used to process data from the Sentinel-2, Sentinel-5P, Landsat, PlanetScope, MODIS, and Global Precipitation Measurement Earth observation satellites / missions.
 
 ![](source/gdalcubes_logo_small.png){fig-align="center"}

@@ -1,6 +1,6 @@
 # predict.cube
 
-Predict values based on a trained model to all pixels of a data cube.
+Model prediction
 
 
 
@@ -10,7 +10,7 @@ library(gdalcubes)
 
 ## Description
 
-Predict values based on a trained model to all pixels of a data cube.
+Apply a trained model on all pixels of a data cube.
 
 
 ## Usage
@@ -27,22 +27,23 @@ predict.cube(object, model, ..., output_names = c("pred"), keep_bands = FALSE)
 | Argument    | Description                       |
 |:------------|:----------------------------------|
 | object | a data cube proxy object (class cube) |
-| model | model used for prediction (e.g. from `caret`) |
-| ... | further arguments passed to predict |
+| model | model used for prediction (e.g. from `caret` or `tidymodels`) |
+| ... | further arguments passed to the model-specific predict method |
 | output_names | optional character vector for output variable(s) |
 | keep_bands | logical; keep bands of input data cube, defaults to FALSE, i.e. original bands will be dropped |
 
 
 ## Details
 
-The predict method will be automatically chosen based on the class of the provided model. It aims at supporting models from the packages
-`tidymodels`, `caret`, and simple models as from `lm` or `glm`. 
+The model-specific predict method will be automatically chosen based on the class of the provided model. It aims at supporting 
+models from the packages `tidymodels`, `caret`, and simple models as from `lm` or `glm`. 
 
-For multiple output variables and/or output in list or data.frame form, `output_names` must be provided and match 
+
+For multiple output variables or output in form of lists or data.frames, `output_names` must be provided and match 
 names of the columns / items of the result object returned from the underlying predict method. For example, 
-predictions using `tidymodels` return a tibble (data.frame) with columns like `.pred_class` (lassification case).
-This must be explicitly provided as `output_names`. Similarly, `predict.lm` and the like produce lists
-if the standard error is requested by the user and  `output_names` hence should be set to `c("fit","se.fit")`.
+predictions using `tidymodels` return a tibble (data.frame) with columns like `.pred_class` (classification case).
+This must be explicitly provided as `output_names`. Similarly, `predict.lm` and the like return lists
+if the standard error is requested by the user and `output_names` hence should be set to `c("fit","se.fit")`.
 
 For more complex cases or when predict expects something else than a `data.frame`, this function may not work at all.
 

@@ -624,9 +624,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><div class="quarto-title-block"><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div><section id="window_space" class="level1"><h1>window_space</h1>
-<p>Apply a moving window operation or convolution kernel over the spatial dimensions of a data cube</p>
+<p>Apply a moving window (focal) operation or a convolution kernel over spatial dimensions of a data cube.</p>
 <section id="description" class="level2"><h2 class="anchored" data-anchor-id="description">Description</h2>
-<p>Create a proxy data cube, which applies a convolution kernel or an aggregation functions on two-dimensional moving windows sliding over spatial slices of a data cube. The function can either execute a predefined agggregation function or apply a custom convolution kernel. Among others, use cases include image processing (edge detection, median filter noise reduction, etc.) and enriching pixel values with local neighborhood properties (e.g.&nbsp;to use as predictor variables in ML models).</p>
+<p>Create a proxy data cube, which applies a convolution kernel or aggregation functions over two-dimensional moving windows sliding over spatial slices of a data cube. The function can either execute one or more predefined aggregation functions or apply a custom convolution kernel. Among others, use cases include image processing (edge detection, noise reduction, etc.) and enriching pixel values with local neighborhood properties (e.g.&nbsp;to use as predictor variables in ML models).</p>
 </section><section id="usage" class="level2"><h2 class="anchored" data-anchor-id="usage">Usage</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">window_space</span>(x, expr, ..., kernel, window, <span class="at">keep_bands =</span> <span class="cn">FALSE</span>, <span class="at">pad =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
@@ -654,11 +654,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">kernel</td>
-<td style="text-align: left;">two dimensional kernel (matrix) applied as convolution (must have odd number of rows and columns)</td>
+<td style="text-align: left;">two dimensional kernel (matrix) applied as convolution (with odd number of rows and columns)</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">window</td>
-<td style="text-align: left;">integer vector with two elements defining the size of the window before and after a cell, the total size of the window is window[1] + 1 + window[2]</td>
+<td style="text-align: left;">integer vector with two elements defining the size (number of pixels) of the window in y and x direction, the total size of the window is window[1] * window[2]</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">keep_bands</td>
@@ -666,12 +666,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">pad</td>
-<td style="text-align: left;">Padding method applied to the borders; use NULL for no padding, a numeric a fill value, or one of “REPLICATE”, “REFLECT”, “REFLECT_PIXEL”</td>
+<td style="text-align: left;">padding method applied to the borders; use NULL for no padding (NA), a numeric a fill value, or one of “REPLICATE”, “REFLECT”, “REFLECT_PIXEL”</td>
 </tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
-<p>The function either applies a kernel convolution (if the <code>kernel</code> argument is provided) or one or more built-in reducer function over moving windows. In the former case, the kernel convolution will be applied over all bands of the input cube, i.e., the output cube will have the same number of bands as the input cubes. To apply one or more reducer functions, the window argument must be provided as a vector with two integer sizes in the order y, x. Several string expressions can be provided to create multiple bands in the output cube.</p>
-<p>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses. You cannot add more complex functions or arguments. Possible reducers currently include “min”, “max”, “sum”, “prod”, “count”, “mean”, “median”, “var”, and “sd”.</p>
+<p>The function either applies a kernel convolution (if the <code>kernel</code> argument is provided) or one or more built-in reducer function over moving windows.</p>
+<p>In the former case, the kernel convolution will be applied over all bands of the input cube, i.e., the output cube will have the same number of bands as the input cubes.</p>
+<p>To apply one or more aggregation functions over moving windows, the window argument must be provided as a vector with two integer sizes in the order y, x. Several string expressions can be provided to create multiple bands in the output cube. Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses, e.g, “mean(band1)”. Possible reducers include “min”, “max”, “sum”, “prod”, “count”, “mean”, “median”, “var”, and “sd”.</p>
+<p>Padding methods “REPLICATE”, “REFLECT”, “REFLEX_PIXEL” are defined according to <a href="https://openeo.org/documentation/1.0/processes.html#apply_kernel">https://openeo.org/documentation/1.0/processes.html#apply_kernel</a>.</p>
 </section><section id="value" class="level2"><h2 class="anchored" data-anchor-id="value">Value</h2>
 <p>proxy data cube object</p>
 </section><section id="note" class="level2"><h2 class="anchored" data-anchor-id="note">Note</h2>
@@ -710,9 +712,13 @@ Bands:
 1  B04      0     1    NaN     
 2  B05      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>L8.cube.med_sd <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="st">"median(B04)"</span> ,<span class="st">"sd(B04)"</span>, <span class="st">"median(B05)"</span>, <span class="st">"sd(B05)"</span>, </span>
-<span id="cb4-2"><a href="#cb4-2"></a>                              <span class="at">window =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="at">keep_bands =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3"></a>L8.cube.med_sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">plot</span>(L8.cube.mean5x5, <span class="at">key.pos=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="window_space_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>L8.cube.med_sd <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="st">"median(B04)"</span> ,<span class="st">"sd(B04)"</span>, <span class="st">"median(B05)"</span>, <span class="st">"sd(B05)"</span>, </span>
+<span id="cb5-2"><a href="#cb5-2"></a>                              <span class="at">window =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="at">keep_bands =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3"></a>L8.cube.med_sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
@@ -730,6 +736,10 @@ Bands:
 4     B04_sd      0     1    NaN     
 5 B05_median      0     1    NaN     
 6     B05_sd      0     1    NaN     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">plot</span>(L8.cube.med_sd, <span class="at">key.pos=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="window_space_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
@@ -1046,98 +1056,109 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu"># window_space</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a></span>
-<span id="cb6-3"><a href="#cb6-3"></a>Apply a moving window operation or convolution kernel over the spatial dimensions of a data cube</span>
-<span id="cb6-4"><a href="#cb6-4"></a></span>
-<span id="cb6-5"><a href="#cb6-5"></a></span>
-<span id="cb6-6"><a href="#cb6-6"></a></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="in">```{r include=FALSE}</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="fu">library</span>(gdalcubes)</span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="in">```</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="fu">## Description</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a></span>
-<span id="cb6-13"><a href="#cb6-13"></a>Create a proxy data cube, which applies a convolution kernel or an aggregation functions on two-dimensional moving </span>
-<span id="cb6-14"><a href="#cb6-14"></a>windows sliding over spatial slices of a data cube. The function can either execute a predefined agggregation function or </span>
-<span id="cb6-15"><a href="#cb6-15"></a>apply a custom convolution kernel. Among others, use cases include image processing (edge detection, median filter noise reduction, etc.) and</span>
-<span id="cb6-16"><a href="#cb6-16"></a>enriching pixel values with local neighborhood properties (e.g. to use as predictor variables in ML models).</span>
-<span id="cb6-17"><a href="#cb6-17"></a></span>
-<span id="cb6-18"><a href="#cb6-18"></a></span>
-<span id="cb6-19"><a href="#cb6-19"></a><span class="fu">## Usage</span></span>
-<span id="cb6-20"><a href="#cb6-20"></a></span>
-<span id="cb6-21"><a href="#cb6-21"></a></span>
-<span id="cb6-22"><a href="#cb6-22"></a><span class="in">```r</span></span>
-<span id="cb6-23"><a href="#cb6-23"></a><span class="fu">window_space</span>(x, expr, ..., kernel, window, <span class="at">keep_bands =</span> <span class="cn">FALSE</span>, <span class="at">pad =</span> <span class="cn">NA</span>)</span>
-<span id="cb6-24"><a href="#cb6-24"></a></span>
-<span id="cb6-25"><a href="#cb6-25"></a><span class="in">```</span></span>
-<span id="cb6-26"><a href="#cb6-26"></a></span>
-<span id="cb6-27"><a href="#cb6-27"></a></span>
-<span id="cb6-28"><a href="#cb6-28"></a><span class="fu">## Arguments</span></span>
-<span id="cb6-29"><a href="#cb6-29"></a></span>
-<span id="cb6-30"><a href="#cb6-30"></a>| Argument    | Description                       |</span>
-<span id="cb6-31"><a href="#cb6-31"></a>|:------------|:----------------------------------|</span>
-<span id="cb6-32"><a href="#cb6-32"></a>| x | source data cube |</span>
-<span id="cb6-33"><a href="#cb6-33"></a>| expr | either a single string, or a vector of strings, defining which reducers will be applied over which bands of the input cube |</span>
-<span id="cb6-34"><a href="#cb6-34"></a>| ... | optional additional expressions (if expr is not a vector) |</span>
-<span id="cb6-35"><a href="#cb6-35"></a>| kernel | two dimensional kernel (matrix) applied as convolution (must have odd number of rows and columns) |</span>
-<span id="cb6-36"><a href="#cb6-36"></a>| window | integer vector with two elements defining the size of the window before and after a cell, the total size of the window is window<span class="co">[</span><span class="ot">1</span><span class="co">]</span> + 1 + window<span class="co">[</span><span class="ot">2</span><span class="co">]</span> |</span>
-<span id="cb6-37"><a href="#cb6-37"></a>| keep_bands | logical; if FALSE (the default), original data cube bands will be dropped. |</span>
-<span id="cb6-38"><a href="#cb6-38"></a>| pad | Padding method applied to the borders; use NULL for no padding, a numeric a fill value, or one of "REPLICATE", "REFLECT", "REFLECT_PIXEL" |</span>
-<span id="cb6-39"><a href="#cb6-39"></a></span>
-<span id="cb6-40"><a href="#cb6-40"></a></span>
-<span id="cb6-41"><a href="#cb6-41"></a><span class="fu">## Details</span></span>
-<span id="cb6-42"><a href="#cb6-42"></a></span>
-<span id="cb6-43"><a href="#cb6-43"></a>The function either applies a kernel convolution (if the <span class="in">`kernel`</span> argument is provided) or one or more built-in reducer function </span>
-<span id="cb6-44"><a href="#cb6-44"></a>over moving windows. In the former case, the kernel convolution will be applied over all bands of the input </span>
-<span id="cb6-45"><a href="#cb6-45"></a>cube, i.e., the output cube will have the same number of bands as the input cubes. </span>
-<span id="cb6-46"><a href="#cb6-46"></a>To apply one or more reducer functions, the window argument must be provided as a vector with two integer sizes in the order y, x.</span>
-<span id="cb6-47"><a href="#cb6-47"></a>Several string expressions can be provided to create multiple bands in the output cube.</span>
-<span id="cb6-48"><a href="#cb6-48"></a></span>
-<span id="cb6-49"><a href="#cb6-49"></a>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses. You cannot add</span>
-<span id="cb6-50"><a href="#cb6-50"></a>more complex functions or arguments. Possible reducers currently include "min", "max", "sum", "prod", "count", "mean", "median", "var", and "sd".</span>
-<span id="cb6-51"><a href="#cb6-51"></a></span>
-<span id="cb6-52"><a href="#cb6-52"></a></span>
-<span id="cb6-53"><a href="#cb6-53"></a><span class="fu">## Value</span></span>
-<span id="cb6-54"><a href="#cb6-54"></a></span>
-<span id="cb6-55"><a href="#cb6-55"></a>proxy data cube object</span>
-<span id="cb6-56"><a href="#cb6-56"></a></span>
-<span id="cb6-57"><a href="#cb6-57"></a></span>
-<span id="cb6-58"><a href="#cb6-58"></a><span class="fu">## Note</span></span>
-<span id="cb6-59"><a href="#cb6-59"></a></span>
-<span id="cb6-60"><a href="#cb6-60"></a>Implemented reducers will ignore any NAN values (as <span class="in">`na.rm = TRUE`</span> does).</span>
-<span id="cb6-61"><a href="#cb6-61"></a></span>
-<span id="cb6-62"><a href="#cb6-62"></a>Calling this function consecutively many times may result in long computation times depending on chunk and window sizes due to the need to read adjacent data cube chunks.</span>
-<span id="cb6-63"><a href="#cb6-63"></a></span>
-<span id="cb6-64"><a href="#cb6-64"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
-<span id="cb6-65"><a href="#cb6-65"></a></span>
-<span id="cb6-66"><a href="#cb6-66"></a></span>
-<span id="cb6-67"><a href="#cb6-67"></a><span class="fu">## Examples</span></span>
-<span id="cb6-68"><a href="#cb6-68"></a></span>
-<span id="cb6-69"><a href="#cb6-69"></a></span>
-<span id="cb6-72"><a href="#cb6-72"></a><span class="in">```{r}</span></span>
-<span id="cb6-73"><a href="#cb6-73"></a><span class="co"># create image collection from example Landsat data only </span></span>
-<span id="cb6-74"><a href="#cb6-74"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb6-75"><a href="#cb6-75"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb6-76"><a href="#cb6-76"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb6-77"><a href="#cb6-77"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-78"><a href="#cb6-78"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb6-79"><a href="#cb6-79"></a>}</span>
-<span id="cb6-80"><a href="#cb6-80"></a></span>
-<span id="cb6-81"><a href="#cb6-81"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb6-82"><a href="#cb6-82"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
-<span id="cb6-83"><a href="#cb6-83"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
-<span id="cb6-84"><a href="#cb6-84"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
-<span id="cb6-85"><a href="#cb6-85"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">chunking =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)) </span>
-<span id="cb6-86"><a href="#cb6-86"></a>L8.cube <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>)) </span>
-<span id="cb6-87"><a href="#cb6-87"></a>L8.cube.mean5x5 <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="at">kernel =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">5</span>))</span>
-<span id="cb6-88"><a href="#cb6-88"></a>L8.cube.mean5x5</span>
-<span id="cb6-89"><a href="#cb6-89"></a></span>
-<span id="cb6-90"><a href="#cb6-90"></a>L8.cube.med_sd <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="st">"median(B04)"</span> ,<span class="st">"sd(B04)"</span>, <span class="st">"median(B05)"</span>, <span class="st">"sd(B05)"</span>, </span>
-<span id="cb6-91"><a href="#cb6-91"></a>                              <span class="at">window =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="at">keep_bands =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-92"><a href="#cb6-92"></a>L8.cube.med_sd</span>
-<span id="cb6-93"><a href="#cb6-93"></a><span class="in">```</span></span>
-<span id="cb6-94"><a href="#cb6-94"></a></span>
+<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu"># window_space</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a>Apply a moving window (focal) operation or a convolution kernel over spatial dimensions of a data cube.</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="in">```{r include=FALSE}</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="fu">library</span>(gdalcubes)</span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="in">```</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="fu">## Description</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a></span>
+<span id="cb8-13"><a href="#cb8-13"></a>Create a proxy data cube, which applies a convolution kernel or aggregation functions over two-dimensional moving </span>
+<span id="cb8-14"><a href="#cb8-14"></a>windows sliding over spatial slices of a data cube. The function can either execute one or more predefined aggregation functions or </span>
+<span id="cb8-15"><a href="#cb8-15"></a>apply a custom convolution kernel. Among others, use cases include image processing (edge detection, noise reduction, etc.) and</span>
+<span id="cb8-16"><a href="#cb8-16"></a>enriching pixel values with local neighborhood properties (e.g. to use as predictor variables in ML models).</span>
+<span id="cb8-17"><a href="#cb8-17"></a></span>
+<span id="cb8-18"><a href="#cb8-18"></a></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="fu">## Usage</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a></span>
+<span id="cb8-21"><a href="#cb8-21"></a></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="in">```r</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="fu">window_space</span>(x, expr, ..., kernel, window, <span class="at">keep_bands =</span> <span class="cn">FALSE</span>, <span class="at">pad =</span> <span class="cn">NA</span>)</span>
+<span id="cb8-24"><a href="#cb8-24"></a></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="in">```</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a></span>
+<span id="cb8-27"><a href="#cb8-27"></a></span>
+<span id="cb8-28"><a href="#cb8-28"></a><span class="fu">## Arguments</span></span>
+<span id="cb8-29"><a href="#cb8-29"></a></span>
+<span id="cb8-30"><a href="#cb8-30"></a>| Argument    | Description                       |</span>
+<span id="cb8-31"><a href="#cb8-31"></a>|:------------|:----------------------------------|</span>
+<span id="cb8-32"><a href="#cb8-32"></a>| x | source data cube |</span>
+<span id="cb8-33"><a href="#cb8-33"></a>| expr | either a single string, or a vector of strings, defining which reducers will be applied over which bands of the input cube |</span>
+<span id="cb8-34"><a href="#cb8-34"></a>| ... | optional additional expressions (if expr is not a vector) |</span>
+<span id="cb8-35"><a href="#cb8-35"></a>| kernel | two dimensional kernel (matrix) applied as convolution (with odd number of rows and columns) |</span>
+<span id="cb8-36"><a href="#cb8-36"></a>| window | integer vector with two elements defining the size (number of pixels) of the window in y and x direction, the total size of the window is window<span class="co">[</span><span class="ot">1</span><span class="co">]</span> *  window<span class="co">[</span><span class="ot">2</span><span class="co">]</span> |</span>
+<span id="cb8-37"><a href="#cb8-37"></a>| keep_bands | logical; if FALSE (the default), original data cube bands will be dropped. |</span>
+<span id="cb8-38"><a href="#cb8-38"></a>| pad | padding method applied to the borders; use NULL for no padding (NA), a numeric a fill value, or one of "REPLICATE", "REFLECT", "REFLECT_PIXEL" |</span>
+<span id="cb8-39"><a href="#cb8-39"></a></span>
+<span id="cb8-40"><a href="#cb8-40"></a></span>
+<span id="cb8-41"><a href="#cb8-41"></a><span class="fu">## Details</span></span>
+<span id="cb8-42"><a href="#cb8-42"></a></span>
+<span id="cb8-43"><a href="#cb8-43"></a>The function either applies a kernel convolution (if the <span class="in">`kernel`</span> argument is provided) or one or more built-in reducer function </span>
+<span id="cb8-44"><a href="#cb8-44"></a>over moving windows. </span>
+<span id="cb8-45"><a href="#cb8-45"></a></span>
+<span id="cb8-46"><a href="#cb8-46"></a>In the former case, the kernel convolution will be applied over all bands of the input </span>
+<span id="cb8-47"><a href="#cb8-47"></a>cube, i.e., the output cube will have the same number of bands as the input cubes.</span>
+<span id="cb8-48"><a href="#cb8-48"></a> </span>
+<span id="cb8-49"><a href="#cb8-49"></a>To apply one or more aggregation functions over moving windows, the window argument must be provided as a vector with two integer sizes </span>
+<span id="cb8-50"><a href="#cb8-50"></a>in the order y, x. Several string expressions can be provided to create multiple bands in the output cube. </span>
+<span id="cb8-51"><a href="#cb8-51"></a>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses, e.g, "mean(band1)".</span>
+<span id="cb8-52"><a href="#cb8-52"></a>Possible reducers include "min", "max", "sum", "prod", "count", "mean", "median", "var", and "sd".</span>
+<span id="cb8-53"><a href="#cb8-53"></a></span>
+<span id="cb8-54"><a href="#cb8-54"></a>Padding methods "REPLICATE", "REFLECT", "REFLEX_PIXEL" are defined according to </span>
+<span id="cb8-55"><a href="#cb8-55"></a><span class="co">[</span><span class="ot">https://openeo.org/documentation/1.0/processes.html#apply_kernel</span><span class="co">](https://openeo.org/documentation/1.0/processes.html#apply_kernel)</span>.</span>
+<span id="cb8-56"><a href="#cb8-56"></a></span>
+<span id="cb8-57"><a href="#cb8-57"></a></span>
+<span id="cb8-58"><a href="#cb8-58"></a><span class="fu">## Value</span></span>
+<span id="cb8-59"><a href="#cb8-59"></a></span>
+<span id="cb8-60"><a href="#cb8-60"></a>proxy data cube object</span>
+<span id="cb8-61"><a href="#cb8-61"></a></span>
+<span id="cb8-62"><a href="#cb8-62"></a></span>
+<span id="cb8-63"><a href="#cb8-63"></a><span class="fu">## Note</span></span>
+<span id="cb8-64"><a href="#cb8-64"></a></span>
+<span id="cb8-65"><a href="#cb8-65"></a>Implemented reducers will ignore any NAN values (as <span class="in">`na.rm = TRUE`</span> does).</span>
+<span id="cb8-66"><a href="#cb8-66"></a></span>
+<span id="cb8-67"><a href="#cb8-67"></a>Calling this function consecutively many times may result in long computation times depending on chunk and window sizes due to the need to read adjacent data cube chunks.</span>
+<span id="cb8-68"><a href="#cb8-68"></a></span>
+<span id="cb8-69"><a href="#cb8-69"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb8-70"><a href="#cb8-70"></a></span>
+<span id="cb8-71"><a href="#cb8-71"></a></span>
+<span id="cb8-72"><a href="#cb8-72"></a><span class="fu">## Examples</span></span>
+<span id="cb8-73"><a href="#cb8-73"></a></span>
+<span id="cb8-74"><a href="#cb8-74"></a></span>
+<span id="cb8-77"><a href="#cb8-77"></a><span class="in">```{r}</span></span>
+<span id="cb8-78"><a href="#cb8-78"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb8-79"><a href="#cb8-79"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb8-80"><a href="#cb8-80"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb8-81"><a href="#cb8-81"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb8-82"><a href="#cb8-82"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-83"><a href="#cb8-83"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb8-84"><a href="#cb8-84"></a>}</span>
+<span id="cb8-85"><a href="#cb8-85"></a></span>
+<span id="cb8-86"><a href="#cb8-86"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb8-87"><a href="#cb8-87"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb8-88"><a href="#cb8-88"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
+<span id="cb8-89"><a href="#cb8-89"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb8-90"><a href="#cb8-90"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">chunking =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)) </span>
+<span id="cb8-91"><a href="#cb8-91"></a>L8.cube <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>)) </span>
+<span id="cb8-92"><a href="#cb8-92"></a>L8.cube.mean5x5 <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="at">kernel =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb8-93"><a href="#cb8-93"></a>L8.cube.mean5x5</span>
+<span id="cb8-94"><a href="#cb8-94"></a></span>
+<span id="cb8-95"><a href="#cb8-95"></a></span>
+<span id="cb8-96"><a href="#cb8-96"></a><span class="fu">plot</span>(L8.cube.mean5x5, <span class="at">key.pos=</span><span class="dv">1</span>)</span>
+<span id="cb8-97"><a href="#cb8-97"></a></span>
+<span id="cb8-98"><a href="#cb8-98"></a></span>
+<span id="cb8-99"><a href="#cb8-99"></a>L8.cube.med_sd <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="st">"median(B04)"</span> ,<span class="st">"sd(B04)"</span>, <span class="st">"median(B05)"</span>, <span class="st">"sd(B05)"</span>, </span>
+<span id="cb8-100"><a href="#cb8-100"></a>                              <span class="at">window =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="at">keep_bands =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-101"><a href="#cb8-101"></a>L8.cube.med_sd</span>
+<span id="cb8-102"><a href="#cb8-102"></a></span>
+<span id="cb8-103"><a href="#cb8-103"></a><span class="fu">plot</span>(L8.cube.med_sd, <span class="at">key.pos=</span><span class="dv">1</span>)</span>
+<span id="cb8-104"><a href="#cb8-104"></a><span class="in">```</span></span>
+<span id="cb8-105"><a href="#cb8-105"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
