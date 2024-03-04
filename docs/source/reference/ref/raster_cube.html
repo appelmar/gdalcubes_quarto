@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>gdalcubes – raster_cube</title>
+<title>gdalcubes {{}} – raster_cube</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../../source/gdalcubes_logo_mini.png" alt="" class="navbar-logo"></a>
     <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title">gdalcubes</span>
+    <span class="navbar-title">gdalcubes 0.7.0</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -482,6 +482,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/window_space.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">window_space</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/window_time.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">window_time</span></a>
   </div>
@@ -626,8 +632,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2"></a>  image_collection,</span>
 <span id="cb1-3"><a href="#cb1-3"></a>  view,</span>
 <span id="cb1-4"><a href="#cb1-4"></a>  <span class="at">mask =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-5"><a href="#cb1-5"></a>  <span class="at">chunking =</span> .pkgenv<span class="sc">$</span>default_chunksize</span>
-<span id="cb1-6"><a href="#cb1-6"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="at">chunking =</span> .pkgenv<span class="sc">$</span>default_chunksize,</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="at">incomplete_ok =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
 <table class="table">
 <thead><tr class="header">
@@ -652,6 +659,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td style="text-align: left;">chunking</td>
 <td style="text-align: left;">length-3 vector or a function returning a vector of length 3, defining the size of data cube chunks in the order time, y, x.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">incomplete_ok</td>
+<td style="text-align: left;">logical, if TRUE (the default), chunks will ignore IO failures and simply use as much images as possible, otherwise the result will contain empty chunks if IO errors or similar occur.</td>
 </tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
@@ -1070,67 +1081,69 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-21"><a href="#cb6-21"></a>  image_collection,</span>
 <span id="cb6-22"><a href="#cb6-22"></a>  view,</span>
 <span id="cb6-23"><a href="#cb6-23"></a>  <span class="at">mask =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-24"><a href="#cb6-24"></a>  <span class="at">chunking =</span> .pkgenv<span class="sc">$</span>default_chunksize</span>
-<span id="cb6-25"><a href="#cb6-25"></a>)</span>
-<span id="cb6-26"><a href="#cb6-26"></a></span>
-<span id="cb6-27"><a href="#cb6-27"></a><span class="in">```</span></span>
-<span id="cb6-28"><a href="#cb6-28"></a></span>
+<span id="cb6-24"><a href="#cb6-24"></a>  <span class="at">chunking =</span> .pkgenv<span class="sc">$</span>default_chunksize,</span>
+<span id="cb6-25"><a href="#cb6-25"></a>  <span class="at">incomplete_ok =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a>)</span>
+<span id="cb6-27"><a href="#cb6-27"></a></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="in">```</span></span>
 <span id="cb6-29"><a href="#cb6-29"></a></span>
-<span id="cb6-30"><a href="#cb6-30"></a><span class="fu">## Arguments</span></span>
-<span id="cb6-31"><a href="#cb6-31"></a></span>
-<span id="cb6-32"><a href="#cb6-32"></a>| Argument    | Description                       |</span>
-<span id="cb6-33"><a href="#cb6-33"></a>|:------------|:----------------------------------|</span>
-<span id="cb6-34"><a href="#cb6-34"></a>| image_collection | Source image collection as from <span class="in">`image_collection`</span> or <span class="in">`create_image_collection`</span> |</span>
-<span id="cb6-35"><a href="#cb6-35"></a>| view | A data cube view defining the shape (spatiotemporal extent, resolution, and spatial reference), if missing, a default overview is used |</span>
-<span id="cb6-36"><a href="#cb6-36"></a>| mask | mask pixels of images based on band values, see <span class="co">[</span><span class="ot">`image_mask`</span><span class="co">](image_mask.Rmd)</span> |</span>
-<span id="cb6-37"><a href="#cb6-37"></a>| chunking | length-3 vector or a function returning a vector of length 3, defining the size of data cube chunks in the order time, y, x. |</span>
-<span id="cb6-38"><a href="#cb6-38"></a></span>
-<span id="cb6-39"><a href="#cb6-39"></a></span>
-<span id="cb6-40"><a href="#cb6-40"></a><span class="fu">## Details</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a></span>
+<span id="cb6-31"><a href="#cb6-31"></a><span class="fu">## Arguments</span></span>
+<span id="cb6-32"><a href="#cb6-32"></a></span>
+<span id="cb6-33"><a href="#cb6-33"></a>| Argument    | Description                       |</span>
+<span id="cb6-34"><a href="#cb6-34"></a>|:------------|:----------------------------------|</span>
+<span id="cb6-35"><a href="#cb6-35"></a>| image_collection | Source image collection as from <span class="in">`image_collection`</span> or <span class="in">`create_image_collection`</span> |</span>
+<span id="cb6-36"><a href="#cb6-36"></a>| view | A data cube view defining the shape (spatiotemporal extent, resolution, and spatial reference), if missing, a default overview is used |</span>
+<span id="cb6-37"><a href="#cb6-37"></a>| mask | mask pixels of images based on band values, see <span class="co">[</span><span class="ot">`image_mask`</span><span class="co">](image_mask.Rmd)</span> |</span>
+<span id="cb6-38"><a href="#cb6-38"></a>| chunking | length-3 vector or a function returning a vector of length 3, defining the size of data cube chunks in the order time, y, x. |</span>
+<span id="cb6-39"><a href="#cb6-39"></a>| incomplete_ok | logical, if TRUE (the default), chunks will ignore IO failures and simply use as much images as possible, otherwise the result will contain empty chunks if IO errors or similar occur. |</span>
+<span id="cb6-40"><a href="#cb6-40"></a></span>
 <span id="cb6-41"><a href="#cb6-41"></a></span>
-<span id="cb6-42"><a href="#cb6-42"></a>The following steps will be performed when the data cube is requested to read data of a chunk:</span>
+<span id="cb6-42"><a href="#cb6-42"></a><span class="fu">## Details</span></span>
 <span id="cb6-43"><a href="#cb6-43"></a></span>
-<span id="cb6-44"><a href="#cb6-44"></a><span class="ss"> 1. </span>Find images from the input collection that intersect with the spatiotemporal extent of the chunk</span>
-<span id="cb6-45"><a href="#cb6-45"></a><span class="ss"> 2. </span>For all resulting images, apply gdalwarp to reproject, resize, and resample to an in-memory GDAL dataset</span>
-<span id="cb6-46"><a href="#cb6-46"></a><span class="ss"> 3. </span>Read the resulting data to the chunk buffer and optionally apply a mask on the result</span>
-<span id="cb6-47"><a href="#cb6-47"></a><span class="ss"> 4. </span>Update pixel-wise aggregator (as defined in the data cube view) to combine values of multiple images within the same data cube pixels</span>
-<span id="cb6-48"><a href="#cb6-48"></a></span>
-<span id="cb6-49"><a href="#cb6-49"></a>If chunking is provided as a function, it must accept exactly three arguments for the total size of the cube in t, y, and x axes (in this order).</span>
+<span id="cb6-44"><a href="#cb6-44"></a>The following steps will be performed when the data cube is requested to read data of a chunk:</span>
+<span id="cb6-45"><a href="#cb6-45"></a></span>
+<span id="cb6-46"><a href="#cb6-46"></a><span class="ss"> 1. </span>Find images from the input collection that intersect with the spatiotemporal extent of the chunk</span>
+<span id="cb6-47"><a href="#cb6-47"></a><span class="ss"> 2. </span>For all resulting images, apply gdalwarp to reproject, resize, and resample to an in-memory GDAL dataset</span>
+<span id="cb6-48"><a href="#cb6-48"></a><span class="ss"> 3. </span>Read the resulting data to the chunk buffer and optionally apply a mask on the result</span>
+<span id="cb6-49"><a href="#cb6-49"></a><span class="ss"> 4. </span>Update pixel-wise aggregator (as defined in the data cube view) to combine values of multiple images within the same data cube pixels</span>
 <span id="cb6-50"><a href="#cb6-50"></a></span>
-<span id="cb6-51"><a href="#cb6-51"></a></span>
-<span id="cb6-52"><a href="#cb6-52"></a><span class="fu">## Value</span></span>
+<span id="cb6-51"><a href="#cb6-51"></a>If chunking is provided as a function, it must accept exactly three arguments for the total size of the cube in t, y, and x axes (in this order).</span>
+<span id="cb6-52"><a href="#cb6-52"></a></span>
 <span id="cb6-53"><a href="#cb6-53"></a></span>
-<span id="cb6-54"><a href="#cb6-54"></a>A proxy data cube object</span>
+<span id="cb6-54"><a href="#cb6-54"></a><span class="fu">## Value</span></span>
 <span id="cb6-55"><a href="#cb6-55"></a></span>
-<span id="cb6-56"><a href="#cb6-56"></a></span>
-<span id="cb6-57"><a href="#cb6-57"></a><span class="fu">## Note</span></span>
+<span id="cb6-56"><a href="#cb6-56"></a>A proxy data cube object</span>
+<span id="cb6-57"><a href="#cb6-57"></a></span>
 <span id="cb6-58"><a href="#cb6-58"></a></span>
-<span id="cb6-59"><a href="#cb6-59"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb6-59"><a href="#cb6-59"></a><span class="fu">## Note</span></span>
 <span id="cb6-60"><a href="#cb6-60"></a></span>
-<span id="cb6-61"><a href="#cb6-61"></a></span>
-<span id="cb6-62"><a href="#cb6-62"></a><span class="fu">## Examples</span></span>
+<span id="cb6-61"><a href="#cb6-61"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb6-62"><a href="#cb6-62"></a></span>
 <span id="cb6-63"><a href="#cb6-63"></a></span>
-<span id="cb6-64"><a href="#cb6-64"></a></span>
-<span id="cb6-67"><a href="#cb6-67"></a><span class="in">```{r}</span></span>
-<span id="cb6-68"><a href="#cb6-68"></a><span class="co"># create image collection from example Landsat data only </span></span>
-<span id="cb6-69"><a href="#cb6-69"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb6-70"><a href="#cb6-70"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb6-71"><a href="#cb6-71"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb6-72"><a href="#cb6-72"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-73"><a href="#cb6-73"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb6-74"><a href="#cb6-74"></a>}</span>
-<span id="cb6-75"><a href="#cb6-75"></a></span>
-<span id="cb6-76"><a href="#cb6-76"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb6-77"><a href="#cb6-77"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
-<span id="cb6-78"><a href="#cb6-78"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01"</span>, <span class="at">t1=</span><span class="st">"2018-12"</span>),</span>
-<span id="cb6-79"><a href="#cb6-79"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
-<span id="cb6-80"><a href="#cb6-80"></a><span class="fu">raster_cube</span>(L8.col, v)</span>
-<span id="cb6-81"><a href="#cb6-81"></a> </span>
-<span id="cb6-82"><a href="#cb6-82"></a> <span class="co"># using a mask on the Landsat quality bit band to filter out clouds</span></span>
-<span id="cb6-83"><a href="#cb6-83"></a> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">mask=</span><span class="fu">image_mask</span>(<span class="st">"BQA"</span>, <span class="at">bits=</span><span class="dv">4</span>, <span class="at">values=</span><span class="dv">16</span>))</span>
-<span id="cb6-84"><a href="#cb6-84"></a> </span>
-<span id="cb6-85"><a href="#cb6-85"></a><span class="in">```</span></span>
-<span id="cb6-86"><a href="#cb6-86"></a></span>
+<span id="cb6-64"><a href="#cb6-64"></a><span class="fu">## Examples</span></span>
+<span id="cb6-65"><a href="#cb6-65"></a></span>
+<span id="cb6-66"><a href="#cb6-66"></a></span>
+<span id="cb6-69"><a href="#cb6-69"></a><span class="in">```{r}</span></span>
+<span id="cb6-70"><a href="#cb6-70"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb6-71"><a href="#cb6-71"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb6-72"><a href="#cb6-72"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb6-73"><a href="#cb6-73"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb6-74"><a href="#cb6-74"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-75"><a href="#cb6-75"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb6-76"><a href="#cb6-76"></a>}</span>
+<span id="cb6-77"><a href="#cb6-77"></a></span>
+<span id="cb6-78"><a href="#cb6-78"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb6-79"><a href="#cb6-79"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb6-80"><a href="#cb6-80"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01"</span>, <span class="at">t1=</span><span class="st">"2018-12"</span>),</span>
+<span id="cb6-81"><a href="#cb6-81"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb6-82"><a href="#cb6-82"></a><span class="fu">raster_cube</span>(L8.col, v)</span>
+<span id="cb6-83"><a href="#cb6-83"></a> </span>
+<span id="cb6-84"><a href="#cb6-84"></a> <span class="co"># using a mask on the Landsat quality bit band to filter out clouds</span></span>
+<span id="cb6-85"><a href="#cb6-85"></a> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">mask=</span><span class="fu">image_mask</span>(<span class="st">"BQA"</span>, <span class="at">bits=</span><span class="dv">4</span>, <span class="at">values=</span><span class="dv">16</span>))</span>
+<span id="cb6-86"><a href="#cb6-86"></a> </span>
+<span id="cb6-87"><a href="#cb6-87"></a><span class="in">```</span></span>
+<span id="cb6-88"><a href="#cb6-88"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
@@ -1141,7 +1154,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
 <li class="nav-item">
- © 2024 Marius Appel
+ Generated on 2024-03-04, based on gdalcubes v0.7.0. All content © 2024 Marius Appel.
   </li>  
 </ul>
 </div>

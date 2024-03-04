@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>gdalcubes – stack_cube</title>
+<title>gdalcubes {{}} – stack_cube</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../../source/gdalcubes_logo_mini.png" alt="" class="navbar-logo"></a>
     <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title">gdalcubes</span>
+    <span class="navbar-title">gdalcubes 0.7.0</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -482,6 +482,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/window_space.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">window_space</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/window_time.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">window_time</span></a>
   </div>
@@ -629,8 +635,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5"></a>  <span class="at">band_names =</span> <span class="cn">NULL</span>,</span>
 <span id="cb1-6"><a href="#cb1-6"></a>  <span class="at">chunking =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">256</span>, <span class="dv">256</span>),</span>
 <span id="cb1-7"><a href="#cb1-7"></a>  <span class="at">dx =</span> <span class="cn">NULL</span>,</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">dy =</span> <span class="cn">NULL</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">dy =</span> <span class="cn">NULL</span>,</span>
+<span id="cb1-9"><a href="#cb1-9"></a>  <span class="at">incomplete_ok =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
 <table class="table">
 <colgroup>
@@ -669,6 +676,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">dy</td>
 <td style="text-align: left;">optional target pixel size in y direction, by default (NULL) the original or highest resolution of images is used</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">incomplete_ok</td>
+<td style="text-align: left;">logical, if TRUE (the default), chunks will ignore IO failures and simply use as much images as possible, otherwise the result will contain empty chunks if IO errors or similar occur.</td>
 </tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
@@ -1076,76 +1087,78 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-25"><a href="#cb6-25"></a>  <span class="at">band_names =</span> <span class="cn">NULL</span>,</span>
 <span id="cb6-26"><a href="#cb6-26"></a>  <span class="at">chunking =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">256</span>, <span class="dv">256</span>),</span>
 <span id="cb6-27"><a href="#cb6-27"></a>  <span class="at">dx =</span> <span class="cn">NULL</span>,</span>
-<span id="cb6-28"><a href="#cb6-28"></a>  <span class="at">dy =</span> <span class="cn">NULL</span></span>
-<span id="cb6-29"><a href="#cb6-29"></a>)</span>
-<span id="cb6-30"><a href="#cb6-30"></a></span>
-<span id="cb6-31"><a href="#cb6-31"></a><span class="in">```</span></span>
-<span id="cb6-32"><a href="#cb6-32"></a></span>
+<span id="cb6-28"><a href="#cb6-28"></a>  <span class="at">dy =</span> <span class="cn">NULL</span>,</span>
+<span id="cb6-29"><a href="#cb6-29"></a>  <span class="at">incomplete_ok =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-30"><a href="#cb6-30"></a>)</span>
+<span id="cb6-31"><a href="#cb6-31"></a></span>
+<span id="cb6-32"><a href="#cb6-32"></a><span class="in">```</span></span>
 <span id="cb6-33"><a href="#cb6-33"></a></span>
-<span id="cb6-34"><a href="#cb6-34"></a><span class="fu">## Arguments</span></span>
-<span id="cb6-35"><a href="#cb6-35"></a></span>
-<span id="cb6-36"><a href="#cb6-36"></a>| Argument    | Description                       |</span>
-<span id="cb6-37"><a href="#cb6-37"></a>|:------------|:----------------------------------|</span>
-<span id="cb6-38"><a href="#cb6-38"></a>| x | character vector where items point to image files |</span>
-<span id="cb6-39"><a href="#cb6-39"></a>| datetime_values | vector of type character, Date, or POSIXct with recording date of images |</span>
-<span id="cb6-40"><a href="#cb6-40"></a>| bands | optional character vector defining the band or spectral band of each item in x, if files relate to different spectral bands or variables |</span>
-<span id="cb6-41"><a href="#cb6-41"></a>| band_names | name of bands, only used if bands is NULL, i.e., if all files contain the same spectral band(s) / variable(s) |</span>
-<span id="cb6-42"><a href="#cb6-42"></a>| chunking | vector of length 3 defining the size of data cube chunks in the order time, y, x. |</span>
-<span id="cb6-43"><a href="#cb6-43"></a>| dx | optional target pixel size in x direction, by default (NULL) the original or highest resolution of images is used |</span>
-<span id="cb6-44"><a href="#cb6-44"></a>| dy | optional target pixel size in y direction, by default (NULL) the original or highest resolution of images is used |</span>
-<span id="cb6-45"><a href="#cb6-45"></a></span>
-<span id="cb6-46"><a href="#cb6-46"></a></span>
-<span id="cb6-47"><a href="#cb6-47"></a><span class="fu">## Details</span></span>
+<span id="cb6-34"><a href="#cb6-34"></a></span>
+<span id="cb6-35"><a href="#cb6-35"></a><span class="fu">## Arguments</span></span>
+<span id="cb6-36"><a href="#cb6-36"></a></span>
+<span id="cb6-37"><a href="#cb6-37"></a>| Argument    | Description                       |</span>
+<span id="cb6-38"><a href="#cb6-38"></a>|:------------|:----------------------------------|</span>
+<span id="cb6-39"><a href="#cb6-39"></a>| x | character vector where items point to image files |</span>
+<span id="cb6-40"><a href="#cb6-40"></a>| datetime_values | vector of type character, Date, or POSIXct with recording date of images |</span>
+<span id="cb6-41"><a href="#cb6-41"></a>| bands | optional character vector defining the band or spectral band of each item in x, if files relate to different spectral bands or variables |</span>
+<span id="cb6-42"><a href="#cb6-42"></a>| band_names | name of bands, only used if bands is NULL, i.e., if all files contain the same spectral band(s) / variable(s) |</span>
+<span id="cb6-43"><a href="#cb6-43"></a>| chunking | vector of length 3 defining the size of data cube chunks in the order time, y, x. |</span>
+<span id="cb6-44"><a href="#cb6-44"></a>| dx | optional target pixel size in x direction, by default (NULL) the original or highest resolution of images is used |</span>
+<span id="cb6-45"><a href="#cb6-45"></a>| dy | optional target pixel size in y direction, by default (NULL) the original or highest resolution of images is used |</span>
+<span id="cb6-46"><a href="#cb6-46"></a>| incomplete_ok | logical, if TRUE (the default), chunks will ignore IO failures and simply use as much images as possible, otherwise the result will contain empty chunks if IO errors or similar occur. |</span>
+<span id="cb6-47"><a href="#cb6-47"></a></span>
 <span id="cb6-48"><a href="#cb6-48"></a></span>
-<span id="cb6-49"><a href="#cb6-49"></a>This function creates a four-dimensional (space, time, bands / variables) raster data cube from a </span>
-<span id="cb6-50"><a href="#cb6-50"></a>set of provided files without the need to create an image collection before. This is  possible if all images</span>
-<span id="cb6-51"><a href="#cb6-51"></a>have the same spatial extent and spatial reference system and can be used for two different file organizations:</span>
-<span id="cb6-52"><a href="#cb6-52"></a></span>
-<span id="cb6-53"><a href="#cb6-53"></a><span class="ss">1. </span>If all image files share the same bands / variables, the <span class="in">`bands`</span> argument can be ignored (default NULL) can </span>
-<span id="cb6-54"><a href="#cb6-54"></a>names of the bands can be specified using the <span class="in">`band_names`</span> argument.</span>
-<span id="cb6-55"><a href="#cb6-55"></a></span>
-<span id="cb6-56"><a href="#cb6-56"></a><span class="ss">2. </span>If image files represent different band / variable  (e.g. individual files for red, green, and blue channels), the <span class="in">`bands`</span></span>
-<span id="cb6-57"><a href="#cb6-57"></a>argument must be used to define the corresponding band / variable. Notice that in this case all files are expected to </span>
-<span id="cb6-58"><a href="#cb6-58"></a>represent exactly one variable / band at one point in datetime. It is not possible to combine files with different</span>
-<span id="cb6-59"><a href="#cb6-59"></a>numbers of variables / bands. If image files for different bands have different pixel sizes, the smallest size is used</span>
-<span id="cb6-60"><a href="#cb6-60"></a>by default.</span>
-<span id="cb6-61"><a href="#cb6-61"></a></span>
-<span id="cb6-62"><a href="#cb6-62"></a>Notice that to avoid opening all image files in advance,no automatic check whether all images share the </span>
-<span id="cb6-63"><a href="#cb6-63"></a>spatial extent and spatial reference system is performed.</span>
-<span id="cb6-64"><a href="#cb6-64"></a></span>
-<span id="cb6-65"><a href="#cb6-65"></a></span>
-<span id="cb6-66"><a href="#cb6-66"></a><span class="fu">## Value</span></span>
+<span id="cb6-49"><a href="#cb6-49"></a><span class="fu">## Details</span></span>
+<span id="cb6-50"><a href="#cb6-50"></a></span>
+<span id="cb6-51"><a href="#cb6-51"></a>This function creates a four-dimensional (space, time, bands / variables) raster data cube from a </span>
+<span id="cb6-52"><a href="#cb6-52"></a>set of provided files without the need to create an image collection before. This is  possible if all images</span>
+<span id="cb6-53"><a href="#cb6-53"></a>have the same spatial extent and spatial reference system and can be used for two different file organizations:</span>
+<span id="cb6-54"><a href="#cb6-54"></a></span>
+<span id="cb6-55"><a href="#cb6-55"></a><span class="ss">1. </span>If all image files share the same bands / variables, the <span class="in">`bands`</span> argument can be ignored (default NULL) can </span>
+<span id="cb6-56"><a href="#cb6-56"></a>names of the bands can be specified using the <span class="in">`band_names`</span> argument.</span>
+<span id="cb6-57"><a href="#cb6-57"></a></span>
+<span id="cb6-58"><a href="#cb6-58"></a><span class="ss">2. </span>If image files represent different band / variable  (e.g. individual files for red, green, and blue channels), the <span class="in">`bands`</span></span>
+<span id="cb6-59"><a href="#cb6-59"></a>argument must be used to define the corresponding band / variable. Notice that in this case all files are expected to </span>
+<span id="cb6-60"><a href="#cb6-60"></a>represent exactly one variable / band at one point in datetime. It is not possible to combine files with different</span>
+<span id="cb6-61"><a href="#cb6-61"></a>numbers of variables / bands. If image files for different bands have different pixel sizes, the smallest size is used</span>
+<span id="cb6-62"><a href="#cb6-62"></a>by default.</span>
+<span id="cb6-63"><a href="#cb6-63"></a></span>
+<span id="cb6-64"><a href="#cb6-64"></a>Notice that to avoid opening all image files in advance,no automatic check whether all images share the </span>
+<span id="cb6-65"><a href="#cb6-65"></a>spatial extent and spatial reference system is performed.</span>
+<span id="cb6-66"><a href="#cb6-66"></a></span>
 <span id="cb6-67"><a href="#cb6-67"></a></span>
-<span id="cb6-68"><a href="#cb6-68"></a>A proxy data cube object</span>
+<span id="cb6-68"><a href="#cb6-68"></a><span class="fu">## Value</span></span>
 <span id="cb6-69"><a href="#cb6-69"></a></span>
-<span id="cb6-70"><a href="#cb6-70"></a></span>
-<span id="cb6-71"><a href="#cb6-71"></a><span class="fu">## Note</span></span>
+<span id="cb6-70"><a href="#cb6-70"></a>A proxy data cube object</span>
+<span id="cb6-71"><a href="#cb6-71"></a></span>
 <span id="cb6-72"><a href="#cb6-72"></a></span>
-<span id="cb6-73"><a href="#cb6-73"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb6-73"><a href="#cb6-73"></a><span class="fu">## Note</span></span>
 <span id="cb6-74"><a href="#cb6-74"></a></span>
-<span id="cb6-75"><a href="#cb6-75"></a></span>
-<span id="cb6-76"><a href="#cb6-76"></a><span class="fu">## Examples</span></span>
+<span id="cb6-75"><a href="#cb6-75"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb6-76"><a href="#cb6-76"></a></span>
 <span id="cb6-77"><a href="#cb6-77"></a></span>
-<span id="cb6-78"><a href="#cb6-78"></a></span>
-<span id="cb6-81"><a href="#cb6-81"></a><span class="in">```{r}</span></span>
-<span id="cb6-82"><a href="#cb6-82"></a><span class="co"># toy example, repeating the same image as a daily time series</span></span>
-<span id="cb6-83"><a href="#cb6-83"></a>L8_file_nir <span class="ot">&lt;-</span> </span>
-<span id="cb6-84"><a href="#cb6-84"></a><span class="fu">system.file</span>(<span class="st">"L8NY18/LC08_L1TP_014032_20181122_20181129_01_T1/LC08_L1TP_014032_20181122_B5.TIF"</span>,</span>
-<span id="cb6-85"><a href="#cb6-85"></a>            <span class="at">package =</span> <span class="st">"gdalcubes"</span>)</span>
-<span id="cb6-86"><a href="#cb6-86"></a>files <span class="ot">=</span> <span class="fu">rep</span>(L8_file_nir, <span class="dv">10</span>)</span>
-<span id="cb6-87"><a href="#cb6-87"></a>datetime <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">"2018-11-22"</span>) <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb6-88"><a href="#cb6-88"></a><span class="fu">stack_cube</span>(files, datetime, <span class="at">band_names =</span> <span class="st">"B05"</span>) </span>
-<span id="cb6-89"><a href="#cb6-89"></a></span>
-<span id="cb6-90"><a href="#cb6-90"></a><span class="co"># using a second band from different files</span></span>
-<span id="cb6-91"><a href="#cb6-91"></a>L8_file_red <span class="ot">&lt;-</span> </span>
-<span id="cb6-92"><a href="#cb6-92"></a><span class="fu">system.file</span>(<span class="st">"L8NY18/LC08_L1TP_014032_20181122_20181129_01_T1/LC08_L1TP_014032_20181122_B4.TIF"</span>,</span>
-<span id="cb6-93"><a href="#cb6-93"></a>            <span class="at">package =</span> <span class="st">"gdalcubes"</span>)</span>
-<span id="cb6-94"><a href="#cb6-94"></a>files <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">c</span>(L8_file_nir, L8_file_red), <span class="at">each =</span> <span class="dv">10</span>)</span>
-<span id="cb6-95"><a href="#cb6-95"></a>datetime <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">as.Date</span>(<span class="st">"2018-11-22"</span>) <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">2</span>)</span>
-<span id="cb6-96"><a href="#cb6-96"></a>bands <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"B5"</span>,<span class="st">"B4"</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
-<span id="cb6-97"><a href="#cb6-97"></a><span class="fu">stack_cube</span>(files, datetime, <span class="at">bands =</span> bands)         </span>
-<span id="cb6-98"><a href="#cb6-98"></a><span class="in">```</span></span>
-<span id="cb6-99"><a href="#cb6-99"></a></span>
+<span id="cb6-78"><a href="#cb6-78"></a><span class="fu">## Examples</span></span>
+<span id="cb6-79"><a href="#cb6-79"></a></span>
+<span id="cb6-80"><a href="#cb6-80"></a></span>
+<span id="cb6-83"><a href="#cb6-83"></a><span class="in">```{r}</span></span>
+<span id="cb6-84"><a href="#cb6-84"></a><span class="co"># toy example, repeating the same image as a daily time series</span></span>
+<span id="cb6-85"><a href="#cb6-85"></a>L8_file_nir <span class="ot">&lt;-</span> </span>
+<span id="cb6-86"><a href="#cb6-86"></a><span class="fu">system.file</span>(<span class="st">"L8NY18/LC08_L1TP_014032_20181122_20181129_01_T1/LC08_L1TP_014032_20181122_B5.TIF"</span>,</span>
+<span id="cb6-87"><a href="#cb6-87"></a>            <span class="at">package =</span> <span class="st">"gdalcubes"</span>)</span>
+<span id="cb6-88"><a href="#cb6-88"></a>files <span class="ot">=</span> <span class="fu">rep</span>(L8_file_nir, <span class="dv">10</span>)</span>
+<span id="cb6-89"><a href="#cb6-89"></a>datetime <span class="ot">=</span> <span class="fu">as.Date</span>(<span class="st">"2018-11-22"</span>) <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb6-90"><a href="#cb6-90"></a><span class="fu">stack_cube</span>(files, datetime, <span class="at">band_names =</span> <span class="st">"B05"</span>) </span>
+<span id="cb6-91"><a href="#cb6-91"></a></span>
+<span id="cb6-92"><a href="#cb6-92"></a><span class="co"># using a second band from different files</span></span>
+<span id="cb6-93"><a href="#cb6-93"></a>L8_file_red <span class="ot">&lt;-</span> </span>
+<span id="cb6-94"><a href="#cb6-94"></a><span class="fu">system.file</span>(<span class="st">"L8NY18/LC08_L1TP_014032_20181122_20181129_01_T1/LC08_L1TP_014032_20181122_B4.TIF"</span>,</span>
+<span id="cb6-95"><a href="#cb6-95"></a>            <span class="at">package =</span> <span class="st">"gdalcubes"</span>)</span>
+<span id="cb6-96"><a href="#cb6-96"></a>files <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">c</span>(L8_file_nir, L8_file_red), <span class="at">each =</span> <span class="dv">10</span>)</span>
+<span id="cb6-97"><a href="#cb6-97"></a>datetime <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">as.Date</span>(<span class="st">"2018-11-22"</span>) <span class="sc">+</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">2</span>)</span>
+<span id="cb6-98"><a href="#cb6-98"></a>bands <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"B5"</span>,<span class="st">"B4"</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
+<span id="cb6-99"><a href="#cb6-99"></a><span class="fu">stack_cube</span>(files, datetime, <span class="at">bands =</span> bands)         </span>
+<span id="cb6-100"><a href="#cb6-100"></a><span class="in">```</span></span>
+<span id="cb6-101"><a href="#cb6-101"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
@@ -1156,7 +1169,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
 <li class="nav-item">
- © 2024 Marius Appel
+ Generated on 2024-03-04, based on gdalcubes v0.7.0. All content © 2024 Marius Appel.
   </li>  
 </ul>
 </div>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>gdalcubes – extract_geom</title>
+<title>gdalcubes {{}} – extract_geom</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../../source/gdalcubes_logo_mini.png" alt="" class="navbar-logo"></a>
     <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title">gdalcubes</span>
+    <span class="navbar-title">gdalcubes 0.7.0</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -482,6 +482,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../../source/reference/ref/window_space.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">window_space</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../../source/reference/ref/window_time.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">window_time</span></a>
   </div>
@@ -665,6 +671,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">optional function to compute per feature summary statistics</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">merge</td>
+<td style="text-align: left;">logical; return a combined data.frame with data cube values and labels, defaults to FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">drop_geom</td>
+<td style="text-align: left;">logical; remove geometries from output, only used if merge is TRUE, defaults to FALSE</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">…</td>
 <td style="text-align: left;">additional arguments passed to <code>FUN</code>
 </td>
@@ -672,14 +686,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">reduce_time</td>
 <td style="text-align: left;">logical; if TRUE, time is ignored when <code>FUN</code> is applied</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">merge;</td>
-<td style="text-align: left;">logical; return a combined data.frame with data cube values and labels, defaults to FALSE</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">drop_geom;</td>
-<td style="text-align: left;">remove geometries from output, only applicable if merge is TRUE, defaults to FALSE</td>
 </tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
@@ -1119,10 +1125,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb6-44"><a href="#cb6-44"></a>| datetime | Date, POSIXt, or character vector containing per feature time information; length must be identical to the number of features in <span class="in">`sf`</span> |</span>
 <span id="cb6-45"><a href="#cb6-45"></a>| time_column | name of the column in <span class="in">`sf`</span> containing per feature time information |</span>
 <span id="cb6-46"><a href="#cb6-46"></a>| FUN | optional function to compute per feature summary statistics |</span>
-<span id="cb6-47"><a href="#cb6-47"></a>| ... | additional arguments passed to <span class="in">`FUN`</span> |</span>
-<span id="cb6-48"><a href="#cb6-48"></a>| reduce_time | logical; if TRUE, time is ignored when <span class="in">`FUN`</span> is applied |</span>
-<span id="cb6-49"><a href="#cb6-49"></a>| merge; | logical; return a combined data.frame with data cube values and labels, defaults to FALSE |</span>
-<span id="cb6-50"><a href="#cb6-50"></a>| drop_geom; | remove geometries from output, only applicable if merge is TRUE, defaults to FALSE |</span>
+<span id="cb6-47"><a href="#cb6-47"></a>| merge | logical; return a combined data.frame with data cube values and labels, defaults to FALSE |</span>
+<span id="cb6-48"><a href="#cb6-48"></a>| drop_geom | logical; remove geometries from output, only used if merge is TRUE, defaults to FALSE |</span>
+<span id="cb6-49"><a href="#cb6-49"></a>| ... | additional arguments passed to <span class="in">`FUN`</span> |</span>
+<span id="cb6-50"><a href="#cb6-50"></a>| reduce_time | logical; if TRUE, time is ignored when <span class="in">`FUN`</span> is applied |</span>
 <span id="cb6-51"><a href="#cb6-51"></a></span>
 <span id="cb6-52"><a href="#cb6-52"></a></span>
 <span id="cb6-53"><a href="#cb6-53"></a><span class="fu">## Details</span></span>
@@ -1209,7 +1215,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
 <li class="nav-item">
- © 2024 Marius Appel
+ Generated on 2024-03-04, based on gdalcubes v0.7.0. All content © 2024 Marius Appel.
   </li>  
 </ul>
 </div>

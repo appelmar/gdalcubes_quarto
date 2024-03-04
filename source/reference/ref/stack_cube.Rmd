@@ -25,7 +25,8 @@ stack_cube(
   band_names = NULL,
   chunking = c(1, 256, 256),
   dx = NULL,
-  dy = NULL
+  dy = NULL,
+  incomplete_ok = TRUE
 )
 
 ```
@@ -42,6 +43,7 @@ stack_cube(
 | chunking | vector of length 3 defining the size of data cube chunks in the order time, y, x. |
 | dx | optional target pixel size in x direction, by default (NULL) the original or highest resolution of images is used |
 | dy | optional target pixel size in y direction, by default (NULL) the original or highest resolution of images is used |
+| incomplete_ok | logical, if TRUE (the default), chunks will ignore IO failures and simply use as much images as possible, otherwise the result will contain empty chunks if IO errors or similar occur. |
 
 
 ## Details

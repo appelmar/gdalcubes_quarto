@@ -21,7 +21,8 @@ raster_cube(
   image_collection,
   view,
   mask = NULL,
-  chunking = .pkgenv$default_chunksize
+  chunking = .pkgenv$default_chunksize,
+  incomplete_ok = TRUE
 )
 
 ```
@@ -35,6 +36,7 @@ raster_cube(
 | view | A data cube view defining the shape (spatiotemporal extent, resolution, and spatial reference), if missing, a default overview is used |
 | mask | mask pixels of images based on band values, see [`image_mask`](image_mask.Rmd) |
 | chunking | length-3 vector or a function returning a vector of length 3, defining the size of data cube chunks in the order time, y, x. |
+| incomplete_ok | logical, if TRUE (the default), chunks will ignore IO failures and simply use as much images as possible, otherwise the result will contain empty chunks if IO errors or similar occur. |
 
 
 ## Details

@@ -44,10 +44,10 @@ extract_geom(
 | datetime | Date, POSIXt, or character vector containing per feature time information; length must be identical to the number of features in `sf` |
 | time_column | name of the column in `sf` containing per feature time information |
 | FUN | optional function to compute per feature summary statistics |
+| merge | logical; return a combined data.frame with data cube values and labels, defaults to FALSE |
+| drop_geom | logical; remove geometries from output, only used if merge is TRUE, defaults to FALSE |
 | ... | additional arguments passed to `FUN` |
 | reduce_time | logical; if TRUE, time is ignored when `FUN` is applied |
-| merge; | logical; return a combined data.frame with data cube values and labels, defaults to FALSE |
-| drop_geom; | remove geometries from output, only applicable if merge is TRUE, defaults to FALSE |
 
 
 ## Details

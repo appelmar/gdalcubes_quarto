@@ -1,9 +1,10 @@
 project:
   type: website
   output-dir: docs
+  pre-render: Rscript init_project_vars.R
 bibliography: references.bib
 website:
-  title: "gdalcubes"
+  title: "gdalcubes {{< var GDALCUBES_VERSION >}}"
   favicon: favicon.png
   search:
     location: navbar
@@ -50,7 +51,7 @@ website:
         href: https://github.com/appelmar/gdalcubes_R
   page-footer:
     center: 
-      - text: "© 2024 Marius Appel"
+      - text: "Generated on {{< var BUILD_DATE >}}, based on gdalcubes v{{< var GDALCUBES_VERSION >}}. All content © 2024 Marius Appel."
         #href: about.qmd
       
   sidebar:
@@ -163,6 +164,7 @@ website:
             - source/reference/ref/select_time.Rmd
             - source/reference/ref/slice_space.Rmd
             - source/reference/ref/slice_time.Rmd
+            - source/reference/ref/window_space.Rmd
             - source/reference/ref/window_time.Rmd
         - section: "Export / visualization"
           contents:

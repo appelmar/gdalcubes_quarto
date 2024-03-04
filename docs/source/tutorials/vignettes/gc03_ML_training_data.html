@@ -5,7 +5,7 @@
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Marius Appel">
-<title>gdalcubes - 3. Extracting training data for machine learning models</title>
+<title>gdalcubes 0.7.0 - 3. Extracting training data for machine learning models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -101,7 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
     <img src="../../../source/gdalcubes_logo_mini.png" alt="" class="navbar-logo"></a>
     <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title">gdalcubes</span>
+    <span class="navbar-title">gdalcubes 0.7.0</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -463,12 +463,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-5"><a href="#cb8-5"></a><span class="do">## Image collection object, referencing 140 images with 8 bands</span></span>
 <span id="cb8-6"><a href="#cb8-6"></a><span class="do">## Images:</span></span>
 <span id="cb8-7"><a href="#cb8-7"></a><span class="do">##                                                                name      left</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="do">## 1 /tmp/Rtmpw8Vh3u/MOD11A2/MOD11A2.A2018001.h17v03.006.2018011145329 -20.00000</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="do">## 2 /tmp/Rtmpw8Vh3u/MOD11A2/MOD11A2.A2018001.h17v04.006.2018011145438 -15.55724</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="do">## 3 /tmp/Rtmpw8Vh3u/MOD11A2/MOD11A2.A2018001.h18v03.006.2018011145428   0.00000</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="do">## 4 /tmp/Rtmpw8Vh3u/MOD11A2/MOD11A2.A2018001.h18v04.006.2018011145326   0.00000</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="do">## 5 /tmp/Rtmpw8Vh3u/MOD11A2/MOD11A2.A2018009.h17v03.006.2018018034330 -20.00000</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="do">## 6 /tmp/Rtmpw8Vh3u/MOD11A2/MOD11A2.A2018009.h17v04.006.2018018034246 -15.55724</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="do">## 1 /tmp/Rtmp7FtOU4/MOD11A2/MOD11A2.A2018001.h17v03.006.2018011145329 -20.00000</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="do">## 2 /tmp/Rtmp7FtOU4/MOD11A2/MOD11A2.A2018001.h17v04.006.2018011145438 -15.55724</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="do">## 3 /tmp/Rtmp7FtOU4/MOD11A2/MOD11A2.A2018001.h18v03.006.2018011145428   0.00000</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="do">## 4 /tmp/Rtmp7FtOU4/MOD11A2/MOD11A2.A2018001.h18v04.006.2018011145326   0.00000</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="do">## 5 /tmp/Rtmp7FtOU4/MOD11A2/MOD11A2.A2018009.h17v03.006.2018018034330 -20.00000</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="do">## 6 /tmp/Rtmp7FtOU4/MOD11A2/MOD11A2.A2018009.h17v04.006.2018018034246 -15.55724</span></span>
 <span id="cb8-14"><a href="#cb8-14"></a><span class="do">##   top bottom    right            datetime</span></span>
 <span id="cb8-15"><a href="#cb8-15"></a><span class="do">## 1  60     50  0.00000 2018-01-01T00:00:00</span></span>
 <span id="cb8-16"><a href="#cb8-16"></a><span class="do">## 2  50     40  0.00000 2018-01-01T00:00:00</span></span>
@@ -532,16 +532,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-12"><a href="#cb10-12"></a><span class="do">## Geodetic CRS:  WGS 84</span></span>
 <span id="cb10-13"><a href="#cb10-13"></a><span class="do">## First 10 features:</span></span>
 <span id="cb10-14"><a href="#cb10-14"></a><span class="do">##             name       time   LST                  geometry</span></span>
-<span id="cb10-15"><a href="#cb10-15"></a><span class="do">## 1  PARIS_URBAN_1 2018-08-21 29.57 POINT (2.347821 48.85359)</span></span>
-<span id="cb10-16"><a href="#cb10-16"></a><span class="do">## 2  PARIS_URBAN_1 2018-05-09 28.57 POINT (2.347821 48.85359)</span></span>
-<span id="cb10-17"><a href="#cb10-17"></a><span class="do">## 3  PARIS_URBAN_1 2018-06-18 31.89 POINT (2.347821 48.85359)</span></span>
+<span id="cb10-15"><a href="#cb10-15"></a><span class="do">## 1  PARIS_URBAN_1 2018-09-06 27.35 POINT (2.347821 48.85359)</span></span>
+<span id="cb10-16"><a href="#cb10-16"></a><span class="do">## 2  PARIS_URBAN_1 2018-06-18 31.89 POINT (2.347821 48.85359)</span></span>
+<span id="cb10-17"><a href="#cb10-17"></a><span class="do">## 3  PARIS_URBAN_1 2018-08-05 35.31 POINT (2.347821 48.85359)</span></span>
 <span id="cb10-18"><a href="#cb10-18"></a><span class="do">## 4  PARIS_URBAN_1 2018-04-15 30.91 POINT (2.347821 48.85359)</span></span>
-<span id="cb10-19"><a href="#cb10-19"></a><span class="do">## 5  PARIS_URBAN_1 2018-06-26 35.17 POINT (2.347821 48.85359)</span></span>
-<span id="cb10-20"><a href="#cb10-20"></a><span class="do">## 6  PARIS_URBAN_1 2018-05-01 29.11 POINT (2.347821 48.85359)</span></span>
-<span id="cb10-21"><a href="#cb10-21"></a><span class="do">## 7  PARIS_URBAN_1 2018-02-10 10.67 POINT (2.347821 48.85359)</span></span>
+<span id="cb10-19"><a href="#cb10-19"></a><span class="do">## 5  PARIS_URBAN_1 2018-01-25  6.67 POINT (2.347821 48.85359)</span></span>
+<span id="cb10-20"><a href="#cb10-20"></a><span class="do">## 6  PARIS_URBAN_1 2018-08-21 29.57 POINT (2.347821 48.85359)</span></span>
+<span id="cb10-21"><a href="#cb10-21"></a><span class="do">## 7  PARIS_URBAN_1 2018-02-26  0.91 POINT (2.347821 48.85359)</span></span>
 <span id="cb10-22"><a href="#cb10-22"></a><span class="do">## 8  PARIS_URBAN_1 2018-07-12 34.23 POINT (2.347821 48.85359)</span></span>
-<span id="cb10-23"><a href="#cb10-23"></a><span class="do">## 9  PARIS_URBAN_1 2018-09-06 27.35 POINT (2.347821 48.85359)</span></span>
-<span id="cb10-24"><a href="#cb10-24"></a><span class="do">## 10 PARIS_URBAN_1 2018-05-25 30.25 POINT (2.347821 48.85359)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-23"><a href="#cb10-23"></a><span class="do">## 9  PARIS_URBAN_1 2018-07-28 35.11 POINT (2.347821 48.85359)</span></span>
+<span id="cb10-24"><a href="#cb10-24"></a><span class="do">## 10 PARIS_URBAN_1 2018-08-13 30.97 POINT (2.347821 48.85359)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We again combine the extracted data with the original sf object by setting <code>merge = TRUE</code>. As such, the result contains time, LST, and the point geometry as columns.</p>
 <p>We can plot the time series as in the example below, showing some differences between the rural and the urban locations for Paris and Barcelona.</p>
@@ -612,7 +612,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>bbox <span class="ot">=</span> <span class="fu">st_bbox</span>(training) </span>
 <span id="cb16-2"><a href="#cb16-2"></a>bbox</span>
 <span id="cb16-3"><a href="#cb16-3"></a><span class="do">##      xmin      ymin      xmax      ymax </span></span>
-<span id="cb16-4"><a href="#cb16-4"></a><span class="do">##  6.209031 47.723279 14.566606 54.885928</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="do">##  6.331818 47.747666 14.878689 54.675809</span></span>
 <span id="cb16-5"><a href="#cb16-5"></a><span class="fu">library</span>(rstac)</span>
 <span id="cb16-6"><a href="#cb16-6"></a>s <span class="ot">=</span> <span class="fu">stac</span>(<span class="st">"https://earth-search.aws.element84.com/v0"</span>)</span>
 <span id="cb16-7"><a href="#cb16-7"></a>items <span class="ot">=</span> s <span class="sc">|&gt;</span></span>
@@ -622,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-11"><a href="#cb16-11"></a>              <span class="at">datetime =</span> <span class="st">"2018-05-01/2018-09-30"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb16-12"><a href="#cb16-12"></a>  <span class="fu">post_request</span>() <span class="sc">|&gt;</span> <span class="fu">items_fetch</span>(<span class="at">progress =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The result contains 5313 images. Next, we load the <code>gdalcubes</code> package, create an image collection object from the STAC result and at the same time filter images by cloud cover.</p>
+<p>The result contains 5185 images. Next, we load the <code>gdalcubes</code> package, create an image collection object from the STAC result and at the same time filter images by cloud cover.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">library</span>(gdalcubes)</span>
 <span id="cb17-2"><a href="#cb17-2"></a>s2_collection <span class="ot">=</span> <span class="fu">stac_image_collection</span>(items<span class="sc">$</span>features, <span class="at">property_filter =</span> <span class="cf">function</span>(x) {x[[<span class="st">"eo:cloud_cover"</span>]] <span class="sc">&lt;</span> <span class="dv">10</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -642,7 +642,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-11"><a href="#cb18-11"></a><span class="do">##                low             high  count pixel_size chunk_size</span></span>
 <span id="cb18-12"><a href="#cb18-12"></a><span class="do">## t       2018-05-03       2018-10-04     31        P5D          1</span></span>
 <span id="cb18-13"><a href="#cb18-13"></a><span class="do">## y  5908460.4569991  7370990.4569991 146253         10        512</span></span>
-<span id="cb18-14"><a href="#cb18-14"></a><span class="do">## x 500425.080299257 1686795.08029926 118637         10        512</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a><span class="do">## x 625858.260648623 1686798.26064862 106094         10        512</span></span>
 <span id="cb18-15"><a href="#cb18-15"></a><span class="do">## </span></span>
 <span id="cb18-16"><a href="#cb18-16"></a><span class="do">## Bands:</span></span>
 <span id="cb18-17"><a href="#cb18-17"></a><span class="do">##   name offset scale nodata unit</span></span>
@@ -658,7 +658,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">gdalcubes_options</span>(<span class="at">parallel =</span> <span class="dv">12</span>)</span>
 <span id="cb19-2"><a href="#cb19-2"></a>df <span class="ot">&lt;-</span> <span class="fu">extract_geom</span>(cube,training, <span class="at">time_column =</span> <span class="st">"t"</span>, <span class="at">merge =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb19-3"><a href="#cb19-3"></a><span class="fu">nrow</span>(df)</span>
-<span id="cb19-4"><a href="#cb19-4"></a><span class="do">## [1] 173</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-4"><a href="#cb19-4"></a><span class="do">## [1] 169</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Once available, notice that the number of results is smaller than the number of selected sample points simply because for some points there was no (cloud-free) image available. We can now plot the NDVI by time for different crop types as in the following.</p>
 <div class="cell" data-layout-align="center">
@@ -1331,7 +1331,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-center">
       <ul class="footer-items list-unstyled">
 <li class="nav-item">
- © 2024 Marius Appel
+ Generated on 2024-03-04, based on gdalcubes v0.7.0. All content © 2024 Marius Appel.
   </li>  
 </ul>
 </div>

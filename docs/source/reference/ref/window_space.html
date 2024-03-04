@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.3.450">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>gdalcubes {{}} – aggregate_time</title>
+<title>gdalcubes {{}} – window_space</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,8 +60,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../source/reference/ref/apply_pixel.cube.html" rel="next">
-<link href="../../../source/reference/ref/aggregate_space.html" rel="prev">
+<link href="../../../source/reference/ref/window_time.html" rel="next">
+<link href="../../../source/reference/ref/slice_time.html" rel="prev">
 <link href="../../../favicon.png" rel="icon" type="image/png">
 <script src="../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../site_libs/quarto-html/popper.min.js"></script>
@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../source/reference/ref/aggregate_space.html">Data cube operations</a></li><li class="breadcrumb-item"><a href="../../../source/reference/ref/aggregate_time.html">aggregate_time</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../source/reference/ref/aggregate_space.html">Data cube operations</a></li><li class="breadcrumb-item"><a href="../../../source/reference/ref/window_space.html">window_space</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -380,7 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../source/reference/ref/aggregate_time.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../source/reference/ref/aggregate_time.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">aggregate_time</span></a>
   </div>
 </li>
@@ -482,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../source/reference/ref/window_space.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../source/reference/ref/window_space.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">window_space</span></a>
   </div>
 </li>
@@ -609,12 +609,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
 <li>
-<a href="#aggregate_time" id="toc-aggregate_time" class="nav-link active" data-scroll-target="#aggregate_time">aggregate_time</a>
+<a href="#window_space" id="toc-window_space" class="nav-link active" data-scroll-target="#window_space">window_space</a>
   <ul class="collapse">
 <li><a href="#description" id="toc-description" class="nav-link" data-scroll-target="#description">Description</a></li>
   <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   <li><a href="#arguments" id="toc-arguments" class="nav-link" data-scroll-target="#arguments">Arguments</a></li>
   <li><a href="#details" id="toc-details" class="nav-link" data-scroll-target="#details">Details</a></li>
+  <li><a href="#value" id="toc-value" class="nav-link" data-scroll-target="#value">Value</a></li>
   <li><a href="#note" id="toc-note" class="nav-link" data-scroll-target="#note">Note</a></li>
   <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
   </ul>
@@ -622,12 +623,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><div class="quarto-title-block"><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div><section id="aggregate_time" class="level1"><h1>aggregate_time</h1>
-<p>Aggregate data cube time series to lower temporal resolution</p>
+<main class="content" id="quarto-document-content"><div class="quarto-title-block"><div class="quarto-title-tools-only"><h1></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div><section id="window_space" class="level1"><h1>window_space</h1>
+<p>Apply a moving window operation or convolution kernel over the spatial dimensions of a data cube</p>
 <section id="description" class="level2"><h2 class="anchored" data-anchor-id="description">Description</h2>
-<p>Create a proxy data cube, which applies an aggregation function over pixel time series to lower temporal resolution.</p>
+<p>Create a proxy data cube, which applies a convolution kernel or an aggregation functions on two-dimensional moving windows sliding over spatial slices of a data cube. The function can either execute a predefined agggregation function or apply a custom convolution kernel. Among others, use cases include image processing (edge detection, median filter noise reduction, etc.) and enriching pixel values with local neighborhood properties (e.g.&nbsp;to use as predictor variables in ML models).</p>
 </section><section id="usage" class="level2"><h2 class="anchored" data-anchor-id="usage">Usage</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">aggregate_time</span>(cube, dt, <span class="at">method =</span> <span class="st">"mean"</span>, <span class="at">fact =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">window_space</span>(x, expr, ..., kernel, window, <span class="at">keep_bands =</span> <span class="cn">FALSE</span>, <span class="at">pad =</span> <span class="cn">NA</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section><section id="arguments" class="level2"><h2 class="anchored" data-anchor-id="arguments">Arguments</h2>
 <table class="table">
 <colgroup>
@@ -640,25 +641,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">cube</td>
+<td style="text-align: left;">x</td>
 <td style="text-align: left;">source data cube</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">dt</td>
-<td style="text-align: left;">character; new temporal resolution, datetime period string, e.g.&nbsp;“P1M”</td>
+<td style="text-align: left;">expr</td>
+<td style="text-align: left;">either a single string, or a vector of strings, defining which reducers will be applied over which bands of the input cube</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">method</td>
-<td style="text-align: left;">aggregation method, one of “mean”, “min”, “max”, “median”, “count”, “sum”, “prod”, “var”, and “sd”</td>
+<td style="text-align: left;">…</td>
+<td style="text-align: left;">optional additional expressions (if expr is not a vector)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">fact</td>
-<td style="text-align: left;">simple integer factor defining how many cells become aggregated to a single new cell, can be used instead of dt</td>
+<td style="text-align: left;">kernel</td>
+<td style="text-align: left;">two dimensional kernel (matrix) applied as convolution (must have odd number of rows and columns)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">window</td>
+<td style="text-align: left;">integer vector with two elements defining the size of the window before and after a cell, the total size of the window is window[1] + 1 + window[2]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">keep_bands</td>
+<td style="text-align: left;">logical; if FALSE (the default), original data cube bands will be dropped.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pad</td>
+<td style="text-align: left;">Padding method applied to the borders; use NULL for no padding, a numeric a fill value, or one of “REPLICATE”, “REFLECT”, “REFLECT_PIXEL”</td>
 </tr>
 </tbody>
 </table></section><section id="details" class="level2"><h2 class="anchored" data-anchor-id="details">Details</h2>
-<p>This function can be used to aggregate time series to lower resolution or to regularize a data cube with irregular (labeled) time axis. It is possible to change the unit of the temporal resolution (e.g.&nbsp;to create monthly composites from daily images). The size of the cube may be expanded automatically if the original temporal extent is not divisible by the new temporal size of pixels.</p>
+<p>The function either applies a kernel convolution (if the <code>kernel</code> argument is provided) or one or more built-in reducer function over moving windows. In the former case, the kernel convolution will be applied over all bands of the input cube, i.e., the output cube will have the same number of bands as the input cubes. To apply one or more reducer functions, the window argument must be provided as a vector with two integer sizes in the order y, x. Several string expressions can be provided to create multiple bands in the output cube.</p>
+<p>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses. You cannot add more complex functions or arguments. Possible reducers currently include “min”, “max”, “sum”, “prod”, “count”, “mean”, “median”, “var”, and “sd”.</p>
+</section><section id="value" class="level2"><h2 class="anchored" data-anchor-id="value">Value</h2>
+<p>proxy data cube object</p>
 </section><section id="note" class="level2"><h2 class="anchored" data-anchor-id="note">Note</h2>
+<p>Implemented reducers will ignore any NAN values (as <code>na.rm = TRUE</code> does).</p>
+<p>Calling this function consecutively many times may result in long computation times depending on chunk and window sizes due to the need to read adjacent data cube chunks.</p>
 <p>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</p>
 </section><section id="examples" class="level2"><h2 class="anchored" data-anchor-id="examples">Examples</h2>
 <div class="cell">
@@ -669,32 +687,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb2-6"><a href="#cb2-6"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
 <span id="cb2-7"><a href="#cb2-7"></a>}</span>
-<span id="cb2-8"><a href="#cb2-8"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb2-9"><a href="#cb2-9"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
-<span id="cb2-10"><a href="#cb2-10"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01"</span>, <span class="at">t1=</span><span class="st">"2018-12"</span>),</span>
-<span id="cb2-11"><a href="#cb2-11"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P3M"</span>, <span class="at">aggregation =</span> <span class="st">"median"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">mask=</span><span class="fu">image_mask</span>(<span class="st">"BQA"</span>, <span class="at">bits=</span><span class="dv">4</span>, <span class="at">values=</span><span class="dv">16</span>))</span>
-<span id="cb2-13"><a href="#cb2-13"></a>L8.rgb <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B02"</span>, <span class="st">"B03"</span>, <span class="st">"B04"</span>))</span>
-<span id="cb2-14"><a href="#cb2-14"></a>L8.two_monthly <span class="ot">=</span> <span class="fu">aggregate_time</span>(L8.rgb, <span class="st">"P6M"</span>, <span class="st">"min"</span>)</span>
-<span id="cb2-15"><a href="#cb2-15"></a>L8.two_monthly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb2-10"><a href="#cb2-10"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb2-11"><a href="#cb2-11"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
+<span id="cb2-12"><a href="#cb2-12"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">chunking =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)) </span>
+<span id="cb2-14"><a href="#cb2-14"></a>L8.cube <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>)) </span>
+<span id="cb2-15"><a href="#cb2-15"></a>L8.cube.mean5x5 <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="at">kernel =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb2-16"><a href="#cb2-16"></a>L8.cube.mean5x5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A data cube proxy object
 
 Dimensions:
          low       high count       pixel_size chunk_size
-t 2018-01-01 2018-12-31     2              P6M          1
-y    4345299    4744931   526 759.756653992395        384
-x   388941.2   766552.4   497 759.781086519115        384
+t 2018-04-01 2018-06-30     3              P1M          1
+y    4345299    4744931   526 759.756653992395       1000
+x   388941.2   766552.4   497 759.781086519115       1000
 
 Bands:
   name offset scale nodata unit
-1  B02      0     1    NaN     
-2  B03      0     1    NaN     
-3  B04      0     1    NaN     </code></pre>
+1  B04      0     1    NaN     
+2  B05      0     1    NaN     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">plot</span>(L8.two_monthly, <span class="at">rgb=</span><span class="dv">3</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">5000</span>,<span class="dv">12000</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="aggregate_time_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>L8.cube.med_sd <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="st">"median(B04)"</span> ,<span class="st">"sd(B04)"</span>, <span class="st">"median(B05)"</span>, <span class="st">"sd(B05)"</span>, </span>
+<span id="cb4-2"><a href="#cb4-2"></a>                              <span class="at">window =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="at">keep_bands =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3"></a>L8.cube.med_sd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A data cube proxy object
+
+Dimensions:
+         low       high count       pixel_size chunk_size
+t 2018-04-01 2018-06-30     3              P1M          1
+y    4345299    4744931   526 759.756653992395       1000
+x   388941.2   766552.4   497 759.781086519115       1000
+
+Bands:
+        name offset scale nodata unit
+1        B04      0     1    NaN     
+2        B05      0     1    NaN     
+3 B04_median      0     1    NaN     
+4     B04_sd      0     1    NaN     
+5 B05_median      0     1    NaN     
+6     B05_sd      0     1    NaN     </code></pre>
 </div>
 </div>
 
@@ -1001,86 +1036,108 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="../../../source/reference/ref/aggregate_space.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">aggregate_space</span>
+      <a href="../../../source/reference/ref/slice_time.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">slice_time</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../source/reference/ref/apply_pixel.cube.html" class="pagination-link">
-        <span class="nav-page-text">apply_pixel.cube</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../source/reference/ref/window_time.html" class="pagination-link">
+        <span class="nav-page-text">window_time</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb5" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu"># aggregate_time</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>Aggregate data cube time series to lower temporal resolution</span>
-<span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a></span>
-<span id="cb5-7"><a href="#cb5-7"></a><span class="in">```{r include=FALSE}</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">library</span>(gdalcubes)</span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="in">```</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="fu">## Description</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a></span>
-<span id="cb5-13"><a href="#cb5-13"></a>Create a proxy data cube, which applies an aggregation function over pixel time series to lower temporal resolution.</span>
-<span id="cb5-14"><a href="#cb5-14"></a></span>
-<span id="cb5-15"><a href="#cb5-15"></a></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="fu">## Usage</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a></span>
-<span id="cb5-18"><a href="#cb5-18"></a></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="in">```r</span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="fu">aggregate_time</span>(cube, dt, <span class="at">method =</span> <span class="st">"mean"</span>, <span class="at">fact =</span> <span class="cn">NULL</span>)</span>
-<span id="cb5-21"><a href="#cb5-21"></a></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="in">```</span></span>
-<span id="cb5-23"><a href="#cb5-23"></a></span>
-<span id="cb5-24"><a href="#cb5-24"></a></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="fu">## Arguments</span></span>
-<span id="cb5-26"><a href="#cb5-26"></a></span>
-<span id="cb5-27"><a href="#cb5-27"></a>| Argument    | Description                       |</span>
-<span id="cb5-28"><a href="#cb5-28"></a>|:------------|:----------------------------------|</span>
-<span id="cb5-29"><a href="#cb5-29"></a>| cube | source data cube |</span>
-<span id="cb5-30"><a href="#cb5-30"></a>| dt | character; new temporal resolution, datetime period string, e.g. "P1M" |</span>
-<span id="cb5-31"><a href="#cb5-31"></a>| method | aggregation method, one of "mean", "min", "max", "median", "count", "sum", "prod", "var", and "sd" |</span>
-<span id="cb5-32"><a href="#cb5-32"></a>| fact | simple integer factor defining how many cells become aggregated to a single new cell, can be used instead of dt |</span>
-<span id="cb5-33"><a href="#cb5-33"></a></span>
-<span id="cb5-34"><a href="#cb5-34"></a></span>
-<span id="cb5-35"><a href="#cb5-35"></a><span class="fu">## Details</span></span>
-<span id="cb5-36"><a href="#cb5-36"></a></span>
-<span id="cb5-37"><a href="#cb5-37"></a>This function can be used to aggregate time series to lower resolution or to regularize</span>
-<span id="cb5-38"><a href="#cb5-38"></a>a data cube with irregular (labeled) time axis. It is possible to change the unit of the temporal resolution (e.g. to create monthly composites from daily images).</span>
-<span id="cb5-39"><a href="#cb5-39"></a>The size of the cube may be expanded automatically if the original temporal extent is not divisible by the new temporal size of pixels.</span>
-<span id="cb5-40"><a href="#cb5-40"></a></span>
-<span id="cb5-41"><a href="#cb5-41"></a></span>
-<span id="cb5-42"><a href="#cb5-42"></a><span class="fu">## Note</span></span>
-<span id="cb5-43"><a href="#cb5-43"></a></span>
-<span id="cb5-44"><a href="#cb5-44"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
-<span id="cb5-45"><a href="#cb5-45"></a></span>
-<span id="cb5-46"><a href="#cb5-46"></a></span>
-<span id="cb5-47"><a href="#cb5-47"></a><span class="fu">## Examples</span></span>
-<span id="cb5-48"><a href="#cb5-48"></a></span>
-<span id="cb5-49"><a href="#cb5-49"></a></span>
-<span id="cb5-52"><a href="#cb5-52"></a><span class="in">```{r}</span></span>
-<span id="cb5-53"><a href="#cb5-53"></a><span class="co"># create image collection from example Landsat data only </span></span>
-<span id="cb5-54"><a href="#cb5-54"></a><span class="co"># if not already done in other examples</span></span>
-<span id="cb5-55"><a href="#cb5-55"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
-<span id="cb5-56"><a href="#cb5-56"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
-<span id="cb5-57"><a href="#cb5-57"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb5-58"><a href="#cb5-58"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
-<span id="cb5-59"><a href="#cb5-59"></a>}</span>
-<span id="cb5-60"><a href="#cb5-60"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
-<span id="cb5-61"><a href="#cb5-61"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
-<span id="cb5-62"><a href="#cb5-62"></a>              <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-01"</span>, <span class="at">t1=</span><span class="st">"2018-12"</span>),</span>
-<span id="cb5-63"><a href="#cb5-63"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P3M"</span>, <span class="at">aggregation =</span> <span class="st">"median"</span>)</span>
-<span id="cb5-64"><a href="#cb5-64"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">mask=</span><span class="fu">image_mask</span>(<span class="st">"BQA"</span>, <span class="at">bits=</span><span class="dv">4</span>, <span class="at">values=</span><span class="dv">16</span>))</span>
-<span id="cb5-65"><a href="#cb5-65"></a>L8.rgb <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B02"</span>, <span class="st">"B03"</span>, <span class="st">"B04"</span>))</span>
-<span id="cb5-66"><a href="#cb5-66"></a>L8.two_monthly <span class="ot">=</span> <span class="fu">aggregate_time</span>(L8.rgb, <span class="st">"P6M"</span>, <span class="st">"min"</span>)</span>
-<span id="cb5-67"><a href="#cb5-67"></a>L8.two_monthly</span>
-<span id="cb5-68"><a href="#cb5-68"></a></span>
-<span id="cb5-69"><a href="#cb5-69"></a></span>
-<span id="cb5-70"><a href="#cb5-70"></a><span class="fu">plot</span>(L8.two_monthly, <span class="at">rgb=</span><span class="dv">3</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">5000</span>,<span class="dv">12000</span>))</span>
-<span id="cb5-71"><a href="#cb5-71"></a><span class="in">```</span></span>
-<span id="cb5-72"><a href="#cb5-72"></a></span>
+<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu"># window_space</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>Apply a moving window operation or convolution kernel over the spatial dimensions of a data cube</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="in">```{r include=FALSE}</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="fu">library</span>(gdalcubes)</span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="in">```</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="fu">## Description</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a></span>
+<span id="cb6-13"><a href="#cb6-13"></a>Create a proxy data cube, which applies a convolution kernel or an aggregation functions on two-dimensional moving </span>
+<span id="cb6-14"><a href="#cb6-14"></a>windows sliding over spatial slices of a data cube. The function can either execute a predefined agggregation function or </span>
+<span id="cb6-15"><a href="#cb6-15"></a>apply a custom convolution kernel. Among others, use cases include image processing (edge detection, median filter noise reduction, etc.) and</span>
+<span id="cb6-16"><a href="#cb6-16"></a>enriching pixel values with local neighborhood properties (e.g. to use as predictor variables in ML models).</span>
+<span id="cb6-17"><a href="#cb6-17"></a></span>
+<span id="cb6-18"><a href="#cb6-18"></a></span>
+<span id="cb6-19"><a href="#cb6-19"></a><span class="fu">## Usage</span></span>
+<span id="cb6-20"><a href="#cb6-20"></a></span>
+<span id="cb6-21"><a href="#cb6-21"></a></span>
+<span id="cb6-22"><a href="#cb6-22"></a><span class="in">```r</span></span>
+<span id="cb6-23"><a href="#cb6-23"></a><span class="fu">window_space</span>(x, expr, ..., kernel, window, <span class="at">keep_bands =</span> <span class="cn">FALSE</span>, <span class="at">pad =</span> <span class="cn">NA</span>)</span>
+<span id="cb6-24"><a href="#cb6-24"></a></span>
+<span id="cb6-25"><a href="#cb6-25"></a><span class="in">```</span></span>
+<span id="cb6-26"><a href="#cb6-26"></a></span>
+<span id="cb6-27"><a href="#cb6-27"></a></span>
+<span id="cb6-28"><a href="#cb6-28"></a><span class="fu">## Arguments</span></span>
+<span id="cb6-29"><a href="#cb6-29"></a></span>
+<span id="cb6-30"><a href="#cb6-30"></a>| Argument    | Description                       |</span>
+<span id="cb6-31"><a href="#cb6-31"></a>|:------------|:----------------------------------|</span>
+<span id="cb6-32"><a href="#cb6-32"></a>| x | source data cube |</span>
+<span id="cb6-33"><a href="#cb6-33"></a>| expr | either a single string, or a vector of strings, defining which reducers will be applied over which bands of the input cube |</span>
+<span id="cb6-34"><a href="#cb6-34"></a>| ... | optional additional expressions (if expr is not a vector) |</span>
+<span id="cb6-35"><a href="#cb6-35"></a>| kernel | two dimensional kernel (matrix) applied as convolution (must have odd number of rows and columns) |</span>
+<span id="cb6-36"><a href="#cb6-36"></a>| window | integer vector with two elements defining the size of the window before and after a cell, the total size of the window is window<span class="co">[</span><span class="ot">1</span><span class="co">]</span> + 1 + window<span class="co">[</span><span class="ot">2</span><span class="co">]</span> |</span>
+<span id="cb6-37"><a href="#cb6-37"></a>| keep_bands | logical; if FALSE (the default), original data cube bands will be dropped. |</span>
+<span id="cb6-38"><a href="#cb6-38"></a>| pad | Padding method applied to the borders; use NULL for no padding, a numeric a fill value, or one of "REPLICATE", "REFLECT", "REFLECT_PIXEL" |</span>
+<span id="cb6-39"><a href="#cb6-39"></a></span>
+<span id="cb6-40"><a href="#cb6-40"></a></span>
+<span id="cb6-41"><a href="#cb6-41"></a><span class="fu">## Details</span></span>
+<span id="cb6-42"><a href="#cb6-42"></a></span>
+<span id="cb6-43"><a href="#cb6-43"></a>The function either applies a kernel convolution (if the <span class="in">`kernel`</span> argument is provided) or one or more built-in reducer function </span>
+<span id="cb6-44"><a href="#cb6-44"></a>over moving windows. In the former case, the kernel convolution will be applied over all bands of the input </span>
+<span id="cb6-45"><a href="#cb6-45"></a>cube, i.e., the output cube will have the same number of bands as the input cubes. </span>
+<span id="cb6-46"><a href="#cb6-46"></a>To apply one or more reducer functions, the window argument must be provided as a vector with two integer sizes in the order y, x.</span>
+<span id="cb6-47"><a href="#cb6-47"></a>Several string expressions can be provided to create multiple bands in the output cube.</span>
+<span id="cb6-48"><a href="#cb6-48"></a></span>
+<span id="cb6-49"><a href="#cb6-49"></a>Notice that expressions have a very simple format: the reducer is followed by the name of a band in parentheses. You cannot add</span>
+<span id="cb6-50"><a href="#cb6-50"></a>more complex functions or arguments. Possible reducers currently include "min", "max", "sum", "prod", "count", "mean", "median", "var", and "sd".</span>
+<span id="cb6-51"><a href="#cb6-51"></a></span>
+<span id="cb6-52"><a href="#cb6-52"></a></span>
+<span id="cb6-53"><a href="#cb6-53"></a><span class="fu">## Value</span></span>
+<span id="cb6-54"><a href="#cb6-54"></a></span>
+<span id="cb6-55"><a href="#cb6-55"></a>proxy data cube object</span>
+<span id="cb6-56"><a href="#cb6-56"></a></span>
+<span id="cb6-57"><a href="#cb6-57"></a></span>
+<span id="cb6-58"><a href="#cb6-58"></a><span class="fu">## Note</span></span>
+<span id="cb6-59"><a href="#cb6-59"></a></span>
+<span id="cb6-60"><a href="#cb6-60"></a>Implemented reducers will ignore any NAN values (as <span class="in">`na.rm = TRUE`</span> does).</span>
+<span id="cb6-61"><a href="#cb6-61"></a></span>
+<span id="cb6-62"><a href="#cb6-62"></a>Calling this function consecutively many times may result in long computation times depending on chunk and window sizes due to the need to read adjacent data cube chunks.</span>
+<span id="cb6-63"><a href="#cb6-63"></a></span>
+<span id="cb6-64"><a href="#cb6-64"></a>This function returns a proxy object, i.e., it will not start any computations besides deriving the shape of the result.</span>
+<span id="cb6-65"><a href="#cb6-65"></a></span>
+<span id="cb6-66"><a href="#cb6-66"></a></span>
+<span id="cb6-67"><a href="#cb6-67"></a><span class="fu">## Examples</span></span>
+<span id="cb6-68"><a href="#cb6-68"></a></span>
+<span id="cb6-69"><a href="#cb6-69"></a></span>
+<span id="cb6-72"><a href="#cb6-72"></a><span class="in">```{r}</span></span>
+<span id="cb6-73"><a href="#cb6-73"></a><span class="co"># create image collection from example Landsat data only </span></span>
+<span id="cb6-74"><a href="#cb6-74"></a><span class="co"># if not already done in other examples</span></span>
+<span id="cb6-75"><a href="#cb6-75"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))) {</span>
+<span id="cb6-76"><a href="#cb6-76"></a>  L8_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="fu">system.file</span>(<span class="st">"L8NY18"</span>, <span class="at">package =</span> <span class="st">"gdalcubes"</span>),</span>
+<span id="cb6-77"><a href="#cb6-77"></a>                         <span class="st">".TIF"</span>, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-78"><a href="#cb6-78"></a>  <span class="fu">create_image_collection</span>(L8_files, <span class="st">"L8_L1TP"</span>, <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>), <span class="at">quiet =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb6-79"><a href="#cb6-79"></a>}</span>
+<span id="cb6-80"><a href="#cb6-80"></a></span>
+<span id="cb6-81"><a href="#cb6-81"></a>L8.col <span class="ot">=</span> <span class="fu">image_collection</span>(<span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"L8.db"</span>))</span>
+<span id="cb6-82"><a href="#cb6-82"></a>v <span class="ot">=</span> <span class="fu">cube_view</span>(<span class="at">extent=</span><span class="fu">list</span>(<span class="at">left=</span><span class="fl">388941.2</span>, <span class="at">right=</span><span class="fl">766552.4</span>, </span>
+<span id="cb6-83"><a href="#cb6-83"></a>                          <span class="at">bottom=</span><span class="dv">4345299</span>, <span class="at">top=</span><span class="dv">4744931</span>, <span class="at">t0=</span><span class="st">"2018-04"</span>, <span class="at">t1=</span><span class="st">"2018-06"</span>),</span>
+<span id="cb6-84"><a href="#cb6-84"></a>              <span class="at">srs=</span><span class="st">"EPSG:32618"</span>, <span class="at">nx =</span> <span class="dv">497</span>, <span class="at">ny=</span><span class="dv">526</span>, <span class="at">dt=</span><span class="st">"P1M"</span>)</span>
+<span id="cb6-85"><a href="#cb6-85"></a>L8.cube <span class="ot">=</span> <span class="fu">raster_cube</span>(L8.col, v, <span class="at">chunking =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)) </span>
+<span id="cb6-86"><a href="#cb6-86"></a>L8.cube <span class="ot">=</span> <span class="fu">select_bands</span>(L8.cube, <span class="fu">c</span>(<span class="st">"B04"</span>, <span class="st">"B05"</span>)) </span>
+<span id="cb6-87"><a href="#cb6-87"></a>L8.cube.mean5x5 <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="at">kernel =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb6-88"><a href="#cb6-88"></a>L8.cube.mean5x5</span>
+<span id="cb6-89"><a href="#cb6-89"></a></span>
+<span id="cb6-90"><a href="#cb6-90"></a>L8.cube.med_sd <span class="ot">=</span> <span class="fu">window_space</span>(L8.cube, <span class="st">"median(B04)"</span> ,<span class="st">"sd(B04)"</span>, <span class="st">"median(B05)"</span>, <span class="st">"sd(B05)"</span>, </span>
+<span id="cb6-91"><a href="#cb6-91"></a>                              <span class="at">window =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>), <span class="at">keep_bands =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-92"><a href="#cb6-92"></a>L8.cube.med_sd</span>
+<span id="cb6-93"><a href="#cb6-93"></a><span class="in">```</span></span>
+<span id="cb6-94"><a href="#cb6-94"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
